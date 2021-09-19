@@ -1,8 +1,8 @@
-import firebase from 'firebase/app';
-import '@firebase/firestore';
+import { useEffect, useContext, useState } from 'react';
+import { projectContext } from '../../Context/ProjectContext';
 
 const HomeContainer = () => {
-	const cursos = firebase.initializeApp();
+	const { course, setCourse } = useContext(projectContext);
 
 	return <div></div>;
 };
