@@ -1,24 +1,30 @@
+import { useState, useEffect, useUSer } from 'react';
+import '@firebase/auth';
+import { getFirebase } from '../../Firebase';
+
 import styled from 'styled-components';
 
-const LogIn = ({ setModalOpen, setUserData, userData }) => {
-	const handleLogIn = () => {
-		console.log('holis');
+const LogIn = ({ setModalOpen }) => {
+	const [userEmail, setUserEmail] = useState();
+	const [userPassword, setUserPassword] = useState();
+
+	const firebase = getFirebase();
+
+	const user = useUSer();
+
+	const handleLogIn = async () => {
+		await firebase.auth().signInWithEmailAndPassword(userEmail, userPassword);
 	};
 
-	const handleClose = () => {
-		setModalOpen(false);
-	};
-
-	const handleChange = (e) => {
-		setUserData(e.target.value);
-	};
+	// useEffect(() => {}, []);
 
 	return (
 		<Container>
+			{/* { Ver de meter una validación con el hook de reactfire} */}
 			<div>
 				<label htmlFor='user'> Usuario </label>
 				<input
-					onChange={handleChange}
+					onChange={(e) => setUserEmail(e.target.value)}
 					type='email'
 					name='user'
 					placeholder='Correo electrónico'
@@ -26,11 +32,16 @@ const LogIn = ({ setModalOpen, setUserData, userData }) => {
 			</div>
 			<div>
 				<label htmlFor='password'> Contraseña </label>
-				<input type='password' name='password' placeholder='Contraseña' />
+				<input
+					onChange={(e) => setUserPassword(e.target.value)}
+					type='password'
+					name='password'
+					placeholder='Contraseña'
+				/>
 			</div>
 
 			<button onClick={handleLogIn}> Ingresar </button>
-			<button onClick={handleClose}> X </button>
+			<button onClick={() => setModalOpen(false)}> X </button>
 		</Container>
 	);
 };

@@ -4,13 +4,10 @@ import LogIn from '../LogIn';
 
 const Header = () => {
 	const [modalOpen, setModalOpen] = useState(false);
-	const [userData, setUserData] = useState();
 
 	const handleClick = () => {
 		setModalOpen(true);
 	};
-
-	console.log(userData);
 
 	return (
 		<Container>
@@ -18,13 +15,7 @@ const Header = () => {
 				Ingresá
 			</button>
 
-			{modalOpen ? (
-				<LogIn
-					setModalOpen={setModalOpen}
-					setUserData={setUserData}
-					userData={userData}
-				/>
-			) : null}
+			{modalOpen ? <LogIn setModalOpen={setModalOpen} /> : null}
 		</Container>
 	);
 };
