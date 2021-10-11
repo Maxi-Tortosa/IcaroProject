@@ -1,26 +1,20 @@
 import { useState, useEffect, useUSer } from 'react';
-import '@firebase/auth';
-import { getFirebase } from '../../Firebase';
-
 import styled from 'styled-components';
 
 const LogIn = ({ setModalOpen }) => {
 	const [userEmail, setUserEmail] = useState();
 	const [userPassword, setUserPassword] = useState();
 
-	const firebase = getFirebase();
-
-	const user = useUSer();
-
-	const handleLogIn = async () => {
-		await firebase.auth().signInWithEmailAndPassword(userEmail, userPassword);
-	};
-
-	// useEffect(() => {}, []);
+	// const handleLogIn = async () => {
+	// 	await firebase
+	// 		.auth()
+	// 		.createUserWithEmailAndPassword(userEmail, userPassword);
+	// };
 
 	return (
 		<Container>
 			{/* { Ver de meter una validación con el hook de reactfire} */}
+			{/*Ver de permitir el ingreso con un enter en el input */}
 			<div>
 				<label htmlFor='user'> Usuario </label>
 				<input
@@ -40,7 +34,8 @@ const LogIn = ({ setModalOpen }) => {
 				/>
 			</div>
 
-			<button onClick={handleLogIn}> Ingresar </button>
+			<button type='submit'> Ingresar </button>
+			<button> Recuperar contraseña </button>
 			<button onClick={() => setModalOpen(false)}> X </button>
 		</Container>
 	);

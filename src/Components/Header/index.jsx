@@ -15,6 +15,8 @@ const Header = () => {
 				Ingresá
 			</button>
 
+			<button>Unete a Ícaro</button>
+
 			{modalOpen ? <LogIn setModalOpen={setModalOpen} /> : null}
 		</Container>
 	);
