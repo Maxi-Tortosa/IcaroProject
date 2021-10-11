@@ -19,7 +19,8 @@ const Register = () => {
 		}
 	}
 
-	function handleSubmit() {
+	function handleSubmit(e) {
+		e.preventDefault();
 		if (newUSer.contrasena.length < 6) {
 			setErrorPassword(true);
 			console.log("mal cotrasenia!");
@@ -37,7 +38,7 @@ const Register = () => {
 	return (
 		<div>
 			<p>This is the register page</p>
-			<label>
+			<label htmlFor="nombre">
 				Nombre
 				<Input
 					attribute={{
@@ -49,7 +50,7 @@ const Register = () => {
 					handleChange={handleChange}
 				/>
 			</label>
-			<label>
+			<label htmlFor="apellido">
 				Apellido
 				<Input
 					attribute={{
@@ -61,7 +62,7 @@ const Register = () => {
 					handleChange={handleChange}
 				/>
 			</label>
-			<label>
+			<label htmlFor="email">
 				Email
 				<Input
 					attribute={{
@@ -73,7 +74,7 @@ const Register = () => {
 					handleChange={handleChange}
 				/>
 			</label>
-			<label>
+			<label htmlFor="dni">
 				DNI
 				<Input
 					attribute={{
@@ -85,7 +86,7 @@ const Register = () => {
 					handleChange={handleChange}
 				/>
 			</label>
-			<label>
+			<label htmlFor="telefono">
 				Telefono
 				<Input
 					attribute={{
@@ -97,7 +98,7 @@ const Register = () => {
 					handleChange={handleChange}
 				/>
 			</label>
-			<label>
+			<label htmlFor="contrasena">
 				Contrasena
 				<Input
 					attribute={{
@@ -111,7 +112,7 @@ const Register = () => {
 				/>
 			</label>
 			{errorPassword && <p>La Contrasenia debe ser mayor a 6 digitos</p>}
-			<label>
+			<label htmlFor="informacion-profesional">
 				Informacion Profesional
 				<Input
 					attribute={{
@@ -124,7 +125,13 @@ const Register = () => {
 				/>
 			</label>
 
-			<button onClick={handleSubmit}>Unirme</button>
+			<button
+				disabled={errorPassword}
+				type="submit"
+				onClick={(e) => handleSubmit(e)}
+			>
+				Unirme
+			</button>
 		</div>
 	);
 };
