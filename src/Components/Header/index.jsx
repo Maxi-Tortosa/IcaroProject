@@ -4,21 +4,37 @@ import LogIn from '../LogIn';
 
 const Header = () => {
 	const [modalOpen, setModalOpen] = useState(false);
+	const [isLogin, setIsLogin] = useState(false);
 
 	const handleClick = () => {
 		setModalOpen(true);
 	};
 
 	return (
-		<Container>
-			<button className='ingresa' onClick={handleClick}>
-				Ingresá
-			</button>
+		<>
+			{isLogin ? (
+				<Container>
+					<p>Estás logueado</p>
+					<button onClick={() => setIsLogin(false)}>Cerrar sesión</button>
+				</Container>
+			) : (
+				<Container>
+					<button className='ingresa' onClick={handleClick}>
+						Ingresá
+					</button>
 
-			<button>Unete a Ícaro</button>
+					<button className='unete'>Unete a Ícaro</button>
 
-			{modalOpen ? <LogIn setModalOpen={setModalOpen} /> : null}
-		</Container>
+					{modalOpen ? (
+						<LogIn
+							setModalOpen={setModalOpen}
+							isLogin={isLogin}
+							setIsLogin={setIsLogin}
+						/>
+					) : null}
+				</Container>
+			)}
+		</>
 	);
 };
 
@@ -31,6 +47,10 @@ const Container = styled.div`
 	position: relative;
 
 	.ingresa {
+		margin: 10px 10px 10px 10px;
+	}
+
+	.unete {
 		margin: 10px 10px 10px 10px;
 	}
 `;
