@@ -4,6 +4,7 @@ import Input from "./Input";
 const Register = () => {
 	const [newUSer, setNewUser] = useState({});
 	const [errorPassword, setErrorPassword] = useState(false);
+	const [isLogged, setIsLogged] = useState(false);
 
 	function handleChange(name, value) {
 		// console.log('value === "contrasena">?', value === "contrasena", value);
@@ -21,25 +22,26 @@ const Register = () => {
 
 	function handleSubmit(e) {
 		e.preventDefault();
-		if (newUSer.contrasena.length < 6) {
-			setErrorPassword(true);
-			console.log("mal cotrasenia!");
-		} else {
-			console.log("bien contrasenia!");
-			setErrorPassword(false);
-			console.log("acc", newUSer);
+		if (newUSer.length > 0) {
+			if (newUSer.contrasena.length < 6) {
+				setErrorPassword(true);
+				// console.log("mal cotrasenia!");
+			} else {
+				console.log("bien contrasenia!");
+				setErrorPassword(false);
+				console.log("acc", newUSer);
+				setIsLogged(true);
+			}
 		}
-		// let newRegister = { name, lastName };
-		// if (newRegister) {
-		// }
+
+		console.log(newUSer);
 	}
 
-	// console.log("name", newUSer);
 	return (
 		<div>
 			<p>This is the register page</p>
 			<label htmlFor="nombre">
-				Nombre
+				Nombre *
 				<Input
 					attribute={{
 						id: "nombre",
@@ -51,7 +53,7 @@ const Register = () => {
 				/>
 			</label>
 			<label htmlFor="apellido">
-				Apellido
+				Apellido *
 				<Input
 					attribute={{
 						id: "apellido",
@@ -63,7 +65,7 @@ const Register = () => {
 				/>
 			</label>
 			<label htmlFor="email">
-				Email
+				Email *
 				<Input
 					attribute={{
 						id: "email",
@@ -75,7 +77,7 @@ const Register = () => {
 				/>
 			</label>
 			<label htmlFor="dni">
-				DNI
+				DNI *
 				<Input
 					attribute={{
 						id: "dni",
@@ -87,7 +89,7 @@ const Register = () => {
 				/>
 			</label>
 			<label htmlFor="telefono">
-				Telefono
+				Telefono *
 				<Input
 					attribute={{
 						id: "telefono",
@@ -99,7 +101,7 @@ const Register = () => {
 				/>
 			</label>
 			<label htmlFor="contrasena">
-				Contrasena
+				Contrasena *
 				<Input
 					attribute={{
 						id: "contrasena",
@@ -113,7 +115,7 @@ const Register = () => {
 			</label>
 			{errorPassword && <p>La Contrasenia debe ser mayor a 6 digitos</p>}
 			<label htmlFor="informacion-profesional">
-				Informacion Profesional
+				Informacion Profesional *
 				<Input
 					attribute={{
 						id: "informacion-profesional",

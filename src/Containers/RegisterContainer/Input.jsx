@@ -4,6 +4,7 @@ const Input = ({ attribute, handleChange, param }) => {
 	return (
 		<div className="input-container">
 			<input
+				required
 				id={attribute.id}
 				name={attribute.name}
 				placeholder={attribute.placeholder}
