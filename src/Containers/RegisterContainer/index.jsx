@@ -1,129 +1,144 @@
-import { useState } from "react";
-import Input from "./Input";
+import { useState, useCallback } from "react"
+// import { withRouter } from "react-router";
+// import { auth } from "../../Firebase"
 
-const Register = () => {
-	const [newUSer, setNewUser] = useState({});
-	const [errorPassword, setErrorPassword] = useState(false);
-	const [isLogged, setIsLogged] = useState(false);
+const Register = ({ history }) => {
+	const [newUSer, setNewUser] = useState({})
+	const [errorPassword, setErrorPassword] = useState(false)
+	const [isLogged, setIsLogged] = useState(false)
 
 	function handleChange(name, value) {
-		// console.log('value === "contrasena">?', value === "contrasena", value);
-		if (name === "contrasena" && value.length < 6 && value.length > 1) {
-			console.log("mal cotrasenia!");
-			setErrorPassword(true);
+		console.log(name, value)
+		if (name === "password" && value.length < 6 && value.length > 1) {
+			console.log("mal cotrasenia!")
+			setErrorPassword(true)
 		} else {
-			setErrorPassword(false);
+			setErrorPassword(false)
 			setNewUser((newUSer) => ({
 				...newUSer,
 				[name]: value,
-			}));
+			}))
 		}
 	}
+	//investigar tema seguridad para el auth
+
+	// const handleSignUp = useCallback(
+	// 	async (event) => {
+	// 		event.preventDefault()
+	// 		// const { email, password } = event.target.elements;
+	// 		const { email, password } = newUSer
+
+	// 		try {
+	// 			await auth.createUserWithEmailAndPassword(email, password)
+	// 			history.push("/")
+	// 		} catch (error) {
+	// 			alert(error)
+	// 		}
+	// 	},
+	// 	[history]
+	// )
 
 	function handleSubmit(e) {
-		e.preventDefault();
+		e.preventDefault()
+
 		if (newUSer.length > 0) {
 			if (newUSer.contrasena.length < 6) {
-				setErrorPassword(true);
+				setErrorPassword(true)
 				// console.log("mal cotrasenia!");
 			} else {
-				console.log("bien contrasenia!");
-				setErrorPassword(false);
-				console.log("acc", newUSer);
-				setIsLogged(true);
+				console.log("bien contrasenia!")
+				setErrorPassword(false)
+				console.log("acc", newUSer)
+				setIsLogged(true)
 			}
+		} else {
+			console.log("faltan completar datos!")
 		}
 
-		console.log(newUSer);
+		console.log(newUSer)
 	}
 
+	//chequear que sean required los inputs y que no te dejen hacer el submit si no esta completo todo
 	return (
-		<div>
+		<form>
 			<p>This is the register page</p>
-			<label htmlFor="nombre">
+			<label htmlFor="name">
 				Nombre *
-				<Input
-					attribute={{
-						id: "nombre",
-						name: "nombre",
-						type: "text",
-						placeholder: "Nombre",
-					}}
-					handleChange={handleChange}
+				<input
+					required
+					id="name"
+					name="name"
+					type="text"
+					placeholder="Nombre"
+					onChange={(e) => handleChange(e.target.name, e.target.value)}
 				/>
 			</label>
-			<label htmlFor="apellido">
+			<label htmlFor="lastname">
 				Apellido *
-				<Input
-					attribute={{
-						id: "apellido",
-						name: "apellido",
-						type: "text",
-						placeholder: "apellido",
-					}}
-					handleChange={handleChange}
+				<input
+					required
+					id="lastname"
+					name="lastname"
+					type="text"
+					placeholder="apellido"
+					onChange={(e) => handleChange(e.target.name, e.target.value)}
 				/>
 			</label>
 			<label htmlFor="email">
 				Email *
-				<Input
-					attribute={{
-						id: "email",
-						name: "email",
-						type: "text",
-						placeholder: "email",
-					}}
-					handleChange={handleChange}
+				<input
+					required
+					id="email"
+					name="email"
+					type="text"
+					placeholder="email"
+					onChange={(e) => handleChange(e.target.name, e.target.value)}
 				/>
 			</label>
 			<label htmlFor="dni">
 				DNI *
-				<Input
-					attribute={{
-						id: "dni",
-						name: "dni",
-						type: "text",
-						placeholder: "dni",
-					}}
-					handleChange={handleChange}
+				<input
+					required
+					id="dni"
+					name="dni"
+					type="number"
+					placeholder="dni"
+					onChange={(e) => handleChange(e.target.name, e.target.value)}
 				/>
 			</label>
-			<label htmlFor="telefono">
+			<label htmlFor="phonenumber">
 				Telefono *
-				<Input
-					attribute={{
-						id: "telefono",
-						name: "telefono",
-						type: "number",
-						placeholder: "telefono",
-					}}
-					handleChange={handleChange}
+				<input
+					required
+					id="phonenumber"
+					name="phonenumber"
+					type="number"
+					placeholder="telefono"
+					onChange={(e) => handleChange(e.target.name, e.target.value)}
 				/>
 			</label>
-			<label htmlFor="contrasena">
+			<label htmlFor="password">
 				Contrasena *
-				<Input
-					attribute={{
-						id: "contrasena",
-						name: "contrasena",
-						type: "text",
-						placeholder: "contrasena",
-					}}
-					handleChange={handleChange}
+				<input
+					required
+					id="password"
+					name="password"
+					type="password"
+					placeholder="contrasena"
+					onChange={(e) => handleChange(e.target.name, e.target.value)}
 					param={errorPassword}
 				/>
 			</label>
 			{errorPassword && <p>La Contrasenia debe ser mayor a 6 digitos</p>}
-			<label htmlFor="informacion-profesional">
+			<label htmlFor="personalInformation">
 				Informacion Profesional *
-				<Input
-					attribute={{
-						id: "informacion-profesional",
-						name: "informacion-profesional",
-						type: "text",
-						placeholder: "informacion-profesional",
-					}}
-					handleChange={handleChange}
+				<input
+					required
+					id="personalInformation"
+					name="personalInformation"
+					type="text"
+					placeholder="informacion-profesional"
+					onChange={(e) => handleChange(e.target.name, e.target.value)}
 				/>
 			</label>
 
@@ -134,8 +149,8 @@ const Register = () => {
 			>
 				Unirme
 			</button>
-		</div>
-	);
-};
+		</form>
+	)
+}
 
-export default Register;
+export default Register

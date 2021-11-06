@@ -1,9 +1,9 @@
-import { createContext, useEffect, useState } from "react";
-import { auth } from "../Firebase";
-export const projectContext = createContext();
+import { createContext, useEffect, useState } from "react"
+// import { auth } from "../Firebase"
+export const projectContext = createContext()
 
 const ProjectContext = ({ children }) => {
-	const [course, setCourse] = useState();
+	const [course, setCourse] = useState()
 
 	// useEffect(() => {
 	// 	const db = getFirestore();
@@ -26,23 +26,32 @@ const ProjectContext = ({ children }) => {
 		<projectContext.Provider value={{ course, setCourse }}>
 			{children}
 		</projectContext.Provider>
-	);
-};
+	)
+}
+
+// EXAMPLE OF AUTHCONTEXT
 
 // export const AuthContext = createContext();
 // export const AuthProvider = ({ children }) => {
 // 	const [currentUser, setCurrentUser] = useState(null);
+// 	const [pending, setPending] = useState(true);
 
 // 	useEffect(() => {
-// 		auth.onAuthStateChanged(setCurrentUser);
+// 		auth.onAuthStateChanged((user) => {
+// 			setCurrentUser(user);
+// 			setPending(false);
+// 		});
 // 	}, []);
+
+// 	if (pending) {
+// 		return <>Loading...</>;
+// 	}
 
 // 	return (
 // 		<AuthContext.Provider value={{ currentUser }}>
 // 			{children}
 // 		</AuthContext.Provider>
 // 	);
-
 // };
 
-export default ProjectContext;
+export default ProjectContext
