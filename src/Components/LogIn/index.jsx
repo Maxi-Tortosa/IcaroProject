@@ -1,4 +1,5 @@
 import { useState, useEffect, useUSer } from 'react';
+import { getAuth } from '../../Firebase';
 import styled from 'styled-components';
 
 const LogIn = ({ setModalOpen, isLogin, setIsLogin }) => {
@@ -6,13 +7,11 @@ const LogIn = ({ setModalOpen, isLogin, setIsLogin }) => {
 	const [userPassword, setUserPassword] = useState();
 	const [passwordError, setPasswordError] = useState(false);
 	const [hasError, setHasError] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 
 	const handleSubmit = () => {
-		let account = { userEmail, userPassword };
+		ifMatch(userEmail, userPassword);
 
-		if (account) {
-			ifMatch(account);
-		}
 		// 	await firebase
 		// 		.auth()
 		// 		.createUserWithEmailAndPassword(userEmail, userPassword);
@@ -27,18 +26,22 @@ const LogIn = ({ setModalOpen, isLogin, setIsLogin }) => {
 		}
 	};
 
-	const ifMatch = (param) => {
-		if (param.userEmail.length > 0 && param.userPassword.length > 0) {
-			if (param.userEmail === 'Maxi' && param.userPassword === '123456') {
-				setIsLogin(true);
-			} else {
-				setIsLogin(false);
-				setHasError(true);
-			}
-		} else {
-			setIsLogin(false);
-			setHasError(true);
-		}
+	const ifMatch = (userEmail, userPassword) => {
+		/* Quedé terminando de configurar el inicio de sesión */
+		getAuth()
+			.signInWithEmailAndPassword(userEmail, userPassword)
+			.then(() => {
+				setUserEmail('');
+				setUserPassword('');
+				setHasError('');
+
+				setTimeout(() => setIsLogin(true), 2000);
+			})
+			.catch((err) => {
+				setTimeout(() => {
+					setIsLoading(false);
+				}, 1000);
+			});
 	};
 
 	return (

@@ -1,4 +1,6 @@
 import { createContext, useEffect, useState } from 'react';
+import { getFirestore } from '../Firebase';
+
 export const projectContext = createContext();
 
 const ProjectContext = ({ children }) => {

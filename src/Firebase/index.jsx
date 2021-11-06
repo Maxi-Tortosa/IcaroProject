@@ -1,7 +1,8 @@
-import firebase from 'firebase';
-import 'firebase/firestore';
+import firebase from 'firebase/app';
+import '@firebase/firestore';
+import '@firebase/auth';
 
-const app = {
+const app = firebase.initializeApp({
 	apiKey: 'AIzaSyB86XZHvKjcXkB-JGqol2RnDMQXyH50mEg',
 	authDomain: 'icaro-project.firebaseapp.com',
 	databaseURL: 'https://icaro-project-default-rtdb.firebaseio.com',
@@ -10,14 +11,16 @@ const app = {
 	messagingSenderId: '121347868529',
 	appId: '1:121347868529:web:d5345759def8b5084f58d0',
 	measurementId: 'G-ZTM3FJNDZV',
-};
+});
 
-if (!firebase.apps.lenght) {
-	firebase.initializeApp(app);
+export function getFirebase() {
+	return app;
 }
 
-export const db = firebase.firestore();
+export function getFirestore() {
+	return firebase.firestore(app);
+}
 
-export const auth = firebase.auth();
-
-export default firebase;
+export function getAuth() {
+	return firebase.auth(app);
+}
