@@ -1,31 +1,60 @@
 import { useState, useEffect, useUSer } from 'react';
-import '@firebase/auth';
-import { getFirebase } from '../../Firebase';
-
+import { getAuth } from '../../Firebase';
 import styled from 'styled-components';
 
-const LogIn = ({ setModalOpen }) => {
-	const [userEmail, setUserEmail] = useState();
+const LogIn = ({ setModalOpen, isLogin, setIsLogin }) => {
+	const [userEmail, setUserEmail] = useState('');
 	const [userPassword, setUserPassword] = useState();
+	const [passwordError, setPasswordError] = useState(false);
+	const [hasError, setHasError] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 
-	const firebase = getFirebase();
+	const handleSubmit = () => {
+		ifMatch(userEmail, userPassword);
 
-	const user = useUSer();
-
-	const handleLogIn = async () => {
-		await firebase.auth().signInWithEmailAndPassword(userEmail, userPassword);
+		// 	await firebase
+		// 		.auth()
+		// 		.createUserWithEmailAndPassword(userEmail, userPassword);
 	};
 
-	// useEffect(() => {}, []);
+	const handleChange = (e) => {
+		if (e.target.value.length < 6 && e.target.value.length > 0) {
+			setPasswordError(true);
+		} else {
+			setUserPassword(e.target.value);
+			setPasswordError(false);
+		}
+	};
+
+	const ifMatch = (userEmail, userPassword) => {
+		/* Quedé terminando de configurar el inicio de sesión */
+		getAuth()
+			.signInWithEmailAndPassword(userEmail, userPassword)
+			.then(() => {
+				setUserEmail('');
+				setUserPassword('');
+				setHasError('');
+
+				setTimeout(() => setIsLogin(true), 2000);
+			})
+			.catch((err) => {
+				setTimeout(() => {
+					setIsLoading(false);
+				}, 1000);
+			});
+	};
 
 	return (
 		<Container>
 			{/* { Ver de meter una validación con el hook de reactfire} */}
+			{/*Ver de permitir el ingreso con un enter en el input */}
 			<div>
+				{hasError ? <p> su contraseña no existe </p> : null}
 				<label htmlFor='user'> Usuario </label>
 				<input
+					id='usuario'
 					onChange={(e) => setUserEmail(e.target.value)}
-					type='email'
+					type='text'
 					name='user'
 					placeholder='Correo electrónico'
 				/>
@@ -33,14 +62,19 @@ const LogIn = ({ setModalOpen }) => {
 			<div>
 				<label htmlFor='password'> Contraseña </label>
 				<input
-					onChange={(e) => setUserPassword(e.target.value)}
+					onChange={handleChange}
+					id='contraseña'
 					type='password'
 					name='password'
 					placeholder='Contraseña'
+					className={passwordError ? 'passwordError' : 'ok'}
 				/>
 			</div>
 
-			<button onClick={handleLogIn}> Ingresar </button>
+			<button type='submit' onClick={handleSubmit}>
+				Ingresar
+			</button>
+			<button> Recuperar contraseña </button>
 			<button onClick={() => setModalOpen(false)}> X </button>
 		</Container>
 	);
@@ -54,5 +88,18 @@ const Container = styled.div`
 	align-items: center;
 	align-content: center;
 	position: absolute;
-	right: 150px;
+	top: 10px;
+	right: 100px;
+	border: solid;
+	padding: 10px;
+	background-color: white;
+
+	.passwordError {
+		color: red;
+		border-color: red;
+	}
+
+	.passwordError::placeholder {
+		color: red;
+	}
 `;
