@@ -1,8 +1,9 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Header from "./Components/Header";
-import HomeContainer from "./Containers/HomeContainer";
-import Register from "./Containers/RegisterContainer";
-import ProjectContext from "./Context/ProjectContext";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
+import Header from "./Components/Header"
+import HomeContainer from "./Containers/HomeContainer"
+import Register from "./Containers/RegisterContainer"
+import ProjectContext from "./Context/ProjectContext"
+import Footer from "./Components/Footer"
 
 function App() {
 	return (
@@ -17,9 +18,10 @@ function App() {
 						<Register />
 					</Route>
 				</Switch>
+				<Footer />
 			</ProjectContext>
 		</Router>
-	);
+	)
 }
 
-export default App;
+export default App
