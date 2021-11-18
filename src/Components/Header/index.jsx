@@ -73,6 +73,8 @@ const Header = () => {
 export default Header;
 
 const Container = styled.div`
+	font-family: 'Roboto', sans-serif;
+
 	.header {
 		background-color: transparent;
 		width: 100%;

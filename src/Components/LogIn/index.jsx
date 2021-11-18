@@ -1,4 +1,4 @@
-import { useState, useEffect, useUSer } from 'react';
+import { useState } from 'react';
 import { getAuth } from '../../Firebase';
 import styled from 'styled-components';
 
@@ -7,7 +7,7 @@ const LogIn = ({ setModalOpen, isLogin, setIsLogin }) => {
 	const [userPassword, setUserPassword] = useState();
 	const [passwordError, setPasswordError] = useState(false);
 	const [hasError, setHasError] = useState(false);
-	const [isLoading, setIsLoading] = useState(false);
+	// const [isLoading, setIsLoading] = useState(false);
 
 	const handleSubmit = () => {
 		ifMatch(userEmail, userPassword);
@@ -38,9 +38,7 @@ const LogIn = ({ setModalOpen, isLogin, setIsLogin }) => {
 				setTimeout(() => setIsLogin(true), 2000);
 			})
 			.catch((err) => {
-				setTimeout(() => {
-					setIsLoading(false);
-				}, 1000);
+				setTimeout(() => {}, 1000);
 			});
 	};
 
