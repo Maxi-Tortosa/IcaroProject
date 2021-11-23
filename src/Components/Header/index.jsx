@@ -81,6 +81,8 @@ const Container = styled.div`
 		display: grid;
 		grid-template-columns: auto auto auto;
 		position: fixed;
+		top: 0;
+		left: 0;
 	}
 
 	.scroll {
