@@ -4,6 +4,7 @@ import { Link, Router } from 'react-router-dom';
 import { projectContext } from '../../Context/ProjectContext';
 import Register from '../RegisterContainer';
 import QuienesSomos from '../../Components/QuienesSomos';
+import Banners from '../../Components/Banners';
 
 const HomeContainer = () => {
 	const { course, setCourse } = useContext(projectContext);
@@ -11,10 +12,13 @@ const HomeContainer = () => {
 	return (
 		<Container>
 			<QuienesSomos />
+			<Banners />
 		</Container>
 	);
 };
 
 export default HomeContainer;
 
-const Container = styled.div``;
+const Container = styled.div`
+	height: auto;
+`;

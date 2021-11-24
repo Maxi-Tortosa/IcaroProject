@@ -57,8 +57,6 @@ const QuienesSomos = () => {
 export default QuienesSomos;
 
 const Container = styled.div`
-	height: 973px;
-
 	.titulo {
 		font-size: 50px;
 		font-weight: 400;
