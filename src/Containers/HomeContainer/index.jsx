@@ -5,12 +5,14 @@ import { projectContext } from '../../Context/ProjectContext';
 import Register from '../RegisterContainer';
 import QuienesSomos from '../../Components/QuienesSomos';
 import Banners from '../../Components/Banners';
+import ProximosCursos from '../../Components/Proximos cursos';
 
 const HomeContainer = () => {
 	const { course, setCourse } = useContext(projectContext);
 
 	return (
 		<Container>
+			<ProximosCursos />
 			<QuienesSomos />
 			<Banners />
 		</Container>

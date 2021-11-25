@@ -22,7 +22,7 @@ const Container = styled.div`
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
-	margin: 64px 0 0 0;
+	margin: 0 0 0 0;
 
 	.banner1 {
 		width: 50%;

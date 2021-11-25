@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const QuienesSomos = () => {
 	return (
 		<Container>
-			<h3 className='titulo'>Quienes Somos</h3>
+			<h3 className='titulo'>Quiénes Somos</h3>
 			<p className='parrafo'>
 				Lorem Ipsum is simply dummy text of the printing and typesetting
 				industry. Lorem Ipsum has been the industry's standard dummy text ever
@@ -57,6 +57,10 @@ const QuienesSomos = () => {
 export default QuienesSomos;
 
 const Container = styled.div`
+	background-image: url('./img/fondoQuienesSomos.png');
+	background-repeat: no-repeat;
+	background-size: cover;
+	padding: 0 0 64px 0;
 	.titulo {
 		font-size: 50px;
 		font-weight: 400;
