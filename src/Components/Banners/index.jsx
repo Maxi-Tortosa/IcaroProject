@@ -30,13 +30,14 @@ const Container = styled.div`
 		background: black;
 
 		h2 {
+			font-family: 'Montserrat', sans-serif !important;
 			position: relative;
 			z-index: 2;
 			width: 315px;
 			color: white;
-			font-weight: normal;
-			font-size: 60px;
-			line-height: 70px;
+			font-weight: 900;
+			font-size: 40px;
+			line-height: 40px;
 			text-align: center;
 			margin: 132px auto 154px auto;
 		}
@@ -62,13 +63,14 @@ const Container = styled.div`
 		background: black;
 
 		h2 {
+			font-family: 'Montserrat', sans-serif !important;
 			position: relative;
 			z-index: 2;
 			width: 315px;
 			color: white;
-			font-weight: normal;
-			font-size: 60px;
-			line-height: 70px;
+			font-weight: 900;
+			font-size: 40px;
+			line-height: 40px;
 			text-align: center;
 			margin: 132px auto 154px auto;
 		}
