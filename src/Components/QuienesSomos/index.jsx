@@ -20,21 +20,30 @@ const QuienesSomos = () => {
 
 			<div className='contenedor'>
 				<div className='card1'>
-					<div></div> <h5>Aprendé haciendo</h5>
+					<div>
+						<img src='./img/haciendo.png' alt='' />
+					</div>{' '}
+					<h5>Aprendé haciendo</h5>
 					<p>
 						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
 						eiusmod tempor incididunt ut labore et dolore magna aliqua.
 					</p>
 				</div>
 				<div className='card2'>
-					<div></div> <h5>Obtén certificación universitaria</h5>
+					<div>
+						<img src='./img/certificacion.png' alt='' />
+					</div>
+					<h5>Obtén certificación universitaria</h5>
 					<p>
 						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
 						eiusmod tempor incididunt ut labore et dolore magna aliqua.
 					</p>
 				</div>
 				<div className='card3'>
-					<div></div> <h5>Cursos presenciales y virtuales</h5>
+					<div>
+						<img src='./img/cursos.png' alt='' />
+					</div>{' '}
+					<h5>Cursos presenciales y virtuales</h5>
 					<p>
 						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
 						eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -87,8 +96,8 @@ const Container = styled.div`
 			height: 404px;
 
 			div {
-				width: 90px;
-				height: 90px;
+				width: 105px;
+				height: 105px;
 				margin: 53px auto 38px auto;
 				border-radius: 100px;
 				background-color: grey;
@@ -113,11 +122,10 @@ const Container = styled.div`
 			height: 404px;
 
 			div {
-				width: 90px;
-				height: 90px;
+				width: 105px;
+				height: 105px;
 				margin: 53px auto 38px auto;
 				border-radius: 100px;
-				background-color: grey;
 			}
 
 			h5 {
@@ -139,8 +147,8 @@ const Container = styled.div`
 			height: 404px;
 
 			div {
-				width: 90px;
-				height: 90px;
+				width: 105px;
+				height: 105px;
 				margin: 53px auto 38px auto;
 				border-radius: 100px;
 				background-color: grey;
