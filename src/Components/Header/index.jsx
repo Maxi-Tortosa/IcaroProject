@@ -1,26 +1,26 @@
-import styled from 'styled-components';
-import { useState } from 'react';
-import LogIn from '../LogIn';
-import { Link } from 'react-router-dom';
+import styled from "styled-components"
+import { useState } from "react"
+import LogIn from "../LogIn"
+import { Link } from "react-router-dom"
 
 const Header = () => {
-	const [modalOpen, setModalOpen] = useState(false);
-	const [isLogin, setIsLogin] = useState(false);
-	const [isScroll, setIsScroll] = useState(false);
+	const [modalOpen, setModalOpen] = useState(false)
+	const [isLogin, setIsLogin] = useState(false)
+	const [isScroll, setIsScroll] = useState(false)
 
-	window.addEventListener('scroll', changeNavColor);
+	window.addEventListener("scroll", changeNavColor)
 
 	function changeNavColor() {
 		if (window.scrollY >= 85) {
-			setIsScroll(true);
+			setIsScroll(true)
 		} else {
-			setIsScroll(false);
+			setIsScroll(false)
 		}
 	}
 
 	const handleClick = () => {
-		setModalOpen(true);
-	};
+		setModalOpen(true)
+	}
 
 	return (
 		<>
@@ -31,26 +31,23 @@ const Header = () => {
 				</Container>
 			) : (
 				<Container>
-					<div className={isScroll ? 'header scroll' : 'header'}>
-						<div className='logo'>
-							<img src='./img/logoIcaro.png' alt='Logo de Ícaro' />
+					<div className={isScroll ? "header scroll" : "header"}>
+						<div className="logo">
+							<img src="./img/logo.svg" alt="Logo de Ícaro" />
 						</div>
-						<ul className='menu'>
+						<ul className="menu">
 							<li>
-								<Link to={''}>Home</Link>
+								<Link to={""}>Cursos</Link>
 							</li>
 							<li>
-								<Link to={''}>Cursos</Link>
+								<Link to={""}>Quiénes somos</Link>
 							</li>
 							<li>
-								<Link to={''}>Quiénes somos</Link>
-							</li>
-							<li>
-								<Link to={''}>Contacto</Link>
+								<Link to={""}>Contacto</Link>
 							</li>
 						</ul>
 
-						<button className='ingresa' onClick={handleClick}>
+						<button className="ingresa" onClick={handleClick}>
 							Ingresá
 						</button>
 
@@ -67,22 +64,27 @@ const Header = () => {
 				</Container>
 			)}
 		</>
-	);
-};
+	)
+}
 
-export default Header;
+export default Header
 
 const Container = styled.div`
-	font-family: 'Roboto', sans-serif;
+	font-family: "Roboto", sans-serif;
+	width: 100vw;
 
 	.header {
 		background-color: transparent;
 		width: 100%;
-		display: grid;
-		grid-template-columns: auto auto auto;
+		display: flex;
+		/* grid-template-columns: 3fr; */
+		justify-content: space-around;
 		position: fixed;
 		top: 0;
 		left: 0;
+		padding: 50px 0;
+		/* max-width: 1200px; */
+		margin: auto;
 	}
 
 	.scroll {
@@ -90,24 +92,30 @@ const Container = styled.div`
 	}
 
 	.logo {
+		/* width: 170px;
+		height: 44.5px; */
 		width: 170px;
-		height: 44.5px;
-		margin: 39px 0 0 41px;
+
+		/* margin: 39px 0 0 41px; */
 
 		img {
 			width: 100%;
 			height: 100%;
-			object-fit: cover;
+			/* object-fit: cover;s */
 		}
 	}
 	.menu {
 		display: flex;
 		flex-direction: row;
+		align-items: center;
 		list-style-type: none;
 		margin: 0;
 		padding: 0;
+		width: 300px;
+		justify-content: space-around;
+
 		li {
-			margin: 55px 60px 0 0;
+			/* margin: 55px 60px 0 0; */
 			a {
 				text-decoration: none;
 				color: #000000;
@@ -126,13 +134,15 @@ const Container = styled.div`
 		cursor: pointer;
 		color: white;
 		font-size: 12px;
-		background-color: #1744ff;
+		/* background-color: #1744ff; */
+		background: linear-gradient(90deg, #179cff 0%, #1743ff 100.01%);
+		border-radius: 5px;
 		border: none;
 		justify-self: end;
 		text-align: center;
 		font-size: 12px;
 		line-height: 14px;
-		margin: 39px 30px 0 0;
+		/* margin: 39px 30px 0 0; */
 		padding: 16px 66px 16px 66px;
 	}
-`;
+`
