@@ -33,12 +33,9 @@ const Header = () => {
 				<Container>
 					<div className={isScroll ? 'header scroll' : 'header'}>
 						<div className='logo'>
-							<img src='./img/logoIcaro.png' alt='Logo de Ícaro' />
+							<img src='./img/logo.svg' alt='Logo de Ícaro' />
 						</div>
 						<ul className='menu'>
-							<li>
-								<Link to={''}>Home</Link>
-							</li>
 							<li>
 								<Link to={''}>Cursos</Link>
 							</li>
@@ -74,6 +71,7 @@ export default Header;
 
 const Container = styled.div`
 	font-family: 'Roboto', sans-serif;
+	width: 100vw;
 
 	.header {
 		width: 100%;
@@ -84,6 +82,9 @@ const Container = styled.div`
 		position: fixed;
 		top: 0;
 		left: 0;
+		padding: 50px 0;
+		/* max-width: 1200px; */
+		margin: auto;
 	}
 
 	.scroll {
@@ -105,6 +106,9 @@ const Container = styled.div`
 		list-style-type: none;
 		margin: 0;
 		padding: 0;
+		width: 300px;
+		justify-content: space-around;
+
 		li {
 			margin: 0 2.6% 0 0;
 			a {
