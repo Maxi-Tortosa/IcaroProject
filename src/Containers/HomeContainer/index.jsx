@@ -1,26 +1,49 @@
-import styled from 'styled-components';
-import { useEffect, useContext, useState } from 'react';
-import { Link, Router } from 'react-router-dom';
-import { projectContext } from '../../Context/ProjectContext';
-import Register from '../RegisterContainer';
-import QuienesSomos from '../../Components/QuienesSomos';
-import Banners from '../../Components/Banners';
-import ProximosCursos from '../../Components/Proximos cursos';
+import styled from "styled-components"
+import { useEffect, useContext, useState } from "react"
+import { Link, Router } from "react-router-dom"
+import { projectContext } from "../../Context/ProjectContext"
+import Register from "../RegisterContainer"
+import QuienesSomos from "../../Components/QuienesSomos"
+import Banners from "../../Components/Banners"
+import ProximosCursos from "../../Components/Proximos cursos"
+import Carousel, {
+	DotIndicator,
+	useCarouselTimer,
+} from "../../Components/MainCarousel"
+import Spacer from "../../Components/Spacer"
 
 const HomeContainer = () => {
-	const { course, setCourse } = useContext(projectContext);
+	const imgs = ["./img/carousel1.png"]
+
+	const { course, setCourse } = useContext(projectContext)
+	// const [index, setIndex] = useCarouselTimer(items)
 
 	return (
-		<Container>
-			<ProximosCursos />
-			<QuienesSomos />
+		<>
+			<Carousel index={1}>
+				{imgs.map((elem, i) => (
+					<img
+						key={i}
+						src={elem}
+						alt="carousel"
+						style={{ width: "100vw", maxWidth: "unset" }}
+					/>
+				))}
+			</Carousel>
+			<Container>
+				{/* <Spacer height="150" />	 */}
+				<ProximosCursos />
+				<QuienesSomos />
+			</Container>
 			<Banners />
-		</Container>
-	);
-};
+		</>
+	)
+}
 
-export default HomeContainer;
+export default HomeContainer
 
 const Container = styled.div`
 	height: auto;
-`;
+	max-width: 1200px;
+	margin: auto;
+`
