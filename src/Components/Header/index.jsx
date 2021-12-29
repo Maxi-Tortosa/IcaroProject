@@ -76,38 +76,37 @@ const Container = styled.div`
 	font-family: 'Roboto', sans-serif;
 
 	.header {
-		background-color: transparent;
 		width: 100%;
-		display: grid;
-		grid-template-columns: auto auto auto;
+		background-color: transparent;
+		display: flex;
+		align-items: center;
+		flex-direction: row;
 		position: fixed;
 		top: 0;
 		left: 0;
 	}
 
 	.scroll {
-		background-color: grey;
+		background-color: white;
 	}
 
 	.logo {
-		width: 170px;
-		height: 44.5px;
-		margin: 39px 0 0 41px;
+		margin: 2.44rem 17.43% 2.44rem 12.24%;
 
 		img {
-			width: 100%;
-			height: 100%;
 			object-fit: cover;
 		}
 	}
 	.menu {
+		width: 26.71%;
 		display: flex;
 		flex-direction: row;
+		justify-content: space-between;
 		list-style-type: none;
 		margin: 0;
 		padding: 0;
 		li {
-			margin: 55px 60px 0 0;
+			margin: 0 2.6% 0 0;
 			a {
 				text-decoration: none;
 				color: #000000;
@@ -120,19 +119,23 @@ const Container = styled.div`
 				font-weight: bold;
 			}
 		}
+		& li:last-child {
+			margin: 0;
+		}
 	}
 
 	.ingresa {
+		width: 12.17%;
 		cursor: pointer;
 		color: white;
-		font-size: 12px;
-		background-color: #1744ff;
+		font-size: 1rem;
+		background: linear-gradient(90deg, #179cff 0%, #1743ff 100.01%);
+		border-radius: 5px;
 		border: none;
 		justify-self: end;
 		text-align: center;
-		font-size: 12px;
-		line-height: 14px;
-		margin: 39px 30px 0 0;
-		padding: 16px 66px 16px 66px;
+		line-height: 0.875rem;
+		margin: 0 auto 0 9.66%;
+		padding: 1% 3.6% 1% 3.6%;
 	}
 `;
