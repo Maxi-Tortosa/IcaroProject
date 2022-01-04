@@ -64,6 +64,7 @@ const QuienesSomos = () => {
 export default QuienesSomos;
 
 const Container = styled.div`
+	font-family: 'Montserrat', sans-serif;
 	background-image: url('./img/fondoQuienesSomos.png');
 	background-repeat: no-repeat;
 	background-size: cover;
