@@ -77,9 +77,9 @@ const Container = styled.div`
 		margin: 0 auto 0 auto;
 
 		.titulo {
-			font-size: 3.12rem;
-			font-weight: 400;
-			line-height: 3.68rem;
+			font-size: 2.5rem;
+			font-weight: 700;
+			line-height: 2.5rem;
 		}
 
 		.parrafo {

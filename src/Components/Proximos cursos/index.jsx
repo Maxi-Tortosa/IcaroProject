@@ -4,19 +4,21 @@ import Card from './Card';
 const ProximosCursos = () => {
 	return (
 		<Container>
-			<h3>Próximos cursos</h3>
+			<div className='padre'>
+				<h3>Próximos cursos</h3>
 
-			<div className='categorias'>
-				<a className='active' href=''>
-					Tecnología
-				</a>
-				<a href=''>Negocios</a>
-				<a href=''>Ambiente</a>
-			</div>
-			<div className='cards'>
-				<Card />
-				<Card />
-				<Card />
+				<div className='categorias'>
+					<a className='active' href=''>
+						Tecnología
+					</a>
+					<a href=''>Negocios</a>
+					<a href=''>Ambiente</a>
+				</div>
+				<div className='cards'>
+					<Card />
+					<Card />
+					<Card />
+				</div>
 			</div>
 		</Container>
 	);
@@ -25,39 +27,44 @@ const ProximosCursos = () => {
 export default ProximosCursos;
 
 const Container = styled.div`
-	margin: 120px 0 190px 0;
+	.padre {
+		max-width: 1200px;
+		margin: 15% auto 5% auto;
+		font-family: 'Montserrat', sans-serif;
 
-	h3 {
-		margin: 0 0 0 174px;
-		font-weight: normal;
-		font-size: 30px;
-		line-height: 35px;
-	}
-
-	.categorias {
-		display: flex;
-		flex-direction: row;
-		justify-content: center;
-		margin: 0 0 46px 0;
-
-		a {
-			padding: 11px 17px;
-			margin: 0 29px;
-			text-decoration: none;
-			color: black;
-			font-weight: normal;
-			font-size: 20px;
-			line-height: 23px;
+		h3 {
+			margin: 0 0 5% 0;
+			font-size: 2.5rem;
+			font-weight: 700;
+			line-height: 2.5rem;
 		}
-	}
 
-	.cards {
-		display: flex;
-		flex-direction: row;
-		justify-content: center;
-	}
+		.categorias {
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			margin: 0 0 3.3% 0;
 
-	.active {
-		background-color: #c0c0c0;
+			a {
+				padding: 1% 1.42%;
+				margin: 0 2.5%;
+				text-decoration: none;
+				color: white;
+				font-weight: 700;
+				font-size: 1.25rem;
+				line-height: 143%;
+			}
+		}
+
+		.cards {
+			width: 100%;
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+		}
+
+		.active {
+			background: linear-gradient(90deg, #179cff 0%, #1743ff 100.01%);
+		}
 	}
 `;

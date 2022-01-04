@@ -32,40 +32,36 @@ const Card = () => {
 export default Card;
 
 const Container = styled.div`
-	width: 295px;
-	height: 342px;
+	width: 24.5%;
 	background: #ffffff;
 	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
 	border-radius: 10px;
-	margin: 0 102px;
 	display: flex;
 	flex-direction: column;
 	align-items: space-arround;
+	font-family: 'Roboto', serif;
 
 	h5 {
-		font-weight: bold;
-		font-size: 18px;
-		line-height: 21px;
-		text-align: center;
+		font-weight: 700;
+		font-size: 1.12rem;
+		line-height: 1.19rem;
 		color: #000000;
-		margin: 44px 0 30px 0;
+		margin: 13% auto 9% auto;
 	}
 
 	.informacion {
-		margin: 0 32px 24px 32px;
+		margin: 0 11% 8% 11%;
 		p {
-			font-size: 16px;
-			line-height: 19px;
+			font-size: 1rem;
+			line-height: 1.18rem;
 			color: #000000;
 			span {
-				font-weight: bold;
+				font-weight: 700;
 			}
 		}
 	}
 
 	.conoce {
-		width: 295px;
-		height: 69px;
 		background: #1744ff;
 		border-radius: 0px 0px 10px 10px;
 		display: flex;
@@ -75,10 +71,13 @@ const Container = styled.div`
 		overflow: hidden;
 
 		a {
+			font-family: 'Montserrat', sans-serif;
+			text-decoration: none;
+			font-weight: 600;
 			color: white;
 			margin: 0;
 			text-align: center;
-			padding: 22px 0 24px 0;
+			padding: 9% 0 9% 0;
 		}
 	}
 `;
