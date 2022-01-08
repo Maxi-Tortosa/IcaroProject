@@ -1,6 +1,7 @@
 import { useState, useContext } from 'react';
 import { projectContext } from '../../Context/ProjectContext';
 import { getAuth } from '../../Firebase';
+import { Link, Router } from 'react-router-dom';
 import styled from 'styled-components';
 
 const LogIn = ({ setModalOpen }) => {
@@ -14,10 +15,6 @@ const LogIn = ({ setModalOpen }) => {
 
 	const handleSubmit = () => {
 		ifMatch(userEmail, userPassword);
-
-		// 	await firebase
-		// 		.auth()
-		// 		.createUserWithEmailAndPassword(userEmail, userPassword);
 	};
 
 	const handleChange = (e) => {
@@ -76,6 +73,7 @@ const LogIn = ({ setModalOpen }) => {
 				Ingresar
 			</button>
 			<button> Recuperar contraseña </button>
+			<Link to='/register'>Registrate</Link>
 			<button onClick={() => setModalOpen(false)}> X </button>
 		</Container>
 	);
