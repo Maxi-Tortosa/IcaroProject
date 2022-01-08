@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 
 const Header = () => {
 	const [modalOpen, setModalOpen] = useState(false);
-	const [isLogin, setIsLogin] = useState(false);
 	const [isScroll, setIsScroll] = useState(false);
 
 	window.addEventListener('scroll', changeNavColor);
@@ -24,45 +23,32 @@ const Header = () => {
 
 	return (
 		<>
-			{isLogin ? (
-				<Container>
-					<p>Estás logueado</p>
-					<button onClick={() => setIsLogin(false)}>Cerrar sesión</button>
-				</Container>
-			) : (
-				<Container>
-					<div className={isScroll ? 'header scroll' : 'header'}>
-						<div className='logo'>
-							<img src='./img/logo.svg' alt='Logo de Ícaro' />
-						</div>
-						<ul className='menu'>
-							<li>
-								<Link to={''}>Cursos</Link>
-							</li>
-							<li>
-								<Link to={''}>Quiénes somos</Link>
-							</li>
-							<li>
-								<Link to={''}>Contacto</Link>
-							</li>
-						</ul>
-
-						<button className='ingresa' onClick={handleClick}>
-							Ingresá
-						</button>
-
-						{/* Incluir el registrate dentro del modal */}
-
-						{modalOpen ? (
-							<LogIn
-								setModalOpen={setModalOpen}
-								isLogin={isLogin}
-								setIsLogin={setIsLogin}
-							/>
-						) : null}
+			<Container>
+				<div className={isScroll ? 'header scroll' : 'header'}>
+					<div className='logo'>
+						<img src='./img/logo.svg' alt='Logo de Ícaro' />
 					</div>
-				</Container>
-			)}
+					<ul className='menu'>
+						<li>
+							<Link to={''}>Cursos</Link>
+						</li>
+						<li>
+							<Link to={''}>Quiénes somos</Link>
+						</li>
+						<li>
+							<Link to={''}>Contacto</Link>
+						</li>
+					</ul>
+
+					<button className='ingresa' onClick={handleClick}>
+						Ingresá
+					</button>
+
+					{/* Incluir el registrate dentro del modal */}
+
+					{modalOpen ? <LogIn setModalOpen={setModalOpen} /> : null}
+				</div>
+			</Container>
 		</>
 	);
 };

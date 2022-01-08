@@ -1,8 +1,11 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { projectContext } from '../../Context/ProjectContext';
 import { getAuth } from '../../Firebase';
 import styled from 'styled-components';
 
-const LogIn = ({ setModalOpen, isLogin, setIsLogin }) => {
+const LogIn = ({ setModalOpen }) => {
+	const { course, setCourse, isLogin, setIsLogin } = useContext(projectContext);
+
 	const [userEmail, setUserEmail] = useState('');
 	const [userPassword, setUserPassword] = useState();
 	const [passwordError, setPasswordError] = useState(false);
@@ -27,7 +30,7 @@ const LogIn = ({ setModalOpen, isLogin, setIsLogin }) => {
 	};
 
 	const ifMatch = (userEmail, userPassword) => {
-		/* Quedé terminando de configurar el inicio de sesión */
+		/* Quedó terminado el inicio de sesión con Firebase */
 		getAuth()
 			.signInWithEmailAndPassword(userEmail, userPassword)
 			.then(() => {
