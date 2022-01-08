@@ -76,16 +76,20 @@ const CursosCards = ({ isProximos }) => {
 					<Title>Conocé nuestros cursos y diplomaturas</Title>
 				)}
 				<Categories>
-					{getCategorias().map(({ nombre }, index) => (
-						<Category
-							id={index}
-							onClick={() => toggleTab(index, nombre)}
-							key={index}
-							isActive={toggleState === index}
-						>
-							{nombre}
-						</Category>
-					))}
+					{pending ? (
+						<p>loading...</p>
+					) : (
+						getCategorias().map(({ nombre }, index) => (
+							<Category
+								id={index}
+								onClick={() => toggleTab(index, nombre)}
+								key={index}
+								isActive={toggleState === index}
+							>
+								{nombre}
+							</Category>
+						))
+					)}
 				</Categories>
 				<CardsContainer>
 					{getSelectedCourses().map((elem) => (
