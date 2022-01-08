@@ -1,7 +1,9 @@
+import { useEffect, useContext, useState } from "react"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import Header from "./Components/Header"
 import HomeContainer from "./Containers/HomeContainer"
 import Register from "./Containers/RegisterContainer"
+import FooterContext from "./Context/FooterContext"
 import ProjectContext from "./Context/ProjectContext"
 import Footer from "./Components/Footer"
 
@@ -18,7 +20,9 @@ function App() {
 						<Register />
 					</Route>
 				</Switch>
-				<Footer />
+				<FooterContext>
+					<Footer />
+				</FooterContext>
 			</ProjectContext>
 		</Router>
 	)

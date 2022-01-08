@@ -11,7 +11,6 @@ const LogIn = ({ setModalOpen }) => {
 	const [userPassword, setUserPassword] = useState();
 	const [passwordError, setPasswordError] = useState(false);
 	const [hasError, setHasError] = useState(false);
-	// const [isLoading, setIsLoading] = useState(false);
 
 	const handleSubmit = () => {
 		ifMatch(userEmail, userPassword);
