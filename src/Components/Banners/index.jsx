@@ -22,24 +22,28 @@ const Container = styled.div`
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
-	margin: 0 0 0 0;
+	margin: 0 auto 0 auto;
+	max-width: 1200px;
 
 	.banner1 {
 		width: 50%;
 		position: relative;
 		background: black;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 
 		h2 {
 			font-family: 'Montserrat', sans-serif !important;
 			position: relative;
 			z-index: 2;
-			width: 315px;
+			width: 50%;
 			color: white;
 			font-weight: 900;
-			font-size: 40px;
-			line-height: 40px;
+			font-size: 2.5rem;
+			line-height: 2.5rem;
 			text-align: center;
-			margin: 132px auto 154px auto;
+			margin: 24% 0 24% 0;
 		}
 	}
 	.banner1:before {
@@ -61,18 +65,21 @@ const Container = styled.div`
 		width: 50%;
 		position: relative;
 		background: black;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 
 		h2 {
 			font-family: 'Montserrat', sans-serif !important;
 			position: relative;
 			z-index: 2;
-			width: 315px;
+			width: 50%;
 			color: white;
 			font-weight: 900;
 			font-size: 40px;
 			line-height: 40px;
 			text-align: center;
-			margin: 132px auto 154px auto;
+			margin: 24% 0 24% 0;
 		}
 	}
 	.banner2:before {
