@@ -24,18 +24,18 @@ const Header = () => {
 	return (
 		<Container>
 			<div className={isScroll ? "header scroll" : "header"}>
-				<div className="logo">
+				<Link to="/" className="logo">
 					<img src="./img/logo.svg" alt="Logo de Ícaro" />
-				</div>
+				</Link>
 				<ul className="menu">
 					<li>
-						<Link to={""}>Cursos</Link>
+						<Link to={"/cursos"}>Cursos</Link>
 					</li>
 					<li>
-						<Link to={""}>Quiénes somos</Link>
+						<Link to={"/quienes-somos"}>Quiénes somos</Link>
 					</li>
 					<li>
-						<Link to={""}>Contacto</Link>
+						<Link to={"/contacto"}>Contacto</Link>
 					</li>
 				</ul>
 
