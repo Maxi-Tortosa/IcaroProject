@@ -1,35 +1,35 @@
-import styled from 'styled-components';
+import styled from "styled-components"
 
-const Card = () => {
+const Card = ({ info }) => {
 	return (
 		<Container>
-			<h5>Desarrollo Web Front End</h5>
-			<div className='informacion'>
+			<h5>{info.nombre}</h5>
+			<div className="informacion">
 				<p>
-					{' '}
+					{" "}
 					<span>Fecha de inicio:</span> XX de octubre
 				</p>
 				<p>
-					{' '}
+					{" "}
 					<span>Duración:</span> 12 semanas
 				</p>
 				<p>
-					{' '}
+					{" "}
 					<span>Modalidad:</span> Online - En vivo
 				</p>
 				<p>
-					{' '}
+					{" "}
 					<span>Clases semanales:</span> 2 clases
 				</p>
 			</div>
-			<div className='conoce'>
-				<a href=''>Conocé más</a>
+			<div className="conoce">
+				<a href="">Conocé más</a>
 			</div>
 		</Container>
-	);
-};
+	)
+}
 
-export default Card;
+export default Card
 
 const Container = styled.div`
 	width: 24.5%;
@@ -39,7 +39,7 @@ const Container = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: space-arround;
-	font-family: 'Roboto', serif;
+	font-family: "Roboto", serif;
 
 	h5 {
 		font-weight: 700;
@@ -71,7 +71,7 @@ const Container = styled.div`
 		overflow: hidden;
 
 		a {
-			font-family: 'Montserrat', sans-serif;
+			font-family: "Montserrat", sans-serif;
 			text-decoration: none;
 			font-weight: 600;
 			color: white;
@@ -80,4 +80,4 @@ const Container = styled.div`
 			padding: 9% 0 9% 0;
 		}
 	}
-`;
+`
