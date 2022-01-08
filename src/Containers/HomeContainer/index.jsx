@@ -5,12 +5,12 @@ import { projectContext } from "../../Context/ProjectContext"
 // import Register from "../RegisterContainer"
 import QuienesSomos from "../../Components/QuienesSomos"
 import Banners from "../../Components/Banners"
-import ProximosCursos from "../../Components/Proximos cursos"
+import CursosCards from "../../Components/CursosCards"
 import Carousel, {
 	DotIndicator,
 	useCarouselTimer,
 } from "../../Components/MainCarousel"
-// import Spacer from "../../Components/Spacer"
+import Spacer from "../../Components/Spacer"
 
 const HomeContainer = () => {
 	const imgs = ["./img/carousel1.png", "./img/carousel2.png"]
@@ -30,8 +30,10 @@ const HomeContainer = () => {
 					/>
 				))}
 			</Carousel>
+			<Spacer height={100} />
 			<Container>
-				<ProximosCursos />
+				<CursosCards />
+				<CursosCards isProximos />
 				<QuienesSomos />
 			</Container>
 			<Banners />

@@ -17,9 +17,6 @@ const Footer = () => {
 				JSON.stringify(footerContent)
 			)
 			setPending(false)
-		} else {
-			// window.localStorage.clear()
-			// setPending(true)
 		}
 	}, [footerContent])
 
