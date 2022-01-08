@@ -14,29 +14,44 @@ import Spacer from "../../Components/Spacer"
 
 const HomeContainer = () => {
 	const imgs = ["./img/carousel1.png", "./img/carousel2.png"]
-
-	const { course, setCourse } = useContext(projectContext)
-	// const [index, setIndex] = useCarouselTimer(items)
+	const { course, setCourse, isLogin, setIsLogin } = useContext(projectContext)
 
 	return (
 		<>
-			<Carousel index={1}>
-				{imgs.map((elem, i) => (
-					<img
-						key={i}
-						src={elem}
-						alt="carousel"
-						style={{ width: "100vw", maxWidth: "unset", overflow: "hidden" }}
-					/>
-				))}
-			</Carousel>
-			<Spacer height={100} />
-			<Container>
-				<CursosCards />
-				<CursosCards isProximos />
-				<QuienesSomos />
-			</Container>
-			<Banners />
+			{isLogin ? (
+				<Container>
+					<div className="sesion">
+						<p>Estás logueado</p>
+						<button className="boton" onClick={() => setIsLogin(false)}>
+							Cerrar
+						</button>
+					</div>
+				</Container>
+			) : (
+				<>
+					<Carousel index={1}>
+						{imgs.map((elem, i) => (
+							<img
+								key={i}
+								src={elem}
+								alt="carousel"
+								style={{
+									width: "100vw",
+									maxWidth: "unset",
+									overflow: "hidden",
+								}}
+							/>
+						))}
+					</Carousel>
+					<Spacer height={100} />
+					<Container>
+						<CursosCards />
+						<CursosCards isProximos />
+						<QuienesSomos />
+					</Container>
+					<Banners />
+				</>
+			)}
 		</>
 	)
 }
@@ -45,4 +60,8 @@ export default HomeContainer
 
 const Container = styled.div`
 	height: auto;
+
+	.sesion {
+		margin-top: 30%;
+	}
 `

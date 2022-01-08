@@ -1,34 +1,35 @@
-import { createContext, useEffect, useState } from "react"
-import { getFirestore } from "../../src/Firebase"
+import { createContext, useEffect, useState } from 'react';
+import { getFirestore } from '../../src/Firebase';
 
-export const projectContext = createContext()
+export const projectContext = createContext();
 
 const ProjectContext = ({ children }) => {
-	const [course, setCourse] = useState()
+	const [course, setCourse] = useState();
+	const [isLogin, setIsLogin] = useState(false);
 
 	useEffect(() => {
-		const db = getFirestore()
-		const cursos = db.collection("NuevosCursos")
+		const db = getFirestore();
+		const cursos = db.collection('NuevosCursos');
 		cursos
 			.get()
 			.then((querySnapshot) => {
 				if (querySnapshot.size === 0) {
-					console.log("No results")
+					console.log('No results');
 				}
 
-				setCourse(querySnapshot.docs.map((doc) => doc.data()))
+				setCourse(querySnapshot.docs.map((doc) => doc.data()));
 			})
 			.catch((error) => {
-				console.log("error", error)
+				console.log('error', error);
 			})
-			.finally(() => {})
-	}, [])
+			.finally(() => {});
+	}, []);
 	return (
-		<projectContext.Provider value={{ course, setCourse }}>
+		<projectContext.Provider value={{ course, setCourse, isLogin, setIsLogin }}>
 			{children}
 		</projectContext.Provider>
-	)
-}
+	);
+};
 
 // EXAMPLE OF AUTHCONTEXT
 
@@ -55,4 +56,4 @@ const ProjectContext = ({ children }) => {
 // 	);
 // };
 
-export default ProjectContext
+export default ProjectContext;
