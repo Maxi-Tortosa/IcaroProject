@@ -43,27 +43,31 @@ const Footer = () => {
 	return (
 		<FooterContainer>
 			<ContentContainer>
-				{getFooterContent().map((element, index) => {
-					const { Titulo, links } = element
-					// console.log("ele", element, links)
-					return (
-						<ColumnContainer key={index}>
-							<FooterTitle>{Titulo}</FooterTitle>
-							{links &&
-								links.map(({ nombre, url }, index) => {
-									if (url) {
-										return <FooterAnchor href={url}>{nombre}</FooterAnchor>
-									} else {
-										return (
-											<FooterParragraph key={index}>
-												{nombre} {url}
-											</FooterParragraph>
-										)
-									}
-								})}
-						</ColumnContainer>
-					)
-				})}
+				{pending ? (
+					<p>loading...</p>
+				) : (
+					getFooterContent().map((element, index) => {
+						const { Titulo, links } = element
+						// console.log("ele", element, links)
+						return (
+							<ColumnContainer key={index}>
+								<FooterTitle>{Titulo}</FooterTitle>
+								{links &&
+									links.map(({ nombre, url }, index) => {
+										if (url) {
+											return <FooterAnchor href={url}>{nombre}</FooterAnchor>
+										} else {
+											return (
+												<FooterParragraph key={index}>
+													{nombre} {url}
+												</FooterParragraph>
+											)
+										}
+									})}
+							</ColumnContainer>
+						)
+					})
+				)}
 			</ContentContainer>
 		</FooterContainer>
 	)
