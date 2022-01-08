@@ -1,8 +1,8 @@
 import styled from "styled-components"
 import { useEffect, useContext, useState } from "react"
-import { Link, Router } from "react-router-dom"
+// import { Link, Router } from "react-router-dom"
 import { projectContext } from "../../Context/ProjectContext"
-import Register from "../RegisterContainer"
+// import Register from "../RegisterContainer"
 import QuienesSomos from "../../Components/QuienesSomos"
 import Banners from "../../Components/Banners"
 import ProximosCursos from "../../Components/Proximos cursos"
@@ -10,10 +10,10 @@ import Carousel, {
 	DotIndicator,
 	useCarouselTimer,
 } from "../../Components/MainCarousel"
-import Spacer from "../../Components/Spacer"
+// import Spacer from "../../Components/Spacer"
 
 const HomeContainer = () => {
-	const imgs = ["./img/carousel1.png"]
+	const imgs = ["./img/carousel1.png", "./img/carousel2.png"]
 
 	const { course, setCourse } = useContext(projectContext)
 	// const [index, setIndex] = useCarouselTimer(items)
@@ -26,12 +26,11 @@ const HomeContainer = () => {
 						key={i}
 						src={elem}
 						alt="carousel"
-						style={{ width: "100vw", maxWidth: "unset" }}
+						style={{ width: "100vw", maxWidth: "unset", overflow: "hidden" }}
 					/>
 				))}
 			</Carousel>
 			<Container>
-				{/* <Spacer height="150" />	 */}
 				<ProximosCursos />
 				<QuienesSomos />
 			</Container>
@@ -44,6 +43,4 @@ export default HomeContainer
 
 const Container = styled.div`
 	height: auto;
-	max-width: 1200px;
-	margin: auto;
 `

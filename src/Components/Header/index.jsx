@@ -70,7 +70,7 @@ const Header = () => {
 export default Header
 
 const Container = styled.div`
-	font-family: "Roboto", sans-serif;
+	font-family: "Montserrat", sans-serif;
 	width: 100vw;
 
 	.header {
@@ -130,10 +130,12 @@ const Container = styled.div`
 	}
 
 	.ingresa {
+		font-family: "Montserrat";
+		font-size: 16px;
 		width: 12.17%;
 		cursor: pointer;
 		color: white;
-		font-size: 1rem;
+		/* font-size: 1rem; */
 		background: linear-gradient(90deg, #179cff 0%, #1743ff 100.01%);
 		border-radius: 5px;
 		border: none;
