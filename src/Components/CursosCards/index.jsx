@@ -92,9 +92,11 @@ const CursosCards = ({ isProximos }) => {
 					)}
 				</Categories>
 				<CardsContainer>
-					{getSelectedCourses().map((elem) => (
-						<Card info={elem} />
-					))}
+					{pending ? (
+						<p>loading...</p>
+					) : (
+						getSelectedCourses().map((elem) => <Card info={elem} />)
+					)}
 				</CardsContainer>
 			</Container>
 		</MainContainer>
