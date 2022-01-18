@@ -1,5 +1,6 @@
 import { Children, useState, useEffect } from "react"
 import styled from "styled-components"
+import CarouselCard from "./CarouselCard"
 
 export const useCarouselTimer = (items, milliseconds = 5000) => {
 	const [index, setIndex] = useState(0)
@@ -147,10 +148,12 @@ const Row = styled.div`
 	transition: margin 0.5s;
 `
 
-const Carousel = ({ children, index, gap }) => (
+const Carousel = ({ index, gap, imgSrc }) => (
 	<Wrapper>
-		<Row index={index} gap={gap} length={Children.toArray(children).length}>
-			{children}
+		<Row index={index} gap={gap} length={imgSrc.length}>
+			{imgSrc.map((elem, i) => (
+				<CarouselCard key={i} src={elem} alt="carousel" />
+			))}
 		</Row>
 	</Wrapper>
 )

@@ -105,7 +105,8 @@ const CursosCards = ({ isProximos }) => {
 export default CursosCards
 
 const MainContainer = styled.div`
-	max-width: 1200px;
+	width: 90%;
+	max-width: 1095px;
 	margin: 50px auto;
 `
 const Container = styled.div`
