@@ -46,6 +46,8 @@ const HomeContainer = () => {
 					<Spacer height={100} />
 					<Container>
 						<CursosCards />
+						<Spacer height={100} />
+
 						<CursosCards isProximos />
 						<QuienesSomos />
 					</Container>

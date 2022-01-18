@@ -25,14 +25,12 @@ const CursosCards = ({ isProximos }) => {
 
 	const getCategorias = () => {
 		if (localCursos) {
-			// return localCursos
 			const categoria = []
 
 			localCursos.map((elem) => categoria.push({ nombre: elem.categoria }))
 			const CategCopy = categoria.filter(
 				(v, i, a) => a.findIndex((t) => t.nombre === v.nombre) === i
 			)
-			// console.log(localCursos, CategCopy)
 			return CategCopy
 		} else {
 			const categoria = []
@@ -40,13 +38,11 @@ const CursosCards = ({ isProximos }) => {
 			const CategCopy = categoria.filter(
 				(v, i, a) => a.findIndex((t) => t.nombre === v.nombre) === i
 			)
-			// console.log(course, CategCopy)
 			return CategCopy
 		}
 	}
 
 	const getSelectedCourses = () => {
-		// console.log(localCursos)
 		if (localCursos) {
 			const localCursosCopy = localCursos.filter(
 				(elem) => elem.categoria === selectedCategorie
@@ -75,6 +71,7 @@ const CursosCards = ({ isProximos }) => {
 				) : (
 					<Title>Conocé nuestros cursos y diplomaturas</Title>
 				)}
+
 				<Categories>
 					{pending ? (
 						<p>loading...</p>
@@ -95,7 +92,9 @@ const CursosCards = ({ isProximos }) => {
 					{pending ? (
 						<p>loading...</p>
 					) : (
-						getSelectedCourses().map((elem) => <Card info={elem} />)
+						getSelectedCourses().map((elem) => (
+							<Card isProximos={isProximos} info={elem} />
+						))
 					)}
 				</CardsContainer>
 			</Container>
@@ -105,12 +104,15 @@ const CursosCards = ({ isProximos }) => {
 
 export default CursosCards
 
-const MainContainer = styled.div``
-const Container = styled.div`
+const MainContainer = styled.div`
 	max-width: 1200px;
 	margin: 50px auto;
-	font-family: "Montserrat", sans-serif;
 `
+const Container = styled.div`
+	font-family: "Montserrat", sans-serif;
+	margin: 50px auto;
+`
+
 const Title = styled.h3`
 	margin: 0 0 5% 0;
 	font-size: 2.5rem;
@@ -120,25 +122,23 @@ const Title = styled.h3`
 const Categories = styled.div`
 	display: flex;
 	flex-direction: row;
+	flex-wrap: wrap;
 	justify-content: center;
 	margin: 0 0 3.3% 0;
 `
 
 const Category = styled.button`
-	/* padding: 1% 1.42%; */
 	white-space: nowrap;
 	padding: 10px;
-	margin: 0 2.5%;
+	margin: 10px;
 	text-decoration: none;
 	font-weight: 700;
 	font-size: 1.25rem;
-	/* line-height: 143%; */
 
 	font-family: "Montserrat";
 	font-style: normal;
 	font-weight: bold;
 	font-size: 20px;
-	/* line-height: 24px; */
 	text-align: center;
 	border: none;
 	background-color: #fff;
@@ -152,5 +152,5 @@ const CardsContainer = styled.div`
 	width: 100%;
 	display: flex;
 	flex-direction: row;
-	justify-content: space-between;
+	justify-content: center;
 `
