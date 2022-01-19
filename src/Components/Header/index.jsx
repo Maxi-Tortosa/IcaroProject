@@ -2,6 +2,7 @@ import styled from "styled-components"
 import { useState } from "react"
 import LogIn from "../LogIn"
 import { Link } from "react-router-dom"
+import IngresaBttn from "../Buttons/IngresaBttn"
 
 const Header = () => {
 	const [modalOpen, setModalOpen] = useState(false)
@@ -23,29 +24,27 @@ const Header = () => {
 
 	return (
 		<Container>
-			<div className={isScroll ? "header scroll" : "header"}>
-				<Link to="/" className="logo">
-					<img src="./img/logo.svg" alt="Logo de Ícaro" />
-				</Link>
-				<ul className="menu">
-					<li>
-						<Link to={"/cursos"}>Cursos</Link>
-					</li>
-					<li>
-						<Link to={"/quienes-somos"}>Quiénes somos</Link>
-					</li>
-					<li>
-						<Link to={"/contacto"}>Contacto</Link>
-					</li>
-				</ul>
+			<div className="header-container">
+				<div className={isScroll ? "header scroll" : "header"}>
+					<Link to="/" className="logo">
+						<img src="./img/logo.svg" alt="Logo de Ícaro" />
+					</Link>
+					<ul className="menu">
+						<li>
+							<Link to={"/cursos"}>Cursos</Link>
+						</li>
+						<li>
+							<Link to={"/quienes-somos"}>Quiénes somos</Link>
+						</li>
+						<li>
+							<Link to={"/contacto"}>Contacto</Link>
+						</li>
+					</ul>
 
-				<button className="ingresa" onClick={handleClick}>
-					Ingresá
-				</button>
+					<IngresaBttn />
 
-				{/* Incluir el registrate dentro del modal */}
-
-				{modalOpen ? <LogIn setModalOpen={setModalOpen} /> : null}
+					{/* Incluir el registrate dentro del modal */}
+				</div>
 			</div>
 		</Container>
 	)
@@ -55,13 +54,17 @@ export default Header
 
 const Container = styled.div`
 	font-family: "Montserrat", sans-serif;
-	width: 100vw;
+	/* width: 100vw; */
+
+	.header-container {
+		max-width: 1095px;
+	}
 
 	.header {
 		width: 100%;
 		background-color: transparent;
 		display: flex;
-		justify-content: space-around;
+		justify-content: space-evenly;
 		align-items: center;
 		flex-direction: row;
 		position: fixed;
@@ -111,22 +114,5 @@ const Container = styled.div`
 		& li:last-child {
 			margin: 0;
 		}
-	}
-
-	.ingresa {
-		font-family: "Montserrat";
-		font-size: 16px;
-		width: 12.17%;
-		cursor: pointer;
-		color: white;
-		/* font-size: 1rem; */
-		background: linear-gradient(90deg, #179cff 0%, #1743ff 100.01%);
-		border-radius: 5px;
-		border: none;
-		justify-self: end;
-		text-align: center;
-		line-height: 0.875rem;
-		/* margin: 0 auto 0 9.66%; */
-		padding: 1% 3.6% 1% 3.6%;
 	}
 `
