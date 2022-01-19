@@ -12,7 +12,11 @@ import Carousel, {
 import Spacer from "../../Components/Spacer"
 
 const HomeContainer = () => {
-	const imgs = ["./img/carousel1.png", "./img/carousel2.png"]
+	const imgs = [
+		"./img/carousel1.png",
+		"./img/carousel2.png",
+		"./img/carousel1.png",
+	]
 	const { course, setCourse, isLogin, setIsLogin } = useContext(projectContext)
 
 	return (
@@ -28,8 +32,8 @@ const HomeContainer = () => {
 				</Container>
 			) : (
 				<>
-					<Carousel index={1} gap={15} imgSrc={imgs} />
-					<Spacer height={100} />
+					<Carousel index={1} imgSrc={imgs} />
+					{/* <Spacer height={100} /> */}
 					<Container>
 						<CursosCards />
 						<Spacer height={100} />

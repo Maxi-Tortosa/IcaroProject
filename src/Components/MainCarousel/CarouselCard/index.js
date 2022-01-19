@@ -1,8 +1,9 @@
 import { Children, useState, useEffect } from "react"
 import styled from "styled-components"
 import IngresaBttn from "../../Buttons/IngresaBttn"
+import DotIndicator from "../DotIndicator"
 
-const CarouselCard = ({ src, alt }) => {
+const CarouselCard = ({ src, alt, index, setIndex, array }) => {
 	return (
 		<ImageContainer>
 			<StyledImage src={src} alt={alt} />
@@ -19,26 +20,17 @@ const CarouselCard = ({ src, alt }) => {
 	)
 }
 
-const ImageContainer = styled.div`
-	/* width: 100vw;
-	max-width: unset;
-	overflow: hidden; */
-	position: relative;
-`
+const ImageContainer = styled.div``
+
 const StyledImage = styled.img`
 	display: block;
-	width: 100%;
-	height: 100%;
-	border-radius: 0px;
 	object-fit: cover;
-	background: rgb(247, 247, 247);
 `
 
 const StyledTextContainer = styled.div`
 	position: relative;
-	top: -70%;
+	top: -50%;
 	width: 80%;
-	height: 100%;
 	margin: auto;
 `
 
@@ -50,7 +42,6 @@ const StyledH1 = styled.h1`
 	line-height: 48px;
 	color: #ffffff;
 	width: 60%;
-	/* color: red; */
 `
 
 const StyledParragraph = styled.p`
