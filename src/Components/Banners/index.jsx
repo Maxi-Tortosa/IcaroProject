@@ -23,7 +23,7 @@ const Container = styled.div`
 	flex-direction: row;
 	justify-content: center;
 	margin: 0 auto 0 auto;
-	max-width: 1300px;
+	max-width: 1440px;
 
 	.banner1 {
 		width: 50%;
