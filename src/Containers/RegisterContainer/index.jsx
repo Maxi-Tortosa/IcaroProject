@@ -51,7 +51,7 @@ const Register = ({ history }) => {
 			(req) => (req.nextSibling.textContent = 'Este campo es obligatorio')
 		);
 
-		/* NEW USER */
+		/* CREATE NEW USER */
 
 		if (createUser) {
 			getAuth()
