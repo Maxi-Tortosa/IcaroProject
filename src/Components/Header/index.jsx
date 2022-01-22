@@ -1,59 +1,55 @@
-import styled from "styled-components"
-import { useState } from "react"
-import LogIn from "../LogIn"
-import { Link } from "react-router-dom"
-import IngresaBttn from "../Buttons/IngresaBttn"
+import styled from 'styled-components';
+import { useState, useContext } from 'react';
+import { projectContext } from '../../Context/ProjectContext';
+import { Link } from 'react-router-dom';
+import IngresaBttn from '../Buttons/IngresaBttn';
+import LogIn from '../LogIn/index';
 
 const Header = () => {
-	const [modalOpen, setModalOpen] = useState(false)
-	const [isScroll, setIsScroll] = useState(false)
+	const [isScroll, setIsScroll] = useState(false);
+	const { modalOpen } = useContext(projectContext);
 
-	window.addEventListener("scroll", changeNavColor)
+	window.addEventListener('scroll', changeNavColor);
 
 	function changeNavColor() {
 		if (window.scrollY >= 85) {
-			setIsScroll(true)
+			setIsScroll(true);
 		} else {
-			setIsScroll(false)
+			setIsScroll(false);
 		}
-	}
-
-	const handleClick = () => {
-		setModalOpen(true)
 	}
 
 	return (
 		<Container>
-			<div className="header-container">
-				<div className={isScroll ? "header scroll" : "header"}>
-					<Link to="/" className="logo">
-						<img src="./img/logo.svg" alt="Logo de Ícaro" />
+			<div className='header-container'>
+				<div className={isScroll ? 'header scroll' : 'header'}>
+					<Link to='/' className='logo'>
+						<img src='./img/logo.svg' alt='Logo de Ícaro' />
 					</Link>
-					<ul className="menu">
+					<ul className='menu'>
 						<li>
-							<Link to={"/cursos"}>Cursos</Link>
+							<Link to={'/cursos'}>Cursos</Link>
 						</li>
 						<li>
-							<Link to={"/quienes-somos"}>Quiénes somos</Link>
+							<Link to={'/quienes-somos'}>Quiénes somos</Link>
 						</li>
 						<li>
-							<Link to={"/contacto"}>Contacto</Link>
+							<Link to={'/contacto'}>Contacto</Link>
 						</li>
 					</ul>
 
 					<IngresaBttn />
-
-					{/* Incluir el registrate dentro del modal */}
+					{modalOpen ? <LogIn /> : null}
 				</div>
 			</div>
 		</Container>
-	)
-}
+	);
+};
 
-export default Header
+export default Header;
 
 const Container = styled.div`
-	font-family: "Montserrat", sans-serif;
+	font-family: 'Montserrat', sans-serif;
 	/* width: 100vw; */
 
 	.header-container {
@@ -115,4 +111,4 @@ const Container = styled.div`
 			margin: 0;
 		}
 	}
-`
+`;

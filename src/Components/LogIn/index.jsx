@@ -4,8 +4,9 @@ import { getAuth } from '../../Firebase';
 import { Link, Router } from 'react-router-dom';
 import styled from 'styled-components';
 
-const LogIn = ({ setModalOpen }) => {
-	const { course, setCourse, isLogin, setIsLogin } = useContext(projectContext);
+const LogIn = () => {
+	const { setModalOpen, course, setCourse, isLogin, setIsLogin } =
+		useContext(projectContext);
 
 	const [userEmail, setUserEmail] = useState('');
 	const [userPassword, setUserPassword] = useState();
@@ -43,37 +44,40 @@ const LogIn = ({ setModalOpen }) => {
 
 	return (
 		<Container>
-			{/* { Ver de meter una validación con el hook de reactfire} */}
-			{/*Ver de permitir el ingreso con un enter en el input */}
-			<div>
-				{hasError ? <p> su contraseña no existe </p> : null}
-				<label htmlFor='user'> Usuario </label>
-				<input
-					id='usuario'
-					onChange={(e) => setUserEmail(e.target.value)}
-					type='text'
-					name='user'
-					placeholder='Correo electrónico'
-				/>
+			<div className='loginImage'>
+				{/* <img src='./img/loginImg.png' alt='' />{' '} */}
 			</div>
-			<div>
-				<label htmlFor='password'> Contraseña </label>
-				<input
-					onChange={handleChange}
-					id='contraseña'
-					type='password'
-					name='password'
-					placeholder='Contraseña'
-					className={passwordError ? 'passwordError' : 'ok'}
-				/>
+			<div className='loginData'>
+				<p>Inicia Sesión</p>
+				{/* { Ver de meter una validación con el hook de reactfire} */}
+				{/*Ver de permitir el ingreso con un enter en el input */}
+				<div className='input'>
+					<label htmlFor='user'> Email </label>
+					<input
+						id='usuario'
+						onChange={(e) => setUserEmail(e.target.value)}
+						type='text'
+						name='user'
+					/>
+				</div>
+				<div className='input'>
+					<label htmlFor='password'> Contraseña </label>
+					<input
+						onChange={handleChange}
+						id='contraseña'
+						type='password'
+						name='password'
+						className={passwordError ? 'passwordError' : 'ok'}
+					/>
+					{hasError ? <p> su contraseña no existe </p> : null}
+				</div>
+				<Link To=''>Olvidé mi contraseña</Link>
+				<button type='submit' onClick={handleSubmit}>
+					Inicia sesión
+				</button>
+				<Link to='/register'>¿No tenés cuenta? Únete a Icaro </Link>
+				<button onClick={() => setModalOpen(false)}> X </button>
 			</div>
-
-			<button type='submit' onClick={handleSubmit}>
-				Ingresar
-			</button>
-			<button> Recuperar contraseña </button>
-			<Link to='/register'>Registrate</Link>
-			<button onClick={() => setModalOpen(false)}> X </button>
 		</Container>
 	);
 };
@@ -81,23 +85,63 @@ const LogIn = ({ setModalOpen }) => {
 export default LogIn;
 
 const Container = styled.div`
-	display: flex;
+width 68%;
+max-width: 980px;
+height: 65vh;
+position: absolute;
+top: 9vh;
+margin:0;
+border: white;
+background-color: white;
+display:flex;
+border-radius: 10px;
+
+
+
+.loginImage{width:50%;
+
+	background-image: url('./img/loginImg.png');
+	background-position: right top;
+	border-radius:  10px 0 0 10px;
+
+// img {
+// 	width:100%;
+// 	height:100%;
+// 	object-fit:cover;}
+}
+
+.loginData{
+	width:50%;
+	height:100%;
+  display: flex;
 	flex-direction: column;
-	align-items: center;
-	align-content: center;
-	position: absolute;
-	top: 10px;
-	right: 100px;
-	border: solid;
-	padding: 10px;
-	background-color: white;
+	align-items: flex-start;
+	justify-content: center;
+	
+	p {font-size: 1.25rem;
+	font-weight: 700;}
+
+	.input {display: flex;
+	flex-direction:column;
+
+	label { font-size: 1 rem;}
+	input:placeholder { display: none;}
+
+
+	}
+
+	}
+
+	.loginData > * {
+
+		width: 72%;
+		margin: 0 auto;
+	}
 
 	.passwordError {
 		color: red;
-		border-color: red;
-	}
+		border-color: red;	}
 
 	.passwordError::placeholder {
-		color: red;
-	}
+		color: red;}
 `;

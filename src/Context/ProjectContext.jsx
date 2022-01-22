@@ -6,6 +6,7 @@ export const projectContext = createContext();
 const ProjectContext = ({ children }) => {
 	const [course, setCourse] = useState();
 	const [isLogin, setIsLogin] = useState(false);
+	const [modalOpen, setModalOpen] = useState(false);
 
 	useEffect(() => {
 		const db = getFirestore();
@@ -25,7 +26,15 @@ const ProjectContext = ({ children }) => {
 			.finally(() => {});
 	}, []);
 	return (
-		<projectContext.Provider value={{ course, setCourse, isLogin, setIsLogin }}>
+		<projectContext.Provider
+			value={{
+				course,
+				setCourse,
+				isLogin,
+				setIsLogin,
+				modalOpen,
+				setModalOpen,
+			}}>
 			{children}
 		</projectContext.Provider>
 	);

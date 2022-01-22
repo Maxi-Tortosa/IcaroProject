@@ -1,26 +1,26 @@
-import styled from "styled-components"
-import { useState } from "react"
-import LogIn from "../../LogIn"
+import styled from 'styled-components';
+import { useState, useContext } from 'react';
+import { projectContext } from '../../../Context/ProjectContext';
+import LogIn from '../../LogIn';
 
 const IngresaBttn = () => {
-	const [modalOpen, setModalOpen] = useState(false)
+	const { setModalOpen } = useContext(projectContext);
 
 	const handleClick = () => {
-		setModalOpen(true)
-	}
+		setModalOpen(true);
+	};
 
 	return (
 		<>
-			<StyledButton className="ingresa" onClick={handleClick}>
+			<StyledButton className='ingresa' onClick={handleClick}>
 				Ingresá
 			</StyledButton>
-			{modalOpen ? <LogIn setModalOpen={setModalOpen} /> : null}
 		</>
-	)
-}
+	);
+};
 
 const StyledButton = styled.button`
-	font-family: "Montserrat";
+	font-family: 'Montserrat';
 	font-size: 16px;
 	/* width: 12.17%; */
 	cursor: pointer;
@@ -34,6 +34,6 @@ const StyledButton = styled.button`
 	line-height: 0.875rem;
 	/* margin: 0 auto 0 9.66%; */
 	padding: 14px 50px;
-`
+`;
 
-export default IngresaBttn
+export default IngresaBttn;
