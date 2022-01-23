@@ -55,7 +55,6 @@ const DotIndicatorWrapper = styled.div`
 
 const Carousel = ({ gap = 0, imgSrc }) => {
 	const [index, setIndex] = useCarouselTimer(imgSrc)
-	console.log("indez", imgSrc.length)
 
 	return (
 		<CarouselWrapper>

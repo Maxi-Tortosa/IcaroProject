@@ -54,7 +54,7 @@ const CursosCards = ({ isProximos }) => {
 			const localCursosCopy = course.filter(
 				(elem) => elem.categoria === selectedCategorie
 			)
-			console.log("localCursosCopy", localCursosCopy)
+			// console.log("localCursosCopy", localCursosCopy)
 			return localCursosCopy
 		}
 	}
