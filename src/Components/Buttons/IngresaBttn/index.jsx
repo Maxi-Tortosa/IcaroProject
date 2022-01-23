@@ -20,7 +20,7 @@ const IngresaBttn = () => {
 }
 
 const StyledButton = styled.button`
-	font-family: "Montserrat";
+	font-family: ${theme.fontFamily.primary};
 	font-size: 16px;
 	cursor: pointer;
 	color: white;

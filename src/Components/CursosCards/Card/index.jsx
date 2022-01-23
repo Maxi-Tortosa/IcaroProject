@@ -48,15 +48,15 @@ const CardContainer = styled.div`
 	margin: 10px 20px;
 	${({ isProximos }) => isProximos && "padding-top: 30px;"}
 	background: #ffffff;
-	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+	box-shadow: ${theme.shadow.boxShadow};
 	border-radius: 10px;
 	display: flex;
 	flex-direction: column;
-	font-family: "Montserrat", serif;
+	font-family: ${theme.fontFamily.primary};
 	justify-content: space-between;
 `
 const TitleContainer = styled.div`
-	background-color: #fff;
+	background-color: ${theme.color.white};
 	width: 80%;
 	margin: auto;
 `
@@ -81,7 +81,7 @@ const CardContent = styled.div`
 	p {
 		font-size: 1rem;
 		line-height: 1.18rem;
-		color: #000000;
+		color: ${theme.color.black};
 		span {
 			font-weight: 700;
 		}
@@ -92,7 +92,7 @@ const CardInfoContainer = styled.div`
 `
 
 const CourseContent = styled.p`
-	font-family: "Inter";
+	font-family: ${theme.fontFamily.tertiary};
 	${({ isItalic }) => isItalic && "font-style: italic;"}
 	font-weight: 500;
 	font-size: 16px;
@@ -108,7 +108,7 @@ const CoonoceMasBttn = styled.a`
 	justify-content: center;
 	align-items: center;
 	overflow: hidden;
-	font-family: "Montserrat", sans-serif;
+	font-family: ${theme.fontFamily.primary};
 	text-decoration: none;
 	font-weight: 600;
 	color: white;
@@ -120,7 +120,7 @@ const CoonoceMasBttn = styled.a`
 
 const VerMasButton = styled.a`
 	display: block;
-	font-family: "Inter";
+	font-family: ${theme.fontFamily.tertiary};
 	font-style: normal;
 	font-weight: 500;
 	font-size: 16px;

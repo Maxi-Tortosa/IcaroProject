@@ -1,7 +1,6 @@
 import styled from "styled-components"
-import { useState } from "react"
-import { Link } from "react-router-dom"
 import Sponsors from "../Sponsors"
+import theme from "../../Theme/base"
 
 const QuienesSomos = () => {
 	return (
@@ -65,7 +64,7 @@ const QuienesSomos = () => {
 export default QuienesSomos
 
 const Container = styled.div`
-	font-family: "Montserrat", sans-serif;
+	font-family: ${theme.fontFamily.primary};
 	background-image: url("./img/fondoQuienesSomos.png");
 	background-repeat: no-repeat;
 	background-size: cover;

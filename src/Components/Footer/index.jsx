@@ -97,7 +97,7 @@ const ColumnContainer = styled.div`
 `
 
 const FooterTitle = styled.h3`
-	font-family: "Roboto";
+	font-family: ${theme.fontFamily.secondary};
 	text-transform: capitalize;
 	font-size: 20px;
 	font-style: normal;
@@ -107,13 +107,13 @@ const FooterTitle = styled.h3`
 	text-align: left;
 `
 const FooterParragraph = styled.p`
-	font-family: "Roboto";
+	font-family: ${theme.fontFamily.secondary};
 	color: #fff;
 	text-decoration: none;
 	display: block;
 `
 const FooterAnchor = styled.a`
-	font-family: "Roboto";
+	font-family: ${theme.fontFamily.secondary};
 	color: #fff;
 	text-decoration: none;
 	display: block;

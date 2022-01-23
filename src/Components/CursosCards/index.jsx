@@ -111,7 +111,7 @@ const MainContainer = styled.div`
 	margin: 50px auto;
 `
 const Container = styled.div`
-	font-family: "Montserrat", sans-serif;
+	font-family: ${theme.fontFamily.primary};
 	margin: 50px auto;
 `
 
@@ -140,15 +140,15 @@ const Category = styled.button`
 	cursor: pointer;
 
 	line-height: 143%;
-	font-family: "Montserrat";
+	font-family: ${theme.fontFamily.primary};
 	font-style: normal;
 	font-weight: bold;
 	font-size: 20px;
 	text-align: center;
 	border: none;
-	background-color: #fff;
+	background-color: ${theme.color.white};
 
-	color: ${({ isActive }) => (isActive ? "#fff" : "#282828")};
+	color: ${({ isActive }) => (isActive ? theme.color.white : "#282828")};
 	${({ isActive }) => isActive && `background: ${theme.color.gradient}`};
 `
 const CardsContainer = styled.div`

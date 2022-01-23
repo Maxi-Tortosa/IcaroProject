@@ -4,6 +4,7 @@ import { projectContext } from "../../Context/ProjectContext"
 import { Link } from "react-router-dom"
 import IngresaBttn from "../Buttons/IngresaBttn"
 import LogIn from "../LogIn/index"
+import theme from "../../Theme/base"
 
 const Header = () => {
 	const [isScroll, setIsScroll] = useState(false)
@@ -47,7 +48,7 @@ const Header = () => {
 export default Header
 
 const Container = styled.div`
-	font-family: "Montserrat", sans-serif;
+	font-family: ${theme.fontFamily.primary};
 	width: 100%;
 	background-color: ${({ isScroll }) => (isScroll ? "grey" : " transparent")};
 	position: fixed;

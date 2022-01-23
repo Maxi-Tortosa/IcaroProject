@@ -1,5 +1,6 @@
 import { Children, useState, useEffect } from "react"
 import styled from "styled-components"
+import theme from "../../../Theme/base"
 import IngresaBttn from "../../Buttons/IngresaBttn"
 import DotIndicator from "../DotIndicator"
 
@@ -34,7 +35,7 @@ const StyledTextContainer = styled.div`
 `
 
 const StyledH1 = styled.h1`
-	font-family: "Montserrat";
+	font-family: ${theme.fontFamily.primary};
 	font-style: normal;
 	font-weight: 900;
 	font-size: 48px;
@@ -44,7 +45,7 @@ const StyledH1 = styled.h1`
 `
 
 const StyledParragraph = styled.p`
-	font-family: "Montserrat";
+	font-family: ${theme.fontFamily.primary};
 	font-style: normal;
 	font-weight: 500;
 	font-size: 24px;
