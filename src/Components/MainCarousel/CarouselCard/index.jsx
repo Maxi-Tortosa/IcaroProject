@@ -1,8 +1,6 @@
-import { Children, useState, useEffect } from "react"
 import styled from "styled-components"
 import theme from "../../../Theme/base"
 import IngresaBttn from "../../Buttons/IngresaBttn"
-import DotIndicator from "../DotIndicator"
 
 const CarouselCard = ({ src, alt }) => {
 	return (
