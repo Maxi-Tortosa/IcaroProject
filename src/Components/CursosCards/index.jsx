@@ -2,6 +2,7 @@ import { useContext, useState, useEffect } from "react"
 import styled from "styled-components"
 import Card from "./Card"
 import { projectContext } from "../../Context/ProjectContext"
+import theme from "../../Theme/base"
 
 const CursosCards = ({ isProximos }) => {
 	const { course, setCourse } = useContext(projectContext)
@@ -148,9 +149,7 @@ const Category = styled.button`
 	background-color: #fff;
 
 	color: ${({ isActive }) => (isActive ? "#fff" : "#282828")};
-	${({ isActive }) =>
-		isActive &&
-		"	background: linear-gradient(90deg, #179cff 0%, #1743ff 100.01%)"};
+	${({ isActive }) => isActive && `background: ${theme.color.gradient}`};
 `
 const CardsContainer = styled.div`
 	width: 100%;

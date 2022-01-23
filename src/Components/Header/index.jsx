@@ -1,83 +1,73 @@
-import styled from 'styled-components';
-import { useState, useContext } from 'react';
-import { projectContext } from '../../Context/ProjectContext';
-import { Link } from 'react-router-dom';
-import IngresaBttn from '../Buttons/IngresaBttn';
-import LogIn from '../LogIn/index';
+import styled from "styled-components"
+import { useState, useContext } from "react"
+import { projectContext } from "../../Context/ProjectContext"
+import { Link } from "react-router-dom"
+import IngresaBttn from "../Buttons/IngresaBttn"
+import LogIn from "../LogIn/index"
 
 const Header = () => {
-	const [isScroll, setIsScroll] = useState(false);
-	const { modalOpen } = useContext(projectContext);
+	const [isScroll, setIsScroll] = useState(false)
+	const { modalOpen } = useContext(projectContext)
 
-	window.addEventListener('scroll', changeNavColor);
+	window.addEventListener("scroll", changeNavColor)
 
 	function changeNavColor() {
 		if (window.scrollY >= 85) {
-			setIsScroll(true);
+			setIsScroll(true)
 		} else {
-			setIsScroll(false);
+			setIsScroll(false)
 		}
 	}
 
 	return (
-		<Container>
-			<div className='header-container'>
-				<div className={isScroll ? 'header scroll' : 'header'}>
-					<Link to='/' className='logo'>
-						<img src='./img/logo.svg' alt='Logo de Ícaro' />
-					</Link>
-					<ul className='menu'>
-						<li>
-							<Link to={'/cursos'}>Cursos</Link>
-						</li>
-						<li>
-							<Link to={'/quienes-somos'}>Quiénes somos</Link>
-						</li>
-						<li>
-							<Link to={'/contacto'}>Contacto</Link>
-						</li>
-					</ul>
+		<Container isScroll={isScroll}>
+			<div className="header">
+				<Link to="/" className="logo">
+					<img src="./img/logo.svg" alt="Logo de Ícaro" />
+				</Link>
+				<ul className="menu">
+					<li>
+						<Link to={"/cursos"}>Cursos</Link>
+					</li>
+					<li>
+						<Link to={"/quienes-somos"}>Quiénes somos</Link>
+					</li>
+					<li>
+						<Link to={"/contacto"}>Contacto</Link>
+					</li>
+				</ul>
 
-					<IngresaBttn />
-					{modalOpen ? <LogIn /> : null}
-				</div>
+				<IngresaBttn />
+				{modalOpen ? <LogIn /> : null}
 			</div>
 		</Container>
-	);
-};
+	)
+}
 
-export default Header;
+export default Header
 
 const Container = styled.div`
-	font-family: 'Montserrat', sans-serif;
-	/* width: 100vw; */
-
-	.header-container {
-		max-width: 1095px;
-	}
+	font-family: "Montserrat", sans-serif;
+	width: 100%;
+	background-color: ${({ isScroll }) => (isScroll ? "grey" : " transparent")};
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 2000;
 
 	.header {
-		width: 100%;
-		background-color: transparent;
+		width: 90%;
+		max-width: 1095px;
 		display: flex;
-		justify-content: space-evenly;
+		justify-content: space-between;
 		align-items: center;
 		flex-direction: row;
-		position: fixed;
-		top: 0;
-		left: 0;
+
 		padding: 20px 0;
-		z-index: 2000;
-		/* max-width: 1200px; */
 		margin: auto;
 	}
 
-	.scroll {
-		background-color: grey;
-	}
-
 	.logo {
-		/* margin: 50px; */
 		img {
 			object-fit: cover;
 		}
@@ -90,7 +80,7 @@ const Container = styled.div`
 		list-style-type: none;
 		margin: 0;
 		padding: 0;
-		width: 400px;
+		width: 300px;
 		justify-content: space-between;
 
 		li {
@@ -111,4 +101,4 @@ const Container = styled.div`
 			margin: 0;
 		}
 	}
-`;
+`
