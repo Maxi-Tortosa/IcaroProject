@@ -2,6 +2,7 @@ import { useContext, useState, useEffect } from "react"
 import styled from "styled-components"
 import Card from "./Card"
 import { projectContext } from "../../Context/ProjectContext"
+import theme from "../../Theme/base"
 
 const CursosCards = ({ isProximos }) => {
 	const { course, setCourse } = useContext(projectContext)
@@ -53,7 +54,7 @@ const CursosCards = ({ isProximos }) => {
 			const localCursosCopy = course.filter(
 				(elem) => elem.categoria === selectedCategorie
 			)
-			console.log("localCursosCopy", localCursosCopy)
+			// console.log("localCursosCopy", localCursosCopy)
 			return localCursosCopy
 		}
 	}
@@ -110,7 +111,7 @@ const MainContainer = styled.div`
 	margin: 50px auto;
 `
 const Container = styled.div`
-	font-family: "Montserrat", sans-serif;
+	font-family: ${theme.fontFamily.primary};
 	margin: 50px auto;
 `
 
@@ -139,18 +140,16 @@ const Category = styled.button`
 	cursor: pointer;
 
 	line-height: 143%;
-	font-family: "Montserrat";
+	font-family: ${theme.fontFamily.primary};
 	font-style: normal;
 	font-weight: bold;
 	font-size: 20px;
 	text-align: center;
 	border: none;
-	background-color: #fff;
+	background-color: ${theme.color.white};
 
-	color: ${({ isActive }) => (isActive ? "#fff" : "#282828")};
-	${({ isActive }) =>
-		isActive &&
-		"	background: linear-gradient(90deg, #179cff 0%, #1743ff 100.01%)"};
+	color: ${({ isActive }) => (isActive ? theme.color.white : "#282828")};
+	${({ isActive }) => isActive && `background: ${theme.color.gradient}`};
 `
 const CardsContainer = styled.div`
 	width: 100%;

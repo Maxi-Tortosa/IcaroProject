@@ -12,7 +12,7 @@ const Sponsors = () => {
 
 const SponsorsContainer = styled.div`
 	margin: 20px;
-	width: 100%;
+	/* width: 100%; */
 	display: flex;
 	flex-direction: row;
 	justify-content: center;

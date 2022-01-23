@@ -1,14 +1,10 @@
 import styled from "styled-components"
-import { Link, Router } from "react-router-dom"
 import { projectContext } from "../../Context/ProjectContext"
 import QuienesSomos from "../../Components/QuienesSomos"
 import Banners from "../../Components/Banners"
-import { useEffect, useContext, useState } from "react"
+import { useContext } from "react"
 import CursosCards from "../../Components/CursosCards"
-import Carousel, {
-	DotIndicator,
-	useCarouselTimer,
-} from "../../Components/MainCarousel"
+import Carousel from "../../Components/MainCarousel"
 import Spacer from "../../Components/Spacer"
 import Sponsors from "../../Components/Sponsors"
 
@@ -18,7 +14,7 @@ const HomeContainer = () => {
 		"./img/carousel2.png",
 		"./img/carousel1.png",
 	]
-	const { course, setCourse, isLogin, setIsLogin } = useContext(projectContext)
+	const { isLogin, setIsLogin } = useContext(projectContext)
 
 	return (
 		<>
@@ -38,7 +34,7 @@ const HomeContainer = () => {
 					<Sponsors />
 					<Container>
 						<CursosCards />
-						{/* <Spacer height={100} /> */}
+						<Spacer height={50} />
 
 						<CursosCards isProximos />
 						<QuienesSomos />
