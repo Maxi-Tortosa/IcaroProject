@@ -188,22 +188,6 @@ const Container = styled.div`
 				text-align: center;
 				margin: 0 auto 3% auto;
 			}
-			div {
-				width: 100%;
-				display: flex;
-				flex-direction: row;
-				justify-content: center;
-				align-items: center;
-
-				img:nth-child(1) {
-					margin: 0 2% 0 0;
-					height: auto;
-				}
-
-				img:nth-child(2) {
-					margin: auto 0 auto 2%;
-				}
-			}
 		}
 	}
 `
