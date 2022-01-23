@@ -1,7 +1,7 @@
 import { Children, useState, useEffect } from "react"
 import styled from "styled-components"
 
-const dotSize = 20
+const dotSize = 15
 
 const Flex = styled.div`
 	height: ${dotSize}px;

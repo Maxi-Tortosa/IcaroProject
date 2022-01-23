@@ -3,10 +3,9 @@ import styled from "styled-components"
 import IngresaBttn from "../../Buttons/IngresaBttn"
 import DotIndicator from "../DotIndicator"
 
-const CarouselCard = ({ src, alt, index, setIndex, array }) => {
+const CarouselCard = ({ src, alt }) => {
 	return (
-		<ImageContainer>
-			<StyledImage src={src} alt={alt} />
+		<ImageContainer src={src}>
 			<StyledTextContainer>
 				<StyledH1>NUESTRO COMPROMISO ES CON EL FUTURO</StyledH1>
 				<StyledParragraph>
@@ -20,17 +19,17 @@ const CarouselCard = ({ src, alt, index, setIndex, array }) => {
 	)
 }
 
-const ImageContainer = styled.div``
-
-const StyledImage = styled.img`
-	display: block;
-	object-fit: cover;
+const ImageContainer = styled.div`
+	background-image: url(${({ src }) => src});
+	background-position: center;
+	background-size: cover;
 `
 
 const StyledTextContainer = styled.div`
 	position: relative;
-	top: -50%;
+	top: 30%;
 	width: 80%;
+	max-width: 1095px;
 	margin: auto;
 `
 

@@ -1,10 +1,13 @@
 import styled from "styled-components"
+import theme from "../../../Theme/base"
 
 const Card = ({ isProximos, info }) => {
 	return (
 		<CardContainer isProximos={isProximos}>
 			<TitleContainer>
-				<CardTitle isProximos={isProximos}>{info.nombre}</CardTitle>
+				<CardTitle isProximos={isProximos} categoriaColor={info.categoria}>
+					{info.nombre}
+				</CardTitle>
 			</TitleContainer>
 
 			<CardContent isProximos={isProximos}>
@@ -41,8 +44,8 @@ const Card = ({ isProximos, info }) => {
 export default Card
 
 const CardContainer = styled.div`
-	width: 20%;
-	margin: 0 20px;
+	width: ${({ isProximos }) => (isProximos ? "29%" : "20%")};
+	margin: 10px 20px;
 	${({ isProximos }) => isProximos && "padding-top: 30px;"}
 	background: #ffffff;
 	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
@@ -54,19 +57,25 @@ const CardContainer = styled.div`
 `
 const TitleContainer = styled.div`
 	background-color: #fff;
+	width: 80%;
+	margin: auto;
 `
 
 const CardTitle = styled.h5`
 	font-weight: 700;
 	font-size: 1.12rem;
-	/* line-height: 1.19rem; */
 	text-align: center;
 
-	color: ${({ isProximos }) => (isProximos ? "#000" : "#17ABFF")};
-	/* margin: 13% auto 9% auto; */
+	color: ${({ isProximos, categoriaColor }) =>
+		isProximos
+			? theme.color.black
+			: categoriaColor === "Ambiente"
+			? theme.categories.ambiente
+			: categoriaColor === "Diseño y Marketing"
+			? theme.categories.negocios
+			: theme.categories.tecnologia};
 `
 const CardContent = styled.div`
-	/* margin: 0 11% 8% 11%; */
 	padding: ${({ isProximos }) => (isProximos ? "0px" : "20px")};
 
 	p {
@@ -106,6 +115,7 @@ const CoonoceMasBttn = styled.a`
 	margin: 0;
 	text-align: center;
 	padding: 9% 0 9% 0;
+	cursor: pointer;
 `
 
 const VerMasButton = styled.a`
@@ -117,6 +127,7 @@ const VerMasButton = styled.a`
 	line-height: 18px;
 	text-align: center;
 	text-decoration-line: underline;
+	cursor: pointer;
 
 	color: #282828;
 `
