@@ -3,6 +3,7 @@ import React from "react"
 import { useContext, useState, useEffect } from "react"
 import styled from "styled-components"
 import { mainFooterContext } from "../../Context/FooterContext"
+import theme from "../../Theme/base"
 
 const Footer = () => {
 	const { footerContent, setFooterContent } = useContext(mainFooterContext)
@@ -77,15 +78,11 @@ const FooterContainer = styled.div`
 	width: 100%;
 	color: #fff;
 	min-height: 300px;
-	background: rgb(23, 67, 255);
-	background: linear-gradient(
-		0deg,
-		rgba(23, 67, 255, 1) 35%,
-		rgba(23, 156, 255, 1) 100%
-	);
+	background: ${theme.color.verticalGradient};
 `
 
 const ContentContainer = styled.div`
+	width: 80%;
 	max-width: 1095px;
 	margin: auto;
 	/* padding: 20px; */
