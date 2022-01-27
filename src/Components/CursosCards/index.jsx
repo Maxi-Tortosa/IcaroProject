@@ -6,19 +6,20 @@ import theme from "../../Theme/base"
 
 const CursosCards = ({ isProximos }) => {
 	const { course, setCourse } = useContext(projectContext)
+	const { categories, setCategories } = useContext(projectContext)
+
 	const [pending, setPending] = useState(true)
 	const [toggleState, setToggleState] = useState(0)
 	const [selectedCategorie, setSelectedCategorie] = useState(
-		"Herramientas Digitales"
+		categories.length > 0 ? categories[0].Nombre : "Programación"
 	)
-	// console.log(toggleState, selectedCategorie);
 
 	useEffect(() => {
-		if (course) {
+		if (course.length > 0 || categories.length > 0) {
 			window.localStorage.setItem("localCursos", JSON.stringify(course))
 			setPending(false)
 		}
-	}, [course])
+	}, [course, categories])
 
 	if (pending) {
 		var localCursos = JSON.parse(localStorage.getItem("localCursos"))
@@ -34,12 +35,10 @@ const CursosCards = ({ isProximos }) => {
 			)
 			return CategCopy
 		} else {
-			const categoria = []
-			course.map((elem) => categoria.push({ nombre: elem.categoria }))
-			const CategCopy = categoria.filter(
-				(v, i, a) => a.findIndex((t) => t.nombre === v.nombre) === i
-			)
-			return CategCopy
+			const categCopy = categories.sort(function (a, b) {
+				return a.Orden - b.Orden
+			})
+			return categCopy
 		}
 	}
 
@@ -48,13 +47,11 @@ const CursosCards = ({ isProximos }) => {
 			const localCursosCopy = localCursos.filter(
 				(elem) => elem.categoria === selectedCategorie
 			)
-			// console.log("localCursos", localCursosCopy)
 			return localCursosCopy
 		} else {
 			const localCursosCopy = course.filter(
 				(elem) => elem.categoria === selectedCategorie
 			)
-			// console.log("localCursosCopy", localCursosCopy)
 			return localCursosCopy
 		}
 	}
@@ -77,14 +74,14 @@ const CursosCards = ({ isProximos }) => {
 					{pending ? (
 						<p>loading...</p>
 					) : (
-						getCategorias().map(({ nombre }, index) => (
+						getCategorias().map(({ Nombre, CategoriaID }, index) => (
 							<Category
-								id={index}
-								onClick={() => toggleTab(index, nombre)}
+								id={CategoriaID}
+								onClick={() => toggleTab(index, Nombre)}
 								key={index}
 								isActive={toggleState === index}
 							>
-								{nombre}
+								{Nombre}
 							</Category>
 						))
 					)}
