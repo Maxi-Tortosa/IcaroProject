@@ -1,10 +1,13 @@
 import styled from "styled-components"
+import theme from "../../../Theme/base"
 
 const Card = ({ isProximos, info }) => {
 	return (
 		<CardContainer isProximos={isProximos}>
 			<TitleContainer>
-				<CardTitle isProximos={isProximos}>{info.nombre}</CardTitle>
+				<CardTitle isProximos={isProximos} categoriaColor={info.categoria}>
+					{info.nombre}
+				</CardTitle>
 			</TitleContainer>
 
 			<CardContent isProximos={isProximos}>
@@ -41,38 +44,44 @@ const Card = ({ isProximos, info }) => {
 export default Card
 
 const CardContainer = styled.div`
-	width: 20%;
-	margin: 0 20px;
+	width: ${({ isProximos }) => (isProximos ? "29%" : "20%")};
+	margin: 10px 20px;
 	${({ isProximos }) => isProximos && "padding-top: 30px;"}
 	background: #ffffff;
-	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+	box-shadow: ${theme.shadow.boxShadow};
 	border-radius: 10px;
 	display: flex;
 	flex-direction: column;
-	font-family: "Montserrat", serif;
+	font-family: ${theme.fontFamily.primary};
 	justify-content: space-between;
 `
 const TitleContainer = styled.div`
-	background-color: #fff;
+	background-color: ${theme.color.white};
+	width: 80%;
+	margin: auto;
 `
 
 const CardTitle = styled.h5`
 	font-weight: 700;
 	font-size: 1.12rem;
-	/* line-height: 1.19rem; */
 	text-align: center;
 
-	color: ${({ isProximos }) => (isProximos ? "#000" : "#17ABFF")};
-	/* margin: 13% auto 9% auto; */
+	color: ${({ isProximos, categoriaColor }) =>
+		isProximos
+			? theme.color.black
+			: categoriaColor === "Ambiente"
+			? theme.categories.ambiente
+			: categoriaColor === "Diseño y Marketing"
+			? theme.categories.negocios
+			: theme.categories.tecnologia};
 `
 const CardContent = styled.div`
-	/* margin: 0 11% 8% 11%; */
 	padding: ${({ isProximos }) => (isProximos ? "0px" : "20px")};
 
 	p {
 		font-size: 1rem;
 		line-height: 1.18rem;
-		color: #000000;
+		color: ${theme.color.black};
 		span {
 			font-weight: 700;
 		}
@@ -83,7 +92,7 @@ const CardInfoContainer = styled.div`
 `
 
 const CourseContent = styled.p`
-	font-family: "Inter";
+	font-family: ${theme.fontFamily.tertiary};
 	${({ isItalic }) => isItalic && "font-style: italic;"}
 	font-weight: 500;
 	font-size: 16px;
@@ -99,24 +108,26 @@ const CoonoceMasBttn = styled.a`
 	justify-content: center;
 	align-items: center;
 	overflow: hidden;
-	font-family: "Montserrat", sans-serif;
+	font-family: ${theme.fontFamily.primary};
 	text-decoration: none;
 	font-weight: 600;
 	color: white;
 	margin: 0;
 	text-align: center;
 	padding: 9% 0 9% 0;
+	cursor: pointer;
 `
 
 const VerMasButton = styled.a`
 	display: block;
-	font-family: "Inter";
+	font-family: ${theme.fontFamily.tertiary};
 	font-style: normal;
 	font-weight: 500;
 	font-size: 16px;
 	line-height: 18px;
 	text-align: center;
 	text-decoration-line: underline;
+	cursor: pointer;
 
 	color: #282828;
 `

@@ -1,4 +1,4 @@
-import { Children, useState, useEffect } from "react"
+import { useState, useEffect } from "react"
 import styled from "styled-components"
 import CarouselCard from "./CarouselCard"
 import DotIndicator from "./DotIndicator"
@@ -50,12 +50,11 @@ const CarouselWrapper = styled.div`
 const DotIndicatorWrapper = styled.div`
 	position: absolute;
 	top: 90%;
-	left: 40%;
+	left: 45%;
 `
 
 const Carousel = ({ gap = 0, imgSrc }) => {
 	const [index, setIndex] = useCarouselTimer(imgSrc)
-	console.log("indez", imgSrc.length)
 
 	return (
 		<CarouselWrapper>
@@ -79,7 +78,6 @@ const Carousel = ({ gap = 0, imgSrc }) => {
 							setIndex={setIndex}
 							length={imgSrc.length}
 							overrideColor="white"
-							withText
 						/>
 					</DotIndicatorWrapper>
 				)}

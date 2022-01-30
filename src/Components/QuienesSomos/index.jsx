@@ -1,13 +1,13 @@
-import styled from 'styled-components';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import styled from "styled-components"
+import Sponsors from "../Sponsors"
+import theme from "../../Theme/base"
 
 const QuienesSomos = () => {
 	return (
 		<Container>
-			<div className='padre'>
-				<h3 className='titulo'>Quiénes Somos</h3>
-				<p className='parrafo'>
+			<div className="padre">
+				<h3 className="titulo">Quiénes Somos</h3>
+				<p className="parrafo">
 					Somos un equipo de profesionales con un objetivo en común: facilitar
 					el acceso a una educación de calidad para democratizar hoy, el
 					conocimiento del mañana.
@@ -22,9 +22,9 @@ const QuienesSomos = () => {
 					de nuestra comunidad y prepararte para el futuro.
 				</p>
 
-				<div className='contenedor'>
-					<div className='card1'>
-						<img src='./img/haciendo.png' alt='' />
+				<div className="contenedor">
+					<div className="card1">
+						<img src="./img/haciendo.png" alt="" />
 
 						<h5>Cursos presenciales y virtuales</h5>
 						<p>
@@ -32,8 +32,8 @@ const QuienesSomos = () => {
 							y en vivo dictados a través de videoconferencia.
 						</p>
 					</div>
-					<div className='card2'>
-						<img src='./img/certificacion.png' alt='' />
+					<div className="card2">
+						<img src="./img/certificacion.png" alt="" />
 
 						<h5>Aprendé haciendo</h5>
 						<p>
@@ -41,8 +41,8 @@ const QuienesSomos = () => {
 							estudia de una manera diferente y prepárate para el futuro.
 						</p>
 					</div>
-					<div className='card3'>
-						<img src='./img/cursos.png' alt='' />
+					<div className="card3">
+						<img src="./img/cursos.png" alt="" />
 
 						<h5>Obtén certificación universitaria</h5>
 						<p>
@@ -52,25 +52,22 @@ const QuienesSomos = () => {
 						</p>
 					</div>
 				</div>
-				<div className='contenedor2'>
+				<div className="contenedor2">
 					<h4>
 						Calidad y certificación universitaria, al mejor precio del mercado
 					</h4>
-					<div>
-						<img src='./img/sponsor1.png' alt='' />
-						<img src='./img/sponsor2.png' alt='' />
-					</div>
+					<Sponsors />
 				</div>
 			</div>
 		</Container>
-	);
-};
+	)
+}
 
-export default QuienesSomos;
+export default QuienesSomos
 
 const Container = styled.div`
-	font-family: 'Montserrat', sans-serif;
-	background-image: url('./img/fondoQuienesSomos.png');
+	font-family: ${theme.fontFamily.primary};
+	background-image: url("./img/fondoQuienesSomos.png");
 	background-repeat: no-repeat;
 	background-size: cover;
 	padding: 5% 0 5% 0;
@@ -195,22 +192,6 @@ const Container = styled.div`
 				text-align: center;
 				margin: 0 auto 3% auto;
 			}
-			div {
-				width: 100%;
-				display: flex;
-				flex-direction: row;
-				justify-content: center;
-				align-items: center;
-
-				img:nth-child(1) {
-					margin: 0 2% 0 0;
-					height: auto;
-				}
-
-				img:nth-child(2) {
-					margin: auto 0 auto 2%;
-				}
-			}
 		}
 	}
-`;
+`

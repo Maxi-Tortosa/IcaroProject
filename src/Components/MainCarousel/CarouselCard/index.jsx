@@ -1,12 +1,10 @@
-import { Children, useState, useEffect } from "react"
 import styled from "styled-components"
+import theme from "../../../Theme/base"
 import IngresaBttn from "../../Buttons/IngresaBttn"
-import DotIndicator from "../DotIndicator"
 
-const CarouselCard = ({ src, alt, index, setIndex, array }) => {
+const CarouselCard = ({ src, alt }) => {
 	return (
-		<ImageContainer>
-			<StyledImage src={src} alt={alt} />
+		<ImageContainer src={src}>
 			<StyledTextContainer>
 				<StyledH1>NUESTRO COMPROMISO ES CON EL FUTURO</StyledH1>
 				<StyledParragraph>
@@ -20,22 +18,22 @@ const CarouselCard = ({ src, alt, index, setIndex, array }) => {
 	)
 }
 
-const ImageContainer = styled.div``
-
-const StyledImage = styled.img`
-	display: block;
-	object-fit: cover;
+const ImageContainer = styled.div`
+	background-image: url(${({ src }) => src});
+	background-position: center;
+	background-size: cover;
 `
 
 const StyledTextContainer = styled.div`
 	position: relative;
-	top: -50%;
-	width: 80%;
+	top: 30%;
+	width: 90%;
+	max-width: 1095px;
 	margin: auto;
 `
 
 const StyledH1 = styled.h1`
-	font-family: "Montserrat";
+	font-family: ${theme.fontFamily.primary};
 	font-style: normal;
 	font-weight: 900;
 	font-size: 48px;
@@ -45,7 +43,7 @@ const StyledH1 = styled.h1`
 `
 
 const StyledParragraph = styled.p`
-	font-family: "Montserrat";
+	font-family: ${theme.fontFamily.primary};
 	font-style: normal;
 	font-weight: 500;
 	font-size: 24px;

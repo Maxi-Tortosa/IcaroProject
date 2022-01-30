@@ -1,7 +1,7 @@
-import { Children, useState, useEffect } from "react"
 import styled from "styled-components"
+import theme from "../../../Theme/base"
 
-const dotSize = 20
+const dotSize = 15
 
 const Flex = styled.div`
 	height: ${dotSize}px;
@@ -64,7 +64,7 @@ const StyledText = styled.p`
 
 const DotInfo = styled(StyledText)`
 	margin-left: ${dotSize / 2}px;
-	font-family: "Montserrat";
+	font-family: ${theme.fontFamily.primary};
 	font-style: normal;
 	font-weight: 500;
 	font-size: 24px;

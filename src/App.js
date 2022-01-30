@@ -1,13 +1,11 @@
-import { useEffect, useContext, useState } from 'react';
-
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Header from './Components/Header';
-import LogIn from './Components/LogIn';
-import HomeContainer from './Containers/HomeContainer';
-import Register from './Containers/RegisterContainer';
-import FooterContext from './Context/FooterContext';
-import ProjectContext from './Context/ProjectContext';
-import Footer from './Components/Footer';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
+import Header from "./Components/Header"
+import HomeContainer from "./Containers/HomeContainer"
+import Register from "./Containers/RegisterContainer"
+import CoursesPages from "./Containers/CoursesContainer"
+import FooterContext from "./Context/FooterContext"
+import ProjectContext from "./Context/ProjectContext"
+import Footer from "./Components/Footer"
 
 function App() {
 	return (
@@ -15,11 +13,14 @@ function App() {
 			<ProjectContext>
 				<Header />
 				<Switch>
-					<Route exact path='/'>
+					<Route exact path="/">
 						<HomeContainer />
 					</Route>
-					<Route exact path='/register'>
+					<Route exact path="/register">
 						<Register />
+					</Route>
+					<Route path="/cursos/:nombre-de-curso">
+						<CoursesPages />
 					</Route>
 				</Switch>
 				<FooterContext>
@@ -27,7 +28,7 @@ function App() {
 				</FooterContext>
 			</ProjectContext>
 		</Router>
-	);
+	)
 }
 
-export default App;
+export default App
