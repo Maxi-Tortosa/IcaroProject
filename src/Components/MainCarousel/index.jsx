@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import styled from "styled-components"
-import CarouselCard from "./CarouselCard"
-import DotIndicator from "./DotIndicator"
+import CarouselCard from "./CarouselCard/index"
+import DotIndicator from "./DotIndicator/index"
 
 const useCarouselTimer = (items, milliseconds = 5000) => {
 	const [index, setIndex] = useState(0)
@@ -53,15 +53,22 @@ const DotIndicatorWrapper = styled.div`
 	left: 45%;
 `
 
-const Carousel = ({ gap = 0, imgSrc = [] }) => {
+const Carousel = ({ gap = 0, imgSrc }) => {
 	const [index, setIndex] = useCarouselTimer(imgSrc)
 
 	return (
 		<CarouselWrapper>
 			<Wrapper>
 				<Row index={index} gap={gap} length={imgSrc.length}>
-					{imgSrc.map((elem, i) => (
-						<CarouselCard key={i} src={elem} />
+					{imgSrc.map((elem, i, arr) => (
+						<CarouselCard
+							key={i}
+							src={elem}
+							alt="carousel"
+							index={index}
+							setIndex={setIndex}
+							array={arr}
+						/>
 					))}
 				</Row>
 				{imgSrc.length > 1 && (

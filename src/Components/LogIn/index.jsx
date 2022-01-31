@@ -71,12 +71,19 @@ const LogIn = () => {
 					/>
 					{hasError ? <p> su contraseña no existe </p> : null}
 				</div>
-				<Link To=''>Olvidé mi contraseña</Link>
-				<button type='submit' onClick={handleSubmit}>
+				<Link className='forgot' To=''>
+					Olvidé mi contraseña
+				</Link>
+				<button className='submit' type='submit' onClick={handleSubmit}>
 					Inicia sesión
 				</button>
-				<Link to='/register'>¿No tenés cuenta? Únete a Icaro </Link>
-				<button onClick={() => setModalOpen(false)}> X </button>
+				<Link className='register' to='/register'>
+					¿No tenés cuenta? Únete a Icaro{' '}
+				</Link>
+				<button className='close' onClick={() => setModalOpen(false)}>
+					{' '}
+					X{' '}
+				</button>
 			</div>
 		</Container>
 	);
@@ -95,8 +102,7 @@ border: white;
 background-color: white;
 display:flex;
 border-radius: 10px;
-
-
+font-family: 'Montserrat', sans-serif;
 
 .loginImage{width:50%;
 
@@ -104,10 +110,6 @@ border-radius: 10px;
 	background-position: right top;
 	border-radius:  10px 0 0 10px;
 
-// img {
-// 	width:100%;
-// 	height:100%;
-// 	object-fit:cover;}
 }
 
 .loginData{
@@ -123,19 +125,64 @@ border-radius: 10px;
 
 	.input {display: flex;
 	flex-direction:column;
+	margin-top: 3%;
 
-	label { font-size: 1 rem;}
+	label { font-size: 1 rem;
+	margin-bottom: 1%;}
+
+	input {border-radius: 5px;
+		border: 1px solid #E6E6E6;
+	height: 1.875rem;
+	}
+
+	input:focus{
+		border: 2px solid blue;
+		outline:none;
+		border-radius: 5px;
+		font-size:1rem;
+		font-family: 'Montserrat', sans-serif;
+	
+	}
+
 	input:placeholder { display: none;}
+	
+  }
+	.forgot {margin-top: 1% ;
+		color: black;}
 
+	.submit {height: 2.8rem;
+		background: #1744FF;
+		border-radius: 10px;
+    border:unset;
+		color: white;
+		font-family: 'Montserrat', sans-serif;
+		font-size: 1.25rem;
+		line-height: 1.5rem;
+		font-weight: 500;
+		margin-top: 9%;
+		}
+
+	.register{color:black;
+			font-weight: 500 !important;
+		text-align:center;
+	margin-top: 5% !important;}
+
+	.close{ background: transparent;
+					border:unset;				
+			font-size:1.6rem ;				
+		position: absolute;
+		bottom:92%;
+	  left: 60%}
 
 	}
 
-	}
+
 
 	.loginData > * {
 
 		width: 72%;
 		margin: 0 auto;
+		font-weight: 400;
 	}
 
 	.passwordError {

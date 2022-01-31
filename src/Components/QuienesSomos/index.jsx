@@ -10,14 +10,16 @@ const QuienesSomos = () => {
 				<p className="parrafo">
 					Somos un equipo de profesionales con un objetivo en común: facilitar
 					el acceso a una educación de calidad para democratizar hoy, el
-					conocimiento del mañana. Trabajamos junto a jóvenes, profesionales,
-					instituciones y empresas que compartan nuestros valores centrales.
-					Entre nuestras actividades, ofrecemos una amplia variedad de
-					capacitaciones en temáticas de vanguardia, pensadas y dictadas por
-					profesionales que saben hacer, y enseñar. Encuentra con Icaro la
-					oportunidad de aprender como nunca antes lo habías hecho. Donde quiera
-					que estés, te invitamos a formar parte de nuestra comunidad y
-					prepararte para el futuro.
+					conocimiento del mañana.
+					<br />
+					Trabajamos junto a jóvenes, profesionales, instituciones y empresas
+					que compartan nuestros valores centrales. Entre nuestras actividades,
+					ofrecemos una amplia variedad de capacitaciones en temáticas de
+					vanguardia, pensadas y dictadas por profesionales que saben hacer, y
+					enseñar.
+					<br /> Encuentra con Icaro la oportunidad de aprender como nunca antes
+					lo habías hecho. Donde quiera que estés, te invitamos a formar parte
+					de nuestra comunidad y prepararte para el futuro.
 				</p>
 
 				<div className="contenedor">
@@ -45,8 +47,8 @@ const QuienesSomos = () => {
 						<h5>Obtén certificación universitaria</h5>
 						<p>
 							Todas nuestras capacitaciones cuentan con certificación oficial de
-							la UNC. Garantizamos formacion de calidad a un precio mucho más
-							accesible.
+							la UNC. <br />
+							Garantizamos formacion de calidad a un precio mucho más accesible.
 						</p>
 					</div>
 				</div>
@@ -81,7 +83,7 @@ const Container = styled.div`
 		}
 
 		.parrafo {
-			font-size: 1.25rem;
+			font-size: 1rem;
 			line-height: 1.43rem;
 			margin: 2% 0 0 0;
 		}
@@ -94,7 +96,7 @@ const Container = styled.div`
 			flex-wrap: wrap;
 
 			.card1 {
-				width: 21%;
+				width: 27.5%;
 				background: #ffffff;
 				box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
 				border-radius: 10px;
@@ -109,7 +111,7 @@ const Container = styled.div`
 
 				h5 {
 					text-align: center;
-					margin: 0 17% 2% 17%;
+					margin: 0 11% 2% 11%;
 					font-size: 1.25rem;
 					font-weight: 700;
 					line-height: 1.43rm;
@@ -118,11 +120,12 @@ const Container = styled.div`
 
 				p {
 					text-align: center;
-					margin: 0 10% 0 10%;
+					margin: 0 7.8% 0 7.8%;
+					fonmt-size: 1rem;
 				}
 			}
 			.card2 {
-				width: 21%;
+				width: 27.5%;
 				background: #ffffff;
 				box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
 				border-radius: 10px;
@@ -137,7 +140,7 @@ const Container = styled.div`
 
 				h5 {
 					text-align: center;
-					margin: 0 17% 13% 17%;
+					margin: 0 11% 10% 11%;
 					font-size: 1.25rem;
 					font-weight: 700;
 					line-height: 1.43rm;
@@ -146,11 +149,12 @@ const Container = styled.div`
 
 				p {
 					text-align: center;
-					margin: 0 10% 0 10%;
+					margin: 0 7.8% 0 7.8%;
+					fonmt-size: 1rem;
 				}
 			}
 			.card3 {
-				width: 21%;
+				width: 27.5%;
 				background: #ffffff;
 				box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
 				border-radius: 10px;
@@ -165,7 +169,7 @@ const Container = styled.div`
 
 				h5 {
 					text-align: center;
-					margin: 0 17% 2% 17%;
+					margin: 0 11% 2% 11%;
 					font-size: 1.25rem;
 					font-weight: 700;
 					line-height: 1.43rm;
@@ -174,7 +178,8 @@ const Container = styled.div`
 
 				p {
 					text-align: center;
-					margin: 0 10% 5% 10%;
+					margin: 0 7.8% 5% 7.8%;
+					fonmt-size: 1rem;
 				}
 			}
 		}

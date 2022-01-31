@@ -1,28 +1,28 @@
-import styled from "styled-components"
-import { projectContext } from "../../Context/ProjectContext"
-import QuienesSomos from "../../Components/QuienesSomos"
-import Banners from "../../Components/Banners"
-import { useContext } from "react"
-import CursosCards from "../../Components/CursosCards"
-import Carousel from "../../Components/MainCarousel"
-import Spacer from "../../Components/Spacer"
-import Sponsors from "../../Components/Sponsors"
+import styled from 'styled-components';
+import { projectContext } from '../../Context/ProjectContext';
+import QuienesSomos from '../../Components/QuienesSomos/index';
+import Banners from '../../Components/Banners/index';
+import { useContext } from 'react';
+import CursosCards from '../../Components/CursosCards';
+import Carousel from '../../Components/MainCarousel/index';
+import Spacer from '../../Components/Spacer/index';
+import Sponsors from '../../Components/Sponsors/index';
 
 const HomeContainer = () => {
 	const imgs = [
-		"./img/carousel1.png",
-		"./img/carousel2.png",
-		"./img/carousel1.png",
-	]
-	const { isLogin, setIsLogin } = useContext(projectContext)
+		'./img/carousel1.png',
+		'./img/carousel2.png',
+		'./img/carousel1.png',
+	];
+	const { isLogin, setIsLogin } = useContext(projectContext);
 
 	return (
 		<>
 			{isLogin ? (
 				<Container>
-					<div className="sesion">
+					<div className='sesion'>
 						<p>Estás logueado</p>
-						<button className="boton" onClick={() => setIsLogin(false)}>
+						<button className='boton' onClick={() => setIsLogin(false)}>
 							Cerrar
 						</button>
 					</div>
@@ -43,10 +43,10 @@ const HomeContainer = () => {
 				</>
 			)}
 		</>
-	)
-}
+	);
+};
 
-export default HomeContainer
+export default HomeContainer;
 
 const Container = styled.div`
 	height: auto;
@@ -54,4 +54,4 @@ const Container = styled.div`
 	.sesion {
 		margin-top: 30%;
 	}
-`
+`;
