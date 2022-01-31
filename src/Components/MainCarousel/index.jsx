@@ -1,34 +1,34 @@
-import { useState, useEffect } from "react"
-import styled from "styled-components"
-import CarouselCard from "./CarouselCard"
-import DotIndicator from "./DotIndicator"
+import { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import CarouselCard from './CarouselCard/index';
+import DotIndicator from './DotIndicator/index';
 
 const useCarouselTimer = (items, milliseconds = 5000) => {
-	const [index, setIndex] = useState(0)
+	const [index, setIndex] = useState(0);
 
 	useEffect(() => {
 		const timeout = setTimeout(() => {
-			setIndex((oldIndex) => (oldIndex + 1) % items.length)
-		}, milliseconds)
+			setIndex((oldIndex) => (oldIndex + 1) % items.length);
+		}, milliseconds);
 
-		return () => clearTimeout(timeout)
-	}, [index, items.length, milliseconds])
+		return () => clearTimeout(timeout);
+	}, [index, items.length, milliseconds]);
 
-	return [index, setIndex]
-}
+	return [index, setIndex];
+};
 
 const Wrapper = styled.div`
 	overflow: hidden;
-`
+`;
 
 const getCalcString = (index, gap, positive) => {
-	const sign = positive ? "" : "-"
-	const percentage = index * 100
-	const action = positive ? "+" : "-"
-	const pixels = index * gap
+	const sign = positive ? '' : '-';
+	const percentage = index * 100;
+	const action = positive ? '+' : '-';
+	const pixels = index * gap;
 
-	return `calc(${sign}${percentage}% ${action} ${pixels}px)`
-}
+	return `calc(${sign}${percentage}% ${action} ${pixels}px)`;
+};
 
 const Row = styled.div`
 	height: 759px;
@@ -41,20 +41,20 @@ const Row = styled.div`
 	);
 	margin-left: ${({ index, gap }) => getCalcString(index, gap, false)};
 	transition: margin 0.5s;
-`
+`;
 
 const CarouselWrapper = styled.div`
 	position: relative;
 	overflow: hidden;
-`
+`;
 const DotIndicatorWrapper = styled.div`
 	position: absolute;
 	top: 90%;
 	left: 45%;
-`
+`;
 
 const Carousel = ({ gap = 0, imgSrc }) => {
-	const [index, setIndex] = useCarouselTimer(imgSrc)
+	const [index, setIndex] = useCarouselTimer(imgSrc);
 
 	return (
 		<CarouselWrapper>
@@ -64,7 +64,7 @@ const Carousel = ({ gap = 0, imgSrc }) => {
 						<CarouselCard
 							key={i}
 							src={elem}
-							alt="carousel"
+							alt='carousel'
 							index={index}
 							setIndex={setIndex}
 							array={arr}
@@ -77,13 +77,13 @@ const Carousel = ({ gap = 0, imgSrc }) => {
 							index={index}
 							setIndex={setIndex}
 							length={imgSrc.length}
-							overrideColor="white"
+							overrideColor='white'
 						/>
 					</DotIndicatorWrapper>
 				)}
 			</Wrapper>
 		</CarouselWrapper>
-	)
-}
+	);
+};
 
-export default Carousel
+export default Carousel;
