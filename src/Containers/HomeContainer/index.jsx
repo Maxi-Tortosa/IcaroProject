@@ -29,7 +29,7 @@ const HomeContainer = () => {
 				</Container>
 			) : (
 				<>
-					<Carousel index={1} imgSrc={imgs} />
+					<Carousel imgSrc={imgs} />
 					{/* <Spacer height={100} /> */}
 					<Sponsors />
 					<Container>

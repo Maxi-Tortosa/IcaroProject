@@ -62,7 +62,7 @@ const CursosCards = ({ isProximos }) => {
 	}
 
 	return (
-		<MainContainer>
+		<MainContainer id={isProximos ? "proximos" : "cursos"}>
 			<Container>
 				{isProximos ? (
 					<Title>Próximos cursos</Title>

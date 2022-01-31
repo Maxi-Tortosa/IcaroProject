@@ -19,7 +19,7 @@ function App() {
 					<Route exact path="/register">
 						<Register />
 					</Route>
-					<Route path="/cursos/:nombre-de-curso">
+					<Route path="/cursos/">
 						<CoursesPages />
 					</Route>
 				</Switch>

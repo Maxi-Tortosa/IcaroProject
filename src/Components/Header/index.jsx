@@ -28,7 +28,7 @@ const Header = () => {
 				</Link>
 				<ul className="menu">
 					<li>
-						<Link to={"/cursos"}>Cursos</Link>
+						<Link to={"/#cursos"}>Cursos</Link>
 					</li>
 					<li>
 						<Link to={"/quienes-somos"}>Quiénes somos</Link>

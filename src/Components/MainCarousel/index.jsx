@@ -53,22 +53,15 @@ const DotIndicatorWrapper = styled.div`
 	left: 45%;
 `
 
-const Carousel = ({ gap = 0, imgSrc }) => {
+const Carousel = ({ gap = 0, imgSrc = [] }) => {
 	const [index, setIndex] = useCarouselTimer(imgSrc)
 
 	return (
 		<CarouselWrapper>
 			<Wrapper>
 				<Row index={index} gap={gap} length={imgSrc.length}>
-					{imgSrc.map((elem, i, arr) => (
-						<CarouselCard
-							key={i}
-							src={elem}
-							alt="carousel"
-							index={index}
-							setIndex={setIndex}
-							array={arr}
-						/>
+					{imgSrc.map((elem, i) => (
+						<CarouselCard key={i} src={elem} />
 					))}
 				</Row>
 				{imgSrc.length > 1 && (

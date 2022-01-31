@@ -1,18 +1,18 @@
 import styled from "styled-components"
-import theme from "../../../Theme/base"
-import IngresaBttn from "../../Buttons/IngresaBttn"
+import theme from "../../Theme/base"
+import IngresaBttn from "../Buttons/IngresaBttn"
 
-const CarouselCard = ({ src }) => {
+const CoursesBanner = ({ src }) => {
 	return (
 		<ImageContainer src={src}>
 			<StyledTextContainer>
-				<StyledH1>NUESTRO COMPROMISO ES CON EL FUTURO</StyledH1>
+				{/* <StyledH1>NUESTRO COMPROMISO ES CON EL FUTURO</StyledH1>
 				<StyledParragraph>
 					Encuentra con Icaro la oportunidad de aprender como nunca antes lo
 					habías hecho. Donde quiera que estés, te invitamos a formar parte de
 					nuestra comunidad y prepararte para el futuro.
-				</StyledParragraph>
-				<IngresaBttn />
+				</StyledParragraph> */}
+				{/* <IngresaBttn /> */}
 			</StyledTextContainer>
 		</ImageContainer>
 	)
@@ -22,6 +22,7 @@ const ImageContainer = styled.div`
 	background-image: url(${({ src }) => src});
 	background-position: center;
 	background-size: cover;
+	height: 420px;
 `
 
 const StyledTextContainer = styled.div`
@@ -52,4 +53,4 @@ const StyledParragraph = styled.p`
 	width: 80%;
 `
 
-export default CarouselCard
+export default CoursesBanner

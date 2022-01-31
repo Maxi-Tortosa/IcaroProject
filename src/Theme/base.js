@@ -11,9 +11,12 @@ const theme = {
 		boxShadow: " 0px 4px 8px rgba(0, 0, 0, 0.15)",
 	},
 	categories: {
-		tecnologia: "#439FFA",
-		negocios: "#FB9600",
-		ambiente: "#2EBE16",
+		herrDig: "#88106E",
+		dat: "#34A0C2",
+		amb: "#2EBE16",
+		prog: "#34C2A9",
+		dipYProgEsp: "#D87C11",
+		disYMkt: "#D92A49",
 	},
 
 	fontFamily: {

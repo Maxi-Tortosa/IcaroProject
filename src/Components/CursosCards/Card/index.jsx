@@ -1,11 +1,18 @@
 import styled from "styled-components"
 import theme from "../../../Theme/base"
+import { Link } from "react-router-dom"
 
 const Card = ({ isProximos, info }) => {
+	const { clasesSemanales, duracion, duracionClase, duracionTotal, modalidad } =
+		info.detalles
+
 	return (
 		<CardContainer isProximos={isProximos}>
-			<TitleContainer>
-				<CardTitle isProximos={isProximos} categoriaColor={info.categoria}>
+			<TitleContainer
+				to={`/cursos/${info.href}`}
+				categoriaColor={info.CategoriaID}
+			>
+				<CardTitle isProximos={isProximos} categoriaColor={info.CategoriaID}>
 					{info.nombre}
 				</CardTitle>
 			</TitleContainer>
@@ -18,22 +25,24 @@ const Card = ({ isProximos, info }) => {
 								<span>Fecha de inicio:</span> XX de octubre
 							</p>
 							<p>
-								<span>Duración:</span> 12 semanas
+								<span>Duración:</span> {duracion}
 							</p>
 							<p>
-								<span>Modalidad:</span> Online - En vivo
+								<span>Modalidad:</span> {modalidad}
 							</p>
 							<p>
-								<span>Clases semanales:</span> 2 clases
+								<span>Clases semanales:</span> {clasesSemanales}
 							</p>
 						</CardInfoContainer>
-						<CoonoceMasBttn>Conoce Mas</CoonoceMasBttn>
+						<ConoceMasBttn to={`/cursos/${info.href}`}>
+							Conoce Mas
+						</ConoceMasBttn>
 					</>
 				) : (
 					<>
-						<CourseContent isItalic>6 meses</CourseContent>
+						<CourseContent isItalic>{duracion || `  `}</CourseContent>
 						<CourseContent>$20.000</CourseContent>
-						<VerMasButton>Ver Mas</VerMasButton>
+						<VerMasButton to={`/cursos/${info.href}`}>Ver Mas</VerMasButton>
 					</>
 				)}
 			</CardContent>
@@ -55,10 +64,21 @@ const CardContainer = styled.div`
 	font-family: ${theme.fontFamily.primary};
 	justify-content: space-between;
 `
-const TitleContainer = styled.div`
+const TitleContainer = styled(Link)`
 	background-color: ${theme.color.white};
 	width: 80%;
 	margin: auto;
+	text-decoration: none;
+
+	&:focus,
+	&:hover,
+	&:visited,
+	&:link,
+	&:active {
+		text-decoration: none;
+		color: ${({ isProximos, categoriaColor }) =>
+			isProximos ? theme.color.black : theme.categories[categoriaColor]};
+	}
 `
 
 const CardTitle = styled.h5`
@@ -67,13 +87,7 @@ const CardTitle = styled.h5`
 	text-align: center;
 
 	color: ${({ isProximos, categoriaColor }) =>
-		isProximos
-			? theme.color.black
-			: categoriaColor === "Ambiente"
-			? theme.categories.ambiente
-			: categoriaColor === "Diseño y Marketing"
-			? theme.categories.negocios
-			: theme.categories.tecnologia};
+		isProximos ? theme.color.black : theme.categories[categoriaColor]};
 `
 const CardContent = styled.div`
 	padding: ${({ isProximos }) => (isProximos ? "0px" : "20px")};
@@ -100,7 +114,7 @@ const CourseContent = styled.p`
 	text-align: center;
 	color: #282828;
 `
-const CoonoceMasBttn = styled.a`
+const ConoceMasBttn = styled(Link)`
 	background: #1744ff;
 	border-radius: 0px 0px 10px 10px;
 	display: flex;
@@ -118,7 +132,7 @@ const CoonoceMasBttn = styled.a`
 	cursor: pointer;
 `
 
-const VerMasButton = styled.a`
+const VerMasButton = styled(Link)`
 	display: block;
 	font-family: ${theme.fontFamily.tertiary};
 	font-style: normal;
