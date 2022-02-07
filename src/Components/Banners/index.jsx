@@ -37,7 +37,7 @@ const Container = styled.div`
 		h2 {
 			font-family: 'Montserrat', sans-serif !important;
 			position: relative;
-			z-index: 2;
+			z-index: 1;
 			width: 50%;
 			color: white;
 			font-weight: 900;
@@ -55,7 +55,7 @@ const Container = styled.div`
 		top: 0;
 		width: 100%;
 		height: 100%;
-		z-index: 1;
+		z-index: 2;
 		opacity: 0.6;
 		background-image: url('./img/banner1.png');
 		background-position: center;

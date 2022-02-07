@@ -1,56 +1,54 @@
-import styled from "styled-components"
-import { useState, useContext } from "react"
-import { projectContext } from "../../Context/ProjectContext"
-import { Link } from "react-router-dom"
-import IngresaBttn from "../Buttons/IngresaBttn"
-import LogIn from "../LogIn/index"
-import theme from "../../Theme/base"
+import styled from 'styled-components';
+import { useState, useContext } from 'react';
+import { projectContext } from '../../Context/ProjectContext';
+import { Link } from 'react-router-dom';
+import IngresaBttn from '../Buttons/IngresaBttn';
+import theme from '../../Theme/base';
 
-const Header = () => {
-	const [isScroll, setIsScroll] = useState(false)
-	const { modalOpen } = useContext(projectContext)
+const Header = ({ setIsModalOpen }) => {
+	const [isScroll, setIsScroll] = useState(false);
+	const {} = useContext(projectContext);
 
-	window.addEventListener("scroll", changeNavColor)
+	window.addEventListener('scroll', changeNavColor);
 
 	function changeNavColor() {
 		if (window.scrollY >= 85) {
-			setIsScroll(true)
+			setIsScroll(true);
 		} else {
-			setIsScroll(false)
+			setIsScroll(false);
 		}
 	}
 
 	return (
 		<Container isScroll={isScroll}>
-			<div className="header">
-				<Link to="/" className="logo">
-					<img src="./img/logo.svg" alt="Logo de Ícaro" />
+			<div className='header'>
+				<Link to='/' className='logo'>
+					<img src='./img/logo.svg' alt='Logo de Ícaro' />
 				</Link>
-				<ul className="menu">
+				<ul className='menu'>
 					<li>
-						<Link to={"/#cursos"}>Cursos</Link>
+						<Link to={'/#cursos'}>Cursos</Link>
 					</li>
 					<li>
-						<Link to={"/quienes-somos"}>Quiénes somos</Link>
+						<Link to={'/quienes-somos'}>Quiénes somos</Link>
 					</li>
 					<li>
-						<Link to={"/contacto"}>Contacto</Link>
+						<Link to={'/contacto'}>Contacto</Link>
 					</li>
 				</ul>
 
-				<IngresaBttn />
-				{modalOpen ? <LogIn /> : null}
+				<IngresaBttn setIsModalOpen={setIsModalOpen} />
 			</div>
 		</Container>
-	)
-}
+	);
+};
 
-export default Header
+export default Header;
 
 const Container = styled.div`
 	font-family: ${theme.fontFamily.primary};
 	width: 100%;
-	background-color: ${({ isScroll }) => (isScroll ? "grey" : " transparent")};
+	background-color: ${({ isScroll }) => (isScroll ? 'grey' : ' transparent')};
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -102,4 +100,4 @@ const Container = styled.div`
 			margin: 0;
 		}
 	}
-`
+`;

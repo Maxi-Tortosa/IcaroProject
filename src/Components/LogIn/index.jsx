@@ -4,9 +4,8 @@ import { getAuth } from '../../Firebase';
 import { Link, Router } from 'react-router-dom';
 import styled from 'styled-components';
 
-const LogIn = () => {
-	const { setModalOpen, course, setCourse, isLogin, setIsLogin } =
-		useContext(projectContext);
+const LogIn = ({ setIsModalOpen }) => {
+	const { course, setCourse, isLogin, setIsLogin } = useContext(projectContext);
 
 	const [userEmail, setUserEmail] = useState('');
 	const [userPassword, setUserPassword] = useState();
@@ -44,46 +43,47 @@ const LogIn = () => {
 
 	return (
 		<Container>
-			<div className='loginImage'>
-				{/* <img src='./img/loginImg.png' alt='' />{' '} */}
-			</div>
-			<div className='loginData'>
-				<p>Inicia Sesión</p>
-				{/* { Ver de meter una validación con el hook de reactfire} */}
-				{/*Ver de permitir el ingreso con un enter en el input */}
-				<div className='input'>
-					<label htmlFor='user'> Email </label>
-					<input
-						id='usuario'
-						onChange={(e) => setUserEmail(e.target.value)}
-						type='text'
-						name='user'
-					/>
+			<div className='background'></div>
+			<div className='modal'>
+				<div className='loginImage'></div>
+				<div className='loginData'>
+					<p>Inicia Sesión</p>
+					{/* Ver de meter una validación con el hook de reactfire */}
+					{/*Ver de permitir el ingreso con un enter en el input */}
+					<div className='input'>
+						<label htmlFor='user'> Email </label>
+						<input
+							id='usuario'
+							onChange={(e) => setUserEmail(e.target.value)}
+							type='text'
+							name='user'
+						/>
+					</div>
+					<div className='input'>
+						<label htmlFor='password'> Contraseña </label>
+						<input
+							onChange={handleChange}
+							id='contraseña'
+							type='password'
+							name='password'
+							className={passwordError ? 'passwordError' : 'ok'}
+						/>
+						{hasError ? <p> su contraseña no existe </p> : null}
+					</div>
+					<Link className='forgot' to='/'>
+						Olvidé mi contraseña
+					</Link>
+					<button className='submit' type='submit' onClick={handleSubmit}>
+						Inicia sesión
+					</button>
+					<Link className='register' to='/register'>
+						¿No tenés cuenta? Únete a Icaro{' '}
+					</Link>
+					<button className='close' onClick={() => setIsModalOpen(false)}>
+						{' '}
+						X{' '}
+					</button>
 				</div>
-				<div className='input'>
-					<label htmlFor='password'> Contraseña </label>
-					<input
-						onChange={handleChange}
-						id='contraseña'
-						type='password'
-						name='password'
-						className={passwordError ? 'passwordError' : 'ok'}
-					/>
-					{hasError ? <p> su contraseña no existe </p> : null}
-				</div>
-				<Link className='forgot' To=''>
-					Olvidé mi contraseña
-				</Link>
-				<button className='submit' type='submit' onClick={handleSubmit}>
-					Inicia sesión
-				</button>
-				<Link className='register' to='/register'>
-					¿No tenés cuenta? Únete a Icaro{' '}
-				</Link>
-				<button className='close' onClick={() => setModalOpen(false)}>
-					{' '}
-					X{' '}
-				</button>
 			</div>
 		</Container>
 	);
@@ -92,11 +92,26 @@ const LogIn = () => {
 export default LogIn;
 
 const Container = styled.div`
+position: fixed;
+
+width: 100%;
+height: 100vh;
+z-index: 3;
+
+.background{width:100%;
+	height: 100%;
+	background-color: black;
+opacity: 0.4;}
+
+.modal{
+	z-index: 4;
 width 68%;
 max-width: 980px;
 height: 65vh;
+min-height: 500px;
 position: absolute;
-top: 9vh;
+top: 17%;
+left: 24%;
 margin:0;
 border: white;
 background-color: white;
@@ -191,4 +206,4 @@ font-family: 'Montserrat', sans-serif;
 
 	.passwordError::placeholder {
 		color: red;}
-`;
+	}`;
