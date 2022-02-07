@@ -24,6 +24,7 @@ const Container = styled.div`
 	justify-content: center;
 	margin: 0 auto 0 auto;
 	max-width: 1440px;
+	width: 90%;
 
 	.banner1 {
 		width: 50%;
