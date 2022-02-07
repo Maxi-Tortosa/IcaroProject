@@ -37,7 +37,7 @@ const Container = styled.div`
 		h2 {
 			font-family: 'Montserrat', sans-serif !important;
 			position: relative;
-			z-index: 1;
+			z-index: 2;
 			width: 50%;
 			color: white;
 			font-weight: 900;
