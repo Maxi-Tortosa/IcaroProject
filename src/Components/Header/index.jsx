@@ -101,7 +101,7 @@ const CenterLinks = styled(Link)`
 
 	&:hover::after {
 		width: 100%;
-		transition: width 0.3s;
+		transition: width 0.5s;
 		color: #2b3538;
 	}
 
