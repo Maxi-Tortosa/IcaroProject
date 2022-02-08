@@ -1,22 +1,22 @@
-import styled from 'styled-components';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import styled from "styled-components"
+import { useState } from "react"
+import { Link } from "react-router-dom"
 
 const Banners = () => {
 	return (
 		<Container>
-			<div className='banner1'>
-				<h2>Enseñá con ICARO</h2>{' '}
+			<div className="banner1">
+				<h2>Enseñá con ICARO</h2>{" "}
 				{/* Ver de meter las imágenes opacas ya desde el origen */}
 			</div>
-			<div className='banner2'>
+			<div className="banner2">
 				<h2>ICARO in company</h2>
 			</div>
 		</Container>
-	);
-};
+	)
+}
 
-export default Banners;
+export default Banners
 
 const Container = styled.div`
 	display: flex;
@@ -24,7 +24,7 @@ const Container = styled.div`
 	justify-content: center;
 	margin: 0 auto 0 auto;
 	max-width: 1440px;
-	width: 90%;
+	width: 80%;
 
 	.banner1 {
 		width: 50%;
@@ -35,7 +35,7 @@ const Container = styled.div`
 		align-items: center;
 
 		h2 {
-			font-family: 'Montserrat', sans-serif !important;
+			font-family: "Montserrat", sans-serif !important;
 			position: relative;
 			z-index: 1;
 			width: 50%;
@@ -48,7 +48,7 @@ const Container = styled.div`
 		}
 	}
 	.banner1:before {
-		content: '';
+		content: "";
 		display: block;
 		position: absolute;
 		left: 0;
@@ -57,7 +57,7 @@ const Container = styled.div`
 		height: 100%;
 		z-index: 2;
 		opacity: 0.6;
-		background-image: url('./img/banner1.png');
+		background-image: url("./img/banner1.png");
 		background-position: center;
 		background-size: cover;
 	}
@@ -71,7 +71,7 @@ const Container = styled.div`
 		align-items: center;
 
 		h2 {
-			font-family: 'Montserrat', sans-serif !important;
+			font-family: "Montserrat", sans-serif !important;
 			position: relative;
 			z-index: 2;
 			width: 50%;
@@ -84,7 +84,7 @@ const Container = styled.div`
 		}
 	}
 	.banner2:before {
-		content: '';
+		content: "";
 		display: block;
 		position: absolute;
 		left: 0;
@@ -93,8 +93,8 @@ const Container = styled.div`
 		height: 100%;
 		z-index: 1;
 		opacity: 0.6;
-		background-image: url('./img/banner2.png');
+		background-image: url("./img/banner2.png");
 		background-position: center;
 		background-size: cover;
 	}
-`;
+`

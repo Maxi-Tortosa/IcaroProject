@@ -28,7 +28,7 @@ const ImageContainer = styled.div`
 const StyledTextContainer = styled.div`
 	position: relative;
 	top: 30%;
-	width: 90%;
+	width: 80%;
 	max-width: 1095px;
 	margin: auto;
 `

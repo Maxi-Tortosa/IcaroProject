@@ -53,14 +53,40 @@ const Footer = () => {
 							<ColumnContainer key={index}>
 								<FooterTitle>{Titulo}</FooterTitle>
 								{links &&
-									links.map(({ nombre, url }, index) => {
+									links.map(({ nombre, url, icono, placeholder }, index) => {
+										console.log("content", nombre, icono)
 										if (url) {
-											return <FooterAnchor href={url}>{nombre}</FooterAnchor>
+											return (
+												<>
+													<FooterAnchor href={url} icono={icono}>
+														{icono && (
+															<IconImg
+																src={`./img/${icono}-icon.png`}
+																alt="icono"
+															/>
+														)}
+														{nombre}
+													</FooterAnchor>
+												</>
+											)
 										} else {
 											return (
-												<FooterParragraph key={index}>
-													{nombre} {url}
-												</FooterParragraph>
+												<>
+													<FooterParragraph key={index}>
+														{nombre} {url}
+													</FooterParragraph>
+													<EmailForm>
+														<input type="text" placeholder={placeholder} />
+														<SendButton
+															type="submit"
+															onClick={(e) => {
+																e.preventDefault()
+															}}
+														>
+															Enviar
+														</SendButton>
+													</EmailForm>
+												</>
 											)
 										}
 									})}
@@ -84,15 +110,16 @@ const ContentContainer = styled.div`
 	width: 80%;
 	max-width: 1095px;
 	margin: auto;
-	/* padding: 20px; */
-	padding-top: 50px;
+	padding-top: 40px;
 	display: flex;
+	gap: 60px;
 	align-items: flex-start;
 	justify-content: space-between;
 `
 const ColumnContainer = styled.div`
-	margin: 0 20px;
+	/* margin: 0 20px; */
 	flex: 1;
+	/* max-width: 150px; */
 `
 
 const FooterTitle = styled.h3`
@@ -111,11 +138,20 @@ const FooterParragraph = styled.p`
 	text-decoration: none;
 	display: block;
 `
+const IconImg = styled.img`
+	margin-right: 15px;
+`
+
 const FooterAnchor = styled.a`
 	font-family: ${theme.fontFamily.secondary};
 	color: #fff;
+	/* font-size: ${({ icono }) => (icono ? "18px" : "14px")}; */
+	font-size: 14px;
+	display: ${({ icono }) => (icono ? " flex" : "block")};
+	align-items: center;
+	flex-wrap: wrap;
 	text-decoration: none;
-	display: block;
+	margin: 10px 0;
 
 	&:hover {
 		text-decoration: none;
@@ -127,6 +163,17 @@ const FooterAnchor = styled.a`
 		text-decoration: none;
 		color: #fff;
 	}
+`
+
+const EmailForm = styled.form`
+	display: flex;
+`
+
+const SendButton = styled.button`
+	background-color: #1744ff;
+	color: white;
+	padding: 5px 10px;
+	border: none;
 `
 
 export default Footer
