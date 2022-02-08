@@ -40,7 +40,7 @@ const Row = styled.div`
 			${({ gap, length }) => gap * (length - 1)}px
 	);
 	margin-left: ${({ index, gap }) => getCalcString(index, gap, false)};
-	transition: margin 0.5s;
+	transition: margin 1.5s;
 `
 
 const CarouselWrapper = styled.div`

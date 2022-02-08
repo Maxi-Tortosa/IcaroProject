@@ -27,13 +27,13 @@ const Header = ({ setIsModalOpen }) => {
 				</Link>
 				<ul className="menu">
 					<li>
-						<Link to={"/#cursos"}>Cursos</Link>
+						<CenterLinks to={"/#cursos"}>Cursos</CenterLinks>
 					</li>
 					<li>
-						<Link to={"/quienes-somos"}>Quiénes somos</Link>
+						<CenterLinks to={"/quienes-somos"}>Quiénes somos</CenterLinks>
 					</li>
 					<li>
-						<Link to={"/contacto"}>Contacto</Link>
+						<CenterLinks to={"/contacto"}>Contacto</CenterLinks>
 					</li>
 				</ul>
 
@@ -49,6 +49,7 @@ const Container = styled.div`
 	font-family: ${theme.fontFamily.primary};
 	width: 100%;
 	background-color: ${({ isScroll }) => (isScroll ? "grey" : " transparent")};
+	transition: all 0.3s ease-out 0s;
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -84,20 +85,32 @@ const Container = styled.div`
 
 		li {
 			margin: 0 2.6% 0 0;
-			a {
-				text-decoration: none;
-				color: #fff;
-				font-style: normal;
-				font-weight: normal;
-				font-size: 16px;
-				line-height: 19px;
-			}
-			& a:hover {
-				font-weight: bold;
-			}
 		}
 		& li:last-child {
 			margin: 0;
 		}
+	}
+`
+const CenterLinks = styled(Link)`
+	text-decoration: none;
+	color: #fff;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 16px;
+	line-height: 19px;
+
+	&:hover::after {
+		width: 100%;
+		transition: width 0.3s;
+		color: #2b3538;
+	}
+
+	&::after {
+		content: "";
+		display: block;
+		width: 0;
+		height: 3px;
+		background: #fff;
+		transition: width 0.3s;
 	}
 `
