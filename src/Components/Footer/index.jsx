@@ -155,7 +155,7 @@ const FooterAnchor = styled.a`
 
 	&:hover {
 		text-decoration: none;
-		font-weight: bolder;
+		/* font-weight: bolder; */
 		cursor: pointer;
 	}
 	&:visited,
