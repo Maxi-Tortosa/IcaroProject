@@ -81,7 +81,7 @@ const LogIn = ({ setIsModalOpen }) => {
 					</Link>
 					<button className='close' onClick={() => setIsModalOpen(false)}>
 						{' '}
-						X{' '}
+						x{' '}
 					</button>
 				</div>
 			</div>
@@ -188,6 +188,8 @@ font-family: 'Montserrat', sans-serif;
 		position: absolute;
 		bottom:92%;
 	  left: 60%}
+
+		.close:hover{cursor:pointer}
 
 	}
 
