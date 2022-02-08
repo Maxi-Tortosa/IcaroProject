@@ -58,7 +58,7 @@ const Footer = () => {
 										if (url) {
 											return (
 												<>
-													<FooterAnchor href={url} icono={icono}>
+													<FooterAnchor key={index} href={url} icono={icono}>
 														{icono && (
 															<IconImg
 																src={`./img/${icono}-icon.png`}

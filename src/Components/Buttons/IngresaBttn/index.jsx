@@ -1,26 +1,19 @@
-<<<<<<< HEAD
 import styled from 'styled-components';
 import theme from '../../../Theme/base';
-=======
-import styled from "styled-components"
-import { useContext } from "react"
-import { projectContext } from "../../../Context/ProjectContext"
-import theme from "../../../Theme/base"
->>>>>>> 149aea09aee5d20bec0d4cc7257abc3097ccf2f3
 
 const IngresaBttn = ({ setIsModalOpen }) => {
 	const handleClick = () => {
-		setIsModalOpen(true)
-	}
+		setIsModalOpen(true);
+	};
 
 	return (
 		<>
-			<StyledButton className="ingresa" onClick={handleClick}>
+			<StyledButton className='ingresa' onClick={handleClick}>
 				Ingresá
 			</StyledButton>
 		</>
-	)
-}
+	);
+};
 
 const StyledButton = styled.button`
 	font-family: ${theme.fontFamily.primary};
@@ -42,6 +35,6 @@ const StyledButton = styled.button`
 
 		background-position: 160px;
 	}
-`
+`;
 
-export default IngresaBttn
+export default IngresaBttn;
