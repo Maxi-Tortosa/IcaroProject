@@ -1,6 +1,6 @@
 import { useState, useContext } from 'react';
 import { projectContext } from '../../Context/ProjectContext';
-import { getAuth } from '../../Firebase';
+import auth from '../../Firebase';
 import { Link, Router } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -27,7 +27,7 @@ const LogIn = ({ setIsModalOpen }) => {
 
 	const ifMatch = (userEmail, userPassword) => {
 		/* Quedó terminado el inicio de sesión con Firebase */
-		getAuth()
+		auth
 			.signInWithEmailAndPassword(userEmail, userPassword)
 			.then(() => {
 				setUserEmail('');

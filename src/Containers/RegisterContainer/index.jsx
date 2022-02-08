@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useState, useEffect, createElement } from 'react';
-import { getAuth } from '../../Firebase/index';
+import auth from '../../Firebase/index';
 // import { withRouter } from "react-router";
 // import { auth } from "../../Firebase"
 
@@ -54,7 +54,7 @@ const Register = ({ history }) => {
 		/* CREATE NEW USER */
 
 		if (createUser) {
-			getAuth()
+			auth
 				.createUserWithEmailAndPassword(newUser.email, newUser.password)
 				.then(() => {
 					setCreateUser(
