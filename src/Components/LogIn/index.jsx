@@ -1,11 +1,11 @@
 import { useState, useContext } from 'react';
 import { projectContext } from '../../Context/ProjectContext';
 import auth from '../../Firebase';
-import { Link, Router } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const LogIn = ({ setIsModalOpen }) => {
-	const { course, setCourse, isLogin, setIsLogin } = useContext(projectContext);
+	const { setIsLogin } = useContext(projectContext);
 
 	const [userEmail, setUserEmail] = useState('');
 	const [userPassword, setUserPassword] = useState();

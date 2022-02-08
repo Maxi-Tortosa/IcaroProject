@@ -1,16 +1,21 @@
 import styled from 'styled-components';
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Banners = () => {
 	return (
 		<Container>
 			<div className='banner1'>
-				<h2>Enseñá con ICARO</h2>{' '}
+				<Link to='/'>
+					{' '}
+					<h2>Enseñá con ICARO</h2>
+				</Link>{' '}
 				{/* Ver de meter las imágenes opacas ya desde el origen */}
 			</div>
 			<div className='banner2'>
-				<h2>ICARO in company</h2>
+				<Link to='/'>
+					{' '}
+					<h2>ICARO in company</h2>
+				</Link>
 			</div>
 		</Container>
 	);

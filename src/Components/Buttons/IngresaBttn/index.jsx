@@ -1,6 +1,4 @@
 import styled from 'styled-components';
-import { useContext } from 'react';
-import { projectContext } from '../../../Context/ProjectContext';
 import theme from '../../../Theme/base';
 
 const IngresaBttn = ({ setIsModalOpen }) => {

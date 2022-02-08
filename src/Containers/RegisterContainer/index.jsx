@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useState, useEffect, createElement } from 'react';
+import { useState } from 'react';
 import auth from '../../Firebase/index';
 // import { withRouter } from "react-router";
 // import { auth } from "../../Firebase"
@@ -7,18 +7,19 @@ import auth from '../../Firebase/index';
 const Register = ({ history }) => {
 	const [newUser, setNewUser] = useState();
 	const [createUser, setCreateUser] = useState(false);
-	const [errorPassword, setErrorPassword] = useState(false);
+	// const [errorPassword, setErrorPassword] = useState(false);
 	const [alertErrorPassword, setAlertErrorPassword] = useState(false);
-	const [isLogged, setIsLogged] = useState(false);
+	// const [isLogged, setIsLogged] = useState(false);
 
 	function handleChange(name, value, id) {
 		setNewUser((newUser) => ({ ...newUser, [name]: value }));
 
 		if (name === 'password' && value.length < 6 && value.length >= 1) {
 			console.log('mal cotrasenia!');
-			setErrorPassword(true);
+			// setErrorPassword(true);
 		} else {
-			setErrorPassword(false);
+			setAlertErrorPassword(false);
+			// setErrorPassword(false);
 		}
 	}
 

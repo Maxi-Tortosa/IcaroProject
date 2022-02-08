@@ -1,13 +1,11 @@
 import styled from 'styled-components';
-import { useState, useContext } from 'react';
-import { projectContext } from '../../Context/ProjectContext';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import IngresaBttn from '../Buttons/IngresaBttn';
 import theme from '../../Theme/base';
 
 const Header = ({ setIsModalOpen }) => {
 	const [isScroll, setIsScroll] = useState(false);
-	const {} = useContext(projectContext);
 
 	window.addEventListener('scroll', changeNavColor);
 
