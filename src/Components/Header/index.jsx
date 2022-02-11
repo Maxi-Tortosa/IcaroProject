@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import IngresaBttn from '../Buttons/IngresaBttn';
 import theme from '../../Theme/base';
 
-const Header = ({ setIsModalOpen }) => {
+const Header = ({ setIsLoginOpen }) => {
 	const [isScroll, setIsScroll] = useState(false);
 
 	window.addEventListener('scroll', changeNavColor);
@@ -35,7 +35,7 @@ const Header = ({ setIsModalOpen }) => {
 					</li>
 				</ul>
 
-				<IngresaBttn setIsModalOpen={setIsModalOpen} />
+				<IngresaBttn setIsLoginOpen={setIsLoginOpen} />
 			</div>
 		</Container>
 	);

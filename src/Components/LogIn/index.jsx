@@ -4,7 +4,7 @@ import auth from '../../Firebase';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-const LogIn = ({ setIsModalOpen }) => {
+const LogIn = ({ setIsLoginOpen }) => {
 	const { setIsLogin } = useContext(projectContext);
 
 	const [userEmail, setUserEmail] = useState('');
@@ -76,10 +76,13 @@ const LogIn = ({ setIsModalOpen }) => {
 					<button className='submit' type='submit' onClick={handleSubmit}>
 						Inicia sesión
 					</button>
-					<Link className='register' to='/register'>
+					<Link
+						onClick={() => setIsLoginOpen(false)}
+						className='register'
+						to='/register'>
 						¿No tenés cuenta? Únete a Icaro{' '}
 					</Link>
-					<button className='close' onClick={() => setIsModalOpen(false)}>
+					<button className='close' onClick={() => setIsLoginOpen(false)}>
 						{' '}
 						x{' '}
 					</button>
@@ -93,7 +96,6 @@ export default LogIn;
 
 const Container = styled.div`
 position: fixed;
-
 width: 100%;
 height: 100vh;
 z-index: 3;

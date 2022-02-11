@@ -10,13 +10,13 @@ import Footer from './Components/Footer';
 import LogIn from './Components/LogIn';
 
 function App() {
-	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [isLoginOpen, setIsLoginOpen] = useState(false);
 
 	return (
 		<Router>
 			<ProjectContext>
-				<Header setIsModalOpen={setIsModalOpen} />
-				{isModalOpen ? <LogIn setIsModalOpen={setIsModalOpen} /> : null}
+				<Header setIsLoginOpen={setIsLoginOpen} />
+				{isLoginOpen ? <LogIn setIsLoginOpen={setIsLoginOpen} /> : null}
 				<Switch>
 					<Route exact path='/'>
 						<HomeContainer />

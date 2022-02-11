@@ -98,65 +98,60 @@ const Register = ({ history }) => {
 	//chequear que sean required los inputs y que no te dejen hacer el submit si no esta completo todo
 	return (
 		<Container>
-			<form id='form'>
-				<p>This is the register page</p>
-				<label htmlFor='name'>Nombre *</label>
+			<div className='registerImage'></div>
+			<div className='registerData' id='form'>
+				<p>Únete a Ícaro</p>
+				<label htmlFor='name'>Nombre</label>
 				<input
 					id='name'
 					name='name'
 					type='text'
-					placeholder='Nombre'
 					onChange={(e) => handleChange(e.target.name, e.target.value)}
 				/>
-				<label htmlFor='lastname'>Apellido *</label>
+				<label htmlFor='lastname'>Apellido</label>
 				<input
 					id='lastname'
 					name='lastname'
 					type='text'
-					placeholder='apellido'
 					onChange={(e) => handleChange(e.target.name, e.target.value)}
 				/>
-				<label htmlFor='email'>Email *</label>
+				<label htmlFor='email'>Email</label>
 				<input
 					id='email'
 					name='email'
 					type='text'
-					placeholder='email'
 					onChange={(e) => handleChange(e.target.name, e.target.value)}
 				/>
-				<label htmlFor='dni'>DNI *</label>
+				<label htmlFor='dni'>DNI</label>
 				<input
 					id='dni'
 					name='dni'
-					type='number'
-					placeholder='dni'
+					type='text'
 					onChange={(e) => handleChange(e.target.name, e.target.value)}
 				/>
-				<label htmlFor='phonenumber'>Telefono *</label>
+				<label htmlFor='phonenumber'>Telefono</label>
 				<input
 					id='phonenumber'
 					name='phonenumber'
 					type='number'
-					placeholder='telefono'
 					onChange={(e) => handleChange(e.target.name, e.target.value)}
 				/>
-				<label htmlFor='password'>Contrasena *</label>
+				<label htmlFor='password'>Contrasena</label>
 				<input
 					id='password'
 					name='password'
 					type='password'
-					placeholder='contrasena'
 					onChange={(e) => handleChange(e.target.name, e.target.value)}
 				/>
 				{alertErrorPassword && <p>La Contrasenia debe ser mayor a 6 digitos</p>}
-				<label htmlFor='personalInformation'>Informacion Profesional *</label>
-				<input
+				<label htmlFor='personalInformation'>Informacion Profesional</label>
+				<textarea
 					id='personalInformation'
 					name='personalInformation'
-					type='text'
-					placeholder='informacion-profesional'
-					onChange={(e) => handleChange(e.target.name, e.target.value)}
-				/>
+					rows='6'
+					onChange={(e) =>
+						handleChange(e.target.name, e.target.value)
+					}></textarea>
 
 				<button
 					className='unirme'
@@ -165,7 +160,7 @@ const Register = ({ history }) => {
 					onClick={handleSubmit}>
 					Unirme
 				</button>
-			</form>
+			</div>
 		</Container>
 	);
 };
@@ -173,17 +168,94 @@ const Register = ({ history }) => {
 export default Register;
 
 const Container = styled.div`
-	max-width: 1200px;
-	height: 70vh;
-	margin: 5% auto;
-	display: flex;
-	align-items: center;
-	form {
-		display: flex;
-		flex-direction: column;
+max-width: 980px;
+height: 60%;
+max-height:660px;
+width: 90%;
+margin: 0 auto 0 auto;
+padding: 10% 0 10% 0;
+
+
+display:flex;
+flex-direction: row;
+
+.registerImage{background-image:url('./img/registerPage.png');
+background-size: cover;
+width:50%;
+border: 1px solid lightgrey;
+border-right: 0;
+border-radius: 10px 0 0 10px;}
+
+
+.registerData {
+padding:4% 0 4% 0;
+width:50%;
+display:flex;
+flex-direction: column;
+border: 1px solid lightgrey;
+
+border-radius: 0 10px 10px 0;
+
+p{font-weight: 700;
+	font-size: 1.25rem;
+	line-height: 1.5rem;
+margin-bottom: 3.5%;}
+
+label{font-size: 1rem;
+			line-height:	1.5rem;
+			
+				}
+
+				input {border-radius: 5px;
+					border: 1px solid #E6E6E6;
+				height: 1.75rem;
+				margin-bottom: 1%;
+				padding: 0;
+				}
+
+					input:focus{
+					border: 2px solid blue;
+					outline:none;
+					border-radius: 5px;
+					font-size:1rem;
+					font-family: 'Montserrat', sans-serif;
+				
+				}
+
+				input:placeholder { display: none !important;}
+				
+				textarea{border-radius: 5px;
+					border: 1px solid #E6E6E6;				
+				margin-bottom: 1%;
+				}
+
+				textarea:focus{
+					border: 2px solid blue;
+					outline:none;
+					border-radius: 5px;
+					font-size:1rem;
+					font-family: 'Montserrat', sans-serif;
+				
+				}
+
+}
+
+.registerData > * {width:73%;
+	margin: 0 auto;
+  font-family: 'Montserrat', sans-serif; }
+	
 
 		.unirme {
-			width: 30%;
+			height: 2.8rem;
+		background: #1744FF;
+		border-radius: 10px;
+    border:unset;
+		color: white;
+		font-family: 'Montserrat', sans-serif;
+		font-size: 1.25rem;
+		line-height: 1.5rem;
+		font-weight: 500;
+		margin-top: 2%;
 		}
 	}
 `;

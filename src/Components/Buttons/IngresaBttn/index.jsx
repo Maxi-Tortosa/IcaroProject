@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import theme from '../../../Theme/base';
 
-const IngresaBttn = ({ setIsModalOpen }) => {
+const IngresaBttn = ({ setIsLoginOpen }) => {
 	const handleClick = () => {
-		setIsModalOpen(true);
+		setIsLoginOpen(true);
 	};
 
 	return (
