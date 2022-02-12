@@ -74,6 +74,9 @@ const TitleContainer = styled(Link)`
 	width: 80%;
 	margin: auto;
 	text-decoration: none;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 
 	&:focus,
 	&:hover,
@@ -96,6 +99,7 @@ const CardTitle = styled.h5`
 `
 const CardContent = styled.div`
 	padding: ${({ isProximos }) => (isProximos ? "0px" : "20px")};
+	height: 150px;
 
 	p {
 		font-size: 1rem;

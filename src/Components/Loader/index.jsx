@@ -1,4 +1,3 @@
-import react from "react"
 import styled from "styled-components"
 import theme from "../../Theme/base"
 
