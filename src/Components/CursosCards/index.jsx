@@ -3,6 +3,7 @@ import styled from "styled-components"
 import Card from "./Card"
 import { projectContext } from "../../Context/ProjectContext"
 import theme from "../../Theme/base"
+import Loader from "../Loader"
 
 const CursosCards = ({ isProximos }) => {
 	const { course, setCourse } = useContext(projectContext)
@@ -13,11 +14,21 @@ const CursosCards = ({ isProximos }) => {
 	const [selectedCategorie, setSelectedCategorie] = useState(
 		categories.length > 0 ? categories[0].Nombre : "Programación"
 	)
+	// const [position, setPosition] = useState(500)
+	// console.log(position)
+
+	// useEffect(() => {
+	// 	// setPosition(500)
+	// 	setTimeout(() => {
+	// 		setPosition(0)
+	// 	}, 300)
+	// }, [selectedCategorie])
 
 	useEffect(() => {
 		if (course.length > 0 || categories.length > 0) {
 			window.localStorage.setItem("localCursos", JSON.stringify(course))
 			setPending(false)
+			// setPosition(0)
 		}
 	}, [course, categories])
 
@@ -59,7 +70,10 @@ const CursosCards = ({ isProximos }) => {
 	const toggleTab = (index, nombre) => {
 		setToggleState(index)
 		setSelectedCategorie(nombre)
+		// setPosition(500)
 	}
+
+	if (pending) return <Loader />
 
 	return (
 		<MainContainer id={isProximos ? "proximos" : "cursos"}>
@@ -71,29 +85,21 @@ const CursosCards = ({ isProximos }) => {
 				)}
 
 				<Categories>
-					{pending ? (
-						<p>loading...</p>
-					) : (
-						getCategorias().map(({ Nombre, CategoriaID }, index) => (
-							<Category
-								id={CategoriaID}
-								onClick={() => toggleTab(index, Nombre)}
-								key={index}
-								isActive={toggleState === index}
-							>
-								{Nombre}
-							</Category>
-						))
-					)}
+					{getCategorias().map(({ Nombre, CategoriaID }, index) => (
+						<Category
+							id={CategoriaID}
+							onClick={() => toggleTab(index, Nombre)}
+							key={index}
+							isActive={toggleState === index}
+						>
+							{Nombre}
+						</Category>
+					))}
 				</Categories>
 				<CardsContainer isProximos={isProximos}>
-					{pending ? (
-						<p>loading...</p>
-					) : (
-						getSelectedCourses().map((elem) => (
-							<Card isProximos={isProximos} info={elem} />
-						))
-					)}
+					{getSelectedCourses().map((elem) => (
+						<Card isProximos={isProximos} info={elem} />
+					))}
 				</CardsContainer>
 			</Container>
 		</MainContainer>
@@ -145,14 +151,21 @@ const Category = styled.button`
 	border: none;
 	background-color: ${theme.color.white};
 
-	color: ${({ isActive }) => (isActive ? theme.color.white : "#282828")};
-	${({ isActive }) => isActive && `background: ${theme.color.gradient}`};
+	color: ${({ isActive }) =>
+		isActive ? theme.color.white : theme.color.blackish};
+	background: ${({ isActive }) =>
+		isActive ? theme.color.gradient : theme.color.white};
+	/* transition: background 1s ease-out; */
 `
 const CardsContainer = styled.div`
 	width: 100%;
+	margin-left: ${({ containerPosition }) =>
+		containerPosition > 0 && containerPosition}px;
+	transition: margin 1s;
 	display: flex;
 	flex-direction: row;
-	${({ isProximos }) => isProximos && "justify-content: center;"}
+	${({ isProximos }) =>
+		isProximos ? "justify-content: center;" : "gap: 40px;"}
 	/* justify-content: center; */
 	flex-wrap: wrap;
 `
