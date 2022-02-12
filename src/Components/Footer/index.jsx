@@ -6,7 +6,7 @@ import theme from "../../Theme/base"
 import Loader from "../Loader"
 
 const Footer = () => {
-	const { footerContent, setFooterContent } = useContext(mainFooterContext)
+	const { footerContent } = useContext(mainFooterContext)
 	const [pending, setPending] = useState(true)
 
 	// const [content, setContent] = useState("")
@@ -59,7 +59,7 @@ const Footer = () => {
 										if (url) {
 											return (
 												<>
-													<FooterAnchor href={url} icono={icono}>
+													<FooterAnchor key={index} href={url} icono={icono}>
 														{icono && (
 															<IconImg
 																src={`./img/${icono}-icon.png`}
@@ -120,7 +120,6 @@ const ContentContainer = styled.div`
 const ColumnContainer = styled.div`
 	/* margin: 0 20px; */
 	flex: 1;
-	/* max-width: 150px; */
 `
 
 const FooterTitle = styled.h3`

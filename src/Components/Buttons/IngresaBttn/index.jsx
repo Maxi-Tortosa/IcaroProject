@@ -1,21 +1,19 @@
-import styled from "styled-components"
-import { useContext } from "react"
-import { projectContext } from "../../../Context/ProjectContext"
-import theme from "../../../Theme/base"
+import styled from 'styled-components';
+import theme from '../../../Theme/base';
 
-const IngresaBttn = ({ setIsModalOpen }) => {
+const IngresaBttn = ({ setIsLoginOpen }) => {
 	const handleClick = () => {
-		setIsModalOpen(true)
-	}
+		setIsLoginOpen(true);
+	};
 
 	return (
 		<>
-			<StyledButton className="ingresa" onClick={handleClick}>
+			<StyledButton className='ingresa' onClick={handleClick}>
 				Ingresá
 			</StyledButton>
 		</>
-	)
-}
+	);
+};
 
 const StyledButton = styled.button`
 	font-family: ${theme.fontFamily.primary};
@@ -37,6 +35,6 @@ const StyledButton = styled.button`
 
 		background-position: 160px;
 	}
-`
+`;
 
-export default IngresaBttn
+export default IngresaBttn;

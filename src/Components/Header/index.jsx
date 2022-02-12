@@ -1,54 +1,52 @@
-import styled from "styled-components"
-import { useState, useContext } from "react"
-import { projectContext } from "../../Context/ProjectContext"
-import { Link } from "react-router-dom"
-import IngresaBttn from "../Buttons/IngresaBttn"
-import theme from "../../Theme/base"
+import styled from 'styled-components';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import IngresaBttn from '../Buttons/IngresaBttn';
+import theme from '../../Theme/base';
 
-const Header = ({ setIsModalOpen }) => {
-	const [isScroll, setIsScroll] = useState(false)
-	const {} = useContext(projectContext)
+const Header = ({ setIsLoginOpen }) => {
+	const [isScroll, setIsScroll] = useState(false);
 
-	window.addEventListener("scroll", changeNavColor)
+	window.addEventListener('scroll', changeNavColor);
 
 	function changeNavColor() {
 		if (window.scrollY >= 85) {
-			setIsScroll(true)
+			setIsScroll(true);
 		} else {
-			setIsScroll(false)
+			setIsScroll(false);
 		}
 	}
 
 	return (
 		<Container isScroll={isScroll}>
-			<div className="header">
-				<Link to="/" className="logo">
-					<img src="./img/logo.svg" alt="Logo de Ícaro" />
+			<div className='header'>
+				<Link to='/' className='logo'>
+					<img src='./img/logo.svg' alt='Logo de Ícaro' />
 				</Link>
-				<ul className="menu">
+				<ul className='menu'>
 					<li>
-						<CenterLinks to={"/#cursos"}>Cursos</CenterLinks>
+						<CenterLinks to={'/#cursos'}>Cursos</CenterLinks>
 					</li>
 					<li>
-						<CenterLinks to={"/quienes-somos"}>Quiénes somos</CenterLinks>
+						<CenterLinks to={'/quienes-somos'}>Quiénes somos</CenterLinks>
 					</li>
 					<li>
-						<CenterLinks to={"/contacto"}>Contacto</CenterLinks>
+						<CenterLinks to={'/contacto'}>Contacto</CenterLinks>
 					</li>
 				</ul>
 
-				<IngresaBttn setIsModalOpen={setIsModalOpen} />
+				<IngresaBttn setIsLoginOpen={setIsLoginOpen} />
 			</div>
 		</Container>
-	)
-}
+	);
+};
 
-export default Header
+export default Header;
 
 const Container = styled.div`
 	font-family: ${theme.fontFamily.primary};
 	width: 100%;
-	background-color: ${({ isScroll }) => (isScroll ? "grey" : " transparent")};
+	background-color: ${({ isScroll }) => (isScroll ? 'grey' : ' transparent')};
 	transition: all 0.3s ease-out 0s;
 	position: fixed;
 	top: 0;
@@ -90,7 +88,7 @@ const Container = styled.div`
 			margin: 0;
 		}
 	}
-`
+`;
 const CenterLinks = styled(Link)`
 	text-decoration: none;
 	color: #fff;
@@ -106,11 +104,11 @@ const CenterLinks = styled(Link)`
 	}
 
 	&::after {
-		content: "";
+		content: '';
 		display: block;
 		width: 0;
 		height: 3px;
 		background: #fff;
 		transition: width 0.3s;
 	}
-`
+`;

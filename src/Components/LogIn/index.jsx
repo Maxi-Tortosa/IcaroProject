@@ -1,11 +1,11 @@
 import { useState, useContext } from 'react';
 import { projectContext } from '../../Context/ProjectContext';
-import { getAuth } from '../../Firebase';
-import { Link, Router } from 'react-router-dom';
+import auth from '../../Firebase';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-const LogIn = ({ setIsModalOpen }) => {
-	const { course, setCourse, isLogin, setIsLogin } = useContext(projectContext);
+const LogIn = ({ setIsLoginOpen }) => {
+	const { setIsLogin } = useContext(projectContext);
 
 	const [userEmail, setUserEmail] = useState('');
 	const [userPassword, setUserPassword] = useState();
@@ -27,7 +27,7 @@ const LogIn = ({ setIsModalOpen }) => {
 
 	const ifMatch = (userEmail, userPassword) => {
 		/* Quedó terminado el inicio de sesión con Firebase */
-		getAuth()
+		auth
 			.signInWithEmailAndPassword(userEmail, userPassword)
 			.then(() => {
 				setUserEmail('');
@@ -76,12 +76,15 @@ const LogIn = ({ setIsModalOpen }) => {
 					<button className='submit' type='submit' onClick={handleSubmit}>
 						Inicia sesión
 					</button>
-					<Link className='register' to='/register'>
+					<Link
+						onClick={() => setIsLoginOpen(false)}
+						className='register'
+						to='/register'>
 						¿No tenés cuenta? Únete a Icaro{' '}
 					</Link>
-					<button className='close' onClick={() => setIsModalOpen(false)}>
+					<button className='close' onClick={() => setIsLoginOpen(false)}>
 						{' '}
-						X{' '}
+						x{' '}
 					</button>
 				</div>
 			</div>
@@ -93,7 +96,6 @@ export default LogIn;
 
 const Container = styled.div`
 position: fixed;
-
 width: 100%;
 height: 100vh;
 z-index: 3;
@@ -188,6 +190,8 @@ font-family: 'Montserrat', sans-serif;
 		position: absolute;
 		bottom:92%;
 	  left: 60%}
+
+		.close:hover{cursor:pointer}
 
 	}
 

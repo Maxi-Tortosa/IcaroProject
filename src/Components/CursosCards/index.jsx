@@ -6,8 +6,8 @@ import theme from "../../Theme/base"
 import Loader from "../Loader"
 
 const CursosCards = ({ isProximos }) => {
-	const { course, setCourse } = useContext(projectContext)
-	const { categories, setCategories } = useContext(projectContext)
+	const { course } = useContext(projectContext)
+	const { categories } = useContext(projectContext)
 
 	const [pending, setPending] = useState(true)
 	const [toggleState, setToggleState] = useState(0)

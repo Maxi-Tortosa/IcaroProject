@@ -3,16 +3,15 @@ import theme from "../../../Theme/base"
 import { Link } from "react-router-dom"
 
 const Card = ({ isProximos, info }) => {
-	const { clasesSemanales, duracion, duracionClase, duracionTotal, modalidad } =
-		info.detalles
+	const { clasesSemanales, duracion, modalidad } = info.detalles
 
 	return (
 		<CardContainer isProximos={isProximos}>
 			<TitleContainer
 				to={`/cursos/${info.href}`}
-				categoriaColor={info.CategoriaID}
+				categoriacolor={info.CategoriaID}
 			>
-				<CardTitle isProximos={isProximos} categoriaColor={info.CategoriaID}>
+				<CardTitle isProximos={isProximos} categoriacolor={info.CategoriaID}>
 					{info.nombre}
 				</CardTitle>
 			</TitleContainer>
@@ -82,8 +81,8 @@ const TitleContainer = styled(Link)`
 	&:link,
 	&:active {
 		text-decoration: none;
-		color: ${({ isProximos, categoriaColor }) =>
-			isProximos ? theme.color.black : theme.categories[categoriaColor]};
+		color: ${({ isProximos, categoriacolor }) =>
+			isProximos ? theme.color.black : theme.categories[categoriacolor]};
 	}
 `
 
@@ -92,8 +91,8 @@ const CardTitle = styled.h5`
 	font-size: 1.12rem;
 	text-align: center;
 
-	color: ${({ isProximos, categoriaColor }) =>
-		isProximos ? theme.color.black : theme.categories[categoriaColor]};
+	color: ${({ isProximos, categoriacolor }) =>
+		isProximos ? theme.color.black : theme.categories[categoriacolor]};
 `
 const CardContent = styled.div`
 	padding: ${({ isProximos }) => (isProximos ? "0px" : "20px")};
