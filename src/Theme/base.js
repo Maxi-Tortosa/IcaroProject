@@ -3,6 +3,7 @@ const theme = {
 		blue: "#17ABFF",
 		black: "#000",
 		white: "#FFF",
+		blackish: "#282828",
 		gradient: "linear-gradient(90deg,#179cff 0%,#1743ff 100.01%)",
 		oppositeGradient: "linear-gradient(90deg,#1743ff 0%,#179cff 100.01%)",
 		verticalGradient:
@@ -10,6 +11,7 @@ const theme = {
 	},
 	shadow: {
 		boxShadow: " 0px 4px 8px rgba(0, 0, 0, 0.15)",
+		boxShadowDarker: " 0px 4px 8px rgba(0, 0, 0, 0.5)",
 	},
 	categories: {
 		herrDig: "#88106E",

@@ -3,6 +3,7 @@ import { useContext, useState, useEffect } from "react"
 import styled from "styled-components"
 import { mainFooterContext } from "../../Context/FooterContext"
 import theme from "../../Theme/base"
+import Loader from "../Loader"
 
 const Footer = () => {
 	const { footerContent, setFooterContent } = useContext(mainFooterContext)
@@ -44,7 +45,7 @@ const Footer = () => {
 		<FooterContainer>
 			<ContentContainer>
 				{pending ? (
-					<p>loading...</p>
+					<Loader />
 				) : (
 					getFooterContent().map((element, index) => {
 						const { Titulo, links } = element
