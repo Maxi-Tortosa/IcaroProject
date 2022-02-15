@@ -152,7 +152,7 @@ const Category = styled.button`
 	background-color: ${theme.color.white};
 
 	color: ${({ isActive }) =>
-		isActive ? theme.color.white : theme.color.blackish};
+		isActive ? theme.color.white : theme.color.darkGrey};
 	background: ${({ isActive }) =>
 		isActive ? theme.color.gradient : theme.color.white};
 	/* transition: background 1s ease-out; */

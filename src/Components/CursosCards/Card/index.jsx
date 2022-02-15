@@ -9,9 +9,9 @@ const Card = ({ isProximos, info }) => {
 		<CardContainer isProximos={isProximos}>
 			<TitleContainer
 				to={`/cursos/${info.href}`}
-				categoriacolor={info.CategoriaID}
+				categoriaColor={info.CategoriaID}
 			>
-				<CardTitle isProximos={isProximos} categoriacolor={info.CategoriaID}>
+				<CardTitle isProximos={isProximos} categoriaColor={info.CategoriaID}>
 					{info.nombre}
 				</CardTitle>
 			</TitleContainer>
@@ -53,8 +53,7 @@ export default Card
 
 const CardContainer = styled.div`
 	width: ${({ isProximos }) => (isProximos ? "29%" : "20%")};
-	/* margin: 10px 20px; */
-	/* ${({ isProximos }) => (isProximos ? "29%" : "20%")}; */
+
 	${({ isProximos }) => isProximos && "padding-top: 30px;  margin: 10px 20px;"}
 	background: #ffffff;
 	box-shadow: ${theme.shadow.boxShadow};
@@ -63,20 +62,20 @@ const CardContainer = styled.div`
 	flex-direction: column;
 	font-family: ${theme.fontFamily.primary};
 	justify-content: space-between;
-
+	/* 
 	&:hover {
 		box-shadow: ${theme.shadow.boxShadowDarker};
 		transition: box-shadow 1s ease-out;
-	}
+	} */
 `
 const TitleContainer = styled(Link)`
 	background-color: ${theme.color.white};
 	width: 80%;
 	margin: auto;
 	text-decoration: none;
-	display: flex;
+	/* display: flex;
 	justify-content: center;
-	align-items: center;
+	align-items: center; */
 
 	&:focus,
 	&:hover,
@@ -84,8 +83,8 @@ const TitleContainer = styled(Link)`
 	&:link,
 	&:active {
 		text-decoration: none;
-		color: ${({ isProximos, categoriacolor }) =>
-			isProximos ? theme.color.black : theme.categories[categoriacolor]};
+		color: ${({ isProximos, categoriaColor }) =>
+			isProximos ? theme.color.black : theme.categories[categoriaColor]};
 	}
 `
 
@@ -94,12 +93,12 @@ const CardTitle = styled.h5`
 	font-size: 1.12rem;
 	text-align: center;
 
-	color: ${({ isProximos, categoriacolor }) =>
-		isProximos ? theme.color.black : theme.categories[categoriacolor]};
+	color: ${({ isProximos, categoriaColor }) =>
+		isProximos ? theme.color.black : theme.categories[categoriaColor]};
 `
 const CardContent = styled.div`
 	padding: ${({ isProximos }) => (isProximos ? "0px" : "20px")};
-	height: 150px;
+	/* height: 150px; */
 
 	p {
 		font-size: 1rem;

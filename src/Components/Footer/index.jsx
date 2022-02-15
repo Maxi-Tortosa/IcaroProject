@@ -3,6 +3,7 @@ import { useContext, useState, useEffect } from "react"
 import styled from "styled-components"
 import { mainFooterContext } from "../../Context/FooterContext"
 import theme from "../../Theme/base"
+import EnviaBttn from "../Buttons/EnviaBttn"
 import Loader from "../Loader"
 
 const Footer = () => {
@@ -49,13 +50,11 @@ const Footer = () => {
 				) : (
 					getFooterContent().map((element, index) => {
 						const { Titulo, links } = element
-						// console.log("ele", element, links)
 						return (
 							<ColumnContainer key={index}>
 								<FooterTitle>{Titulo}</FooterTitle>
 								{links &&
 									links.map(({ nombre, url, icono, placeholder }, index) => {
-										console.log("content", nombre, icono)
 										if (url) {
 											return (
 												<>
@@ -78,14 +77,7 @@ const Footer = () => {
 													</FooterParragraph>
 													<EmailForm>
 														<input type="text" placeholder={placeholder} />
-														<SendButton
-															type="submit"
-															onClick={(e) => {
-																e.preventDefault()
-															}}
-														>
-															Enviar
-														</SendButton>
+														<EnviaBttn padding=" 5px 10px" />
 													</EmailForm>
 												</>
 											)
@@ -167,13 +159,6 @@ const FooterAnchor = styled.a`
 
 const EmailForm = styled.form`
 	display: flex;
-`
-
-const SendButton = styled.button`
-	background-color: #1744ff;
-	color: white;
-	padding: 5px 10px;
-	border: none;
 `
 
 export default Footer
