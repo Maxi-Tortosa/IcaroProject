@@ -1,5 +1,4 @@
 import styled from "styled-components"
-import { hexcodeToRGBA } from "../../../Helpers/colors"
 import theme from "../../../Theme/base"
 
 const CursosData = ({ course }) => {

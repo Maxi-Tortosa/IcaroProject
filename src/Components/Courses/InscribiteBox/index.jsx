@@ -2,7 +2,7 @@ import theme from "../../../Theme/base"
 import styled from "styled-components"
 
 const InscribiteBox = ({ course }) => {
-	const { CategoriaID, categoria, detalles, href, nombre } = course
+	const { CategoriaID } = course
 
 	return (
 		<InscribiteBoxContainer>

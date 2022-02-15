@@ -3,7 +3,7 @@ import { hexcodeToRGBA } from "../../../Helpers/colors"
 import theme from "../../../Theme/base"
 
 const CoursesBanner = ({ src, course }) => {
-	const { CategoriaID, categoria, detalles, href, nombre } = course
+	const { CategoriaID, nombre } = course
 	return (
 		<ImageContainer src={src} colorFilter={CategoriaID}>
 			<StyledTextContainer>
