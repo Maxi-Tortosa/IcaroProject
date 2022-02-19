@@ -1,25 +1,25 @@
-import styled from "styled-components"
-import { Link } from "react-router-dom"
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const Banners = () => {
 	return (
 		<Container>
-			<div className="banner1">
-				<StyledLink to="/">
+			<div className='banner1'>
+				<StyledLink to='/'>
 					<h2>Enseñá con ICARO</h2>
 				</StyledLink>
 				{/* Ver de meter las imágenes opacas ya desde el origen */}
 			</div>
-			<div className="banner2">
-				<StyledLink to="/">
+			<div className='banner2'>
+				<StyledLink to='/'>
 					<h2>ICARO in company</h2>
 				</StyledLink>
 			</div>
 		</Container>
-	)
-}
+	);
+};
 
-export default Banners
+export default Banners;
 
 const Container = styled.div`
 	display: flex;
@@ -38,20 +38,20 @@ const Container = styled.div`
 		align-items: center;
 
 		h2 {
-			font-family: "Montserrat", sans-serif !important;
+			font-family: 'Montserrat', sans-serif !important;
 			position: relative;
 			z-index: 2;
-			width: 50%;
+			width: 65%;
 			color: white;
 			font-weight: 900;
 			font-size: 2.5rem;
 			line-height: 2.5rem;
 			text-align: center;
-			margin: 24% 0 24% 0;
+			margin: 24% auto 24% auto;
 		}
 	}
 	.banner1:before {
-		content: "";
+		content: '';
 		display: block;
 		position: absolute;
 		left: 0;
@@ -60,7 +60,7 @@ const Container = styled.div`
 		height: 100%;
 		z-index: 2;
 		opacity: 0.6;
-		background-image: url("./img/banner1.png");
+		background-image: url('./img/banner1.png');
 		background-position: center;
 		background-size: cover;
 	}
@@ -74,7 +74,7 @@ const Container = styled.div`
 		align-items: center;
 
 		h2 {
-			font-family: "Montserrat", sans-serif !important;
+			font-family: 'Montserrat', sans-serif !important;
 			position: relative;
 			z-index: 2;
 			width: 50%;
@@ -83,11 +83,11 @@ const Container = styled.div`
 			font-size: 40px;
 			line-height: 40px;
 			text-align: center;
-			margin: 24% 0 24% 0;
+			margin: 24% auto 24% auto;
 		}
 	}
 	.banner2:before {
-		content: "";
+		content: '';
 		display: block;
 		position: absolute;
 		left: 0;
@@ -96,11 +96,11 @@ const Container = styled.div`
 		height: 100%;
 		z-index: 1;
 		opacity: 0.6;
-		background-image: url("./img/banner2.png");
+		background-image: url('./img/banner2.png');
 		background-position: center;
 		background-size: cover;
 	}
-`
+`;
 const StyledLink = styled(Link)`
 	text-decoration: none !important;
-`
+`;
