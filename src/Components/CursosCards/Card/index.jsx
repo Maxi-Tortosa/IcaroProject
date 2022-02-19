@@ -53,8 +53,7 @@ export default Card
 
 const CardContainer = styled.div`
 	width: ${({ isProximos }) => (isProximos ? "29%" : "20%")};
-
-	${({ isProximos }) => isProximos && "padding-top: 30px;  margin: 10px 20px;"}
+	/* ${({ isProximos }) => isProximos && "  margin: 10px 20px;"} */
 	background: #ffffff;
 	box-shadow: ${theme.shadow.boxShadow};
 	border-radius: 10px;
@@ -93,8 +92,7 @@ const CardTitle = styled.h5`
 	font-size: 1.12rem;
 	text-align: center;
 
-	color: ${({ isProximos, categoriaColor }) =>
-		isProximos ? theme.color.black : theme.categories[categoriaColor]};
+	color: ${({ categoriaColor }) => theme.categories[categoriaColor]};
 `
 const CardContent = styled.div`
 	padding: ${({ isProximos }) => (isProximos ? "0px" : "20px")};

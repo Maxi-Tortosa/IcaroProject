@@ -4,6 +4,7 @@ import theme from "../../../Theme/base"
 
 const CoursesBanner = ({ src, course }) => {
 	const { CategoriaID, nombre } = course
+	// console.log("course", course)
 	return (
 		<ImageContainer src={src} colorFilter={CategoriaID}>
 			<StyledTextContainer>
@@ -11,9 +12,9 @@ const CoursesBanner = ({ src, course }) => {
 				<StyledH1>{nombre}</StyledH1>
 
 				<StyledParragraph>
-					"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-					eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-					minim veniam,
+					{course.detalles.descripcion
+						? course.detalles.descripcion
+						: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"}
 				</StyledParragraph>
 			</StyledTextContainer>
 		</ImageContainer>

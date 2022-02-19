@@ -9,6 +9,8 @@ import GreyBkgr from "../../Components/Backgrounds"
 import CursosData from "../../Components/Courses/CursosData"
 import InscribiteBox from "../../Components/Courses/InscribiteBox"
 import MasInfoBox from "../../Components/Courses/MasInfoBox"
+import IconsInformation from "../../Components/Courses/IconsInformation"
+import StudentProgram from "../../Components/Courses/StudentProgram"
 
 const image = "/img/cursos-banner.png"
 
@@ -30,17 +32,20 @@ const CoursesPages = () => {
 		return <Loader />
 	}
 
-	console.log("selectedCourse", selectedCourse)
+	// console.log("selectedCourse", selectedCourse)
 
 	return (
 		<>
 			<CoursesBanner src={image} course={selectedCourse} />
 
-			<GreyBkgr height={500}>
+			<GreyBkgr height={1000}>
 				<FlexContent>
 					<LeftContent>
 						<CursosData course={selectedCourse} />
 						<InscribiteBox course={selectedCourse} />
+						<IconsInformation course={selectedCourse} />
+						<Spacer height={75} />
+						<StudentProgram course={selectedCourse} />
 					</LeftContent>
 					<RightContent>
 						<MasInfoBox course={selectedCourse} />
@@ -55,6 +60,7 @@ const CoursesPages = () => {
 const FlexContent = styled.div`
 	display: flex;
 	gap: 30px;
+	height: 100%;
 	/* max-width: 1095px; */
 	width: 80%;
 	margin: auto;

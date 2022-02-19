@@ -1,5 +1,6 @@
 import theme from "../../../Theme/base"
 import styled from "styled-components"
+import LinearBttn from "../../Buttons/LinearBttn"
 
 const InscribiteBox = ({ course }) => {
 	const { CategoriaID } = course
@@ -24,7 +25,7 @@ const InscribiteBox = ({ course }) => {
 						<TableColumn>2 meses</TableColumn>
 						<TableColumn>Martes y jueves de 20 a 22 Hs.</TableColumn>
 						<TableColumn>
-							<InscribirmeBtn>Inscribirme</InscribirmeBtn>
+							<LinearBttn>Inscribirme</LinearBttn>
 						</TableColumn>
 					</TableRow>
 					<TableRow>
@@ -32,7 +33,7 @@ const InscribiteBox = ({ course }) => {
 						<TableColumn>2 meses</TableColumn>
 						<TableColumn>Martes y jueves de 20 a 22 Hs.</TableColumn>
 						<TableColumn>
-							<InscribirmeBtn>Inscribirme</InscribirmeBtn>
+							<LinearBttn>Inscribirme</LinearBttn>
 						</TableColumn>
 					</TableRow>
 					<TableRow>
@@ -40,7 +41,7 @@ const InscribiteBox = ({ course }) => {
 						<TableColumn>2 meses</TableColumn>
 						<TableColumn>Martes y jueves de 20 a 22 Hs.</TableColumn>
 						<TableColumn>
-							<InscribirmeBtn>Inscribirme</InscribirmeBtn>
+							<LinearBttn>Inscribirme</LinearBttn>
 						</TableColumn>
 					</TableRow>
 				</TableContent>
@@ -50,7 +51,6 @@ const InscribiteBox = ({ course }) => {
 }
 
 const InscribiteBoxContainer = styled.div`
-	/* max-width: 800px; */
 	margin: auto;
 	background: #ffffff;
 	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
@@ -111,21 +111,6 @@ const TableRow = styled.div`
 const TableColumn = styled.div`
 	flex: 1;
 	${({ isHeader }) => !isHeader && `color: ${theme.color.lightGrey};`}
-`
-
-const InscribirmeBtn = styled.button`
-	font-family: ${theme.fontFamily.primary};
-	font-style: normal;
-	font-weight: normal;
-	font-size: 16px;
-	line-height: 24px;
-	text-align: center;
-	color: ${theme.color.blue};
-	background-color: ${theme.color.white};
-	border: 1px solid ${theme.color.blue};
-	border-radius: 10px;
-	padding: 5px 13px;
-	cursor: pointer;
 `
 
 export default InscribiteBox

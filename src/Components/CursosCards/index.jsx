@@ -14,21 +14,11 @@ const CursosCards = ({ isProximos }) => {
 	const [selectedCategorie, setSelectedCategorie] = useState(
 		categories.length > 0 ? categories[0].Nombre : "Programación"
 	)
-	// const [position, setPosition] = useState(500)
-	// console.log(position)
-
-	// useEffect(() => {
-	// 	// setPosition(500)
-	// 	setTimeout(() => {
-	// 		setPosition(0)
-	// 	}, 300)
-	// }, [selectedCategorie])
 
 	useEffect(() => {
 		if (course.length > 0 || categories.length > 0) {
 			window.localStorage.setItem("localCursos", JSON.stringify(course))
 			setPending(false)
-			// setPosition(0)
 		}
 	}, [course, categories])
 
@@ -70,10 +60,7 @@ const CursosCards = ({ isProximos }) => {
 	const toggleTab = (index, nombre) => {
 		setToggleState(index)
 		setSelectedCategorie(nombre)
-		// setPosition(500)
 	}
-
-	if (pending) return <Loader />
 
 	return (
 		<MainContainer id={isProximos ? "proximos" : "cursos"}>
@@ -83,24 +70,29 @@ const CursosCards = ({ isProximos }) => {
 				) : (
 					<Title>Conocé nuestros cursos y diplomaturas</Title>
 				)}
-
-				<Categories>
-					{getCategorias().map(({ Nombre, CategoriaID }, index) => (
-						<Category
-							id={CategoriaID}
-							onClick={() => toggleTab(index, Nombre)}
-							key={index}
-							isActive={toggleState === index}
-						>
-							{Nombre}
-						</Category>
-					))}
-				</Categories>
-				<CardsContainer isProximos={isProximos}>
-					{getSelectedCourses().map((elem) => (
-						<Card isProximos={isProximos} info={elem} />
-					))}
-				</CardsContainer>
+				{pending ? (
+					<Loader />
+				) : (
+					<>
+						<Categories>
+							{getCategorias().map(({ Nombre, CategoriaID }, index) => (
+								<Category
+									id={CategoriaID}
+									onClick={() => toggleTab(index, Nombre)}
+									key={index}
+									isActive={toggleState === index}
+								>
+									{Nombre}
+								</Category>
+							))}
+						</Categories>
+						<CardsContainer isProximos={isProximos}>
+							{getSelectedCourses().map((elem) => (
+								<Card isProximos={isProximos} info={elem} />
+							))}
+						</CardsContainer>
+					</>
+				)}
 			</Container>
 		</MainContainer>
 	)
@@ -164,8 +156,7 @@ const CardsContainer = styled.div`
 	transition: margin 1s;
 	display: flex;
 	flex-direction: row;
-	${({ isProximos }) =>
-		isProximos ? "justify-content: center;" : "gap: 40px;"}
-	/* justify-content: center; */
+	justify-content: center;
+	gap: 40px;
 	flex-wrap: wrap;
 `

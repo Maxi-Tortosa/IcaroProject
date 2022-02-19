@@ -20,8 +20,13 @@ const SendButton = styled.button`
 	${({ margin }) => margin && `margin: ${margin}`};
 	${({ borderRadius }) => borderRadius && `border-radius: ${borderRadius}`};
 	${({ padding }) => padding && `padding: ${padding}`};
-	background-color: ${theme.color.darkBlue};
+	${({ backgroundColor }) =>
+		backgroundColor
+			? `background-color: ${backgroundColor}`
+			: theme.color.darkBlue};
+	${({ color }) => (color ? `color: ${color} !important` : theme.color.white)};
 	color: white;
 	border: none;
+	cursor: pointer;
 `
 export default EnviaBttn

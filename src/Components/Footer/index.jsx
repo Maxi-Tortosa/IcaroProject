@@ -4,7 +4,6 @@ import styled from "styled-components"
 import { mainFooterContext } from "../../Context/FooterContext"
 import theme from "../../Theme/base"
 import EnviaBttn from "../Buttons/EnviaBttn"
-import Loader from "../Loader"
 
 const Footer = () => {
 	const { footerContent } = useContext(mainFooterContext)
@@ -45,48 +44,54 @@ const Footer = () => {
 	return (
 		<FooterContainer>
 			<ContentContainer>
-				{pending ? (
-					<Loader />
-				) : (
-					getFooterContent().map((element, index) => {
-						const { Titulo, links } = element
-						return (
-							<ColumnContainer key={index}>
-								<FooterTitle>{Titulo}</FooterTitle>
-								{links &&
-									links.map(({ nombre, url, icono, placeholder }, index) => {
-										if (url) {
-											return (
-												<>
-													<FooterAnchor key={index} href={url} icono={icono}>
-														{icono && (
-															<IconImg
-																src={`./img/${icono}-icon.png`}
-																alt="icono"
+				{pending
+					? null
+					: getFooterContent().map((element, index) => {
+							const { Titulo, links } = element
+							return (
+								<ColumnContainer key={index}>
+									<FooterTitle>{Titulo}</FooterTitle>
+									{links &&
+										links.map(({ nombre, url, icono, placeholder }, index) => {
+											if (url) {
+												return (
+													<>
+														<FooterAnchor key={index} href={url} icono={icono}>
+															{icono && (
+																<IconImg
+																	key={icono}
+																	src={`./img/${icono}-icon.png`}
+																	alt="icono"
+																/>
+															)}
+															{nombre}
+														</FooterAnchor>
+													</>
+												)
+											} else {
+												return (
+													<>
+														<FooterParragraph key={index}>
+															{nombre} {url}
+														</FooterParragraph>
+														<EmailForm>
+															<StyledInput
+																type="text"
+																placeholder={placeholder}
 															/>
-														)}
-														{nombre}
-													</FooterAnchor>
-												</>
-											)
-										} else {
-											return (
-												<>
-													<FooterParragraph key={index}>
-														{nombre} {url}
-													</FooterParragraph>
-													<EmailForm>
-														<input type="text" placeholder={placeholder} />
-														<EnviaBttn padding=" 5px 10px" />
-													</EmailForm>
-												</>
-											)
-										}
-									})}
-							</ColumnContainer>
-						)
-					})
-				)}
+															<EnviaBttn
+																backgroundColor={theme.color.white}
+																padding=" 5px 10px"
+																color={theme.color.darkBlue}
+															/>
+														</EmailForm>
+													</>
+												)
+											}
+										})}
+								</ColumnContainer>
+							)
+					  })}
 			</ContentContainer>
 		</FooterContainer>
 	)
@@ -94,7 +99,7 @@ const Footer = () => {
 
 const FooterContainer = styled.div`
 	width: 100%;
-	color: #fff;
+	color: ${theme.color.white};
 	min-height: 300px;
 	background: ${theme.color.verticalGradient};
 `
@@ -126,7 +131,7 @@ const FooterTitle = styled.h3`
 `
 const FooterParragraph = styled.p`
 	font-family: ${theme.fontFamily.secondary};
-	color: #fff;
+	color: ${theme.color.white};
 	text-decoration: none;
 	display: block;
 `
@@ -136,7 +141,7 @@ const IconImg = styled.img`
 
 const FooterAnchor = styled.a`
 	font-family: ${theme.fontFamily.secondary};
-	color: #fff;
+	color: ${theme.color.white};
 	/* font-size: ${({ icono }) => (icono ? "18px" : "14px")}; */
 	font-size: 14px;
 	display: ${({ icono }) => (icono ? " flex" : "block")};
@@ -153,12 +158,17 @@ const FooterAnchor = styled.a`
 	&:visited,
 	:active {
 		text-decoration: none;
-		color: #fff;
+		color: ${theme.color.white};
 	}
 `
 
 const EmailForm = styled.form`
 	display: flex;
+	gap: 5px;
+`
+
+const StyledInput = styled.input`
+	border: 1px solid ${theme.color.white};
 `
 
 export default Footer
