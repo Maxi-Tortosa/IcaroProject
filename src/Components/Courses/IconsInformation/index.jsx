@@ -80,48 +80,4 @@ const Details = styled.p`
 	margin: 0px;
 `
 
-const IcribiteContent = styled.div`
-	display: block;
-`
-
-const TableContent = styled.div`
-	padding: 20px 60px 60px 60px;
-`
-const TableHeader = styled.header`
-	display: flex;
-	gap: 30px;
-	text-align: center;
-	font-family: ${theme.fontFamily.tertiary};
-	font-style: normal;
-	font-weight: bold;
-	font-size: 16px;
-	line-height: 24px;
-	color: ${theme.color.blue};
-`
-const TableRow = styled.div`
-	display: flex;
-	text-align: center;
-	gap: 30px;
-	padding: 10px 0;
-`
-const TableColumn = styled.div`
-	flex: 1;
-	${({ isHeader }) => !isHeader && `color: ${theme.color.lightGrey};`}
-`
-
-const InscribirmeBtn = styled.button`
-	font-family: ${theme.fontFamily.primary};
-	font-style: normal;
-	font-weight: normal;
-	font-size: 16px;
-	line-height: 24px;
-	text-align: center;
-	color: ${theme.color.blue};
-	background-color: ${theme.color.white};
-	border: 1px solid ${theme.color.blue};
-	border-radius: 10px;
-	padding: 5px 13px;
-	cursor: pointer;
-`
-
 export default IconsInformation

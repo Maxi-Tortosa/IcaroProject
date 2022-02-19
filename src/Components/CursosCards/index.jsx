@@ -87,8 +87,8 @@ const CursosCards = ({ isProximos }) => {
 							))}
 						</Categories>
 						<CardsContainer isProximos={isProximos}>
-							{getSelectedCourses().map((elem) => (
-								<Card isProximos={isProximos} info={elem} />
+							{getSelectedCourses().map((elem, index) => (
+								<Card isProximos={isProximos} info={elem} key={index} />
 							))}
 						</CardsContainer>
 					</>

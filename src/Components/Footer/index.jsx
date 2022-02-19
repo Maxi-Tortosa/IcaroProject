@@ -50,7 +50,7 @@ const Footer = () => {
 							const { Titulo, links } = element
 							return (
 								<ColumnContainer key={index}>
-									<FooterTitle>{Titulo}</FooterTitle>
+									<FooterTitle key={index}>{Titulo}</FooterTitle>
 									{links &&
 										links.map(({ nombre, url, icono, placeholder }, index) => {
 											if (url) {
@@ -59,7 +59,7 @@ const Footer = () => {
 														<FooterAnchor key={index} href={url} icono={icono}>
 															{icono && (
 																<IconImg
-																	key={icono}
+																	key={index}
 																	src={`./img/${icono}-icon.png`}
 																	alt="icono"
 																/>
