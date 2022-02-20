@@ -23,7 +23,7 @@ const SimilarCourses = ({ course, courseList }) => {
 						info={elem}
 						key={index}
 						width="23%"
-						overrideColor={CategoriaID}
+						overridecolor={CategoriaID}
 					/>
 				))}
 			</CardsContainer>

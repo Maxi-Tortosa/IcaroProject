@@ -38,7 +38,6 @@ const CoursesPages = () => {
 	return (
 		<>
 			<CoursesBanner src={image} course={selectedCourse} />
-
 			<GreyBkgrBottom height={700}>
 				<FlexContent>
 					<LeftContent>
@@ -61,6 +60,7 @@ const CoursesPages = () => {
 
 const FlexContent = styled.div`
 	display: flex;
+	max-width: 1240px;
 	gap: 30px;
 	height: 100%;
 	/* max-width: 1095px; */
