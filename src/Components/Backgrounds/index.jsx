@@ -3,7 +3,7 @@ import theme from "../../Theme/base"
 import { hexcodeToRGBA } from "../../Helpers/colors"
 
 const GreyBkgr = styled.div`
-	height: ${({ height }) => height + 900}px;
+	min-height: ${({ height }) => height + 900}px;
 	background: ${theme.color.white};
 	background: linear-gradient(
 		13deg,

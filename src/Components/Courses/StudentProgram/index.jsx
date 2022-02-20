@@ -4,7 +4,6 @@ import LinearBttn from "../../Buttons/LinearBttn"
 
 const StudentProgram = ({ course }) => {
 	const { CategoriaID, planDeEstudioContent } = course
-	console.log(planDeEstudioContent)
 
 	return (
 		<StudentProgramContainer>
@@ -12,7 +11,6 @@ const StudentProgram = ({ course }) => {
 			<MainContent>
 				{planDeEstudioContent &&
 					planDeEstudioContent.map((element, index) => {
-						console.log("elem", element)
 						return (
 							<ParragraphContainer key={index}>
 								<Type>{Object.keys(element)}</Type>

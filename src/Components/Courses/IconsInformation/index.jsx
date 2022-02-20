@@ -1,19 +1,14 @@
 import theme from "../../../Theme/base"
 import styled from "styled-components"
+import Icons from "./Icons"
 
 const IconsInformation = ({ course }) => {
-	const { detalles } = course
-	const icons = {
-		beneficioCurso: "/img/beneficio-curso.png",
-		certificacionCurso: "/img/certificacion-curso.png",
-		modalidadCurso: "/img/modalidad-curso.png",
-		requisitosCurso: "/img/requisitos-curso.png",
-	}
+	const { detalles, CategoriaID } = course
 
 	return (
 		<IconsInformationContainer>
 			<IconContainer>
-				<Icon src={icons.modalidadCurso} alt="modalidad curso" />
+				<Icons.ModalidadCurso fill={theme.categories[CategoriaID]} />
 				<Details>
 					{detalles.modalidad
 						? detalles.modalidad
@@ -21,7 +16,7 @@ const IconsInformation = ({ course }) => {
 				</Details>
 			</IconContainer>
 			<IconContainer>
-				<Icon src={icons.beneficioCurso} alt="modalidad curso" />
+				<Icons.BeneficioCurso fill={theme.categories[CategoriaID]} />
 				<Details>
 					{detalles.beneficio
 						? detalles.beneficio
@@ -29,7 +24,7 @@ const IconsInformation = ({ course }) => {
 				</Details>
 			</IconContainer>
 			<IconContainer>
-				<Icon src={icons.certificacionCurso} alt="modalidad curso" />
+				<Icons.CertificacionCurso fill={theme.categories[CategoriaID]} />
 				<Details>
 					{detalles.requisitos
 						? detalles.requisitos
@@ -37,7 +32,7 @@ const IconsInformation = ({ course }) => {
 				</Details>
 			</IconContainer>
 			<IconContainer>
-				<Icon src={icons.requisitosCurso} alt="modalidad curso" />
+				<Icons.RequisitosCurso fill={theme.categories[CategoriaID]} />
 				<Details>
 					{detalles.modalidad
 						? detalles.modalidad
@@ -63,10 +58,6 @@ const IconContainer = styled.div`
 	gap: 15px;
 	align-items: center;
 	width: 135px;
-`
-const Icon = styled.img`
-	height: 80px;
-	width: 80px;
 `
 
 const Details = styled.p`

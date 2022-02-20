@@ -2,11 +2,11 @@ import styled from "styled-components"
 import theme from "../../../Theme/base"
 import { Link } from "react-router-dom"
 
-const Card = ({ isProximos, info }) => {
+const Card = ({ isProximos, info, width }) => {
 	const { clasesSemanales, duracion, modalidad } = info.detalles
 
 	return (
-		<CardContainer isProximos={isProximos}>
+		<CardContainer isProximos={isProximos} width={width}>
 			<TitleContainer
 				to={`/cursos/${info.href}`}
 				categoriaColor={info.CategoriaID}
@@ -52,8 +52,8 @@ const Card = ({ isProximos, info }) => {
 export default Card
 
 const CardContainer = styled.div`
-	width: ${({ isProximos }) => (isProximos ? "29%" : "20%")};
-	/* ${({ isProximos }) => isProximos && "  margin: 10px 20px;"} */
+	width: ${({ width, isProximos }) =>
+		width ? width : isProximos ? "29%" : "20%"};
 	background: #ffffff;
 	box-shadow: ${theme.shadow.boxShadow};
 	border-radius: 10px;
