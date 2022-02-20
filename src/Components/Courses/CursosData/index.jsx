@@ -36,7 +36,7 @@ const CousosDataContainer = styled.div`
 	display: flex;
 	gap: 40px;
 	margin: 40px 0;
-	width: 70%;
+	/* width: 70%; */
 `
 const CoursosInfo = styled.div`
 	width: 20%;
