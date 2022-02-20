@@ -39,7 +39,7 @@ const MainContent = styled.div`
 	margin: 30px 0;
 	display: flex;
 	flex-wrap: wrap;
-	gap: 30px;
+	gap: 4%;
 `
 
 const ParragraphContainer = styled.div`

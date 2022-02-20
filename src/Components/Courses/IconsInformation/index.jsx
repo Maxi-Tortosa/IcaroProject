@@ -26,17 +26,17 @@ const IconsInformation = ({ course }) => {
 			<IconContainer>
 				<Icons.CertificacionCurso fill={theme.categories[CategoriaID]} />
 				<Details>
-					{detalles.requisitos
-						? detalles.requisitos
-						: "Requisitos: Computadora compatible con OpenGl 4.1 y conexión a internet"}
+					{detalles.certificacion
+						? detalles.certificacion
+						: "Certificación universitaria con el aval de la UNC"}
 				</Details>
 			</IconContainer>
 			<IconContainer>
 				<Icons.RequisitosCurso fill={theme.categories[CategoriaID]} />
 				<Details>
-					{detalles.modalidad
-						? detalles.modalidad
-						: "Clases en vivo, 1 vez a la semana, 2 horas"}
+					{detalles.requisitos
+						? detalles.requisitos
+						: "Requisitos: Computadora compatible con OpenGl 4.1 y conexión a internet"}
 				</Details>
 			</IconContainer>
 		</IconsInformationContainer>

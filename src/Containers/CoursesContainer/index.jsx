@@ -19,7 +19,7 @@ const CoursesPages = () => {
 	const { name } = useParams()
 	const { course, categories } = useContext(projectContext)
 	const [pending, setPending] = useState(true)
-	const [selectedCourse, setSelectedCourse] = useState("")
+	const [selectedCourse, setSelectedCourse] = useState("Programación")
 
 	useEffect(() => {
 		if (course.length > 0 && categories.length > 0) {
@@ -33,7 +33,7 @@ const CoursesPages = () => {
 		return <Loader />
 	}
 
-	// console.log("selectedCourse", selectedCourse)
+	console.log("selectedCourse", selectedCourse)
 
 	return (
 		<>
