@@ -65,6 +65,11 @@ const StyledForm = styled.form`
 		border: 1px solid #e6e6e6;
 		resize: none;
 		margin-top: 20px;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 16px;
+		line-height: 24px;
+		font-family: ${theme.fontFamily.primary};
 
 		::placeholder {
 			display: block;
@@ -77,8 +82,16 @@ const StyledForm = styled.form`
 			margin: 10px 0px;
 		}
 
-		::focus {
-			border: 1px solid #1744ff;
+		:focus {
+			font-family: ${theme.fontFamily.primary};
+			border: 2px solid ${theme.color.darkBlue};
+			outline: none;
+			border-radius: 5px;
+			font-size: 1rem;
+			font-style: normal;
+			font-weight: normal;
+			font-size: 16px;
+			line-height: 24px;
 		}
 	}
 `
@@ -99,7 +112,23 @@ const FormInput = styled.input`
 	width: 100%;
 	height: 30px;
 	border: 1px solid #e6e6e6;
-	/* border: 1px solid #1744ff; */
+	font-family: ${theme.fontFamily.primary};
+	font-style: normal;
+	font-weight: normal;
+	font-size: 16px;
+	line-height: 24px;
+
+	:focus {
+		font-style: normal;
+		font-weight: normal;
+		font-size: 16px;
+		line-height: 24px;
+		border: 2px solid ${theme.color.darkBlue};
+		outline: none;
+		border-radius: 5px;
+		font-size: 1rem;
+		font-family: ${theme.fontFamily.primary};
+	}
 
 	::placeholder {
 		display: block;
@@ -110,9 +139,6 @@ const FormInput = styled.input`
 		line-height: 24px;
 		color: ${theme.color.lightGrey};
 		margin: 10px 0px;
-	}
-	:focus-within {
-		border: 1px solid #1744ff;
 	}
 `
 

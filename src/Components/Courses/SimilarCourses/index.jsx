@@ -7,8 +7,7 @@ const SimilarCourses = ({ course, courseList }) => {
 	const getSimilarCourses = () => {
 		const categoryList = courseList.filter(
 			(elem) =>
-				elem.CategoriaID === course.CategoriaID ||
-				elem.nombre.includes(course.nombre)
+				elem.CategoriaID === CategoriaID || elem.nombre.includes(course.nombre)
 		)
 		const newList = categoryList.filter((item) => item !== course)
 		return newList
@@ -20,7 +19,12 @@ const SimilarCourses = ({ course, courseList }) => {
 			<Title>Cursos Similares</Title>
 			<CardsContainer>
 				{getSimilarCourses().map((elem, index) => (
-					<Card info={elem} key={index} width="23%" />
+					<Card
+						info={elem}
+						key={index}
+						width="23%"
+						overrideColor={CategoriaID}
+					/>
 				))}
 			</CardsContainer>
 		</SimilarCoursesContainer>

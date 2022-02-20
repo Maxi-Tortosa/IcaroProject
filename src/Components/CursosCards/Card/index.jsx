@@ -2,7 +2,7 @@ import styled from "styled-components"
 import theme from "../../../Theme/base"
 import { Link } from "react-router-dom"
 
-const Card = ({ isProximos, info, width }) => {
+const Card = ({ isProximos, info, width, overrideColor }) => {
 	const { clasesSemanales, duracion, modalidad } = info.detalles
 
 	return (
@@ -10,8 +10,13 @@ const Card = ({ isProximos, info, width }) => {
 			<TitleContainer
 				to={`/cursos/${info.href}`}
 				categoriaColor={info.CategoriaID}
+				overrideColor={overrideColor}
 			>
-				<CardTitle isProximos={isProximos} categoriaColor={info.CategoriaID}>
+				<CardTitle
+					isProximos={isProximos}
+					categoriaColor={info.CategoriaID}
+					overrideColor={overrideColor}
+				>
 					{info.nombre}
 				</CardTitle>
 			</TitleContainer>
@@ -61,20 +66,15 @@ const CardContainer = styled.div`
 	flex-direction: column;
 	font-family: ${theme.fontFamily.primary};
 	justify-content: space-between;
-	/* 
-	&:hover {
-		box-shadow: ${theme.shadow.boxShadowDarker};
-		transition: box-shadow 1s ease-out;
-	} */
 `
 const TitleContainer = styled(Link)`
 	background-color: ${theme.color.white};
 	width: 80%;
 	margin: auto;
 	text-decoration: none;
-	/* display: flex;
+	display: flex;
 	justify-content: center;
-	align-items: center; */
+	align-items: center;
 
 	&:focus,
 	&:hover,
@@ -92,7 +92,10 @@ const CardTitle = styled.h5`
 	font-size: 1.12rem;
 	text-align: center;
 
-	color: ${({ categoriaColor }) => theme.categories[categoriaColor]};
+	color: ${({ categoriaColor, overrideColor }) =>
+		overrideColor
+			? theme.categories[overrideColor]
+			: theme.categories[categoriaColor]};
 `
 const CardContent = styled.div`
 	padding: ${({ isProximos }) => (isProximos ? "0px" : "20px")};

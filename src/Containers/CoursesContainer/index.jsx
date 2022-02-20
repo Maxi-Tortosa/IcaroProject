@@ -5,7 +5,7 @@ import { projectContext } from "../../Context/ProjectContext"
 import Spacer from "../../Components/Spacer"
 import CoursesBanner from "../../Components/Courses/CoursesBanner"
 import Loader from "../../Components/Loader"
-import GreyBkgr from "../../Components/Backgrounds"
+import GreyBkgrBottom from "../../Components/Backgrounds"
 import CursosData from "../../Components/Courses/CursosData"
 import InscribiteBox from "../../Components/Courses/InscribiteBox"
 import MasInfoBox from "../../Components/Courses/MasInfoBox"
@@ -39,7 +39,7 @@ const CoursesPages = () => {
 		<>
 			<CoursesBanner src={image} course={selectedCourse} />
 
-			<GreyBkgr height={1000}>
+			<GreyBkgrBottom height={700}>
 				<FlexContent>
 					<LeftContent>
 						<CursosData course={selectedCourse} />
@@ -54,7 +54,7 @@ const CoursesPages = () => {
 					</RightContent>
 				</FlexContent>
 				<Spacer height={100} />
-			</GreyBkgr>
+			</GreyBkgrBottom>
 		</>
 	)
 }
