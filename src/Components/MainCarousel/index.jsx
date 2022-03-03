@@ -1,7 +1,9 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
+import { projectContext } from "../../Context/ProjectContext"
 import styled from "styled-components"
 import CarouselCard from "./CarouselCard/index"
 import DotIndicator from "./DotIndicator/index"
+// import Loader from "../Loader"
 
 const useCarouselTimer = (items, milliseconds = 5000) => {
 	const [index, setIndex] = useState(0)
@@ -53,33 +55,55 @@ const DotIndicatorWrapper = styled.div`
 	left: 45%;
 `
 
-const Carousel = ({ gap = 0, imgSrc }) => {
-	const [index, setIndex] = useCarouselTimer(imgSrc)
+const Carousel = ({ gap = 0 }) => {
+	const imgs = [
+		"./img/carousel1.png",
+		"./img/carousel2.png",
+		"./img/carousel1.png",
+	]
+	const { carousel } = useContext(projectContext)
+	const [index, setIndex] = useCarouselTimer(imgs)
+	const [pending, setPending] = useState(true)
+
+	useEffect(() => {
+		if (carousel.length > 0) {
+			setPending(false)
+		}
+	}, [carousel])
+
+	// if (pending) {
+	// 	return <Loader />
+	// }
+
+	// console.log("carousel", carousel)
 
 	return (
 		<CarouselWrapper>
 			<Wrapper>
-				<Row index={index} gap={gap} length={imgSrc.length}>
-					{imgSrc.map((elem, i, arr) => (
-						<CarouselCard
-							key={i}
-							src={elem}
-							alt="carousel"
-							index={index}
-							setIndex={setIndex}
-							array={arr}
-						/>
-					))}
-				</Row>
-				{imgSrc.length > 1 && (
-					<DotIndicatorWrapper>
-						<DotIndicator
-							index={index}
-							setIndex={setIndex}
-							length={imgSrc.length}
-							overrideColor="white"
-						/>
-					</DotIndicatorWrapper>
+				{pending ? null : (
+					<>
+						<Row index={index} gap={gap} length={imgs.length}>
+							{carousel.map(({ Slide }, i, arr) => (
+								<CarouselCard
+									key={i}
+									slide={Slide}
+									src={Slide.BgImageSrc}
+									index={index}
+									setIndex={setIndex}
+								/>
+							))}
+						</Row>
+						{carousel.length > 1 && (
+							<DotIndicatorWrapper>
+								<DotIndicator
+									index={index}
+									setIndex={setIndex}
+									length={imgs.length}
+									overrideColor="white"
+								/>
+							</DotIndicatorWrapper>
+						)}
+					</>
 				)}
 			</Wrapper>
 		</CarouselWrapper>

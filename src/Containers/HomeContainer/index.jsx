@@ -9,11 +9,6 @@ import Spacer from "../../Components/Spacer/index"
 import Sponsors from "../../Components/Sponsors/index"
 
 const HomeContainer = () => {
-	const imgs = [
-		"./img/carousel1.png",
-		"./img/carousel2.png",
-		"./img/carousel1.png",
-	]
 	const { isLogin, setIsLogin } = useContext(projectContext)
 
 	return (
@@ -29,7 +24,7 @@ const HomeContainer = () => {
 				</Container>
 			) : (
 				<>
-					<Carousel imgSrc={imgs} />
+					<Carousel />
 					{/* <Spacer height={100} /> */}
 					<Sponsors />
 					<Container>

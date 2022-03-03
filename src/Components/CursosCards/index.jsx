@@ -17,44 +17,25 @@ const CursosCards = ({ isProximos }) => {
 
 	useEffect(() => {
 		if (course.length > 0 || categories.length > 0) {
-			window.localStorage.setItem("localCursos", JSON.stringify(course))
 			setPending(false)
 		}
 	}, [course, categories])
 
-	if (pending) {
-		var localCursos = JSON.parse(localStorage.getItem("localCursos"))
-	}
-
 	const getCategorias = () => {
-		if (localCursos) {
-			const categoria = []
-
-			localCursos.map((elem) => categoria.push({ nombre: elem.categoria }))
-			const CategCopy = categoria.filter(
-				(v, i, a) => a.findIndex((t) => t.nombre === v.nombre) === i
-			)
-			return CategCopy
-		} else {
-			const categCopy = categories.sort(function (a, b) {
-				return a.Orden - b.Orden
-			})
-			return categCopy
-		}
+		const categCopy = categories.sort(function (a, b) {
+			return a.Orden - b.Orden
+		})
+		return categCopy
 	}
 
 	const getSelectedCourses = () => {
-		if (localCursos) {
-			const localCursosCopy = localCursos.filter(
-				(elem) => elem.categoria === selectedCategorie
-			)
-			return localCursosCopy
-		} else {
-			const localCursosCopy = course.filter(
-				(elem) => elem.categoria === selectedCategorie
-			)
-			return localCursosCopy
-		}
+		const localCursosCopy = course.filter(
+			(elem) =>
+				elem.categoria === selectedCategorie ||
+				elem.categoria2 === selectedCategorie
+		)
+
+		return localCursosCopy
 	}
 
 	const toggleTab = (index, nombre) => {
@@ -88,7 +69,17 @@ const CursosCards = ({ isProximos }) => {
 						</Categories>
 						<CardsContainer isProximos={isProximos}>
 							{getSelectedCourses().map((elem, index) => (
-								<Card isProximos={isProximos} info={elem} key={index} />
+								<Card
+									isProximos={isProximos}
+									info={elem}
+									key={index}
+									overridecolor={
+										selectedCategorie ===
+										"Diplomaturas y Programas Especializados"
+											? elem.CategoriaID2
+											: null
+									}
+								/>
 							))}
 						</CardsContainer>
 					</>

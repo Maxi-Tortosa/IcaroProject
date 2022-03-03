@@ -19,7 +19,7 @@ const CoursesPages = () => {
 	const { name } = useParams()
 	const { course, categories } = useContext(projectContext)
 	const [pending, setPending] = useState(true)
-	const [selectedCourse, setSelectedCourse] = useState("Programación")
+	const [selectedCourse, setSelectedCourse] = useState("")
 
 	useEffect(() => {
 		if (course.length > 0 && categories.length > 0) {

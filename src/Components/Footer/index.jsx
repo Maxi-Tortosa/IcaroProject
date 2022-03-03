@@ -9,36 +9,17 @@ const Footer = () => {
 	const { footerContent } = useContext(mainFooterContext)
 	const [pending, setPending] = useState(true)
 
-	// const [content, setContent] = useState("")
-
 	useEffect(() => {
 		if (footerContent) {
-			window.localStorage.setItem(
-				"localfooterContent",
-				JSON.stringify(footerContent)
-			)
 			setPending(false)
 		}
 	}, [footerContent])
 
-	if (pending) {
-		var localfooterContent = JSON.parse(
-			localStorage.getItem("localfooterContent")
-		)
-	}
-
 	const getFooterContent = () => {
-		if (localfooterContent) {
-			const filterfooterContent = localfooterContent.sort(function (a, b) {
-				return a.Orden - b.Orden
-			})
-			return filterfooterContent
-		} else {
-			const filterfooterContent = footerContent.sort(function (a, b) {
-				return a.Orden - b.Orden
-			})
-			return filterfooterContent
-		}
+		const filterfooterContent = footerContent.sort(function (a, b) {
+			return a.Orden - b.Orden
+		})
+		return filterfooterContent
 	}
 
 	return (
@@ -50,14 +31,14 @@ const Footer = () => {
 							const { Titulo, links } = element
 							return (
 								<ColumnContainer key={index}>
-									<FooterTitle key={index}>{Titulo}</FooterTitle>
+									<FooterTitle>{Titulo}</FooterTitle>
 									{links &&
 										links.map(({ nombre, url, icono, placeholder }, index) => {
 											if (url) {
 												return (
 													<>
 														<FooterAnchor
-															key={index}
+															key={index + 100}
 															href={url}
 															icono={icono}
 															target="_blank"
@@ -76,10 +57,10 @@ const Footer = () => {
 											} else {
 												return (
 													<>
-														<FooterParragraph key={index}>
+														<FooterParragraph key={index + 20}>
 															{nombre} {url}
 														</FooterParragraph>
-														<EmailForm>
+														<EmailForm key={index + 10}>
 															<StyledInput
 																type="text"
 																placeholder={placeholder}

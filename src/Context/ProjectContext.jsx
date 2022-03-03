@@ -1,27 +1,34 @@
-import { createContext, useEffect, useState } from 'react';
-import db from '../../src/Firebase';
-import { collection, onSnapshot } from 'firebase/firestore';
+import { createContext, useEffect, useState } from "react"
+import db from "../../src/Firebase"
+import { collection, onSnapshot } from "firebase/firestore"
 
-export const projectContext = createContext();
+export const projectContext = createContext()
 
 const ProjectContext = ({ children }) => {
-	const [course, setCourse] = useState([]);
-	const [categories, setCategories] = useState([]);
-	const [isLogin, setIsLogin] = useState(false);
-	const [modalOpen, setModalOpen] = useState(false);
+	const [course, setCourse] = useState([])
+	const [categories, setCategories] = useState([])
+	const [carousel, setCarousel] = useState([])
+	const [isLogin, setIsLogin] = useState(false)
+	const [modalOpen, setModalOpen] = useState(false)
 
 	useEffect(() => {
 		onSnapshot(
-			collection(db, 'NuevosCursos'),
+			collection(db, "NuevosCursos"),
 			(snapshot) => setCourse(snapshot.docs.map((doc) => doc.data())),
-			(error) => console.log('error', error)
-		);
+			(error) => console.log("error", error)
+		)
 
 		onSnapshot(
-			collection(db, 'CategoriasCursos'),
+			collection(db, "CategoriasCursos"),
 			(snapshot) => setCategories(snapshot.docs.map((doc) => doc.data())),
-			(error) => console.log('error', error)
-		);
+			(error) => console.log("error", error)
+		)
+
+		onSnapshot(
+			collection(db, "CarouselContent"),
+			(snapshot) => setCarousel(snapshot.docs.map((doc) => doc.data())),
+			(error) => console.log("error", error)
+		)
 
 		// const cursos = collection(db, 'NuevosCursos');
 		// const categorias = collection(db, 'CategoriasCursos');
@@ -53,7 +60,7 @@ const ProjectContext = ({ children }) => {
 		// 		console.log('error', error);
 		// 	})
 		// 	.finally(() => {});
-	}, []);
+	}, [])
 
 	return (
 		<projectContext.Provider
@@ -66,11 +73,14 @@ const ProjectContext = ({ children }) => {
 				setIsLogin,
 				modalOpen,
 				setModalOpen,
-			}}>
+				carousel,
+				setCarousel,
+			}}
+		>
 			{children}
 		</projectContext.Provider>
-	);
-};
+	)
+}
 
 // EXAMPLE OF AUTHCONTEXT
 
@@ -97,4 +107,4 @@ const ProjectContext = ({ children }) => {
 // 	);
 // };
 
-export default ProjectContext;
+export default ProjectContext

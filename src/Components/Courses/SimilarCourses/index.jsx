@@ -7,7 +7,9 @@ const SimilarCourses = ({ course, courseList }) => {
 	const getSimilarCourses = () => {
 		const categoryList = courseList.filter(
 			(elem) =>
-				elem.CategoriaID === CategoriaID || elem.nombre.includes(course.nombre)
+				elem.CategoriaID === CategoriaID ||
+				elem.nombre.includes(course.nombre) ||
+				(course.CategoriaID2 && elem.CategoriaID2 === course.CategoriaID2)
 		)
 		const newList = categoryList.filter((item) => item !== course)
 		return newList

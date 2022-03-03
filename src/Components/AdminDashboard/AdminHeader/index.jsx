@@ -1,10 +1,9 @@
 import styled from "styled-components"
 import { useState } from "react"
 import { Link } from "react-router-dom"
-import IngresaBttn from "../Buttons/IngresaBttn"
-import theme from "../../Theme/base"
+import theme from "../../../Theme/base"
 
-const Header = ({ setIsLoginOpen }) => {
+const AdminHeader = () => {
 	const [isScroll, setIsScroll] = useState(false)
 
 	window.addEventListener("scroll", changeNavColor)
@@ -23,30 +22,21 @@ const Header = ({ setIsLoginOpen }) => {
 				<Link to="/" className="logo">
 					<img src="./img/logo.svg" alt="Logo de Ícaro" />
 				</Link>
-				<ul className="menu">
-					<li>
-						<CenterLinks to={"/#cursos"}>Cursos</CenterLinks>
-					</li>
-					<li>
-						<CenterLinks to={"/quienes-somos"}>Quiénes somos</CenterLinks>
-					</li>
-					<li>
-						<CenterLinks to={"/contacto"}>Contacto</CenterLinks>
-					</li>
-				</ul>
+				<h3>Bienvenido!</h3>
 
-				<IngresaBttn setIsLoginOpen={setIsLoginOpen} />
+				<button>Configuracion</button>
 			</div>
 		</Container>
 	)
 }
 
-export default Header
+export default AdminHeader
 
 const Container = styled.div`
 	font-family: ${theme.fontFamily.primary};
 	width: 100%;
-	background-color: ${({ isScroll }) => (isScroll ? "grey" : " transparent")};
+	background-color: ${({ isScroll }) =>
+		isScroll ? "grey" : theme.color.darkBlue};
 	transition: all 0.3s ease-out 0s;
 	position: fixed;
 	top: 0;
@@ -87,28 +77,5 @@ const Container = styled.div`
 		& li:last-child {
 			margin: 0;
 		}
-	}
-`
-const CenterLinks = styled(Link)`
-	text-decoration: none;
-	color: #fff;
-	font-style: normal;
-	font-weight: normal;
-	font-size: 16px;
-	line-height: 19px;
-
-	&:hover::after {
-		width: 100%;
-		transition: width 0.5s;
-		color: #2b3538;
-	}
-
-	&::after {
-		content: "";
-		display: block;
-		width: 0;
-		height: 3px;
-		background: #fff;
-		transition: width 0.3s;
 	}
 `
