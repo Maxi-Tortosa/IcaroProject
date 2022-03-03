@@ -2,6 +2,7 @@ import styled from "styled-components"
 import { useState } from "react"
 import { Link } from "react-router-dom"
 import theme from "../../../Theme/base"
+import { FiSettings } from "react-icons/fi"
 
 const AdminHeader = () => {
 	const [isScroll, setIsScroll] = useState(false)
@@ -24,7 +25,9 @@ const AdminHeader = () => {
 				</Link>
 				<h3>Bienvenido!</h3>
 
-				<button>Configuracion</button>
+				<button>
+					<FiSettings size={50} />
+				</button>
 			</div>
 		</Container>
 	)

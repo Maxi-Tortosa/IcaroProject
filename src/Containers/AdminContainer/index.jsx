@@ -65,7 +65,7 @@ const AdminPage = () => {
 				return <CursosAdmin cursos={course} />
 
 			case "Categorias":
-				return <CategoriassAdmin />
+				return <CategoriassAdmin categorias={categories} />
 
 			// case valorN:
 

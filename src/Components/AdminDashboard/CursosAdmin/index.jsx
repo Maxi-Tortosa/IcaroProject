@@ -1,13 +1,36 @@
+import { useState } from "react"
 import styled from "styled-components"
 import theme from "../../../Theme/base"
+import { CgTrash, CgPen } from "react-icons/cg"
+import ReactModal from "react-modal"
 
 const CursosAdmin = ({ cursos }) => {
-	// console.log("cursos", cursos)
+	const [modalIsOpen, setIsOpen] = useState(true)
+	// console.log("cursos", curso s)
+	function openModal() {
+		setIsOpen(true)
+	}
+
+	function closeModal() {
+		setIsOpen(false)
+	}
+
+	const customStyles = {
+		content: {
+			top: "50%",
+			left: "50%",
+			right: "auto",
+			bottom: "auto",
+			marginRight: "-50%",
+			transform: "translate(-50%, -50%)",
+		},
+	}
+
 	return (
 		<div>
 			<TitleContainer>
 				<h3>Cursos</h3>
-				<button>Nuevo Curso</button>
+				<button onClick={openModal}> + Nuevo Curso</button>
 			</TitleContainer>
 			<TableContent>
 				<TableHeader>
@@ -15,6 +38,7 @@ const CursosAdmin = ({ cursos }) => {
 					<TableColumn isHeader>Nombre Curso</TableColumn>
 					<TableColumn isHeader>Categoria</TableColumn>
 					<TableColumn isHeader>Modalidad</TableColumn>
+					<TableColumn></TableColumn>
 				</TableHeader>
 
 				{cursos.map((el, index) => {
@@ -22,12 +46,24 @@ const CursosAdmin = ({ cursos }) => {
 						<TableRow key={index}>
 							<TableColumn>{index + 1}</TableColumn>
 							<TableColumn>{el.nombre}</TableColumn>
-							<TableColumn>{el.categoria}</TableColumn>
+							<TableColumn bgcolor={el.CategoriaID}>{el.categoria}</TableColumn>
 							<TableColumn>{el.detalles?.modalidad}</TableColumn>
+							<TableColumn>
+								<CgPen size={30} className="edit" onClick={openModal} />
+								<CgTrash size={30} className="delete" onClick={openModal} />
+							</TableColumn>
 						</TableRow>
 					)
 				})}
 			</TableContent>
+			<ReactModal
+				isOpen={modalIsOpen}
+				onRequestClose={closeModal}
+				style={customStyles}
+			>
+				<p>hola</p>
+				<button onClick={closeModal}> cerrar</button>
+			</ReactModal>
 		</div>
 	)
 }
@@ -66,6 +102,19 @@ const TableRow = styled.div`
 const TableColumn = styled.div`
 	flex: 1;
 	${({ isHeader }) => !isHeader && `color: ${theme.color.lightGrey};`}
+	background-color: ${({ bgcolor }) => bgcolor && theme.categories[bgcolor]};
+	color: ${({ bgcolor }) => bgcolor && theme.color.white};
+	.edit {
+		:hover {
+			color: ${theme.color.darkBlue};
+		}
+	}
+
+	.delete {
+		:hover {
+			color: red;
+		}
+	}
 `
 
 export default CursosAdmin
