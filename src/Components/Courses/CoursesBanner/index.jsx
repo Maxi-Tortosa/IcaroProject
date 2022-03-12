@@ -1,23 +1,15 @@
-import { useRef } from "react"
 import styled from "styled-components"
 import { hexcodeToRGBA } from "../../../Helpers/colors"
 import theme from "../../../Theme/base"
 
 const CoursesBanner = ({ src, course }) => {
 	const { CategoriaID, nombre } = course
-	const descriptionParragraphRef = useRef()
 
 	return (
 		<ImageContainer src={src} colorFilter={CategoriaID}>
 			<StyledTextContainer>
 				<BannerName>Curso</BannerName>
 				<StyledH1>{nombre}</StyledH1>
-
-				<StyledParragraph ref={descriptionParragraphRef}>
-					{course.detalles.descripcion
-						? course.detalles.descripcion
-						: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"}
-				</StyledParragraph>
 			</StyledTextContainer>
 		</ImageContainer>
 	)
@@ -59,18 +51,6 @@ const StyledH1 = styled.h1`
 	color: #ffffff;
 	margin: 9px 0;
 	width: 55%;
-`
-
-const StyledParragraph = styled.p`
-	font-family: ${theme.fontFamily.primary};
-	font-style: normal;
-	font-weight: 500;
-	font-size: 16px;
-	line-height: 18px;
-	color: ${theme.color.white};
-	width: 70%;
-	/* max-height: 100px;
-	overflow: scroll; */
 `
 
 export default CoursesBanner
