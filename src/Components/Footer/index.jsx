@@ -4,6 +4,7 @@ import styled from "styled-components"
 import { mainFooterContext } from "../../Context/FooterContext"
 import theme from "../../Theme/base"
 import EnviaBttn from "../Buttons/EnviaBttn"
+import SocialMediaIcon from "../Icons/FooterIcons"
 
 const Footer = () => {
 	const { footerContent } = useContext(mainFooterContext)
@@ -33,48 +34,56 @@ const Footer = () => {
 								<ColumnContainer key={index}>
 									<FooterTitle>{Titulo}</FooterTitle>
 									{links &&
-										links.map(({ nombre, url, icono, placeholder }, index) => {
-											if (url) {
-												return (
-													<>
-														<FooterAnchor
-															key={index + 100}
-															href={url}
-															icono={icono}
-															target="_blank"
-														>
-															{icono && (
-																<IconImg
-																	key={index}
-																	src={`./img/${icono}-icon.png`}
-																	alt="icono"
+										links.map(
+											({ nombre, url, icono, placeholder, type }, index) => {
+												if (url) {
+													return (
+														<>
+															<FooterAnchor
+																key={index + 100}
+																href={url}
+																icono={icono}
+																target="_blank"
+															>
+																{icono && (
+																	// <IconImg
+																	// 	key={index}
+																	// 	src={`./img/${icono}-icon.png`}
+																	// 	alt="icono"
+																	// />
+																	<SocialMediaIcon
+																		key={index}
+																		type={type}
+																		size={20}
+																	/>
+																)}
+																{nombre}
+															</FooterAnchor>
+														</>
+													)
+												} else {
+													return (
+														<>
+															<FooterParragraph key={index + 20}>
+																{nombre} {url}
+															</FooterParragraph>
+															<EmailForm key={index + 10}>
+																<StyledInput
+																	type="text"
+																	placeholder={placeholder}
 																/>
-															)}
-															{nombre}
-														</FooterAnchor>
-													</>
-												)
-											} else {
-												return (
-													<>
-														<FooterParragraph key={index + 20}>
-															{nombre} {url}
-														</FooterParragraph>
-														<EmailForm key={index + 10}>
-															<StyledInput
-																type="text"
-																placeholder={placeholder}
-															/>
-															<EnviaBttn
-																backgroundColor={theme.color.white}
-																padding=" 5px 10px"
-																color={theme.color.darkBlue}
-															/>
-														</EmailForm>
-													</>
-												)
+																<EnviaBttn
+																	backgroundColor={theme.color.white}
+																	padding=" 5px 10px"
+																	color={theme.color.darkBlue}
+																	borderRadius="5px"
+																/>
+															</EmailForm>
+														</>
+													)
+												}
 											}
-										})}
+										)}
 								</ColumnContainer>
 							)
 					  })}
@@ -120,9 +129,6 @@ const FooterParragraph = styled.p`
 	color: ${theme.color.white};
 	text-decoration: none;
 	display: block;
-`
-const IconImg = styled.img`
-	margin-right: 15px;
 `
 
 const FooterAnchor = styled.a`
