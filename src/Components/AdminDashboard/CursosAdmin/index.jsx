@@ -1,7 +1,6 @@
 import { useState } from "react"
 import styled from "styled-components"
 import theme from "../../../Theme/base"
-import { CgTrash, CgPen } from "react-icons/cg"
 import ReactModal from "react-modal"
 import EditIcon from "../../Icons/Edit"
 import DeleteIcon from "../../Icons/Delete"
@@ -51,7 +50,7 @@ const CursosAdmin = ({ cursos }) => {
 							<TableColumn bgcolor={el.CategoriaID}>{el.categoria}</TableColumn>
 							<TableColumn>{el.detalles?.modalidad}</TableColumn>
 							<TableColumn>
-								<EditIcon />
+								<EditIcon onClick={openModal} />
 								<DeleteIcon onClick={openModal} />
 							</TableColumn>
 						</TableRow>

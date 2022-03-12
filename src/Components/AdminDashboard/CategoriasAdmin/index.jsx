@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import theme from "../../../Theme/base"
-import { CgTrash, CgPen } from "react-icons/cg"
+import EditIcon from "../../Icons/Edit"
+import DeleteIcon from "../../Icons/Delete"
 
 const CategoriasAdmin = ({ categorias }) => {
 	return (
@@ -26,8 +27,8 @@ const CategoriasAdmin = ({ categorias }) => {
 								{theme.categories[el.CategoriaID]}
 							</TableColumn>
 							<TableColumn>
-								<CgPen size={30} className="edit" />
-								<CgTrash size={30} className="delete" />
+								<EditIcon />
+								<DeleteIcon />
 							</TableColumn>
 						</TableRow>
 					)
