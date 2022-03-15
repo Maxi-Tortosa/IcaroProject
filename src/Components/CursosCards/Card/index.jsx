@@ -91,6 +91,7 @@ const CardTitle = styled.h5`
 	font-weight: 700;
 	font-size: 1.12rem;
 	text-align: center;
+	margin-bottom: ${({ isProximos }) => !isProximos && "0px"};
 
 	color: ${({ categoriacolor, overridecolor }) =>
 		overridecolor

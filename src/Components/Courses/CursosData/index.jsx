@@ -3,30 +3,34 @@ import theme from "../../../Theme/base"
 
 const CursosData = ({ course }) => {
 	const { CategoriaID } = course
-	// const { duracion, proximoInicio, modalidad, certificacion } = course.detalles
+	const { duracion, proximoInicio, modalidad, certificacion } = course.detalles
 	return (
 		<CousosDataContainer>
 			<CoursosInfo>
 				<CousosDataTitle colorCategorie={CategoriaID}>Duracion</CousosDataTitle>
-				<CousosDataContent>8 semanas (8 clases)</CousosDataContent>
+				<CousosDataContent>{duracion}</CousosDataContent>
 			</CoursosInfo>
 			<CoursosInfo>
 				<CousosDataTitle colorCategorie={CategoriaID}>
 					Próximo inicio
 				</CousosDataTitle>
-				<CousosDataContent>24 de diciembre</CousosDataContent>
+				<CousosDataContent>
+					{proximoInicio ? proximoInicio : "24 de abril"}
+				</CousosDataContent>
 			</CoursosInfo>
 			<CoursosInfo>
 				<CousosDataTitle colorCategorie={CategoriaID}>
 					Modalidad
 				</CousosDataTitle>
-				<CousosDataContent>Online en vivo</CousosDataContent>
+				<CousosDataContent>{modalidad}</CousosDataContent>
 			</CoursosInfo>
 			<CoursosInfo>
 				<CousosDataTitle colorCategorie={CategoriaID}>
 					Certificación
 				</CousosDataTitle>
-				<CousosDataContent>Universitaria</CousosDataContent>
+				<CousosDataContent>
+					{certificacion ? certificacion : "Universitaria"}
+				</CousosDataContent>
 			</CoursosInfo>
 		</CousosDataContainer>
 	)
@@ -54,6 +58,7 @@ const CousosDataTitle = styled.h3`
 
 const CousosDataContent = styled.p`
 	font-family: ${theme.fontFamily.tertiary};
+	color: ${theme.color.lightGrey};
 	font-style: normal;
 	font-weight: normal;
 	font-size: 18px;

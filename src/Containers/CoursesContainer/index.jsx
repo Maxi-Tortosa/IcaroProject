@@ -12,6 +12,7 @@ import MasInfoBox from "../../Components/Courses/MasInfoBox"
 import IconsInformation from "../../Components/Courses/IconsInformation"
 import StudentProgram from "../../Components/Courses/StudentProgram"
 import SimilarCourses from "../../Components/Courses/SimilarCourses"
+import CoursesDescription from "../../Components/Courses/CoursesDescription"
 
 const image = "/img/cursos-banner.png"
 
@@ -41,6 +42,8 @@ const CoursesPages = () => {
 			<GreyBkgrBottom height={700}>
 				<FlexContent>
 					<LeftContent>
+						<Spacer height={25} />
+						<CoursesDescription course={selectedCourse} />
 						<CursosData course={selectedCourse} />
 						<InscribiteBox course={selectedCourse} />
 						<IconsInformation course={selectedCourse} />
