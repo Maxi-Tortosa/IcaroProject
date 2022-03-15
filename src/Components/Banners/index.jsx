@@ -60,7 +60,7 @@ const Container = styled.div`
 		height: 100%;
 		z-index: 2;
 		opacity: 0.6;
-		background-image: url('./img/banner1.png');
+		background-image: url('https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/banner1.png?alt=media&token=1c123642-94bd-4747-ad74-180edc927f58');
 		background-position: center;
 		background-size: cover;
 	}
@@ -96,7 +96,7 @@ const Container = styled.div`
 		height: 100%;
 		z-index: 1;
 		opacity: 0.6;
-		background-image: url('./img/banner2.png');
+		background-image: url('https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/banner2.png?alt=media&token=fa58d4ef-9dad-4ea9-bf3b-ab1ac24765cf');
 		background-position: center;
 		background-size: cover;
 	}

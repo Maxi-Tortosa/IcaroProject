@@ -123,7 +123,7 @@ font-family: 'Montserrat', sans-serif;
 
 .loginImage{width:50%;
 
-	background-image: url('./img/loginImg.png');
+	background-image: url('https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/loginImg.png?alt=media&token=70a74179-9437-4a47-9efb-0f70d0281341');
 	background-position: right top;
 	border-radius:  10px 0 0 10px;
 
@@ -194,8 +194,6 @@ font-family: 'Montserrat', sans-serif;
 		.close:hover{cursor:pointer}
 
 	}
-
-
 
 	.loginData > * {
 

@@ -1,26 +1,26 @@
-import React from "react"
-import { useContext, useState, useEffect } from "react"
-import styled from "styled-components"
-import { mainFooterContext } from "../../Context/FooterContext"
-import theme from "../../Theme/base"
-import EnviaBttn from "../Buttons/EnviaBttn"
+import React from 'react';
+import { useContext, useState, useEffect } from 'react';
+import styled from 'styled-components';
+import { mainFooterContext } from '../../Context/FooterContext';
+import theme from '../../Theme/base';
+import EnviaBttn from '../Buttons/EnviaBttn';
 
 const Footer = () => {
-	const { footerContent } = useContext(mainFooterContext)
-	const [pending, setPending] = useState(true)
+	const { footerContent } = useContext(mainFooterContext);
+	const [pending, setPending] = useState(true);
 
 	useEffect(() => {
 		if (footerContent) {
-			setPending(false)
+			setPending(false);
 		}
-	}, [footerContent])
+	}, [footerContent]);
 
 	const getFooterContent = () => {
 		const filterfooterContent = footerContent.sort(function (a, b) {
-			return a.Orden - b.Orden
-		})
-		return filterfooterContent
-	}
+			return a.Orden - b.Orden;
+		});
+		return filterfooterContent;
+	};
 
 	return (
 		<FooterContainer>
@@ -28,7 +28,7 @@ const Footer = () => {
 				{pending
 					? null
 					: getFooterContent().map((element, index) => {
-							const { Titulo, links } = element
+							const { Titulo, links } = element;
 							return (
 								<ColumnContainer key={index}>
 									<FooterTitle>{Titulo}</FooterTitle>
@@ -41,19 +41,18 @@ const Footer = () => {
 															key={index + 100}
 															href={url}
 															icono={icono}
-															target="_blank"
-														>
+															target='_blank'>
 															{icono && (
 																<IconImg
 																	key={index}
-																	src={`./img/${icono}-icon.png`}
-																	alt="icono"
+																	src={`${icono}`}
+																	alt='icono'
 																/>
 															)}
 															{nombre}
 														</FooterAnchor>
 													</>
-												)
+												);
 											} else {
 												return (
 													<>
@@ -62,33 +61,33 @@ const Footer = () => {
 														</FooterParragraph>
 														<EmailForm key={index + 10}>
 															<StyledInput
-																type="text"
+																type='text'
 																placeholder={placeholder}
 															/>
 															<EnviaBttn
 																backgroundColor={theme.color.white}
-																padding=" 5px 10px"
+																padding=' 5px 10px'
 																color={theme.color.darkBlue}
 															/>
 														</EmailForm>
 													</>
-												)
+												);
 											}
 										})}
 								</ColumnContainer>
-							)
+							);
 					  })}
 			</ContentContainer>
 		</FooterContainer>
-	)
-}
+	);
+};
 
 const FooterContainer = styled.div`
 	width: 100%;
 	color: ${theme.color.white};
 	min-height: 300px;
 	background: ${theme.color.verticalGradient};
-`
+`;
 
 const ContentContainer = styled.div`
 	width: 80%;
@@ -99,11 +98,11 @@ const ContentContainer = styled.div`
 	gap: 60px;
 	align-items: flex-start;
 	justify-content: space-between;
-`
+`;
 const ColumnContainer = styled.div`
 	/* margin: 0 20px; */
 	flex: 1;
-`
+`;
 
 const FooterTitle = styled.h3`
 	font-family: ${theme.fontFamily.secondary};
@@ -114,23 +113,23 @@ const FooterTitle = styled.h3`
 	line-height: 23px;
 	letter-spacing: 0em;
 	text-align: left;
-`
+`;
 const FooterParragraph = styled.p`
 	font-family: ${theme.fontFamily.secondary};
 	color: ${theme.color.white};
 	text-decoration: none;
 	display: block;
-`
+`;
 const IconImg = styled.img`
 	margin-right: 15px;
-`
+`;
 
 const FooterAnchor = styled.a`
 	font-family: ${theme.fontFamily.secondary};
 	color: ${theme.color.white};
-	/* font-size: ${({ icono }) => (icono ? "18px" : "14px")}; */
+	/* font-size: ${({ icono }) => (icono ? '18px' : '14px')}; */
 	font-size: 14px;
-	display: ${({ icono }) => (icono ? " flex" : "block")};
+	display: ${({ icono }) => (icono ? ' flex' : 'block')};
 	align-items: center;
 	flex-wrap: wrap;
 	text-decoration: none;
@@ -146,15 +145,15 @@ const FooterAnchor = styled.a`
 		text-decoration: none;
 		color: ${theme.color.white};
 	}
-`
+`;
 
 const EmailForm = styled.form`
 	display: flex;
 	gap: 5px;
-`
+`;
 
 const StyledInput = styled.input`
 	border: 1px solid ${theme.color.white};
-`
+`;
 
-export default Footer
+export default Footer;
