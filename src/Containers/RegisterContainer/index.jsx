@@ -173,7 +173,7 @@ export default Register;
 
 const Container = styled.div`
 
-
+height: 100vh;
 width: 100%;
 background: #757575;
 display:flex;	
@@ -189,7 +189,7 @@ display:flex;
 	height: 41.25rem;
 	max-width: 980px;
   max-height:660px;
-	margin: 10.61rem 0;
+	margin: auto 0;
 	display:flex;	
 	flex-direction: row;
 	justify-content: center;
