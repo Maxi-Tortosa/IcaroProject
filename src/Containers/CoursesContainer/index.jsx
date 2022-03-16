@@ -1,40 +1,41 @@
-import { useContext, useState, useEffect } from "react"
-import styled from "styled-components"
-import { useParams } from "react-router-dom"
-import { projectContext } from "../../Context/ProjectContext"
-import Spacer from "../../Components/Spacer"
-import CoursesBanner from "../../Components/Courses/CoursesBanner"
-import Loader from "../../Components/Loader"
-import GreyBkgrBottom from "../../Components/Backgrounds"
-import CursosData from "../../Components/Courses/CursosData"
-import InscribiteBox from "../../Components/Courses/InscribiteBox"
-import MasInfoBox from "../../Components/Courses/MasInfoBox"
-import IconsInformation from "../../Components/Courses/IconsInformation"
-import StudentProgram from "../../Components/Courses/StudentProgram"
-import SimilarCourses from "../../Components/Courses/SimilarCourses"
-import CoursesDescription from "../../Components/Courses/CoursesDescription"
+import { useContext, useState, useEffect } from 'react';
+import styled from 'styled-components';
+import { useParams } from 'react-router-dom';
+import { projectContext } from '../../Context/ProjectContext';
+import Spacer from '../../Components/Spacer';
+import CoursesBanner from '../../Components/Courses/CoursesBanner';
+import Loader from '../../Components/Loader';
+import GreyBkgrBottom from '../../Components/Backgrounds';
+import CursosData from '../../Components/Courses/CursosData';
+import InscribiteBox from '../../Components/Courses/InscribiteBox';
+import MasInfoBox from '../../Components/Courses/MasInfoBox';
+import IconsInformation from '../../Components/Courses/IconsInformation';
+import StudentProgram from '../../Components/Courses/StudentProgram';
+import SimilarCourses from '../../Components/Courses/SimilarCourses';
+import CoursesDescription from '../../Components/Courses/CoursesDescription';
 
-const image = "/img/cursos-banner.png"
+const image =
+	'https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/cursos-banner.png?alt=media&token=9edfc6c8-e8f8-4a8d-9262-4d4ad8c38968';
 
 const CoursesPages = () => {
-	const { name } = useParams()
-	const { course, categories } = useContext(projectContext)
-	const [pending, setPending] = useState(true)
-	const [selectedCourse, setSelectedCourse] = useState("")
+	const { name } = useParams();
+	const { course, categories } = useContext(projectContext);
+	const [pending, setPending] = useState(true);
+	const [selectedCourse, setSelectedCourse] = useState('');
 
 	useEffect(() => {
 		if (course.length > 0 && categories.length > 0) {
-			const courseResult = course.find((elem) => elem.href === name)
-			setSelectedCourse(courseResult)
-			setPending(false)
+			const courseResult = course.find((elem) => elem.href === name);
+			setSelectedCourse(courseResult);
+			setPending(false);
 		}
-	}, [course, categories, name])
+	}, [course, categories, name]);
 
 	if (pending) {
-		return <Loader />
+		return <Loader />;
 	}
 
-	console.log("selectedCourse", selectedCourse)
+	console.log('selectedCourse', selectedCourse);
 
 	return (
 		<>
@@ -58,8 +59,8 @@ const CoursesPages = () => {
 				<Spacer height={100} />
 			</GreyBkgrBottom>
 		</>
-	)
-}
+	);
+};
 
 const FlexContent = styled.div`
 	display: flex;
@@ -69,12 +70,12 @@ const FlexContent = styled.div`
 	/* max-width: 1095px; */
 	width: 80%;
 	margin: auto;
-`
+`;
 const LeftContent = styled.div`
 	width: 70%;
-`
+`;
 const RightContent = styled.div`
 	width: 30%;
-`
+`;
 
-export default CoursesPages
+export default CoursesPages;
