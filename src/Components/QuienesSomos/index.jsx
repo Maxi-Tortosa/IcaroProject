@@ -24,7 +24,10 @@ const QuienesSomos = () => {
 
 				<div className='contenedor'>
 					<div className='card1'>
-						<img src='./img/haciendo.png' alt='' />
+						<img
+							src='https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/haciendo.png?alt=media&token=8d9abb06-a674-4489-8c51-687588aaba10'
+							alt=''
+						/>
 
 						<h5>Cursos presenciales y virtuales</h5>
 						<p>
@@ -33,7 +36,10 @@ const QuienesSomos = () => {
 						</p>
 					</div>
 					<div className='card2'>
-						<img src='./img/certificacion.png' alt='' />
+						<img
+							src='https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/certificacion.png?alt=media&token=73088be5-d351-40ab-a4bd-ef61c89ad528'
+							alt=''
+						/>
 
 						<h5>Aprendé haciendo</h5>
 						<p>
@@ -42,7 +48,10 @@ const QuienesSomos = () => {
 						</p>
 					</div>
 					<div className='card3'>
-						<img src='./img/cursos.png' alt='' />
+						<img
+							src='https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/cursos.png?alt=media&token=7ae4bf15-65ff-4e1a-a0cb-282b782c2bde'
+							alt=''
+						/>
 
 						<h5>Obtén certificación universitaria</h5>
 						<p>
@@ -67,7 +76,7 @@ export default QuienesSomos;
 
 const Container = styled.div`
 	font-family: ${theme.fontFamily.primary};
-	background-image: url('./img/fondoQuienesSomos.png');
+	background-image: url('https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/fondoQuienesSomos.png?alt=media&token=bcad7241-d11b-4761-a9d4-2629b6065d76');
 	background-repeat: no-repeat;
 	background-size: cover;
 	padding: 5% 0 5% 0;

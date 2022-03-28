@@ -1,7 +1,7 @@
-import styled from "styled-components"
-import theme from "../../../Theme/base"
-import EditIcon from "../../Icons/Edit"
-import DeleteIcon from "../../Icons/Delete"
+import styled from 'styled-components';
+import theme from '../../../Theme/base';
+import EditIcon from '../../Icons/Edit';
+import DeleteIcon from '../../Icons/Delete';
 
 const CategoriasAdmin = ({ categorias }) => {
 	return (
@@ -31,22 +31,22 @@ const CategoriasAdmin = ({ categorias }) => {
 								<DeleteIcon />
 							</TableColumn>
 						</TableRow>
-					)
+					);
 				})}
 			</TableContent>
 		</div>
-	)
-}
+	);
+};
 
 const TitleContainer = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-`
+`;
 const TableContent = styled.div`
 	width: 100%;
 	padding: 10px 20px;
-`
+`;
 const TableHeader = styled.header`
 	display: flex;
 	gap: 10px;
@@ -57,7 +57,7 @@ const TableHeader = styled.header`
 	font-size: 16px;
 	line-height: 24px;
 	color: ${theme.color.blue};
-`
+`;
 const TableRow = styled.div`
 	display: flex;
 	text-align: left;
@@ -68,7 +68,7 @@ const TableRow = styled.div`
 		background-color: #f1f1f1;
 		cursor: pointer;
 	}
-`
+`;
 const TableColumn = styled.div`
 	flex: 1;
 	${({ isHeader }) => !isHeader && `color: ${theme.color.lightGrey};`}
@@ -86,6 +86,6 @@ const TableColumn = styled.div`
 			color: red;
 		}
 	}
-`
+`;
 
-export default CategoriasAdmin
+export default CategoriasAdmin;
