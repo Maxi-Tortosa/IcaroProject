@@ -1,77 +1,68 @@
 import styled from 'styled-components';
-import { useState } from 'react';
-import auth from '../../Firebase/index';
-// import { withRouter } from "react-router";
-// import { auth } from "../../Firebase"
+import { useState, useEffect } from 'react';
+import { auth } from '../../Firebase/index';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 const Register = ({ history }) => {
-	const [newUser, setNewUser] = useState();
+	const [newUser, setNewUser] = useState({});
 	const [createUser, setCreateUser] = useState(false);
 	// const [errorPassword, setErrorPassword] = useState(false);
 	const [alertErrorPassword, setAlertErrorPassword] = useState(false);
 	// const [isLogged, setIsLogged] = useState(false);
+	const [required, setRequired] = useState({});
+
+	/*NEW USER */
 
 	function handleChange(name, value, id) {
 		setNewUser((newUser) => ({ ...newUser, [name]: value }));
 
-		if (name === 'password' && value.length < 6 && value.length >= 1) {
+		if (name === 'password' && value.length < 6 && value.length >= 0) {
 			console.log('mal cotrasenia!');
-			// setErrorPassword(true);
+			setAlertErrorPassword(true);
 		} else {
 			setAlertErrorPassword(false);
-			// setErrorPassword(false);
 		}
 	}
 
-	console.log(newUser);
+	/* REQUIRED VALIDATION */
+
+	function inputValidation(newUser) {
+		const errors = {};
+
+		if (!newUser.name) {
+			errors.name = 'Nombre es un campo requerido';
+		}
+		if (!newUser.lastname) {
+			errors.lastname = 'Apellido es un campo requerido';
+		}
+		if (!newUser.email) {
+			errors.email = 'Email es un campo requerido';
+		}
+		if (!newUser.dni) {
+			errors.dni = 'DNI es un campo requerido';
+		}
+		if (!newUser.phonenumber) {
+			errors.phonenumber = 'Teléfono es un campo requerido';
+		}
+		if (!newUser.password) {
+			errors.password = 'Contraseña es un campo requerido';
+		}
+		if (!newUser.personalInformation) {
+			errors.personalInformation =
+				'Información profesional es un campo requerido';
+		}
+
+		return errors;
+	}
 
 	function handleSubmit(e) {
 		e.preventDefault();
-
-		/* REQUIRED VALIDATION */
-
-		const form = document.getElementById(`form`).children;
-		const children = [].slice.call(form);
-		const inputs = children.filter((input) => input.tagName === 'INPUT');
-
-		inputs.map((input) =>
-			input.value === ''
-				? input.insertAdjacentElement(
-						'afterend',
-						document.createElement('p')
-				  ) && input.classList.add('required')
-				: setCreateUser(true)
-		);
-
-		const required = document.getElementsByClassName('required');
-		const requiredInputs = [].slice.call(required);
-
-		console.log(requiredInputs);
-
-		requiredInputs.map(
-			(req) => (req.nextSibling.textContent = 'Este campo es obligatorio')
-		);
-
-		/* CREATE NEW USER */
-
-		if (createUser) {
-			auth
-				.createUserWithEmailAndPassword(newUser.email, newUser.password)
-				.then(() => {
-					setCreateUser(
-						true
-					); /* DEBERÍAMOS CREAR UN USUARIO EN LA BASE DE DATOS */
-				})
-				.catch((err) => {
-					setTimeout(() => {}, 1000);
-				});
+		setRequired(inputValidation(newUser));
+		if (Object.keys(newUser).length === 7 && alertErrorPassword === false) {
+			setCreateUser(true);
+		} else {
+			setCreateUser(false);
 		}
-
-		// if (errorPassword) {
-		// 	setAlertErrorPassword(true);
-		// } else {
-		// 	setAlertErrorPassword(false);
-		// }
 
 		/* HACER VALIDACIÓN DE SI EXISTE O NO EL USUARIO */
 		/* VER SI EXISTE FORMA DE EXTRAER LA LISTA DE USUARIOS DE AUTH */
@@ -96,6 +87,46 @@ const Register = ({ history }) => {
 	// )
 
 	//chequear que sean required los inputs y que no te dejen hacer el submit si no esta completo todo
+
+	/* CREATE NEW USER */
+
+	useEffect(() => {
+		if (createUser) {
+			console.log('Listo');
+			setCreateUser(false);
+
+			createUserWithEmailAndPassword(auth, newUser.email, newUser.password)
+				.then((userCredential) => {
+					// Signed in
+					const user = userCredential.user;
+					// ...
+				})
+				.catch((error) => {
+					const errorCode = error.code;
+					const errorMessage = error.message;
+					// ..
+				});
+
+			// auth
+			// 	.createUserWithEmailAndPassword(newUser.email, newUser.password)
+			// 	.then(() => {
+			// 		setCreateUser(
+			// 			true
+			// 		); /* DEBERÍAMOS CREAR UN USUARIO EN LA BASE DE DATOS */
+			// 	})
+			// 	.catch((err) => {
+			// 		console.log(err);
+			// 	});
+		} else {
+			console.log('falta algún dato');
+		}
+	}, [createUser, newUser]);
+
+	console.log(required);
+	console.log(alertErrorPassword);
+	console.log(createUser);
+	console.log(Object.keys(newUser).length);
+
 	return (
 		<Container>
 			<div className='register'>
@@ -107,6 +138,7 @@ const Register = ({ history }) => {
 						id='name'
 						name='name'
 						type='text'
+						placeholder={required.name ? required.name : null}
 						onChange={(e) => handleChange(e.target.name, e.target.value)}
 					/>
 					<label htmlFor='lastname'>Apellido</label>
@@ -114,6 +146,7 @@ const Register = ({ history }) => {
 						id='lastname'
 						name='lastname'
 						type='text'
+						placeholder={required.lastname ? required.lastname : null}
 						onChange={(e) => handleChange(e.target.name, e.target.value)}
 					/>
 					<label htmlFor='email'>Email</label>
@@ -121,6 +154,7 @@ const Register = ({ history }) => {
 						id='email'
 						name='email'
 						type='text'
+						placeholder={required.email ? required.email : null}
 						onChange={(e) => handleChange(e.target.name, e.target.value)}
 					/>
 					<label htmlFor='dni'>DNI</label>
@@ -128,30 +162,38 @@ const Register = ({ history }) => {
 						id='dni'
 						name='dni'
 						type='text'
+						placeholder={required.dni ? required.dni : null}
 						onChange={(e) => handleChange(e.target.name, e.target.value)}
 					/>
 					<label htmlFor='phonenumber'>Telefono</label>
 					<input
 						id='phonenumber'
 						name='phonenumber'
-						type='number'
+						type='text'
+						placeholder={required.phonenumber ? required.phonenumber : null}
 						onChange={(e) => handleChange(e.target.name, e.target.value)}
 					/>
-					<label htmlFor='password'>Contrasena</label>
+					<label htmlFor='password'>
+						{alertErrorPassword
+							? 'La Contrasenia debe ser mayor a 6 digitos'
+							: 'Contrasena'}
+					</label>
 					<input
 						id='password'
 						name='password'
 						type='password'
+						placeholder={required.password ? required.password : null}
 						onChange={(e) => handleChange(e.target.name, e.target.value)}
 					/>
-					{alertErrorPassword && (
-						<p>La Contrasenia debe ser mayor a 6 digitos</p>
-					)}
+
 					<label htmlFor='personalInformation'>Informacion Profesional</label>
 					<textarea
 						id='personalInformation'
 						name='personalInformation'
 						rows='6'
+						placeholder={
+							required.personalInformation ? required.personalInformation : null
+						}
 						onChange={(e) =>
 							handleChange(e.target.name, e.target.value)
 						}></textarea>
