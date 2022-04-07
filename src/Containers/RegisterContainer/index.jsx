@@ -151,7 +151,7 @@ const Register = ({ history }) => {
 		// }
 	}, [createUser, newUser, required]);
 
-	console.log(required);
+	console.log(Object.keys(newUser).length);
 
 	return (
 		<Container>
@@ -249,14 +249,14 @@ const Register = ({ history }) => {
 					<button
 						id={
 							Object.values(required).includes('required') ||
-							Object.keys(required).length === 0 ||
+							Object.keys(newUser).length < 7 ||
 							alertErrorPassword
 								? 'disabled'
 								: null
 						}
 						disabled={
 							Object.values(required).includes('required') ||
-							Object.keys(newUser).length !== 7 ||
+							Object.keys(newUser).length < 7 ||
 							alertErrorPassword
 								? true
 								: false
