@@ -5,6 +5,7 @@ import EmptyButton from "../../Buttons/EmptyButton"
 
 const CarouselCard = ({ src, slide }) => {
 	const { Description, Title, ButtonLink, ButtonText } = slide
+	console.log(ButtonLink)
 	return (
 		<ImageContainer src={src}>
 			<StyledTextContainer>

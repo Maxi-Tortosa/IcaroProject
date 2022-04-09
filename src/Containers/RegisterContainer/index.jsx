@@ -1,23 +1,23 @@
 import styled from 'styled-components';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { auth } from '../../Firebase/index';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
+import AlertIcon from '../../Components/AlertIcon';
+import { useNavigate } from 'react-router-dom';
 
 const Register = ({ history }) => {
 	const [newUser, setNewUser] = useState({});
 	const [createUser, setCreateUser] = useState(false);
-	// const [errorPassword, setErrorPassword] = useState(false);
 	const [alertErrorPassword, setAlertErrorPassword] = useState(false);
-	// const [isLogged, setIsLogged] = useState(false);
 	const [required, setRequired] = useState({});
+	let navigate = useNavigate();
 
 	/*NEW USER */
 
 	function handleChange(name, value, id) {
 		setNewUser((newUser) => ({ ...newUser, [name]: value }));
 
-		if (name === 'password' && value.length < 6 && value.length >= 0) {
-			console.log('mal cotrasenia!');
+		if (name === 'password' && value.length < 6 && value.length > 0) {
 			setAlertErrorPassword(true);
 		} else {
 			setAlertErrorPassword(false);
@@ -26,46 +26,91 @@ const Register = ({ history }) => {
 
 	/* REQUIRED VALIDATION */
 
-	function inputValidation(newUser) {
-		const errors = {};
-
-		if (!newUser.name) {
-			errors.name = 'Nombre es un campo requerido';
+	function inputValidation(newUser, name) {
+		if (name === 'name') {
+			if (!newUser.name || newUser.name === '') {
+				setRequired({ ...required, [name]: 'required' });
+			} else {
+				setRequired({ ...required, [name]: 'ok' });
+			}
 		}
-		if (!newUser.lastname) {
-			errors.lastname = 'Apellido es un campo requerido';
-		}
-		if (!newUser.email) {
-			errors.email = 'Email es un campo requerido';
-		}
-		if (!newUser.dni) {
-			errors.dni = 'DNI es un campo requerido';
-		}
-		if (!newUser.phonenumber) {
-			errors.phonenumber = 'Teléfono es un campo requerido';
-		}
-		if (!newUser.password) {
-			errors.password = 'Contraseña es un campo requerido';
-		}
-		if (!newUser.personalInformation) {
-			errors.personalInformation =
-				'Información profesional es un campo requerido';
+		if (name === 'lastname') {
+			if (!newUser.lastname || newUser.lastname === '') {
+				setRequired({ ...required, [name]: 'required' });
+			} else {
+				setRequired({ ...required, [name]: 'ok' });
+			}
 		}
 
-		return errors;
+		if (name === 'email') {
+			if (!newUser.email || newUser.email === '') {
+				setRequired({ ...required, [name]: 'required' });
+			} else {
+				setRequired({ ...required, [name]: 'ok' });
+			}
+		}
+
+		if (name === 'dni') {
+			if (!newUser.dni || newUser.dni === '') {
+				setRequired({ ...required, [name]: 'required' });
+			} else {
+				setRequired({ ...required, [name]: 'ok' });
+			}
+		}
+
+		if (name === 'phonenumber') {
+			if (!newUser.phonenumber || newUser.phonenumber === '') {
+				setRequired({ ...required, [name]: 'required' });
+			} else {
+				setRequired({ ...required, [name]: 'ok' });
+			}
+		}
+
+		if (name === 'password') {
+			if (!newUser.password || newUser.password === '') {
+				setRequired({ ...required, [name]: 'required' });
+			} else {
+				setRequired({ ...required, [name]: 'ok' });
+			}
+		}
+
+		if (name === 'personalInformation') {
+			if (!newUser.personalInformation || newUser.personalInformation === '') {
+				setRequired({ ...required, [name]: 'required' });
+			} else {
+				setRequired({ ...required, [name]: 'ok' });
+			}
+		}
 	}
 
 	function handleSubmit(e) {
 		e.preventDefault();
-		setRequired(inputValidation(newUser));
-		if (Object.keys(newUser).length === 7 && alertErrorPassword === false) {
-			setCreateUser(true);
-		} else {
-			setCreateUser(false);
-		}
+
+		createUserWithEmailAndPassword(auth, newUser.email, newUser.password)
+			.then((userCredential) => {
+				const user = userCredential.user;
+				console.log(user.email);
+			})
+			.catch((error) => {
+				// const errorCode = error.code;
+				console.log(error.message);
+			});
+		setTimeout(() => {
+			navigate('/');
+		}, 1500);
+
+		// if (Object.keys(newUser).length === 7 && alertErrorPassword === false) {
+		// 	setCreateUser(true);
+		// } else {
+		// 	setCreateUser(false);
+		// }
 
 		/* HACER VALIDACIÓN DE SI EXISTE O NO EL USUARIO */
 		/* VER SI EXISTE FORMA DE EXTRAER LA LISTA DE USUARIOS DE AUTH */
+	}
+
+	function handleBlur(e) {
+		inputValidation(newUser, e.target.name);
 	}
 
 	//investigar tema seguridad para el auth
@@ -86,122 +131,114 @@ const Register = ({ history }) => {
 	// 	[history]
 	// )
 
-	//chequear que sean required los inputs y que no te dejen hacer el submit si no esta completo todo
-
-	/* CREATE NEW USER */
-
-	useEffect(() => {
-		if (createUser) {
-			console.log('Listo');
-			setCreateUser(false);
-
-			createUserWithEmailAndPassword(auth, newUser.email, newUser.password)
-				.then((userCredential) => {
-					// Signed in
-					const user = userCredential.user;
-					// ...
-				})
-				.catch((error) => {
-					const errorCode = error.code;
-					const errorMessage = error.message;
-					// ..
-				});
-
-			// auth
-			// 	.createUserWithEmailAndPassword(newUser.email, newUser.password)
-			// 	.then(() => {
-			// 		setCreateUser(
-			// 			true
-			// 		); /* DEBERÍAMOS CREAR UN USUARIO EN LA BASE DE DATOS */
-			// 	})
-			// 	.catch((err) => {
-			// 		console.log(err);
-			// 	});
-		} else {
-			console.log('falta algún dato');
-		}
-	}, [createUser, newUser]);
-
-	console.log(required);
-	console.log(alertErrorPassword);
-	console.log(createUser);
-	console.log(Object.keys(newUser).length);
-
 	return (
 		<Container>
 			<div className='register'>
 				<div className='registerImage'></div>
 				<div className='registerData' id='form'>
 					<p>Únete a Ícaro</p>
-					<label htmlFor='name'>Nombre</label>
+					<label htmlFor='name'>
+						Nombre {required.name === 'required' ? <AlertIcon /> : null}
+					</label>
 					<input
 						id='name'
+						className={required.name === 'required' ? 'required' : null}
 						name='name'
 						type='text'
-						placeholder={required.name ? required.name : null}
+						onBlur={handleBlur}
 						onChange={(e) => handleChange(e.target.name, e.target.value)}
 					/>
-					<label htmlFor='lastname'>Apellido</label>
+					<label htmlFor='lastname'>
+						Apellido {required.lastname === 'required' ? <AlertIcon /> : null}
+					</label>
 					<input
 						id='lastname'
+						className={required.lastname === 'required' ? 'required' : null}
 						name='lastname'
 						type='text'
-						placeholder={required.lastname ? required.lastname : null}
 						onChange={(e) => handleChange(e.target.name, e.target.value)}
+						onBlur={handleBlur}
 					/>
-					<label htmlFor='email'>Email</label>
+					<label htmlFor='email'>
+						Email{required.email === 'required' ? <AlertIcon /> : null}
+					</label>
 					<input
 						id='email'
+						className={required.email === 'required' ? 'required' : null}
 						name='email'
 						type='text'
-						placeholder={required.email ? required.email : null}
 						onChange={(e) => handleChange(e.target.name, e.target.value)}
+						onBlur={handleBlur}
 					/>
-					<label htmlFor='dni'>DNI</label>
+					<label htmlFor='dni'>
+						DNI {required.dni === 'required' ? <AlertIcon /> : null}
+					</label>
 					<input
 						id='dni'
+						className={required.dni === 'required' ? 'required' : null}
 						name='dni'
 						type='text'
-						placeholder={required.dni ? required.dni : null}
 						onChange={(e) => handleChange(e.target.name, e.target.value)}
+						onBlur={handleBlur}
 					/>
-					<label htmlFor='phonenumber'>Telefono</label>
+					<label htmlFor='phonenumber'>
+						Telefono{' '}
+						{required.phonenumber === 'required' ? <AlertIcon /> : null}
+					</label>
 					<input
 						id='phonenumber'
+						className={required.phonenumber === 'required' ? 'required' : null}
 						name='phonenumber'
 						type='text'
-						placeholder={required.phonenumber ? required.phonenumber : null}
 						onChange={(e) => handleChange(e.target.name, e.target.value)}
+						onBlur={handleBlur}
 					/>
 					<label htmlFor='password'>
-						{alertErrorPassword
-							? 'La Contrasenia debe ser mayor a 6 digitos'
-							: 'Contrasena'}
+						Contrasena {required.password === 'required' ? <AlertIcon /> : null}{' '}
+						{alertErrorPassword ? (
+							<span class='alertErrorPassword'> (Mínimo de 6 caracteres) </span>
+						) : null}
 					</label>
 					<input
 						id='password'
+						className={required.password === 'required' ? 'required' : null}
 						name='password'
 						type='password'
-						placeholder={required.password ? required.password : null}
+						onBlur={handleBlur}
 						onChange={(e) => handleChange(e.target.name, e.target.value)}
 					/>
-
-					<label htmlFor='personalInformation'>Informacion Profesional</label>
+					<label htmlFor='personalInformation'>
+						Informacion Profesional
+						{required.personalInformation === 'required' ? <AlertIcon /> : null}
+					</label>
 					<textarea
 						id='personalInformation'
+						className={
+							required.personalInformation === 'required' ? 'required' : null
+						}
 						name='personalInformation'
 						rows='6'
-						placeholder={
-							required.personalInformation ? required.personalInformation : null
-						}
+						onBlur={handleBlur}
 						onChange={(e) =>
 							handleChange(e.target.name, e.target.value)
 						}></textarea>
 
 					<button
+						id={
+							Object.values(required).includes('required') ||
+							Object.keys(newUser).length < 7 ||
+							alertErrorPassword
+								? 'disabled'
+								: null
+						}
+						disabled={
+							Object.values(required).includes('required') ||
+							Object.keys(newUser).length < 7 ||
+							alertErrorPassword
+								? true
+								: false
+						}
 						className='unirme'
-						// disabled={errorPassword} VER SI SE DEJA ASÍ
-						type='submit'
 						onClick={handleSubmit}>
 						Unirme
 					</button>
@@ -214,11 +251,14 @@ const Register = ({ history }) => {
 export default Register;
 
 const Container = styled.div`
+.required{ border-color: #C01E3B !important;}
 
-height: 100vh;
+#disabled {background: grey; cursor:default;}
+
 width: 100%;
 background: #757575;
 display:flex;	
+padding: 10.30rem 0;
 
 	flex-direction: row;
 	justify-content: center;
@@ -258,14 +298,23 @@ margin-bottom: 3.5%;}
 
 label{font-size: 1rem;
 			line-height:	1.5rem;
-			
+			display: flex;
+			flex-direction: row;
+			align-items: center;			
+			svg{
+
+				margin-left: 1rem;
+								}
 				}
+
+				
 
 				input {border-radius: 5px;
 					border: 1px solid #E6E6E6;
 				height: 1.75rem;
 				margin-bottom: 1%;
 				padding: 0;
+				font-size:1rem;
 				}
 
 					input:focus{
@@ -277,11 +326,12 @@ label{font-size: 1rem;
 				
 				}
 
-				input:placeholder { display: none !important;}
+				
 				
 				textarea{border-radius: 5px;
 					border: 1px solid #E6E6E6;				
 				margin-bottom: 1%;
+				font-size: 1rem;
 				}
 
 				textarea:focus{
@@ -292,6 +342,7 @@ label{font-size: 1rem;
 					font-family: 'Montserrat', sans-serif;
 				
 				}
+				.alertErrorPassword{color:#C01E3B; margin-left: 0.5rem;}
 
 }
 
@@ -301,6 +352,7 @@ label{font-size: 1rem;
 	
 
 		.unirme {
+			cursor: pointer;
 			height: 2.8rem;
 		background: #1744FF;
 		border-radius: 10px;
