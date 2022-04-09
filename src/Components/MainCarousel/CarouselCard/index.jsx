@@ -10,11 +10,13 @@ const CarouselCard = ({ src, slide }) => {
 			<StyledTextContainer>
 				<StyledH1>{Title}</StyledH1>
 				<StyledParragraph>{Description}</StyledParragraph>
-				{ButtonText === "Ingresá" ? (
-					<IngresaBttn />
-				) : (
-					<EmptyButton href={ButtonLink} content={ButtonText} />
-				)}
+				{ButtonLink?.length && ButtonText?.length ? (
+					ButtonText === "Ingresá" ? (
+						<IngresaBttn />
+					) : (
+						<EmptyButton href={ButtonLink} content={ButtonText} />
+					)
+				) : null}
 			</StyledTextContainer>
 		</ImageContainer>
 	)

@@ -25,9 +25,9 @@ const ContactModal = ({ modalIsOpen, closeModal }) => {
 			style={customStyles}
 		>
 			<HeaderTitle>
-				<CloseButton onClick={closeModal}> X</CloseButton>
+				<Title>Contactanos</Title>
+				<CloseButton onClick={closeModal}>X</CloseButton>
 			</HeaderTitle>
-			<Title>Contactanos</Title>
 			<Parragraph>
 				Escríbenos y nos contactaremos para brindarte toda la información que
 				necesites
@@ -69,7 +69,10 @@ const ContactModal = ({ modalIsOpen, closeModal }) => {
 }
 const HeaderTitle = styled.div`
 	display: flex;
-	justify-content: flex-end;
+	justify-content: space-between;
+	align-items: flex-start;
+	/* justify-content: flex-end;
+	 */
 `
 const Title = styled.h3`
 	font-family: "Montserrat";
@@ -78,18 +81,13 @@ const Title = styled.h3`
 	font-size: 20px;
 	line-height: 24px;
 	text-align: center;
-
-	/* Primario Azul 100 */
-
+	width: 90%;
 	color: #1744ff;
 `
 const CloseButton = styled.div`
 	background: transparent;
 	border: unset;
-	font-size: 1.6rem;
-	/* position: absolute;
-	bottom: 92%;
-	left: 60%; */
+	font-size: 20px;
 	cursor: pointer;
 `
 

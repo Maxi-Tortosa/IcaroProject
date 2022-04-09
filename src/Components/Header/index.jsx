@@ -1,55 +1,66 @@
-import styled from 'styled-components';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import IngresaBttn from '../Buttons/IngresaBttn';
-import theme from '../../Theme/base';
+import styled from "styled-components"
+import { useState } from "react"
+import { Link } from "react-router-dom"
+import IngresaBttn from "../Buttons/IngresaBttn"
+import theme from "../../Theme/base"
+import ContactModal from "../Modals/ContactModal"
 
 const Header = ({ setIsLoginOpen }) => {
-	const [isScroll, setIsScroll] = useState(false);
+	const [isScroll, setIsScroll] = useState(false)
+	const [modalIsOpen, setIsOpen] = useState(false)
 
-	window.addEventListener('scroll', changeNavColor);
+	function openModal() {
+		setIsOpen(true)
+	}
+
+	function closeModal() {
+		setIsOpen(false)
+	}
+
+	window.addEventListener("scroll", changeNavColor)
 
 	function changeNavColor() {
 		if (window.scrollY >= 85) {
-			setIsScroll(true);
+			setIsScroll(true)
 		} else {
-			setIsScroll(false);
+			setIsScroll(false)
 		}
 	}
 
 	return (
 		<Container isScroll={isScroll}>
-			<div className='header'>
-				<Link to='/' className='logo'>
+			<div className="header">
+				<Link to="/" className="logo">
 					<img
-						src='https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/logo.svg?alt=media&token=b47dccac-e962-48ab-99f1-f3d250f879f5'
-						alt='Logo de Ícaro'
+						src="https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/logo.svg?alt=media&token=b47dccac-e962-48ab-99f1-f3d250f879f5"
+						alt="Logo de Ícaro"
 					/>
 				</Link>
-				<ul className='menu'>
+				<ul className="menu">
 					<li>
-						<CenterLinks to={'/#cursos'}>Cursos</CenterLinks>
+						<CenterLinks to={"/#cursos"}>Cursos</CenterLinks>
 					</li>
 					<li>
-						<CenterLinks to={'/quienes-somos'}>Quiénes somos</CenterLinks>
+						<CenterLinks to={"/quienes-somos"}>Quiénes somos</CenterLinks>
 					</li>
 					<li>
-						<CenterLinks to={'/contacto'}>Contacto</CenterLinks>
+						<ButtonLink onClick={openModal}>Contacto</ButtonLink>
 					</li>
 				</ul>
 
 				<IngresaBttn setIsLoginOpen={setIsLoginOpen} />
 			</div>
+			<ContactModal modalIsOpen={modalIsOpen} closeModal={closeModal} />
 		</Container>
-	);
-};
+	)
+}
 
-export default Header;
+export default Header
 
 const Container = styled.div`
 	font-family: ${theme.fontFamily.primary};
 	width: 100%;
-	background-color: ${({ isScroll }) => (isScroll ? 'grey' : ' transparent')};
+	background-color: ${({ isScroll }) => (isScroll ? "grey" : " transparent")};
 	transition: all 0.3s ease-out 0s;
 	position: fixed;
 	top: 0;
@@ -91,7 +102,7 @@ const Container = styled.div`
 			margin: 0;
 		}
 	}
-`;
+`
 const CenterLinks = styled(Link)`
 	text-decoration: none;
 	color: #fff;
@@ -107,11 +118,36 @@ const CenterLinks = styled(Link)`
 	}
 
 	&::after {
-		content: '';
+		content: "";
 		display: block;
 		width: 0;
 		height: 3px;
 		background: #fff;
 		transition: width 0.3s;
 	}
-`;
+`
+
+const ButtonLink = styled.div`
+	text-decoration: none;
+	color: #fff;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 16px;
+	line-height: 21px;
+	cursor: pointer;
+
+	&:hover::after {
+		width: 100%;
+		transition: width 0.5s;
+		color: #2b3538;
+	}
+
+	&::after {
+		content: "";
+		display: block;
+		width: 0;
+		height: 3px;
+		background: #fff;
+		transition: width 0.3s;
+	}
+`
