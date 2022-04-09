@@ -55,7 +55,7 @@ const DotIndicatorWrapper = styled.div`
 	left: 45%;
 `;
 
-const Carousel = ({ gap = 0 }) => {
+const MainCarousel = ({ gap = 0 }) => {
 	const imgs = [
 		/* VER SI SIGUE VIGENTE ESTA CONSTANTE YA QUE EL ORIGEN DE LAS IMÁGENES ESTÁ EN FIRESTORE */
 		'./img/carousel1.png',
@@ -111,4 +111,4 @@ const Carousel = ({ gap = 0 }) => {
 	);
 };
 
-export default Carousel;
+export default MainCarousel;

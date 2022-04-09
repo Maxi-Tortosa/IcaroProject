@@ -1,30 +1,31 @@
-import styled from "styled-components"
-import theme from "../../../Theme/base"
-import IngresaBttn from "../../Buttons/IngresaBttn"
-import EmptyButton from "../../Buttons/EmptyButton"
+import styled from 'styled-components';
+import theme from '../../../Theme/base';
+import IngresaBttn from '../../Buttons/IngresaBttn';
+import EmptyButton from '../../Buttons/EmptyButton';
 
 const CarouselCard = ({ src, slide }) => {
-	const { Description, Title, ButtonLink, ButtonText } = slide
+	const { Description, Title, ButtonLink, ButtonText } = slide;
+	console.log(ButtonLink);
 	return (
 		<ImageContainer src={src}>
 			<StyledTextContainer>
 				<StyledH1>{Title}</StyledH1>
 				<StyledParragraph>{Description}</StyledParragraph>
-				{ButtonText === "Ingresá" ? (
+				{ButtonText === 'Ingresá' ? (
 					<IngresaBttn />
 				) : (
 					<EmptyButton href={ButtonLink} content={ButtonText} />
 				)}
 			</StyledTextContainer>
 		</ImageContainer>
-	)
-}
+	);
+};
 
 const ImageContainer = styled.div`
 	background-image: url(${({ src }) => src});
 	background-position: center;
 	background-size: cover;
-`
+`;
 
 const StyledTextContainer = styled.div`
 	position: relative;
@@ -32,7 +33,7 @@ const StyledTextContainer = styled.div`
 	width: 80%;
 	max-width: 1095px;
 	margin: auto;
-`
+`;
 
 const StyledH1 = styled.h1`
 	font-family: ${theme.fontFamily.primary};
@@ -43,7 +44,7 @@ const StyledH1 = styled.h1`
 	color: #ffffff;
 	width: 55%;
 	text-transform: uppercase;
-`
+`;
 
 const StyledParragraph = styled.p`
 	font-family: ${theme.fontFamily.primary};
@@ -53,6 +54,6 @@ const StyledParragraph = styled.p`
 	line-height: 24px;
 	color: #ffffff;
 	width: 80%;
-`
+`;
 
-export default CarouselCard
+export default CarouselCard;

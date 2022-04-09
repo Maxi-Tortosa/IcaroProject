@@ -1,14 +1,16 @@
 import styled from 'styled-components';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { auth } from '../../Firebase/index';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import AlertIcon from '../../Components/AlertIcon';
+import { useNavigate } from 'react-router-dom';
 
 const Register = ({ history }) => {
 	const [newUser, setNewUser] = useState({});
 	const [createUser, setCreateUser] = useState(false);
 	const [alertErrorPassword, setAlertErrorPassword] = useState(false);
 	const [required, setRequired] = useState({});
+	let navigate = useNavigate();
 
 	/*NEW USER */
 
@@ -84,11 +86,24 @@ const Register = ({ history }) => {
 	function handleSubmit(e) {
 		e.preventDefault();
 
-		if (Object.keys(newUser).length === 7 && alertErrorPassword === false) {
-			setCreateUser(true);
-		} else {
-			setCreateUser(false);
-		}
+		createUserWithEmailAndPassword(auth, newUser.email, newUser.password)
+			.then((userCredential) => {
+				const user = userCredential.user;
+				console.log(user.email);
+			})
+			.catch((error) => {
+				// const errorCode = error.code;
+				console.log(error.message);
+			});
+		setTimeout(() => {
+			navigate('/');
+		}, 1500);
+
+		// if (Object.keys(newUser).length === 7 && alertErrorPassword === false) {
+		// 	setCreateUser(true);
+		// } else {
+		// 	setCreateUser(false);
+		// }
 
 		/* HACER VALIDACIÓN DE SI EXISTE O NO EL USUARIO */
 		/* VER SI EXISTE FORMA DE EXTRAER LA LISTA DE USUARIOS DE AUTH */
@@ -115,43 +130,6 @@ const Register = ({ history }) => {
 	// 	},
 	// 	[history]
 	// )
-
-	/* CREATE NEW USER */
-
-	useEffect(() => {
-		if (createUser) {
-			console.log('Listo');
-			setCreateUser(false);
-
-			createUserWithEmailAndPassword(auth, newUser.email, newUser.password)
-				.then((userCredential) => {
-					// Signed in
-					// const user = userCredential.user;
-					// ...
-				})
-				.catch((error) => {
-					// const errorCode = error.code;
-					// const errorMessage = error.message;
-					// ..
-				});
-
-			// auth
-			// 	.createUserWithEmailAndPassword(newUser.email, newUser.password)
-			// 	.then(() => {
-			// 		setCreateUser(
-			// 			true
-			// 		); /* DEBERÍAMOS CREAR UN USUARIO EN LA BASE DE DATOS */
-			// 	})
-			// 	.catch((err) => {
-			// 		console.log(err);
-			// 	});
-		}
-		// else {
-		// 	console.log('falta algún dato');
-		// }
-	}, [createUser, newUser, required]);
-
-	console.log(Object.keys(newUser).length);
 
 	return (
 		<Container>
@@ -218,9 +196,7 @@ const Register = ({ history }) => {
 					<label htmlFor='password'>
 						Contrasena {required.password === 'required' ? <AlertIcon /> : null}{' '}
 						{alertErrorPassword ? (
-							<span class='alertErrorPassword'>
-								(Debe contener al menos 6 caracteres)
-							</span>
+							<span class='alertErrorPassword'> (Mínimo de 6 caracteres) </span>
 						) : null}
 					</label>
 					<input
@@ -246,6 +222,7 @@ const Register = ({ history }) => {
 						onChange={(e) =>
 							handleChange(e.target.name, e.target.value)
 						}></textarea>
+
 					<button
 						id={
 							Object.values(required).includes('required') ||
@@ -262,7 +239,6 @@ const Register = ({ history }) => {
 								: false
 						}
 						className='unirme'
-						// disabled={errorPassword} VER SI SE DEJA ASÍ
 						onClick={handleSubmit}>
 						Unirme
 					</button>
@@ -350,11 +326,12 @@ label{font-size: 1rem;
 				
 				}
 
-				input:placeholder { display: none !important;}
+				
 				
 				textarea{border-radius: 5px;
 					border: 1px solid #E6E6E6;				
 				margin-bottom: 1%;
+				font-size: 1rem;
 				}
 
 				textarea:focus{
@@ -365,7 +342,7 @@ label{font-size: 1rem;
 					font-family: 'Montserrat', sans-serif;
 				
 				}
-				.alertErrorPassword{color:#C01E3B;}
+				.alertErrorPassword{color:#C01E3B; margin-left: 0.5rem;}
 
 }
 
