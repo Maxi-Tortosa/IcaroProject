@@ -1,6 +1,9 @@
+import { addDoc, collection } from 'firebase/firestore';
+
 import AlertIcon from '../../Components/AlertIcon';
 import { auth } from '../../Firebase/index';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
+import db from '../../Firebase';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
@@ -94,10 +97,13 @@ const Register = ({ history }) => {
 			.catch((error) => {
 				// const errorCode = error.code;
 				console.log(error.message);
-			});
+			})
+			.finally(() => {});
 		setTimeout(() => {
 			navigate('/');
 		}, 1500);
+
+		addDoc(collection(db, 'Usuarios'), newUser);
 
 		// if (Object.keys(newUser).length === 7 && alertErrorPassword === false) {
 		// 	setCreateUser(true);
@@ -130,7 +136,7 @@ const Register = ({ history }) => {
 	// 	},
 	// 	[history]
 	// )
-
+	console.log(newUser);
 	return (
 		<Container>
 			<div className='register'>
