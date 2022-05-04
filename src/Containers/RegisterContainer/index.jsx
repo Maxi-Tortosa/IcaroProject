@@ -1,16 +1,23 @@
-import { addDoc, collection } from 'firebase/firestore';
+import { collection, doc, setDoc } from 'firebase/firestore';
+import {
+	createUserWithEmailAndPassword,
+	getAdditionalUserInfo,
+} from 'firebase/auth';
+import { useContext, useState } from 'react';
 
 import AlertIcon from '../../Components/AlertIcon';
 import { auth } from '../../Firebase/index';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
 import db from '../../Firebase';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { userContext } from '../../Context/UserContext';
 
 const Register = ({ history }) => {
+	const { users, pending, setPending, currentUser, setCurrentUser } =
+		useContext(userContext);
 	const [newUser, setNewUser] = useState({});
-	const [createUser, setCreateUser] = useState(false);
+	const [repeatUser, setRepeatUser] = useState(false);
+	// const [createUser, setCreateUser] = useState(false);
 	const [alertErrorPassword, setAlertErrorPassword] = useState(false);
 	const [required, setRequired] = useState({});
 	let navigate = useNavigate();
@@ -86,38 +93,42 @@ const Register = ({ history }) => {
 		}
 	}
 
-	function handleSubmit(e) {
-		e.preventDefault();
-
-		createUserWithEmailAndPassword(auth, newUser.email, newUser.password)
-			.then((userCredential) => {
-				const user = userCredential.user;
-				console.log(user.email);
-			})
-			.catch((error) => {
-				// const errorCode = error.code;
-				console.log(error.message);
-			})
-			.finally(() => {});
-		setTimeout(() => {
-			navigate('/');
-		}, 1500);
-
-		addDoc(collection(db, 'Usuarios'), newUser);
-
-		// if (Object.keys(newUser).length === 7 && alertErrorPassword === false) {
-		// 	setCreateUser(true);
-		// } else {
-		// 	setCreateUser(false);
-		// }
-
-		/* HACER VALIDACIÓN DE SI EXISTE O NO EL USUARIO */
-		/* VER SI EXISTE FORMA DE EXTRAER LA LISTA DE USUARIOS DE AUTH */
-	}
-
 	function handleBlur(e) {
 		inputValidation(newUser, e.target.name);
 	}
+
+	/*CREATE USER */
+
+	function handleSubmit(e) {
+		e.preventDefault();
+
+		const repeatUser = users.find((user) => user.email === newUser.email);
+
+		if (repeatUser) {
+			setRepeatUser(true);
+		} else {
+			setRepeatUser(false);
+			createUserWithEmailAndPassword(auth, newUser.email, newUser.password)
+				.then((userCredential) => {
+					const userId = userCredential.user.uid;
+					setDoc(doc(db, 'Usuarios', userId), {
+						...newUser,
+						rol: 'estudiante',
+					});
+				})
+				.catch((error) => {
+					// const errorCode = error.code;
+					console.log(error.message);
+				});
+			// .finally(() => {
+			// 	setTimeout(() => {
+			// 		navigate('/');
+			// 	}, 1500);
+			// });
+		}
+	}
+
+	console.log(currentUser);
 
 	//investigar tema seguridad para el auth
 
@@ -136,7 +147,7 @@ const Register = ({ history }) => {
 	// 	},
 	// 	[history]
 	// )
-	console.log(newUser);
+
 	return (
 		<Container>
 			<div className='register'>
@@ -166,7 +177,12 @@ const Register = ({ history }) => {
 						onBlur={handleBlur}
 					/>
 					<label htmlFor='email'>
-						Email{required.email === 'required' ? <AlertIcon /> : null}
+						Email
+						{required.email === 'required' ? (
+							<AlertIcon />
+						) : repeatUser ? (
+							'Usuario ya existente'
+						) : null}
 					</label>
 					<input
 						id='email'
