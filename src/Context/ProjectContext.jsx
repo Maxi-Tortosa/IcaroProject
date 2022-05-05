@@ -1,66 +1,51 @@
-import { createContext, useEffect, useState } from "react"
-import db from "../../src/Firebase"
-import { collection, onSnapshot } from "firebase/firestore"
+import { collection, onSnapshot } from 'firebase/firestore';
+import { createContext, useEffect, useState } from 'react';
 
-export const projectContext = createContext()
+import db from '../../src/Firebase';
+
+export const projectContext = createContext();
 
 const ProjectContext = ({ children }) => {
-	const [course, setCourse] = useState([])
-	const [categories, setCategories] = useState([])
-	const [carousel, setCarousel] = useState([])
-	const [isLogin, setIsLogin] = useState(false)
-	const [modalOpen, setModalOpen] = useState(false)
+	const [course, setCourse] = useState([]);
+	const [nextCourses, setNextCourses] = useState([]);
+	const [nombres, setNombres] = useState([]);
+	const [categories, setCategories] = useState([]);
+	const [carousel, setCarousel] = useState([]);
+	const [isLogin, setIsLogin] = useState(false);
+	const [modalOpen, setModalOpen] = useState(false);
 
 	useEffect(() => {
 		onSnapshot(
-			collection(db, "NuevosCursos"),
+			collection(db, 'NuevosCursos'),
 			(snapshot) => setCourse(snapshot.docs.map((doc) => doc.data())),
-			(error) => console.log("error", error)
-		)
+			(error) => console.log('error', error)
+		);
 
 		onSnapshot(
-			collection(db, "CategoriasCursos"),
+			collection(db, 'CategoriasCursos'),
 			(snapshot) => setCategories(snapshot.docs.map((doc) => doc.data())),
-			(error) => console.log("error", error)
-		)
+			(error) => console.log('error', error)
+		);
 
 		onSnapshot(
-			collection(db, "CarouselContent"),
+			collection(db, 'CarouselContent'),
 			(snapshot) => setCarousel(snapshot.docs.map((doc) => doc.data())),
-			(error) => console.log("error", error)
-		)
+			(error) => console.log('error', error)
+		);
 
-		// const cursos = collection(db, 'NuevosCursos');
-		// const categorias = collection(db, 'CategoriasCursos');
+		onSnapshot(
+			collection(db, 'FechasCursos'),
+			(snapshot) => setNextCourses(snapshot.docs.map((doc) => doc.data())),
+			(error) => console.log('error', error)
+		);
+	}, []);
 
-		// cursos
+	useEffect(() => {
+		let nombresCursos = [];
+		course.map((course) => (nombresCursos = [...nombresCursos, course.nombre]));
 
-		// 	.then((querySnapshot) => {
-		// 		if (querySnapshot.size === 0) {
-		// 			console.log('No results');
-		// 		}
-
-		// 		setCourse(querySnapshot.docs.map((doc) => doc.data()));
-		// 	})
-		// 	.catch((error) => {
-		// 		console.log('error', error);
-		// 	})
-		// 	.finally(() => {});
-
-		// categorias
-		// 	.get()
-		// 	.then((querySnapshot) => {
-		// 		if (querySnapshot.size === 0) {
-		// 			console.log('No results');
-		// 		}
-
-		// 		setCategories(querySnapshot.docs.map((doc) => doc.data()));
-		// 	})
-		// 	.catch((error) => {
-		// 		console.log('error', error);
-		// 	})
-		// 	.finally(() => {});
-	}, [])
+		return setNombres(nombresCursos);
+	}, [course]);
 
 	return (
 		<projectContext.Provider
@@ -75,36 +60,12 @@ const ProjectContext = ({ children }) => {
 				setModalOpen,
 				carousel,
 				setCarousel,
-			}}
-		>
+				nextCourses,
+				nombres,
+			}}>
 			{children}
 		</projectContext.Provider>
-	)
-}
+	);
+};
 
-// EXAMPLE OF AUTHCONTEXT
-
-// export const AuthContext = createContext();
-// export const AuthProvider = ({ children }) => {
-// 	const [currentUser, setCurrentUser] = useState(null);
-// 	const [pending, setPending] = useState(true);
-
-// 	useEffect(() => {
-// 		auth.onAuthStateChanged((user) => {
-// 			setCurrentUser(user);
-// 			setPending(false);
-// 		});
-// 	}, []);
-
-// 	if (pending) {
-// 		return <>Loading...</>;
-// 	}
-
-// 	return (
-// 		<AuthContext.Provider value={{ currentUser }}>
-// 			{children}
-// 		</AuthContext.Provider>
-// 	);
-// };
-
-export default ProjectContext
+export default ProjectContext;

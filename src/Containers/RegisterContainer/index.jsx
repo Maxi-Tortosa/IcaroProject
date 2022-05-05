@@ -1,13 +1,23 @@
-import styled from 'styled-components';
-import { useState } from 'react';
-import { auth } from '../../Firebase/index';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { collection, doc, setDoc } from 'firebase/firestore';
+import {
+	createUserWithEmailAndPassword,
+	getAdditionalUserInfo,
+} from 'firebase/auth';
+import { useContext, useState } from 'react';
+
 import AlertIcon from '../../Components/AlertIcon';
+import { auth } from '../../Firebase/index';
+import db from '../../Firebase';
+import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { userContext } from '../../Context/UserContext';
 
 const Register = ({ history }) => {
+	const { users, pending, setPending, currentUser, setCurrentUser } =
+		useContext(userContext);
 	const [newUser, setNewUser] = useState({});
-	const [createUser, setCreateUser] = useState(false);
+	const [repeatUser, setRepeatUser] = useState(false);
+	// const [createUser, setCreateUser] = useState(false);
 	const [alertErrorPassword, setAlertErrorPassword] = useState(false);
 	const [required, setRequired] = useState({});
 	let navigate = useNavigate();
@@ -83,35 +93,42 @@ const Register = ({ history }) => {
 		}
 	}
 
-	function handleSubmit(e) {
-		e.preventDefault();
-
-		createUserWithEmailAndPassword(auth, newUser.email, newUser.password)
-			.then((userCredential) => {
-				const user = userCredential.user;
-				console.log(user.email);
-			})
-			.catch((error) => {
-				// const errorCode = error.code;
-				console.log(error.message);
-			});
-		setTimeout(() => {
-			navigate('/');
-		}, 1500);
-
-		// if (Object.keys(newUser).length === 7 && alertErrorPassword === false) {
-		// 	setCreateUser(true);
-		// } else {
-		// 	setCreateUser(false);
-		// }
-
-		/* HACER VALIDACIÓN DE SI EXISTE O NO EL USUARIO */
-		/* VER SI EXISTE FORMA DE EXTRAER LA LISTA DE USUARIOS DE AUTH */
-	}
-
 	function handleBlur(e) {
 		inputValidation(newUser, e.target.name);
 	}
+
+	/*CREATE USER */
+
+	function handleSubmit(e) {
+		e.preventDefault();
+
+		const repeatUser = users.find((user) => user.email === newUser.email);
+
+		if (repeatUser) {
+			setRepeatUser(true);
+		} else {
+			setRepeatUser(false);
+			createUserWithEmailAndPassword(auth, newUser.email, newUser.password)
+				.then((userCredential) => {
+					const userId = userCredential.user.uid;
+					setDoc(doc(db, 'Usuarios', userId), {
+						...newUser,
+						rol: 'estudiante',
+					});
+				})
+				.catch((error) => {
+					// const errorCode = error.code;
+					console.log(error.message);
+				});
+			// .finally(() => {
+			// 	setTimeout(() => {
+			// 		navigate('/');
+			// 	}, 1500);
+			// });
+		}
+	}
+
+	console.log(currentUser);
 
 	//investigar tema seguridad para el auth
 
@@ -160,7 +177,12 @@ const Register = ({ history }) => {
 						onBlur={handleBlur}
 					/>
 					<label htmlFor='email'>
-						Email{required.email === 'required' ? <AlertIcon /> : null}
+						Email
+						{required.email === 'required' ? (
+							<AlertIcon />
+						) : repeatUser ? (
+							'Usuario ya existente'
+						) : null}
 					</label>
 					<input
 						id='email'
@@ -251,118 +273,122 @@ const Register = ({ history }) => {
 export default Register;
 
 const Container = styled.div`
-.required{ border-color: #C01E3B !important;}
+	.required {
+		border-color: #c01e3b !important;
+	}
 
-#disabled {background: grey; cursor:default;}
+	#disabled {
+		background: grey;
+		cursor: default;
+	}
 
-width: 100%;
-background: #757575;
-display:flex;	
-padding: 10.30rem 0;
+	width: 100%;
+	background: #757575;
+	display: flex;
+	padding: 10.3rem 0;
 
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
 
+	.register {
+		width: 61.31rem;
+		height: 41.25rem;
+		max-width: 980px;
+		max-height: 660px;
+		margin: auto 0;
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+	}
 
+	.registerImage {
+		background-image: url('https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/registerImg.png?alt=media&token=c307e822-44e5-49b2-bdb1-d63e081ddf61');
+		background-size: cover;
+		width: 50%;
+		border-radius: 10px 0 0 10px;
+	}
 
-.register {
-	width: 61.31rem;
-	height: 41.25rem;
-	max-width: 980px;
-  max-height:660px;
-	margin: auto 0;
-	display:flex;	
-	flex-direction: row;
-	justify-content: center;
-}
+	.registerData {
+		padding: 4% 0 4% 0;
+		width: 50%;
+		display: flex;
+		flex-direction: column;
+		border-radius: 0 10px 10px 0;
+		background: white;
 
-.registerImage{background-image:url('https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/registerImg.png?alt=media&token=c307e822-44e5-49b2-bdb1-d63e081ddf61');
-background-size: cover;
-width:50%;
-border-radius: 10px 0 0 10px;}
+		p {
+			font-weight: 700;
+			font-size: 1.25rem;
+			line-height: 1.5rem;
+			margin-bottom: 3.5%;
+		}
 
-
-.registerData {
-padding:4% 0 4% 0;
-width:50%;
-display:flex;
-flex-direction: column;
-border-radius: 0 10px 10px 0;
-background: white;
-
-p{font-weight: 700;
-	font-size: 1.25rem;
-	line-height: 1.5rem;
-margin-bottom: 3.5%;}
-
-label{font-size: 1rem;
-			line-height:	1.5rem;
+		label {
+			font-size: 1rem;
+			line-height: 1.5rem;
 			display: flex;
 			flex-direction: row;
-			align-items: center;			
-			svg{
-
+			align-items: center;
+			svg {
 				margin-left: 1rem;
-								}
-				}
+			}
+		}
 
-				
+		input {
+			border-radius: 5px;
+			border: 1px solid #e6e6e6;
+			height: 1.75rem;
+			margin-bottom: 1%;
+			padding: 0;
+			font-size: 1rem;
+		}
 
-				input {border-radius: 5px;
-					border: 1px solid #E6E6E6;
-				height: 1.75rem;
-				margin-bottom: 1%;
-				padding: 0;
-				font-size:1rem;
-				}
+		input:focus {
+			border: 2px solid blue;
+			outline: none;
+			border-radius: 5px;
+			font-size: 1rem;
+			font-family: 'Montserrat', sans-serif;
+		}
 
-					input:focus{
-					border: 2px solid blue;
-					outline:none;
-					border-radius: 5px;
-					font-size:1rem;
-					font-family: 'Montserrat', sans-serif;
-				
-				}
+		textarea {
+			border-radius: 5px;
+			border: 1px solid #e6e6e6;
+			margin-bottom: 1%;
+			font-size: 1rem;
+		}
 
-				
-				
-				textarea{border-radius: 5px;
-					border: 1px solid #E6E6E6;				
-				margin-bottom: 1%;
-				font-size: 1rem;
-				}
+		textarea:focus {
+			border: 2px solid blue;
+			outline: none;
+			border-radius: 5px;
+			font-size: 1rem;
+			font-family: 'Montserrat', sans-serif;
+		}
+		.alertErrorPassword {
+			color: #c01e3b;
+			margin-left: 0.5rem;
+		}
+	}
 
-				textarea:focus{
-					border: 2px solid blue;
-					outline:none;
-					border-radius: 5px;
-					font-size:1rem;
-					font-family: 'Montserrat', sans-serif;
-				
-				}
-				.alertErrorPassword{color:#C01E3B; margin-left: 0.5rem;}
+	.registerData > * {
+		width: 73%;
+		margin: 0 auto;
+		font-family: 'Montserrat', sans-serif;
+	}
 
-}
-
-.registerData > * {width:73%;
-	margin: 0 auto;
-  font-family: 'Montserrat', sans-serif; }
-	
-
-		.unirme {
-			cursor: pointer;
-			height: 2.8rem;
-		background: #1744FF;
+	.unirme {
+		cursor: pointer;
+		height: 2.8rem;
+		background: #1744ff;
 		border-radius: 10px;
-    border:unset;
+		border: unset;
 		color: white;
 		font-family: 'Montserrat', sans-serif;
 		font-size: 1.25rem;
 		line-height: 1.5rem;
 		font-weight: 700;
 		margin-top: 2%;
-		}
 	}
 `;

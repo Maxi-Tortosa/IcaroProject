@@ -1,18 +1,19 @@
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
+
+import CoursesBanner from '../../Components/Courses/CoursesBanner';
+import CoursesDescription from '../../Components/Courses/CoursesDescription';
+import CursosData from '../../Components/Courses/CursosData';
+import GreyBkgrBottom from '../../Components/Backgrounds';
+import IconsInformation from '../../Components/Courses/IconsInformation';
+import InscribiteBox from '../../Components/Courses/InscribiteBox';
+import Loader from '../../Components/Loader';
+import MasInfoBox from '../../Components/Courses/MasInfoBox';
+import SimilarCourses from '../../Components/Courses/SimilarCourses';
+import Spacer from '../../Components/Spacer';
+import StudentProgram from '../../Components/Courses/StudentProgram';
+import { projectContext } from '../../Context/ProjectContext';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
-import { projectContext } from '../../Context/ProjectContext';
-import Spacer from '../../Components/Spacer';
-import CoursesBanner from '../../Components/Courses/CoursesBanner';
-import Loader from '../../Components/Loader';
-import GreyBkgrBottom from '../../Components/Backgrounds';
-import CursosData from '../../Components/Courses/CursosData';
-import InscribiteBox from '../../Components/Courses/InscribiteBox';
-import MasInfoBox from '../../Components/Courses/MasInfoBox';
-import IconsInformation from '../../Components/Courses/IconsInformation';
-import StudentProgram from '../../Components/Courses/StudentProgram';
-import SimilarCourses from '../../Components/Courses/SimilarCourses';
-import CoursesDescription from '../../Components/Courses/CoursesDescription';
 
 const image =
 	'https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/cursos-banner.png?alt=media&token=9edfc6c8-e8f8-4a8d-9262-4d4ad8c38968';
@@ -34,8 +35,6 @@ const CoursesPages = () => {
 	if (pending) {
 		return <Loader />;
 	}
-
-	console.log('selectedCourse', selectedCourse);
 
 	return (
 		<>
