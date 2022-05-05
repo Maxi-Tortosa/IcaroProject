@@ -67,8 +67,6 @@ const AdminPage = () => {
 			case "Categorias":
 				return <CategoriassAdmin categorias={categories} />
 
-			// case valorN:
-
 			default:
 				return
 		}

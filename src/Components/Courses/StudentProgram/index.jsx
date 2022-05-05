@@ -1,9 +1,9 @@
-import theme from '../../../Theme/base';
-import styled from 'styled-components';
-import LinearBttn from '../../Buttons/LinearBttn';
+import theme from "../../../Theme/base"
+import styled from "styled-components"
+import LinearBttn from "../../Buttons/LinearBttn"
 
 const StudentProgram = ({ course }) => {
-	const { CategoriaID, planDeEstudioContent, PDF } = course;
+	const { CategoriaID, planDeEstudioContent, PDF } = course
 
 	return (
 		<StudentProgramContainer>
@@ -16,17 +16,19 @@ const StudentProgram = ({ course }) => {
 								<Type>{Object.keys(element)}</Type>
 								<Description>{Object.values(element)}</Description>
 							</ParragraphContainer>
-						);
+						)
 					})}
 			</MainContent>
-			<DownloadLink href={PDF} target='_blank' rel='noreferrer'>
-				Descargar programa completo
-			</DownloadLink>
+			{PDF && (
+				<DownloadLink href={PDF} target="_blank" rel="noreferrer">
+					Descargar programa completo
+				</DownloadLink>
+			)}
 		</StudentProgramContainer>
-	);
-};
+	)
+}
 
-const StudentProgramContainer = styled.div``;
+const StudentProgramContainer = styled.div``
 
 const Title = styled.h5`
 	font-family: ${theme.fontFamily.tertiary};
@@ -36,17 +38,17 @@ const Title = styled.h5`
 	line-height: 20px;
 	color: ${({ colorFilter }) => theme.categories[colorFilter]};
 	margin: 0px;
-`;
+`
 const MainContent = styled.div`
 	margin: 30px 0;
 	display: flex;
 	flex-wrap: wrap;
 	gap: 4%;
-`;
+`
 
 const ParragraphContainer = styled.div`
 	width: 48%;
-`;
+`
 const Type = styled.p`
 	font-family: ${theme.fontFamily.tertiary};
 	color: ${theme.color.lightGrey};
@@ -54,7 +56,7 @@ const Type = styled.p`
 	font-weight: bold;
 	font-size: 16px;
 	line-height: 18px;
-`;
+`
 
 const Description = styled.p`
 	font-family: ${theme.fontFamily.primary};
@@ -64,7 +66,7 @@ const Description = styled.p`
 	font-weight: normal;
 	font-size: 16px;
 	line-height: 18px;
-`;
+`
 
 const DownloadLink = styled.a`
 	text-decoration: none;
@@ -83,6 +85,6 @@ const DownloadLink = styled.a`
 	text-align: center;
 	color: ${theme.color.darkBlue};
 	margin: 0;
-`;
+`
 
-export default StudentProgram;
+export default StudentProgram
