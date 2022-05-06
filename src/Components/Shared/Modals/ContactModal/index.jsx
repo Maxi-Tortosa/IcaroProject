@@ -1,7 +1,7 @@
 import React from "react"
 import ReactModal from "react-modal"
 import styled from "styled-components"
-import theme from "../../../Theme/base"
+import theme from "../../../../Theme/base"
 import TextareaAutosize from "react-textarea-autosize"
 import EnviaBttn from "../../Buttons/EnviaBttn"
 

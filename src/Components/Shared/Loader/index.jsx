@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import theme from "../../Theme/base"
+import theme from "../../../Theme/base"
 
 const Loader = () => {
 	return (

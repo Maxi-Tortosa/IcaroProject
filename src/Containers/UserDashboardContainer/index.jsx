@@ -1,9 +1,9 @@
 import { useContext, useState, useEffect } from "react"
 import styled from "styled-components"
 import { projectContext } from "../../Context/ProjectContext"
-import Loader from "../../Components/Loader"
+import Loader from "../../Components/Shared/Loader"
 import AdminHeader from "../../Components/AdminDashboard/AdminHeader"
-import Spacer from "../../Components/Spacer"
+import Spacer from "../../Components/Shared/Spacer"
 import CursosAdmin from "../../Components/AdminDashboard/CursosAdmin"
 import CategoriassAdmin from "../../Components/AdminDashboard/CategoriasAdmin"
 

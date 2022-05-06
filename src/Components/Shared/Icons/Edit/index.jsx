@@ -1,6 +1,6 @@
 import { CgPen } from "react-icons/cg"
 import styled from "styled-components"
-import theme from "../../../Theme/base"
+import theme from "../../../../Theme/base"
 
 const EditIcon = () => {
 	return (

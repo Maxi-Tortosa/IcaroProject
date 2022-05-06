@@ -2,8 +2,8 @@ import { useState } from "react"
 import styled from "styled-components"
 import theme from "../../../Theme/base"
 import ReactModal from "react-modal"
-import EditIcon from "../../Icons/Edit"
-import DeleteIcon from "../../Icons/Delete"
+import EditIcon from "../../Shared/Icons/Edit"
+import DeleteIcon from "../../Shared/Icons/Delete"
 
 const CursosAdmin = ({ cursos }) => {
 	const [modalIsOpen, setIsOpen] = useState(true)

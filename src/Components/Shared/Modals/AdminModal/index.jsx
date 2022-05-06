@@ -1,8 +1,8 @@
 import ReactModal from "react-modal"
 import styled from "styled-components"
-import theme from "../../../Theme/base"
-import BlueButton from "../../Buttons/BlueButton"
-import LinearBttn from "../../Buttons/LinearBttn"
+import theme from "../../../../Theme/base"
+import BlueButton from "../../Shared/Buttons/BlueButton"
+import LinearBttn from "../../Shared/Buttons/LinearBttn"
 
 const AdminModal = ({ modalIsOpen, closeModal, fieldsList, type }) => {
 	const customStyles = {

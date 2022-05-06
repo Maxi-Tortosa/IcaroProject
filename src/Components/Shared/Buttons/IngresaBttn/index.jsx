@@ -1,9 +1,24 @@
 import styled from "styled-components"
-import theme from "../../../Theme/base"
-import { Link } from "react-router-dom"
+import theme from "../../../../Theme/base"
+import { useLocation } from "react-router-dom"
 
-const EmptyButton = ({ content, href }) => {
-	return <StyledButton>{content}</StyledButton>
+const IngresaBttn = ({ setIsLoginOpen }) => {
+	const handleClick = () => {
+		setIsLoginOpen(true)
+	}
+	const location = useLocation()
+
+	return (
+		<>
+			<StyledButton
+				className="ingresa"
+				onClick={handleClick}
+				isCourses={location.pathname.includes("cursos")}
+			>
+				Ingresá
+			</StyledButton>
+		</>
+	)
 }
 
 const StyledButton = styled.button`
@@ -22,7 +37,6 @@ const StyledButton = styled.button`
 	text-align: center;
 	line-height: 0.875rem;
 	padding: 14px 50px;
-	text-decoration: none;
 
 	&:hover {
 		/* background: ${theme.color.oppositeGradient}; */
@@ -32,4 +46,4 @@ const StyledButton = styled.button`
 	}
 `
 
-export default EmptyButton
+export default IngresaBttn

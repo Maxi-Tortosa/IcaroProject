@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import theme from "../../../Theme/base"
-import EnviaBttn from "../../Buttons/EnviaBttn"
+import EnviaBttn from "../../Shared/Buttons/EnviaBttn"
 import TextareaAutosize from "react-textarea-autosize"
 
 const MasInfoBox = () => {

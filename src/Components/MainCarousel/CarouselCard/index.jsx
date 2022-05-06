@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import theme from "../../../Theme/base"
-import IngresaBttn from "../../Buttons/IngresaBttn"
-import EmptyButton from "../../Buttons/EmptyButton"
+import IngresaBttn from "../../Shared/Buttons/IngresaBttn"
+import EmptyButton from "../../Shared/Buttons/EmptyButton"
 
 const CarouselCard = ({ src, slide }) => {
 	const { Description, Title, ButtonLink, ButtonText } = slide

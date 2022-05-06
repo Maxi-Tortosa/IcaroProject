@@ -4,7 +4,7 @@ import styled from "styled-components"
 import Card from "./Card"
 import { projectContext } from "../../Context/ProjectContext"
 import theme from "../../Theme/base"
-import Loader from "../Loader"
+import Loader from "../Shared/Loader"
 
 const CursosCards = ({ isProximos }) => {
 	const { course } = useContext(projectContext)
