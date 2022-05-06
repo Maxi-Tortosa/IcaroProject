@@ -4,6 +4,7 @@ import { Link } from "react-router-dom"
 
 const Card = ({ isProximos, info, width, overridecolor }) => {
 	const { clasesSemanales, duracion, modalidad } = info.detalles
+	const { fechaInicio } = info
 
 	return (
 		<CardContainer isProximos={isProximos} width={width}>
@@ -26,7 +27,8 @@ const Card = ({ isProximos, info, width, overridecolor }) => {
 					<>
 						<CardInfoContainer>
 							<p>
-								<span>Fecha de inicio:</span> XX de octubre
+								<span>Fecha de inicio:</span>{" "}
+								{fechaInicio.toDate().toJSON().slice(0, 10)}
 							</p>
 							<p>
 								<span>Duración:</span> {duracion}

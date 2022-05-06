@@ -1,4 +1,5 @@
 import { useContext, useState, useEffect } from "react"
+import { Timestamp, addDoc, collection } from "firebase/firestore"
 import styled from "styled-components"
 import Card from "./Card"
 import { projectContext } from "../../Context/ProjectContext"
@@ -8,18 +9,44 @@ import Loader from "../Loader"
 const CursosCards = ({ isProximos }) => {
 	const { course } = useContext(projectContext)
 	const { categories } = useContext(projectContext)
+	const { nextCourses } = useContext(projectContext)
 
 	const [pending, setPending] = useState(true)
 	const [toggleState, setToggleState] = useState(0)
 	const [selectedCategorie, setSelectedCategorie] = useState(
 		categories.length > 0 ? categories[0].Nombre : "Programación"
 	)
+	const [courseDates, setCoursesDates] = useState([])
 
 	useEffect(() => {
-		if (course.length > 0 || categories.length > 0) {
+		if (course.length > 0 || categories.length > 0 || nextCourses.length > 0) {
 			setPending(false)
 		}
-	}, [course, categories])
+	}, [course, categories, nextCourses])
+
+	useEffect(() => {
+		let nextDates = []
+		const date = Timestamp.now().toDate()
+		if (course && nextCourses) {
+			var nextCoursesInfo = nextCourses.reduce((arr, e) => {
+				arr.push(
+					Object.assign(
+						{},
+						e,
+						course.find((a) => a.nombre === e.nombreCurso)
+					)
+				)
+				return arr
+			}, [])
+			nextCoursesInfo.map((course) =>
+				course.fechaInicio.toDate() > date
+					? (nextDates = [...nextDates, course])
+					: null
+			)
+
+			return setCoursesDates(nextDates)
+		}
+	}, [nextCourses, course])
 
 	const getCategorias = () => {
 		const categCopy = categories.sort(function (a, b) {
@@ -28,8 +55,8 @@ const CursosCards = ({ isProximos }) => {
 		return categCopy
 	}
 
-	const getSelectedCourses = () => {
-		const localCursosCopy = course.filter(
+	const getSelectedCourses = (courseList) => {
+		const localCursosCopy = courseList.filter(
 			(elem) =>
 				elem.categoria === selectedCategorie ||
 				elem.categoria2 === selectedCategorie
@@ -68,19 +95,21 @@ const CursosCards = ({ isProximos }) => {
 							))}
 						</Categories>
 						<CardsContainer isProximos={isProximos}>
-							{getSelectedCourses().map((elem, index) => (
-								<Card
-									isProximos={isProximos}
-									info={elem}
-									key={index}
-									overridecolor={
-										selectedCategorie ===
-										"Diplomaturas y Programas Especializados"
-											? elem.CategoriaID2
-											: null
-									}
-								/>
-							))}
+							{getSelectedCourses(isProximos ? courseDates : course).map(
+								(elem, index) => (
+									<Card
+										isProximos={isProximos}
+										info={elem}
+										key={index}
+										overridecolor={
+											selectedCategorie ===
+											"Diplomaturas y Programas Especializados"
+												? elem.CategoriaID2
+												: null
+										}
+									/>
+								)
+							)}
 						</CardsContainer>
 					</>
 				)}
