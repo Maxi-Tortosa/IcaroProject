@@ -1,7 +1,8 @@
-import { useState, useContext } from 'react';
-import { projectContext } from '../../Context/ProjectContext';
-import auth from '../../Firebase';
+import { useContext, useState } from 'react';
+
 import { Link } from 'react-router-dom';
+import auth from '../../Firebase';
+import { projectContext } from '../../Context/ProjectContext';
 import styled from 'styled-components';
 
 const LogIn = ({ setIsLoginOpen }) => {
@@ -37,7 +38,7 @@ const LogIn = ({ setIsLoginOpen }) => {
 				setTimeout(() => setIsLogin(true), 2000);
 			})
 			.catch((err) => {
-				setTimeout(() => {}, 1000);
+				console.log(err);
 			});
 	};
 
@@ -95,117 +96,135 @@ const LogIn = ({ setIsLoginOpen }) => {
 export default LogIn;
 
 const Container = styled.div`
-position: fixed;
-width: 100%;
-height: 100vh;
-z-index: 3;
+	position: fixed;
+	width: 100%;
+	height: 100vh;
+	z-index: 3;
 
-.background{width:100%;
-	height: 100%;
-	background-color: black;
-opacity: 0.4;}
-
-.modal{
-	z-index: 4;
-width 68%;
-max-width: 980px;
-height: 65vh;
-min-height: 500px;
-position: absolute;
-top: 17%;
-left: 24%;
-margin:0;
-border: white;
-background-color: white;
-display:flex;
-border-radius: 10px;
-font-family: 'Montserrat', sans-serif;
-
-.loginImage{width:50%;
-
-	background-image: url('https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/loginImg.png?alt=media&token=70a74179-9437-4a47-9efb-0f70d0281341');
-	background-position: right top;
-	border-radius:  10px 0 0 10px;
-
-}
-
-.loginData{
-	width:50%;
-	height:100%;
-  display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-	justify-content: center;
-	
-	p {font-size: 1.25rem;
-	font-weight: 700;}
-
-	.input {display: flex;
-	flex-direction:column;
-	margin-top: 3%;
-
-	label { font-size: 1 rem;
-	margin-bottom: 1%;}
-
-	input {border-radius: 5px;
-		border: 1px solid #E6E6E6;
-	height: 1.875rem;
+	.background {
+		width: 100%;
+		height: 100%;
+		background-color: black;
+		opacity: 0.4;
 	}
 
-	input:focus{
-		border: 2px solid blue;
-		outline:none;
-		border-radius: 5px;
-		font-size:1rem;
-		font-family: 'Montserrat', sans-serif;
-	
-	}
-
-	input:placeholder { display: none;}
-	
-  }
-	.forgot {margin-top: 1% ;
-		color: black;}
-
-	.submit {height: 2.8rem;
-		background: #1744FF;
+	.modal {
+		z-index: 4;
+		width: 68%;
+		max-width: 980px;
+		height: 65vh;
+		min-height: 500px;
+		position: absolute;
+		top: 17%;
+		left: 24%;
+		margin: 0;
+		border: white;
+		background-color: white;
+		display: flex;
 		border-radius: 10px;
-    border:unset;
-		color: white;
 		font-family: 'Montserrat', sans-serif;
-		font-size: 1.25rem;
-		line-height: 1.5rem;
-		font-weight: 500;
-		margin-top: 9%;
+
+		.loginImage {
+			width: 50%;
+
+			background-image: url('https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/loginImg.png?alt=media&token=70a74179-9437-4a47-9efb-0f70d0281341');
+			background-position: right top;
+			border-radius: 10px 0 0 10px;
 		}
 
-	.register{color:black;
-			font-weight: 500 !important;
-		text-align:center;
-	margin-top: 5% !important;}
+		.loginData {
+			width: 50%;
+			height: 100%;
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start;
+			justify-content: center;
 
-	.close{ background: transparent;
-					border:unset;				
-			font-size:1.6rem ;				
-		position: absolute;
-		bottom:92%;
-	  left: 60%}
+			p {
+				font-size: 1.25rem;
+				font-weight: 700;
+			}
 
-		.close:hover{cursor:pointer}
+			.input {
+				display: flex;
+				flex-direction: column;
+				margin-top: 3%;
 
+				label {
+					font-size: 1 rem;
+					margin-bottom: 1%;
+				}
+
+				input {
+					border-radius: 5px;
+					border: 1px solid #e6e6e6;
+					height: 1.875rem;
+				}
+
+				input:focus {
+					border: 2px solid blue;
+					outline: none;
+					border-radius: 5px;
+					font-size: 1rem;
+					font-family: 'Montserrat', sans-serif;
+				}
+
+				input:placeholder {
+					display: none;
+				}
+			}
+			.forgot {
+				margin-top: 1%;
+				color: black;
+			}
+
+			.submit {
+				height: 2.8rem;
+				background: #1744ff;
+				border-radius: 10px;
+				border: unset;
+				color: white;
+				font-family: 'Montserrat', sans-serif;
+				font-size: 1.25rem;
+				line-height: 1.5rem;
+				font-weight: 500;
+				margin-top: 9%;
+			}
+
+			.register {
+				color: black;
+				font-weight: 500 !important;
+				text-align: center;
+				margin-top: 5% !important;
+			}
+
+			.close {
+				background: transparent;
+				border: unset;
+				font-size: 1.6rem;
+				position: absolute;
+				bottom: 92%;
+				left: 60%;
+			}
+
+			.close:hover {
+				cursor: pointer;
+			}
+		}
+
+		.loginData > * {
+			width: 72%;
+			margin: 0 auto;
+			font-weight: 400;
+		}
+
+		.passwordError {
+			color: red;
+			border-color: red;
+		}
+
+		.passwordError::placeholder {
+			color: red;
+		}
 	}
-
-	.loginData > * {
-
-		width: 72%;
-		margin: 0 auto;
-		font-weight: 400;
-	}
-
-	.passwordError {
-		color: red;
-		border-color: red;	}
-
-	.passwordError::placeholder {
-		color: red;}
-	}`;
+`;
