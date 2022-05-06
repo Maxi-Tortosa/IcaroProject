@@ -1,12 +1,14 @@
 import { useContext, useState } from 'react';
 
 import { Link } from 'react-router-dom';
-import auth from '../../Firebase';
+import { auth } from '../../Firebase';
 import { projectContext } from '../../Context/ProjectContext';
 import styled from 'styled-components';
+import { userContext } from '../../Context/UserContext';
 
 const LogIn = ({ setIsLoginOpen }) => {
 	const { setIsLogin } = useContext(projectContext);
+	const { users } = useContext(projectContext);
 
 	const [userEmail, setUserEmail] = useState('');
 	const [userPassword, setUserPassword] = useState();
@@ -14,7 +16,9 @@ const LogIn = ({ setIsLoginOpen }) => {
 	const [hasError, setHasError] = useState(false);
 
 	const handleSubmit = () => {
-		ifMatch(userEmail, userPassword);
+		if (ifMatch(userEmail, userPassword)) {
+			console.log('no funciona');
+		}
 	};
 
 	const handleChange = (e) => {
@@ -26,22 +30,29 @@ const LogIn = ({ setIsLoginOpen }) => {
 		}
 	};
 
-	const ifMatch = (userEmail, userPassword) => {
-		/* Quedó terminado el inicio de sesión con Firebase */
-		auth
-			.signInWithEmailAndPassword(userEmail, userPassword)
-			.then(() => {
-				setUserEmail('');
-				setUserPassword('');
-				setHasError('');
+	function ifMatch(userEmail, userPassword) {
+		const match =
+			users.find((user) => (user.email = userEmail)) &
+			users.find((user) => (user.password = userPassword))
+				? true
+				: false;
 
-				setTimeout(() => setIsLogin(true), 2000);
-			})
-			.catch((err) => {
-				console.log(err);
-			});
-	};
+		return match;
+	}
 
+	/* Quedó terminado el inicio de sesión con Firebase */
+	// auth
+	// 	.signInWithEmailAndPassword(userEmail, userPassword)
+	// 	.then(() => {
+	// 		setUserEmail('');
+	// 		setUserPassword('');
+	// 		setHasError('');
+
+	// 		setTimeout(() => setIsLogin(true), 2000);
+	// 	})
+	// 	.catch((err) => {
+	// 		console.log(err);
+	// 	});
 	return (
 		<Container>
 			<div className='background'></div>

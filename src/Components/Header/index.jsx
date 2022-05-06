@@ -3,6 +3,8 @@ import { useContext, useEffect, useState } from 'react';
 import ContactModal from '../Shared/Modals/ContactModal';
 import IngresaBttn from '../Shared/Buttons/IngresaBttn';
 import { Link } from 'react-router-dom';
+import { auth } from '../../Firebase';
+import { signOut } from 'firebase/auth';
 import styled from 'styled-components';
 import theme from '../../Theme/base';
 import { userContext } from '../../Context/UserContext';
@@ -14,9 +16,10 @@ const Header = ({ setIsLoginOpen }) => {
 	const [displayUser, setDisplayUser] = useState();
 
 	useEffect(() => {
-		const display = users.find((user) => user.email === currentUser.email);
-
-		currentUser && setDisplayUser(display);
+		if (currentUser) {
+			const display = users.find((user) => user.email === currentUser.email);
+			setDisplayUser(display);
+		}
 	}, [users, currentUser]);
 
 	function openModal() {
@@ -61,7 +64,10 @@ const Header = ({ setIsLoginOpen }) => {
 				</ul>
 
 				{displayUser ? (
-					`${displayUser.name}`
+					<div>
+						<span>{displayUser.name}</span>
+						<button onClick={() => signOut(auth)}>Cerrar sesión</button>
+					</div>
 				) : (
 					<IngresaBttn setIsLoginOpen={setIsLoginOpen} />
 				)}
