@@ -3,13 +3,7 @@ import theme from "../../../../Theme/base"
 
 const LinearBttn = (props) => {
 	return (
-		<StyledButton
-			{...props}
-			type="submit"
-			onClick={(e) => {
-				e.preventDefault()
-			}}
-		>
+		<StyledButton {...props} type="submit">
 			<Content>{props.children}</Content>
 		</StyledButton>
 	)

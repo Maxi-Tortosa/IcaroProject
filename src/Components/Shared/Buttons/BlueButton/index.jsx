@@ -3,13 +3,7 @@ import theme from "../../../../Theme/base"
 
 const BlueButton = (props) => {
 	return (
-		<StyledButton
-			{...props}
-			type="submit"
-			onClick={(e) => {
-				e.preventDefault()
-			}}
-		>
+		<StyledButton {...props} type="submit">
 			{props.children}
 		</StyledButton>
 	)

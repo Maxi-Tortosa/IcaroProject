@@ -3,36 +3,30 @@ import styled from "styled-components"
 import theme from "../../../Theme/base"
 import EditIcon from "../../Shared/Icons/Edit"
 import DeleteIcon from "../../Shared/Icons/Delete"
-import { Link } from "react-router-dom"
-// import AdminModal from "../../Shared/Modals/AdminModal"
 import { CATEGORYFIELDS } from "../../../Constants/Category"
+import { useLocation, useNavigate } from "react-router-dom"
 
 const CategoriasAdmin = ({ categorias }) => {
-	// const [modalIsOpen, setIsOpen] = useState(false)
-	// // console.log("cursos", curso s)
-	// function openModal() {
-	// 	setIsOpen(true)
-	// }
-	// function closeModal() {
+	const navigate = useNavigate()
 
-	// 	setIsOpen(false)
-	// }
+	function handleClick() {
+		navigate("/admin/new/categoria", { replace: false })
+	}
 
 	return (
 		<div>
 			<TitleContainer>
 				<h3>Categorias</h3>
-				<Link to="/new/categoria" className="nueva-categoria">
-					{" "}
+				<button onClick={handleClick} className="nueva-categoria">
 					+ Nueva Categoria
-				</Link>
-				{/* <button onClick={openModal}> + Nueva Categoria</button> */}
-				{/* //hacer que vaya a la pagina nueva */}
+				</button>
 			</TitleContainer>
 			<TableContent>
 				<TableHeader>
 					{CATEGORYFIELDS.map((elem) => (
-						<TableColumn isHeader>{elem.nombre}</TableColumn>
+						<TableColumn key={elem.id} isHeader>
+							{elem.nombre}
+						</TableColumn>
 					))}
 				</TableHeader>
 
@@ -52,12 +46,6 @@ const CategoriasAdmin = ({ categorias }) => {
 					)
 				})}
 			</TableContent>
-			{/* <AdminModal
-				modalIsOpen={modalIsOpen}
-				closeModal={closeModal}
-				fieldsList={CATEGORYFIELDS}
-				type="Nueva Categoria"
-			/> */}
 		</div>
 	)
 }

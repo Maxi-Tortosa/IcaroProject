@@ -1,20 +1,13 @@
 import { useState } from "react"
 import styled from "styled-components"
 import theme from "../../../Theme/base"
-import ReactModal from "react-modal"
+// import ReactModal from "react-modal"
 import EditIcon from "../../Shared/Icons/Edit"
+import { useLocation, useNavigate } from "react-router-dom"
 import DeleteIcon from "../../Shared/Icons/Delete"
 
 const CursosAdmin = ({ cursos }) => {
-	const [modalIsOpen, setIsOpen] = useState(true)
-	// console.log("cursos", curso s)
-	function openModal() {
-		setIsOpen(true)
-	}
-
-	function closeModal() {
-		setIsOpen(false)
-	}
+	const navigate = useNavigate()
 
 	const customStyles = {
 		content: {
@@ -27,11 +20,15 @@ const CursosAdmin = ({ cursos }) => {
 		},
 	}
 
+	function handleClick() {
+		navigate("/admin/new/curso", { replace: false })
+	}
+
 	return (
 		<div>
 			<TitleContainer>
 				<h3>Cursos</h3>
-				<button onClick={openModal}> + Nuevo Curso</button>
+				<button onClick={handleClick}> + Nuevo Curso</button>
 			</TitleContainer>
 			<TableContent>
 				<TableHeader>
@@ -50,21 +47,21 @@ const CursosAdmin = ({ cursos }) => {
 							<TableColumn bgcolor={el.CategoriaID}>{el.categoria}</TableColumn>
 							<TableColumn>{el.detalles?.modalidad}</TableColumn>
 							<TableColumn>
-								<EditIcon onClick={openModal} />
-								<DeleteIcon onClick={openModal} />
+								<EditIcon onClick={handleClick} />
+								<DeleteIcon onClick={handleClick} />
 							</TableColumn>
 						</TableRow>
 					)
 				})}
 			</TableContent>
-			<ReactModal
+			{/* <ReactModal
 				isOpen={modalIsOpen}
 				onRequestClose={closeModal}
 				style={customStyles}
 			>
 				<p>hola</p>
 				<button onClick={closeModal}> cerrar</button>
-			</ReactModal>
+			</ReactModal> */}
 		</div>
 	)
 }

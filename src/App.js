@@ -11,7 +11,6 @@ import LogIn from "./Components/LogIn"
 import ProjectContext from "./Context/ProjectContext"
 import Register from "./Containers/RegisterContainer"
 import UserContext from "./Context/UserContext"
-import UserDashboardContainer from "./Containers/UserDashboardContainer"
 import { useState } from "react"
 
 function App() {
@@ -23,6 +22,7 @@ function App() {
 				<ProjectContext>
 					{/* <AdminContainer /> */}
 					{/* <UserDashboardContainer /> */}
+					{/* {cuando salga del admin desloguear usuario y enviar a home} */}
 					<Header setIsLoginOpen={setIsLoginOpen} />
 					{isLoginOpen ? <LogIn setIsLoginOpen={setIsLoginOpen} /> : null}
 					<Routes>
@@ -30,6 +30,8 @@ function App() {
 						<Route path="register" element={<Register />} />
 						<Route path="cursos/:name" element={<CoursesPages />} />
 						<Route path="admin" element={<AdminPage />} />
+						<Route path="admin/new/categoria" element={<AdminPage />} />
+						<Route path="admin/new/curso" element={<AdminPage />} />
 					</Routes>
 					<FooterContext>
 						<Footer />
