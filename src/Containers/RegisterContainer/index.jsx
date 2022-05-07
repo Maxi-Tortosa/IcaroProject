@@ -1,125 +1,125 @@
-import { collection, doc, setDoc } from "firebase/firestore"
+import { collection, doc, setDoc } from 'firebase/firestore';
 import {
 	createUserWithEmailAndPassword,
 	getAdditionalUserInfo,
-} from "firebase/auth"
-import { useContext, useState } from "react"
+} from 'firebase/auth';
+import { useContext, useState } from 'react';
 
-import AlertIcon from "../../Components/Shared/Icons/AlertIcon"
-import { auth } from "../../Firebase/index"
-import db from "../../Firebase"
-import styled from "styled-components"
-import { useNavigate } from "react-router-dom"
-import { userContext } from "../../Context/UserContext"
+import AlertIcon from '../../Components/Shared/Icons/AlertIcon';
+import { auth } from '../../Firebase/index';
+import db from '../../Firebase';
+import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import { userContext } from '../../Context/UserContext';
 
 const Register = ({ history }) => {
 	const { users, pending, setPending, currentUser, setCurrentUser } =
-		useContext(userContext)
-	const [newUser, setNewUser] = useState({})
-	const [repeatUser, setRepeatUser] = useState(false)
+		useContext(userContext);
+	const [newUser, setNewUser] = useState({});
+	const [repeatUser, setRepeatUser] = useState(false);
 	// const [createUser, setCreateUser] = useState(false);
-	const [alertErrorPassword, setAlertErrorPassword] = useState(false)
-	const [required, setRequired] = useState({})
-	let navigate = useNavigate()
+	const [alertErrorPassword, setAlertErrorPassword] = useState(false);
+	const [required, setRequired] = useState({});
+	let navigate = useNavigate();
 
 	/*NEW USER */
 
 	function handleChange(name, value, id) {
-		setNewUser((newUser) => ({ ...newUser, [name]: value }))
+		setNewUser((newUser) => ({ ...newUser, [name]: value }));
 
-		if (name === "password" && value.length < 6 && value.length > 0) {
-			setAlertErrorPassword(true)
+		if (name === 'password' && value.length < 6 && value.length > 0) {
+			setAlertErrorPassword(true);
 		} else {
-			setAlertErrorPassword(false)
+			setAlertErrorPassword(false);
 		}
 	}
 
 	/* REQUIRED VALIDATION */
 
 	function inputValidation(newUser, name) {
-		if (name === "name") {
-			if (!newUser.name || newUser.name === "") {
-				setRequired({ ...required, [name]: "required" })
+		if (name === 'name') {
+			if (!newUser.name || newUser.name === '') {
+				setRequired({ ...required, [name]: 'required' });
 			} else {
-				setRequired({ ...required, [name]: "ok" })
+				setRequired({ ...required, [name]: 'ok' });
 			}
 		}
-		if (name === "lastname") {
-			if (!newUser.lastname || newUser.lastname === "") {
-				setRequired({ ...required, [name]: "required" })
+		if (name === 'lastname') {
+			if (!newUser.lastname || newUser.lastname === '') {
+				setRequired({ ...required, [name]: 'required' });
 			} else {
-				setRequired({ ...required, [name]: "ok" })
-			}
-		}
-
-		if (name === "email") {
-			if (!newUser.email || newUser.email === "") {
-				setRequired({ ...required, [name]: "required" })
-			} else {
-				setRequired({ ...required, [name]: "ok" })
+				setRequired({ ...required, [name]: 'ok' });
 			}
 		}
 
-		if (name === "dni") {
-			if (!newUser.dni || newUser.dni === "") {
-				setRequired({ ...required, [name]: "required" })
+		if (name === 'email') {
+			if (!newUser.email || newUser.email === '') {
+				setRequired({ ...required, [name]: 'required' });
 			} else {
-				setRequired({ ...required, [name]: "ok" })
+				setRequired({ ...required, [name]: 'ok' });
 			}
 		}
 
-		if (name === "phonenumber") {
-			if (!newUser.phonenumber || newUser.phonenumber === "") {
-				setRequired({ ...required, [name]: "required" })
+		if (name === 'dni') {
+			if (!newUser.dni || newUser.dni === '') {
+				setRequired({ ...required, [name]: 'required' });
 			} else {
-				setRequired({ ...required, [name]: "ok" })
+				setRequired({ ...required, [name]: 'ok' });
 			}
 		}
 
-		if (name === "password") {
-			if (!newUser.password || newUser.password === "") {
-				setRequired({ ...required, [name]: "required" })
+		if (name === 'phonenumber') {
+			if (!newUser.phonenumber || newUser.phonenumber === '') {
+				setRequired({ ...required, [name]: 'required' });
 			} else {
-				setRequired({ ...required, [name]: "ok" })
+				setRequired({ ...required, [name]: 'ok' });
 			}
 		}
 
-		if (name === "personalInformation") {
-			if (!newUser.personalInformation || newUser.personalInformation === "") {
-				setRequired({ ...required, [name]: "required" })
+		if (name === 'password') {
+			if (!newUser.password || newUser.password === '') {
+				setRequired({ ...required, [name]: 'required' });
 			} else {
-				setRequired({ ...required, [name]: "ok" })
+				setRequired({ ...required, [name]: 'ok' });
+			}
+		}
+
+		if (name === 'personalInformation') {
+			if (!newUser.personalInformation || newUser.personalInformation === '') {
+				setRequired({ ...required, [name]: 'required' });
+			} else {
+				setRequired({ ...required, [name]: 'ok' });
 			}
 		}
 	}
 
 	function handleBlur(e) {
-		inputValidation(newUser, e.target.name)
+		inputValidation(newUser, e.target.name);
 	}
 
 	/*CREATE USER */
 
 	function handleSubmit(e) {
-		e.preventDefault()
+		e.preventDefault();
 
-		const repeatUser = users.find((user) => user.email === newUser.email)
+		const repeatUser = users.find((user) => user.email === newUser.email);
 
 		if (repeatUser) {
-			setRepeatUser(true)
+			setRepeatUser(true);
 		} else {
-			setRepeatUser(false)
+			setRepeatUser(false);
 			createUserWithEmailAndPassword(auth, newUser.email, newUser.password)
 				.then((userCredential) => {
-					const userId = userCredential.user.uid
-					setDoc(doc(db, "Usuarios", userId), {
+					const userId = userCredential.user.uid;
+					setDoc(doc(db, 'Usuarios', userId), {
 						...newUser,
-						rol: "estudiante",
-					})
+						rol: 'estudiante',
+					});
 				})
 				.catch((error) => {
 					// const errorCode = error.code;
-					console.log(error.message)
-				})
+					console.log(error.message);
+				});
 			// .finally(() => {
 			// 	setTimeout(() => {
 			// 		navigate('/');
@@ -127,8 +127,6 @@ const Register = ({ history }) => {
 			// });
 		}
 	}
-
-	console.log(currentUser)
 
 	//investigar tema seguridad para el auth
 
@@ -150,127 +148,127 @@ const Register = ({ history }) => {
 
 	return (
 		<Container>
-			<div className="register">
-				<div className="registerImage"></div>
-				<div className="registerData" id="form">
+			<div className='register'>
+				<div className='registerImage'></div>
+				<div className='registerData' id='form'>
 					<p>Únete a Ícaro</p>
-					<label htmlFor="name">
-						Nombre {required.name === "required" ? <AlertIcon /> : null}
+					<label htmlFor='name'>
+						Nombre {required.name === 'required' ? <AlertIcon /> : null}
 					</label>
 					<input
-						id="name"
-						className={required.name === "required" ? "required" : null}
-						name="name"
-						type="text"
+						id='name'
+						className={required.name === 'required' ? 'required' : null}
+						name='name'
+						type='text'
 						onBlur={handleBlur}
 						onChange={(e) => handleChange(e.target.name, e.target.value)}
 					/>
-					<label htmlFor="lastname">
-						Apellido {required.lastname === "required" ? <AlertIcon /> : null}
+					<label htmlFor='lastname'>
+						Apellido {required.lastname === 'required' ? <AlertIcon /> : null}
 					</label>
 					<input
-						id="lastname"
-						className={required.lastname === "required" ? "required" : null}
-						name="lastname"
-						type="text"
+						id='lastname'
+						className={required.lastname === 'required' ? 'required' : null}
+						name='lastname'
+						type='text'
 						onChange={(e) => handleChange(e.target.name, e.target.value)}
 						onBlur={handleBlur}
 					/>
-					<label htmlFor="email">
+					<label htmlFor='email'>
 						Email
-						{required.email === "required" ? (
+						{required.email === 'required' ? (
 							<AlertIcon />
 						) : repeatUser ? (
-							"Usuario ya existente"
+							'Usuario ya existente'
 						) : null}
 					</label>
 					<input
-						id="email"
-						className={required.email === "required" ? "required" : null}
-						name="email"
-						type="text"
+						id='email'
+						className={required.email === 'required' ? 'required' : null}
+						name='email'
+						type='text'
 						onChange={(e) => handleChange(e.target.name, e.target.value)}
 						onBlur={handleBlur}
 					/>
-					<label htmlFor="dni">
-						DNI {required.dni === "required" ? <AlertIcon /> : null}
+					<label htmlFor='dni'>
+						DNI {required.dni === 'required' ? <AlertIcon /> : null}
 					</label>
 					<input
-						id="dni"
-						className={required.dni === "required" ? "required" : null}
-						name="dni"
-						type="text"
+						id='dni'
+						className={required.dni === 'required' ? 'required' : null}
+						name='dni'
+						type='text'
 						onChange={(e) => handleChange(e.target.name, e.target.value)}
 						onBlur={handleBlur}
 					/>
-					<label htmlFor="phonenumber">
-						Telefono{" "}
-						{required.phonenumber === "required" ? <AlertIcon /> : null}
+					<label htmlFor='phonenumber'>
+						Telefono{' '}
+						{required.phonenumber === 'required' ? <AlertIcon /> : null}
 					</label>
 					<input
-						id="phonenumber"
-						className={required.phonenumber === "required" ? "required" : null}
-						name="phonenumber"
-						type="text"
+						id='phonenumber'
+						className={required.phonenumber === 'required' ? 'required' : null}
+						name='phonenumber'
+						type='text'
 						onChange={(e) => handleChange(e.target.name, e.target.value)}
 						onBlur={handleBlur}
 					/>
-					<label htmlFor="password">
-						Contrasena {required.password === "required" ? <AlertIcon /> : null}{" "}
+					<label htmlFor='password'>
+						Contrasena {required.password === 'required' ? <AlertIcon /> : null}{' '}
 						{alertErrorPassword ? (
-							<span class="alertErrorPassword"> (Mínimo de 6 caracteres) </span>
+							<span class='alertErrorPassword'> (Mínimo de 6 caracteres) </span>
 						) : null}
 					</label>
 					<input
-						id="password"
-						className={required.password === "required" ? "required" : null}
-						name="password"
-						type="password"
+						id='password'
+						className={required.password === 'required' ? 'required' : null}
+						name='password'
+						type='password'
 						onBlur={handleBlur}
 						onChange={(e) => handleChange(e.target.name, e.target.value)}
 					/>
-					<label htmlFor="personalInformation">
+					<label htmlFor='personalInformation'>
 						Informacion Profesional
-						{required.personalInformation === "required" ? <AlertIcon /> : null}
+						{required.personalInformation === 'required' ? <AlertIcon /> : null}
 					</label>
 					<textarea
-						id="personalInformation"
+						id='personalInformation'
 						className={
-							required.personalInformation === "required" ? "required" : null
+							required.personalInformation === 'required' ? 'required' : null
 						}
-						name="personalInformation"
-						rows="6"
+						name='personalInformation'
+						rows='6'
 						onBlur={handleBlur}
-						onChange={(e) => handleChange(e.target.name, e.target.value)}
-					></textarea>
+						onChange={(e) =>
+							handleChange(e.target.name, e.target.value)
+						}></textarea>
 
 					<button
 						id={
-							Object.values(required).includes("required") ||
+							Object.values(required).includes('required') ||
 							Object.keys(newUser).length < 7 ||
 							alertErrorPassword
-								? "disabled"
+								? 'disabled'
 								: null
 						}
 						disabled={
-							Object.values(required).includes("required") ||
+							Object.values(required).includes('required') ||
 							Object.keys(newUser).length < 7 ||
 							alertErrorPassword
 								? true
 								: false
 						}
-						className="unirme"
-						onClick={handleSubmit}
-					>
+						className='unirme'
+						onClick={handleSubmit}>
 						Unirme
 					</button>
 				</div>
 			</div>
 		</Container>
-	)
-}
+	);
+};
 
-export default Register
+export default Register;
 
 const Container = styled.div`
 	.required {
@@ -303,7 +301,7 @@ const Container = styled.div`
 	}
 
 	.registerImage {
-		background-image: url("https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/registerImg.png?alt=media&token=c307e822-44e5-49b2-bdb1-d63e081ddf61");
+		background-image: url('https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/registerImg.png?alt=media&token=c307e822-44e5-49b2-bdb1-d63e081ddf61');
 		background-size: cover;
 		width: 50%;
 		border-radius: 10px 0 0 10px;
@@ -349,7 +347,7 @@ const Container = styled.div`
 			outline: none;
 			border-radius: 5px;
 			font-size: 1rem;
-			font-family: "Montserrat", sans-serif;
+			font-family: 'Montserrat', sans-serif;
 		}
 
 		textarea {
@@ -364,7 +362,7 @@ const Container = styled.div`
 			outline: none;
 			border-radius: 5px;
 			font-size: 1rem;
-			font-family: "Montserrat", sans-serif;
+			font-family: 'Montserrat', sans-serif;
 		}
 		.alertErrorPassword {
 			color: #c01e3b;
@@ -375,7 +373,7 @@ const Container = styled.div`
 	.registerData > * {
 		width: 73%;
 		margin: 0 auto;
-		font-family: "Montserrat", sans-serif;
+		font-family: 'Montserrat', sans-serif;
 	}
 
 	.unirme {
@@ -385,10 +383,10 @@ const Container = styled.div`
 		border-radius: 10px;
 		border: unset;
 		color: white;
-		font-family: "Montserrat", sans-serif;
+		font-family: 'Montserrat', sans-serif;
 		font-size: 1.25rem;
 		line-height: 1.5rem;
 		font-weight: 700;
 		margin-top: 2%;
 	}
-`
+`;

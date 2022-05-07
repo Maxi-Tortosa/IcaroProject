@@ -1,73 +1,88 @@
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from 'react';
 
-import ContactModal from "../Shared/Modals/ContactModal"
-import IngresaBttn from "../Shared/Buttons/IngresaBttn"
-import { Link } from "react-router-dom"
-import styled from "styled-components"
-import theme from "../../Theme/base"
-import { userContext } from "../../Context/UserContext"
+import ContactModal from '../Shared/Modals/ContactModal';
+import IngresaBttn from '../Shared/Buttons/IngresaBttn';
+import { Link } from 'react-router-dom';
+import { auth } from '../../Firebase';
+import { signOut } from 'firebase/auth';
+import styled from 'styled-components';
+import theme from '../../Theme/base';
+import { userContext } from '../../Context/UserContext';
 
 const Header = ({ setIsLoginOpen }) => {
-	const { currentUser } = useContext(userContext)
-	const [isScroll, setIsScroll] = useState(false)
-	const [modalIsOpen, setIsOpen] = useState(false)
+	const { currentUser, users } = useContext(userContext);
+	const [isScroll, setIsScroll] = useState(false);
+	const [modalIsOpen, setIsOpen] = useState(false);
+	const [displayUser, setDisplayUser] = useState();
+
+	useEffect(() => {
+		if (currentUser) {
+			const display = users.find((user) => user.email === currentUser.email);
+			setDisplayUser(display);
+		}
+	}, [users, currentUser]);
 
 	function openModal() {
-		setIsOpen(true)
+		setIsOpen(true);
 	}
 
 	function closeModal() {
-		setIsOpen(false)
+		setIsOpen(false);
 	}
 
-	window.addEventListener("scroll", changeNavColor)
+	window.addEventListener('scroll', changeNavColor);
 
 	function changeNavColor() {
 		if (window.scrollY >= 85) {
-			setIsScroll(true)
+			setIsScroll(true);
 		} else {
-			setIsScroll(false)
+			setIsScroll(false);
 		}
 	}
 
+	console.log(displayUser);
+
 	return (
 		<Container isScroll={isScroll}>
-			<div className="header">
-				<Link to="/" className="logo">
+			<div className='header'>
+				<Link to='/' className='logo'>
 					<img
-						src="https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/logo.svg?alt=media&token=b47dccac-e962-48ab-99f1-f3d250f879f5"
-						alt="Logo de Ícaro"
+						src='https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/logo.svg?alt=media&token=b47dccac-e962-48ab-99f1-f3d250f879f5'
+						alt='Logo de Ícaro'
 					/>
 				</Link>
-				<ul className="menu">
+				<ul className='menu'>
 					<li>
-						<CenterLinks to={"/#cursos"}>Cursos</CenterLinks>
+						<CenterLinks to={'/#cursos'}>Cursos</CenterLinks>
 					</li>
 					<li>
-						<CenterLinks to={"/quienes-somos"}>Quiénes somos</CenterLinks>
+						<CenterLinks to={'/quienes-somos'}>Quiénes somos</CenterLinks>
 					</li>
 					<li>
 						<ButtonLink onClick={openModal}>Contacto</ButtonLink>
 					</li>
 				</ul>
 
-				{currentUser ? (
-					"usuario Loggeado"
+				{displayUser ? (
+					<div>
+						<span>{displayUser.name}</span>
+						<button onClick={() => signOut(auth)}>Cerrar sesión</button>
+					</div>
 				) : (
 					<IngresaBttn setIsLoginOpen={setIsLoginOpen} />
 				)}
 			</div>
 			<ContactModal modalIsOpen={modalIsOpen} closeModal={closeModal} />
 		</Container>
-	)
-}
+	);
+};
 
-export default Header
+export default Header;
 
 const Container = styled.div`
 	font-family: ${theme.fontFamily.primary};
 	width: 100%;
-	background-color: ${({ isScroll }) => (isScroll ? "grey" : " transparent")};
+	background-color: ${({ isScroll }) => (isScroll ? 'grey' : ' transparent')};
 	transition: all 0.3s ease-out 0s;
 	position: fixed;
 	top: 0;
@@ -109,7 +124,7 @@ const Container = styled.div`
 			margin: 0;
 		}
 	}
-`
+`;
 const CenterLinks = styled(Link)`
 	text-decoration: none;
 	color: #fff;
@@ -125,14 +140,14 @@ const CenterLinks = styled(Link)`
 	}
 
 	&::after {
-		content: "";
+		content: '';
 		display: block;
 		width: 0;
 		height: 3px;
 		background: #fff;
 		transition: width 0.3s;
 	}
-`
+`;
 
 const ButtonLink = styled.div`
 	text-decoration: none;
@@ -150,11 +165,11 @@ const ButtonLink = styled.div`
 	}
 
 	&::after {
-		content: "";
+		content: '';
 		display: block;
 		width: 0;
 		height: 3px;
 		background: #fff;
 		transition: width 0.3s;
 	}
-`
+`;
