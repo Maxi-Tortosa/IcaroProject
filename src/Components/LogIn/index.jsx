@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
-
-import { Link } from 'react-router-dom';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { Link, useNavigate } from 'react-router-dom';
 import { auth } from '../../Firebase';
 import { projectContext } from '../../Context/ProjectContext';
 import styled from 'styled-components';
@@ -8,16 +8,33 @@ import { userContext } from '../../Context/UserContext';
 
 const LogIn = ({ setIsLoginOpen }) => {
 	const { setIsLogin } = useContext(projectContext);
-	const { users } = useContext(projectContext);
+	const { users } = useContext(userContext);
 
 	const [userEmail, setUserEmail] = useState('');
 	const [userPassword, setUserPassword] = useState();
 	const [passwordError, setPasswordError] = useState(false);
 	const [hasError, setHasError] = useState(false);
 
+	const navigate = useNavigate();
+
 	const handleSubmit = () => {
-		if (ifMatch(userEmail, userPassword)) {
-			console.log('no funciona');
+		const matchEmail = users.find((user) => user.email === userEmail);
+		const matchPassword = matchEmail.password === userPassword ? true : false;
+		if (matchEmail & matchPassword) {
+			signInWithEmailAndPassword(auth, userEmail, userPassword);
+
+			if (matchEmail.rol === 'estudiante') {
+				// setTimeout(() => {
+				// 	navigate('');
+				// }, 1000);
+			}
+			if (matchEmail.rol === 'administrador') {
+				setTimeout(() => {
+					navigate('admin');
+				}, 1000);
+			}
+		} else {
+			console.log('usuario no existente');
 		}
 	};
 
@@ -29,16 +46,6 @@ const LogIn = ({ setIsLoginOpen }) => {
 			setPasswordError(false);
 		}
 	};
-
-	function ifMatch(userEmail, userPassword) {
-		const match =
-			users.find((user) => (user.email = userEmail)) &
-			users.find((user) => (user.password = userPassword))
-				? true
-				: false;
-
-		return match;
-	}
 
 	/* Quedó terminado el inicio de sesión con Firebase */
 	// auth
@@ -170,6 +177,8 @@ const Container = styled.div`
 					border-radius: 5px;
 					border: 1px solid #e6e6e6;
 					height: 1.875rem;
+					font-size: 1rem;
+					font-family: 'Montserrat', sans-serif;
 				}
 
 				input:focus {
