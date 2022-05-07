@@ -1,9 +1,11 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { useIsMobile } from '../../Hooks/Client';
 
 const Banners = () => {
+	const mobile = useIsMobile();
 	return (
-		<Container>
+		<Container mobile={mobile}>
 			<div className='banner1'>
 				<StyledLink to='/'>
 					<h2>Enseñá con ICARO</h2>
@@ -23,14 +25,14 @@ export default Banners;
 
 const Container = styled.div`
 	display: flex;
-	flex-direction: row;
+	flex-direction: ${({ mobile }) => (mobile ? 'column' : 'row')};
 	justify-content: center;
 	margin: 0 auto 0 auto;
 	max-width: 1440px;
 	width: 100%;
 
 	.banner1 {
-		width: 50%;
+		width: ${({ mobile }) => (mobile ? '100%' : '50%')};
 		position: relative;
 		background: black;
 		display: flex;
@@ -66,7 +68,7 @@ const Container = styled.div`
 	}
 
 	.banner2 {
-		width: 50%;
+		width: ${({ mobile }) => (mobile ? '100%' : '50%')};
 		position: relative;
 		background: black;
 		display: flex;
