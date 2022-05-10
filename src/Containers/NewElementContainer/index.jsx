@@ -1,8 +1,7 @@
-import ReactModal from "react-modal"
 import { useState, useEffect } from "react"
 import styled from "styled-components"
 import theme from "../../Theme/base"
-import { matchPath, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 import BlueButton from "../../Components/Shared/Buttons/BlueButton"
 import LinearBttn from "../../Components/Shared/Buttons/LinearBttn"
@@ -34,7 +33,15 @@ const NewElementContainer = ({ fieldsList, type }) => {
 
 	function handleChange(name, value) {
 		setNewData((newData) => ({ ...newData, [name]: value }))
-		// console.log(newData)
+		console.log(newData)
+	}
+
+	function getAuthomaticPath() {
+		if (newData?.nombre?.length > 3) {
+			const generatedPath = newData.nombre.toLowerCase().replaceAll(" ", "-")
+			console.log("generatedPath", generatedPath)
+			return generatedPath
+		}
 	}
 
 	function handleSubmit(e) {
@@ -55,7 +62,7 @@ const NewElementContainer = ({ fieldsList, type }) => {
 				<CloseButton onClick={handleClose}>X</CloseButton>
 			</HeaderTitle>
 			<StyledForm>
-				{fieldsList.map((elem) => (
+				{fieldsList.map((elem, index, array) => (
 					<FormLabel key={elem.id} htmlFor={elem.nombre}>
 						{elem.inputLabel}
 						{elem.isRequired && (
@@ -65,6 +72,7 @@ const NewElementContainer = ({ fieldsList, type }) => {
 						<FormInput
 							type={elem.type}
 							onChange={(e) => handleChange(elem.nombre, e.target.value)}
+							defaultValue={elem.nombre === "href" ? getAuthomaticPath() : ""}
 						/>
 					</FormLabel>
 				))}

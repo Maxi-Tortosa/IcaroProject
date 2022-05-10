@@ -2,6 +2,8 @@ export const CURSOSCFIELDS = [
 	{
 		nombre: "CategoriaID",
 		inputLabel: "Categoria Id",
+		isRequired: true,
+		helpText: "aca iria un campo en disabled con el id de la categoria",
 		type: "text",
 		id: 1,
 		nroOrden: 4,
@@ -9,7 +11,7 @@ export const CURSOSCFIELDS = [
 	{
 		nombre: "PDF",
 		inputLabel: "Plan de estudios PDF",
-		type: "text",
+		type: "file",
 		id: 2,
 		nroOrden: 5,
 	},
@@ -17,6 +19,7 @@ export const CURSOSCFIELDS = [
 		nombre: "categoria",
 		inputLabel: "Nombre de categoria",
 		isRequired: true,
+		helpText: "aca iria un select",
 		type: "text",
 		id: 3,
 		nroOrden: 3,
@@ -35,8 +38,9 @@ export const CURSOSCFIELDS = [
 	},
 	{
 		nombre: "href",
-		inputLabel: "Path",
+		inputLabel: "URL Path",
 		isRequired: true,
+		helpText: "Este es un ejemplo autogenerado",
 		type: "text",
 		id: 10,
 		nroOrden: 2,
