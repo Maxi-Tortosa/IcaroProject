@@ -1,37 +1,71 @@
 import ReactModal from "react-modal"
+import { useState, useEffect } from "react"
 import styled from "styled-components"
 import theme from "../../Theme/base"
-import { useNavigate } from "react-router-dom"
+import { matchPath, useNavigate } from "react-router-dom"
 
 import BlueButton from "../../Components/Shared/Buttons/BlueButton"
 import LinearBttn from "../../Components/Shared/Buttons/LinearBttn"
+import { sortArrayByOrderNumber } from "../../Utils"
 
-const NewElementContainer = ({ modalIsOpen, closeModal, fieldsList, type }) => {
+const NewElementContainer = ({ fieldsList, type }) => {
+	const [disabledButton, setDisabledButton] = useState(true)
+	const [newData, setNewData] = useState({})
+	const [loading, setLoading] = useState(false)
 	const navigate = useNavigate()
+	sortArrayByOrderNumber(fieldsList)
+
+	useEffect(() => {
+		const requiredFields = fieldsList
+			.filter((elem) => elem.isRequired)
+			.map((item) => item.nombre)
+		const dataKeys = Object.keys(newData)
+
+		requiredFields.every((ai) => dataKeys.includes(ai)) &&
+		Object.values(newData).every((item) => item.length > 3)
+			? setDisabledButton(false)
+			: setDisabledButton(true)
+	}, [newData, fieldsList])
 
 	function handleClose() {
-		// console.log("se hace click")
+		setNewData({})
 		navigate("/admin/", { replace: true })
+	}
+
+	function handleChange(name, value) {
+		setNewData((newData) => ({ ...newData, [name]: value }))
+		// console.log(newData)
 	}
 
 	function handleSubmit(e) {
 		// console.log("se hizo submit")
 		e.preventDefault()
+		if (disabledButton) return
+		if (newData) {
+			// setLoading(true)
+			console.log("aca submit lo nuevo", newData)
+		}
 		handleClose()
 	}
 
 	return (
 		<ModalContainer>
 			<HeaderTitle>
-				<Title>{type} </Title>
+				<Title>{type}</Title>
 				<CloseButton onClick={handleClose}>X</CloseButton>
 			</HeaderTitle>
 			<StyledForm>
 				{fieldsList.map((elem) => (
-					<FormLabel key={elem.id}>
-						{elem.nombre}
+					<FormLabel key={elem.id} htmlFor={elem.nombre}>
+						{elem.inputLabel}
+						{elem.isRequired && (
+							<RequiredText>* Campo obligatorio</RequiredText>
+						)}
 						{elem.helpText && <Small>{elem.helpText}</Small>}
-						<FormInput type={elem.type} />
+						<FormInput
+							type={elem.type}
+							onChange={(e) => handleChange(elem.nombre, e.target.value)}
+						/>
 					</FormLabel>
 				))}
 				<SubmitContainer>
@@ -42,8 +76,11 @@ const NewElementContainer = ({ modalIsOpen, closeModal, fieldsList, type }) => {
 						width="100%"
 						borderRadius="10px"
 						padding="5px 13px"
-						backgroundColor={theme.color.darkBlue}
+						backgroundColor={
+							disabledButton ? theme.color.disabledBlue : theme.color.darkBlue
+						}
 						type="submit"
+						disabled={disabledButton}
 						onClick={(e) => handleSubmit(e)}
 					>
 						Guardar
@@ -134,15 +171,26 @@ const FormLabel = styled.label`
 `
 
 const Small = styled.p`
-	display: inline;
+	display: block;
 	font-family: ${theme.fontFamily.primary};
 	font-style: normal;
 	font-weight: normal;
 	font-size: 12px;
 	line-height: 16px;
 	color: ${theme.color.lightGrey};
+	text-transform: none;
+	margin: 5px 0;
+`
+const RequiredText = styled.p`
+	display: inline;
+	font-family: ${theme.fontFamily.primary};
+	font-style: normal;
+	font-weight: normal;
+	font-size: 12px;
+	line-height: 16px;
+	color: ${theme.color.redError};
 	margin: 10px 0px;
-	text-transform: capitalize;
+	text-transform: none;
 	margin: 0 10px;
 `
 

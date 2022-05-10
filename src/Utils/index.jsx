@@ -22,3 +22,9 @@ export function dateFormat(inputDate, format) {
 
 	return format
 }
+
+export function sortArrayByOrderNumber(array) {
+	array.sort((a, b) => {
+		return a.nroOrden - b.nroOrden
+	})
+}
