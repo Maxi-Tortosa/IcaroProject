@@ -10,10 +10,10 @@ import theme from '../../Theme/base';
 import { userContext } from '../../Context/UserContext';
 
 const Header = ({ setIsLoginOpen }) => {
-	const { currentUser, users } = useContext(userContext);
+	const { setCurrentUser, currentUser, users } = useContext(userContext);
 	const [isScroll, setIsScroll] = useState(false);
 	const [modalIsOpen, setIsOpen] = useState(false);
-	const [displayUser, setDisplayUser] = useState();
+	const [displayUser, setDisplayUser] = useState(null);
 
 	useEffect(() => {
 		if (currentUser) {
@@ -38,6 +38,13 @@ const Header = ({ setIsLoginOpen }) => {
 		} else {
 			setIsScroll(false);
 		}
+	}
+
+	function handleClick() {
+		signOut(auth);
+		setTimeout(() => {
+			setDisplayUser(null);
+		}, 1000);
 	}
 
 	console.log(displayUser);
@@ -66,7 +73,7 @@ const Header = ({ setIsLoginOpen }) => {
 				{displayUser ? (
 					<div>
 						<span>{displayUser.name}</span>
-						<button onClick={() => signOut(auth)}>Cerrar sesión</button>
+						<button onClick={handleClick}>Cerrar sesión</button>
 					</div>
 				) : (
 					<IngresaBttn setIsLoginOpen={setIsLoginOpen} />

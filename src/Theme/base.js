@@ -1,4 +1,5 @@
 const theme = {
+	padding: { mobileContainer: "0 50% 13.60%" },
 	color: {
 		blue: "#17ABFF",
 		darkBlue: "#1744FF",
