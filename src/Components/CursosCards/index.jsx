@@ -77,9 +77,9 @@ const CursosCards = ({ isProximos }) => {
 		<MainContainer id={isProximos ? 'proximos' : 'cursos'}>
 			<Container>
 				{isProximos ? (
-					<Title>Próximos cursos</Title>
+					<Title mobile={mobile}>Próximos cursos</Title>
 				) : (
-					<Title>Conocé nuestros cursos y diplomaturas</Title>
+					<Title mobile={mobile}>Conocé nuestros cursos y diplomaturas</Title>
 				)}
 				{pending ? (
 					<Loader />
@@ -135,8 +135,9 @@ const Container = styled.div`
 
 const Title = styled.h3`
 	/* margin: 0 0 5% 0; */
-	font-size: 2.5rem;
-	padding: 0 20px;
+
+	font-size: ${({ mobile }) => (mobile ? '1.5rem' : ' 2.5rem')};
+	padding: ${({ mobile }) => (mobile ? '0 10px' : ' 0 20px')};
 	font-weight: 700;
 	line-height: 2.5rem;
 `;
