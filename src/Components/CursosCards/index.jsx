@@ -2,6 +2,7 @@ import { Timestamp, addDoc, collection } from 'firebase/firestore';
 import { useContext, useEffect, useState } from 'react';
 
 import Card from './Card';
+import CategoriesMobile from '../CategoriesMobile';
 import Loader from '../Shared/Loader';
 import { projectContext } from '../../Context/ProjectContext';
 import styled from 'styled-components';
@@ -83,12 +84,13 @@ const CursosCards = ({ isProximos }) => {
 				)}
 				{pending ? (
 					<Loader />
+				) : mobile ? (
+					<CategoriesMobile categories={getCategorias} />
 				) : (
 					<>
 						<Categories>
 							{getCategorias().map(({ Nombre, CategoriaID }, index) => (
 								<Category
-									mobile={mobile}
 									id={CategoriaID}
 									onClick={() => toggleTab(index, Nombre)}
 									key={index}
