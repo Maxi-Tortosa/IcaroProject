@@ -7,6 +7,7 @@ import { auth } from '../../Firebase';
 import { signOut } from 'firebase/auth';
 import styled from 'styled-components';
 import theme from '../../Theme/base';
+import { useIsMobile } from '../../Hooks/Client';
 import { userContext } from '../../Context/UserContext';
 
 const Header = ({ setIsLoginOpen }) => {
@@ -14,6 +15,7 @@ const Header = ({ setIsLoginOpen }) => {
 	const [isScroll, setIsScroll] = useState(false);
 	const [modalIsOpen, setIsOpen] = useState(false);
 	const [displayUser, setDisplayUser] = useState(null);
+	const mobile = useIsMobile();
 
 	useEffect(() => {
 		if (currentUser) {
@@ -47,18 +49,24 @@ const Header = ({ setIsLoginOpen }) => {
 		}, 1000);
 	}
 
-	console.log(displayUser);
-
 	return (
-		<Container isScroll={isScroll}>
+		<Container mobile={mobile} isScroll={isScroll}>
 			<div className='header'>
+				{mobile ? (
+					<button class='mobileButton'>
+						<img
+							src='https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/mobile%2FiconoMenuMobile.png?alt=media&token=e4546394-de4a-4812-b5d5-f53a40bce518'
+							alt=''
+						/>
+					</button>
+				) : null}{' '}
 				<Link to='/' className='logo'>
 					<img
 						src='https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/logo.svg?alt=media&token=b47dccac-e962-48ab-99f1-f3d250f879f5'
 						alt='Logo de Ícaro'
 					/>
 				</Link>
-				<ul className='menu'>
+				<ul mobile={mobile} className='menu'>
 					<li>
 						<CenterLinks to={'/#cursos'}>Cursos</CenterLinks>
 					</li>
@@ -69,14 +77,15 @@ const Header = ({ setIsLoginOpen }) => {
 						<ButtonLink onClick={openModal}>Contacto</ButtonLink>
 					</li>
 				</ul>
-
 				{displayUser ? (
-					<div>
+					<div className='signinButton'>
 						<span>{displayUser.name}</span>
 						<button onClick={handleClick}>Cerrar sesión</button>
 					</div>
 				) : (
-					<IngresaBttn setIsLoginOpen={setIsLoginOpen} />
+					<div className='signoutButton'>
+						<IngresaBttn setIsLoginOpen={setIsLoginOpen} />
+					</div>
 				)}
 			</div>
 			<ContactModal modalIsOpen={modalIsOpen} closeModal={closeModal} />
@@ -91,19 +100,18 @@ const Container = styled.div`
 	width: 100%;
 	background-color: ${({ isScroll }) => (isScroll ? 'grey' : ' transparent')};
 	transition: all 0.3s ease-out 0s;
-	position: fixed;
+	position: ${({ mobile }) => (mobile ? 'fixed' : 'fixed')};
 	top: 0;
 	left: 0;
 	z-index: 2000;
 
 	.header {
-		width: 80%;
-		max-width: 1095px;
+		width: ${({ mobile }) => (mobile ? '100%' : '80%')};
+		max-width: ${({ mobile }) => (mobile ? 'null' : '1095px')};
 		display: flex;
-		justify-content: space-between;
-		align-items: center;
 		flex-direction: row;
-
+		justify-content: ${({ mobile }) => (mobile ? 'center' : 'space-between')};
+		align-items: center;
 		padding: 20px 0;
 		margin: auto;
 	}
@@ -114,8 +122,7 @@ const Container = styled.div`
 		}
 	}
 	.menu {
-		width: 26.71%;
-		display: flex;
+		display: ${({ mobile }) => (mobile ? 'none' : 'flex')};
 		flex-direction: row;
 		justify-content: space-between;
 		list-style-type: none;
@@ -130,6 +137,17 @@ const Container = styled.div`
 		& li:last-child {
 			margin: 0;
 		}
+	}
+	.signinButton,
+	.signoutButton {
+		display: ${({ mobile }) => (mobile ? 'none' : null)};
+	}
+
+	.mobileButton {
+		background-color: transparent;
+		border: none;
+		position: absolute;
+		margin-right: 80%;
 	}
 `;
 const CenterLinks = styled(Link)`

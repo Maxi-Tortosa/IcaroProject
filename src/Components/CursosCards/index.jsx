@@ -1,32 +1,35 @@
-import { useContext, useState, useEffect } from "react"
-import { Timestamp, addDoc, collection } from "firebase/firestore"
-import styled from "styled-components"
-import Card from "./Card"
-import { projectContext } from "../../Context/ProjectContext"
-import theme from "../../Theme/base"
-import Loader from "../Shared/Loader"
+import { Timestamp, addDoc, collection } from 'firebase/firestore';
+import { useContext, useEffect, useState } from 'react';
+
+import Card from './Card';
+import Loader from '../Shared/Loader';
+import { projectContext } from '../../Context/ProjectContext';
+import styled from 'styled-components';
+import theme from '../../Theme/base';
+import { useIsMobile } from '../../Hooks/Client';
 
 const CursosCards = ({ isProximos }) => {
-	const { course } = useContext(projectContext)
-	const { categories } = useContext(projectContext)
-	const { nextCourses } = useContext(projectContext)
+	const { course } = useContext(projectContext);
+	const { categories } = useContext(projectContext);
+	const { nextCourses } = useContext(projectContext);
 
-	const [pending, setPending] = useState(true)
-	const [toggleState, setToggleState] = useState(0)
+	const [pending, setPending] = useState(true);
+	const [toggleState, setToggleState] = useState(0);
 	const [selectedCategorie, setSelectedCategorie] = useState(
-		categories.length > 0 ? categories[0].Nombre : "Programación"
-	)
-	const [courseDates, setCoursesDates] = useState([])
+		categories.length > 0 ? categories[0].Nombre : 'Programación'
+	);
+	const [courseDates, setCoursesDates] = useState([]);
+	const mobile = useIsMobile();
 
 	useEffect(() => {
 		if (course.length > 0 || categories.length > 0 || nextCourses.length > 0) {
-			setPending(false)
+			setPending(false);
 		}
-	}, [course, categories, nextCourses])
+	}, [course, categories, nextCourses]);
 
 	useEffect(() => {
-		let nextDates = []
-		const date = Timestamp.now().toDate()
+		let nextDates = [];
+		const date = Timestamp.now().toDate();
 		if (course && nextCourses) {
 			var nextCoursesInfo = nextCourses.reduce((arr, e) => {
 				arr.push(
@@ -35,43 +38,43 @@ const CursosCards = ({ isProximos }) => {
 						e,
 						course.find((a) => a.nombre === e.nombreCurso)
 					)
-				)
-				return arr
-			}, [])
+				);
+				return arr;
+			}, []);
 			nextCoursesInfo.map((course) =>
 				course.fechaInicio.toDate() > date
 					? (nextDates = [...nextDates, course])
 					: null
-			)
+			);
 
-			return setCoursesDates(nextDates)
+			return setCoursesDates(nextDates);
 		}
-	}, [nextCourses, course])
+	}, [nextCourses, course]);
 
 	const getCategorias = () => {
 		const categCopy = categories.sort(function (a, b) {
-			return a.Orden - b.Orden
-		})
-		return categCopy
-	}
+			return a.Orden - b.Orden;
+		});
+		return categCopy;
+	};
 
 	const getSelectedCourses = (courseList) => {
 		const localCursosCopy = courseList.filter(
 			(elem) =>
 				elem.categoria === selectedCategorie ||
 				elem.categoria2 === selectedCategorie
-		)
+		);
 
-		return localCursosCopy
-	}
+		return localCursosCopy;
+	};
 
 	const toggleTab = (index, nombre) => {
-		setToggleState(index)
-		setSelectedCategorie(nombre)
-	}
+		setToggleState(index);
+		setSelectedCategorie(nombre);
+	};
 
 	return (
-		<MainContainer id={isProximos ? "proximos" : "cursos"}>
+		<MainContainer id={isProximos ? 'proximos' : 'cursos'}>
 			<Container>
 				{isProximos ? (
 					<Title>Próximos cursos</Title>
@@ -85,11 +88,11 @@ const CursosCards = ({ isProximos }) => {
 						<Categories>
 							{getCategorias().map(({ Nombre, CategoriaID }, index) => (
 								<Category
+									mobile={mobile}
 									id={CategoriaID}
 									onClick={() => toggleTab(index, Nombre)}
 									key={index}
-									isActive={toggleState === index}
-								>
+									isActive={toggleState === index}>
 									{Nombre}
 								</Category>
 							))}
@@ -103,7 +106,7 @@ const CursosCards = ({ isProximos }) => {
 										key={index}
 										overridecolor={
 											selectedCategorie ===
-											"Diplomaturas y Programas Especializados"
+											'Diplomaturas y Programas Especializados'
 												? elem.CategoriaID2
 												: null
 										}
@@ -115,20 +118,20 @@ const CursosCards = ({ isProximos }) => {
 				)}
 			</Container>
 		</MainContainer>
-	)
-}
+	);
+};
 
-export default CursosCards
+export default CursosCards;
 
 const MainContainer = styled.div`
 	width: 80%;
 	max-width: 1095px;
 	margin: 50px auto;
-`
+`;
 const Container = styled.div`
 	font-family: ${theme.fontFamily.primary};
 	margin: 50px auto;
-`
+`;
 
 const Title = styled.h3`
 	/* margin: 0 0 5% 0; */
@@ -136,30 +139,26 @@ const Title = styled.h3`
 	padding: 0 20px;
 	font-weight: 700;
 	line-height: 2.5rem;
-`
+`;
 const Categories = styled.div`
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
 	justify-content: center;
 	margin: 0 0 3.3% 0;
-`
+`;
 
 const Category = styled.button`
-	white-space: nowrap;
+	white-space: ${({ mobile }) => (mobile ? 'wrap' : 'nowrap')};
 	padding: 10px;
 	margin: 10px;
 	text-decoration: none;
 	font-weight: 700;
 	font-size: 1.25rem;
 	cursor: pointer;
-
 	line-height: 143%;
 	font-family: ${theme.fontFamily.primary};
 	font-style: normal;
-	font-weight: bold;
-	font-size: 20px;
-	text-align: center;
 	border: none;
 	background-color: ${theme.color.white};
 
@@ -168,7 +167,7 @@ const Category = styled.button`
 	background: ${({ isActive }) =>
 		isActive ? theme.color.gradient : theme.color.white};
 	/* transition: background 1s ease-out; */
-`
+`;
 const CardsContainer = styled.div`
 	width: 100%;
 	margin-left: ${({ containerPosition }) =>
@@ -179,4 +178,4 @@ const CardsContainer = styled.div`
 	justify-content: center;
 	gap: 40px;
 	flex-wrap: wrap;
-`
+`;
