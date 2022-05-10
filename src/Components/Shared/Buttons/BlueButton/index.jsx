@@ -3,7 +3,7 @@ import theme from "../../../../Theme/base"
 
 const BlueButton = (props) => {
 	return (
-		<StyledButton {...props} type="submit">
+		<StyledButton {...props} type="submit" disabled={props.disabled}>
 			{props.children}
 		</StyledButton>
 	)
@@ -21,6 +21,6 @@ const StyledButton = styled.button`
 	${({ color }) => (color ? `color: ${color} !important` : theme.color.white)};
 	color: white;
 	border: none;
-	cursor: pointer;
+	cursor: ${({ disabled }) => !disabled && "pointer"};
 `
 export default BlueButton
