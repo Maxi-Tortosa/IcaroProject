@@ -1,23 +1,23 @@
 import { useState } from "react"
 import styled from "styled-components"
 import theme from "../../../Theme/base"
-// import ReactModal from "react-modal"
+import ReactModal from "react-modal"
 import EditIcon from "../../Shared/Icons/Edit"
 import { useLocation, useNavigate } from "react-router-dom"
 import DeleteIcon from "../../Shared/Icons/Delete"
+import ConfirmationModal from "../../Shared/Modals/ConfirmationModal"
 
 const CursosAdmin = ({ cursos }) => {
+	const [modalIsOpen, setIsOpen] = useState(false)
 	const navigate = useNavigate()
 
-	const customStyles = {
-		content: {
-			top: "50%",
-			left: "50%",
-			right: "auto",
-			bottom: "auto",
-			marginRight: "-50%",
-			transform: "translate(-50%, -50%)",
-		},
+	function openDeleteModal() {
+		console.log("se hizo click")
+		setIsOpen(true)
+	}
+
+	function closeModal() {
+		setIsOpen(false)
 	}
 
 	function handleClick() {
@@ -47,21 +47,27 @@ const CursosAdmin = ({ cursos }) => {
 							<TableColumn bgcolor={el.CategoriaID}>{el.categoria}</TableColumn>
 							<TableColumn>{el.detalles?.modalidad}</TableColumn>
 							<TableColumn>
-								<EditIcon onClick={handleClick} />
-								<DeleteIcon onClick={handleClick} />
+								<div>
+									<EditIcon />
+								</div>
+								<div onClick={openDeleteModal}>
+									<DeleteIcon />
+								</div>
 							</TableColumn>
 						</TableRow>
 					)
 				})}
 			</TableContent>
-			{/* <ReactModal
-				isOpen={modalIsOpen}
-				onRequestClose={closeModal}
-				style={customStyles}
+			<ConfirmationModal
+				modalIsOpen={modalIsOpen}
+				closeModal={closeModal}
+				modalTitle="Eliminar curso"
+				cancelButtonContent="Cancelar"
+				confirmButtonContent="Eliminar"
+				withCloseButton
 			>
 				<p>hola</p>
-				<button onClick={closeModal}> cerrar</button>
-			</ReactModal> */}
+			</ConfirmationModal>
 		</div>
 	)
 }

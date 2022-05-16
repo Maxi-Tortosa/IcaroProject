@@ -2,17 +2,24 @@ import { useState, useEffect } from "react"
 import styled from "styled-components"
 import theme from "../../Theme/base"
 import { useNavigate } from "react-router-dom"
+import Select from "react-select"
+import TextareaAutosize from "react-textarea-autosize"
 
 import BlueButton from "../../Components/Shared/Buttons/BlueButton"
 import LinearBttn from "../../Components/Shared/Buttons/LinearBttn"
-import { sortArrayByOrderNumber } from "../../Utils"
+import { normalizeSelectOptions, sortArrayByOrderNumber } from "../../Utils"
 
-const NewElementContainer = ({ fieldsList, type }) => {
+const NewElementContainer = ({ fieldsList, type, selectOptions }) => {
 	const [disabledButton, setDisabledButton] = useState(true)
 	const [newData, setNewData] = useState({})
 	const [loading, setLoading] = useState(false)
 	const navigate = useNavigate()
 	sortArrayByOrderNumber(fieldsList)
+	//agregar numero de orden y separar todo en dos columnas
+	//link del tablero de slack
+	//link del zoom de clase
+
+	const categoriesOptions = normalizeSelectOptions(selectOptions)
 
 	useEffect(() => {
 		const requiredFields = fieldsList
@@ -36,10 +43,29 @@ const NewElementContainer = ({ fieldsList, type }) => {
 		console.log(newData)
 	}
 
-	function getAuthomaticPath() {
+	function getDefaultValue(nombre) {
+		if (nombre === "href") {
+			// setNewData((newData) => ({ ...newData, [nombre]: getAuthomaticPath() }))
+			return getAuthomaticPath(nombre)
+		} else if (nombre === "CategoriaID") {
+			// setNewData((newData) => ({ ...newData, [nombre]: getCategoryID() }))
+			return getCategoryID()
+		} else return ""
+	}
+
+	function getCategoryID() {
+		if (newData?.categoria?.length > 3) {
+			const selectedCategoria = selectOptions.filter(
+				(elem) => elem.Nombre === newData.categoria
+			)
+			return selectedCategoria[0].CategoriaID
+		}
+	}
+
+	function getAuthomaticPath(nombre) {
 		if (newData?.nombre?.length > 3) {
 			const generatedPath = newData.nombre.toLowerCase().replaceAll(" ", "-")
-			console.log("generatedPath", generatedPath)
+			// setNewData((newData) => ({ ...newData, [nombre]: generatedPath }))
 			return generatedPath
 		}
 	}
@@ -63,38 +89,65 @@ const NewElementContainer = ({ fieldsList, type }) => {
 			</HeaderTitle>
 			<StyledForm>
 				{fieldsList.map((elem, index, array) => (
-					<FormLabel key={elem.id} htmlFor={elem.nombre}>
-						{elem.inputLabel}
-						{elem.isRequired && (
-							<RequiredText>* Campo obligatorio</RequiredText>
+					<FormLabel key={elem.id} htmlFor={elem.nombre} elemWidth={elem.width}>
+						{elem.children ? (
+							elem.children.map((child) => {
+								return <p>{child.nombre}</p>
+							})
+						) : (
+							<>
+								{elem.nroOrden}. {elem.inputLabel}
+								{elem.isRequired && (
+									<RequiredText>* Campo obligatorio</RequiredText>
+								)}
+								{elem.helpText && <Small>{elem.helpText}</Small>}
+								{elem.type === "select" ? (
+									<Select
+										options={categoriesOptions}
+										onChange={(value) => handleChange(elem.nombre, value.name)}
+										placeholder="Seleccione categoria"
+									/>
+								) : elem.type === "textarea" ? (
+									<TextareaAutosize
+										onChange={(e) => handleChange(elem.nombre, e.target.value)}
+										minRows={3}
+										placeholder={"Ingrese una descripcion"}
+										className="styled-text-area"
+									/>
+								) : (
+									<FormInput
+										withBorder={elem.type === "text" || elem.type === "number"}
+										type={elem.type}
+										onChange={(e) => handleChange(elem.nombre, e.target.value)}
+										defaultValue={
+											elem.defaultValue || getDefaultValue(elem.nombre)
+										}
+										disabled={elem.isDisabled}
+									/>
+								)}
+							</>
 						)}
-						{elem.helpText && <Small>{elem.helpText}</Small>}
-						<FormInput
-							type={elem.type}
-							onChange={(e) => handleChange(elem.nombre, e.target.value)}
-							defaultValue={elem.nombre === "href" ? getAuthomaticPath() : ""}
-						/>
 					</FormLabel>
 				))}
-				<SubmitContainer>
-					<LinearBttn type="cancel" onClick={handleClose}>
-						Cancelar
-					</LinearBttn>
-					<BlueButton
-						width="100%"
-						borderRadius="10px"
-						padding="5px 13px"
-						backgroundColor={
-							disabledButton ? theme.color.disabledBlue : theme.color.darkBlue
-						}
-						type="submit"
-						disabled={disabledButton}
-						onClick={(e) => handleSubmit(e)}
-					>
-						Guardar
-					</BlueButton>
-				</SubmitContainer>
 			</StyledForm>
+			<SubmitContainer>
+				<LinearBttn type="cancel" onClick={handleClose}>
+					Cancelar
+				</LinearBttn>
+				<BlueButton
+					width="100%"
+					borderRadius="10px"
+					padding="5px 13px"
+					backgroundColor={
+						disabledButton ? theme.color.disabledBlue : theme.color.darkBlue
+					}
+					type="submit"
+					disabled={disabledButton}
+					onClick={(e) => handleSubmit(e)}
+				>
+					Guardar
+				</BlueButton>
+			</SubmitContainer>
 		</ModalContainer>
 	)
 }
@@ -125,7 +178,11 @@ const CloseButton = styled.div`
 `
 
 const StyledForm = styled.form`
-	width: 500px;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 30px;
+	/* width: 500px; */
 	margin: 0 auto;
 
 	.styled-text-area {
@@ -167,6 +224,7 @@ const StyledForm = styled.form`
 `
 
 const FormLabel = styled.label`
+	width: ${({ elemWidth }) => elemWidth};
 	display: block;
 	font-family: ${theme.fontFamily.primary};
 	font-style: normal;
@@ -206,7 +264,7 @@ const FormInput = styled.input`
 	display: block;
 	width: 100%;
 	height: 30px;
-	border: 1px solid #e6e6e6;
+	border: ${({ withBorder }) => withBorder && "1px solid #e6e6e6"};
 	font-family: ${theme.fontFamily.primary};
 	font-style: normal;
 	font-weight: normal;
@@ -237,7 +295,8 @@ const FormInput = styled.input`
 	}
 `
 const SubmitContainer = styled.div`
-	margin: 20px 0;
+	width: 500px;
+	margin: 20px auto;
 	display: flex;
 	flex-direction: row;
 	gap: 20px;

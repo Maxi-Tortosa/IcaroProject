@@ -28,3 +28,27 @@ export function sortArrayByOrderNumber(array) {
 		return a.nroOrden - b.nroOrden
 	})
 }
+
+export function sortArrayAlphabetically(array) {
+	return array.sort((a, b) => {
+		if (a.name === b.name) {
+			return b.id - a.id
+		}
+		return a.name > b.name ? 1 : -1
+	})
+}
+
+export const normalizeSelectOptions = (normalized) => {
+	const Options = []
+	normalized?.forEach((elem, index) => {
+		Options.push({
+			name: elem?.Nombre,
+			id: elem?.CategoriaID,
+			label: elem?.Nombre,
+			value: elem?.Nombre,
+			key: elem?.CategoriaID,
+		})
+	})
+	const orderedOptions = sortArrayAlphabetically(Options)
+	return orderedOptions
+}

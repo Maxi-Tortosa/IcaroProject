@@ -1,9 +1,9 @@
 import { CgTrash } from "react-icons/cg"
 import styled from "styled-components"
 
-const DeleteIcon = () => {
+const DeleteIcon = ({ props }) => {
 	return (
-		<Container>
+		<Container {...props}>
 			<CgTrash size={30} className="delete" />
 		</Container>
 	)

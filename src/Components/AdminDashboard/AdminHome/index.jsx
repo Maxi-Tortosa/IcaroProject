@@ -56,6 +56,7 @@ const AdminHome = ({ isNew }) => {
 							<NewElementContainer
 								fieldsList={CURSOSCFIELDS}
 								type="Nuevo Curso"
+								selectOptions={categories}
 							/>
 						) : (
 							<CursosAdmin cursos={course} />

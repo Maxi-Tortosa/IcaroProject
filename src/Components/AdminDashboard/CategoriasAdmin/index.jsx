@@ -1,16 +1,38 @@
 import { useState } from "react"
 import styled from "styled-components"
 import theme from "../../../Theme/base"
+import ReactModal from "react-modal"
 import EditIcon from "../../Shared/Icons/Edit"
 import DeleteIcon from "../../Shared/Icons/Delete"
 import { CATEGORYFIELDS } from "../../../Constants/Category"
-import { useLocation, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 const CategoriasAdmin = ({ categorias }) => {
+	const [modalIsOpen, setIsOpen] = useState(false)
 	const navigate = useNavigate()
 
 	function handleClick() {
 		navigate("/admin/new/categoria", { replace: false })
+	}
+
+	function openDeleteModal() {
+		console.log("se hizo click")
+		setIsOpen(true)
+	}
+
+	function closeModal() {
+		setIsOpen(false)
+	}
+
+	const customStyles = {
+		content: {
+			top: "50%",
+			left: "50%",
+			right: "auto",
+			bottom: "auto",
+			marginRight: "-50%",
+			transform: "translate(-50%, -50%)",
+		},
 	}
 
 	return (
@@ -39,13 +61,25 @@ const CategoriasAdmin = ({ categorias }) => {
 								{theme.categories[el.CategoriaID]}
 							</TableColumn>
 							<TableColumn>
-								<EditIcon />
-								<DeleteIcon />
+								<div>
+									<EditIcon />
+								</div>
+								<div onClick={openDeleteModal}>
+									<DeleteIcon />
+								</div>
 							</TableColumn>
 						</TableRow>
 					)
 				})}
 			</TableContent>
+			<ReactModal
+				isOpen={modalIsOpen}
+				onRequestClose={closeModal}
+				style={customStyles}
+			>
+				<p>hola</p>
+				<button onClick={closeModal}> cerrar</button>
+			</ReactModal>
 		</div>
 	)
 }

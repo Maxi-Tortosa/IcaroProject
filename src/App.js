@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom"
+import { Navigate, BrowserRouter, Route, Routes } from "react-router-dom"
 
 import AdminContainer from "./Containers/AdminContainer"
 import AdminPage from "./Containers/AdminContainer"
@@ -10,6 +10,7 @@ import HomeContainer from "./Containers/HomeContainer/index"
 import LogIn from "./Components/LogIn"
 import ProjectContext from "./Context/ProjectContext"
 import Register from "./Containers/RegisterContainer"
+import NotFoundPage from "./Containers/NotFoundPage"
 import UserContext from "./Context/UserContext"
 import { useState } from "react"
 
@@ -26,7 +27,9 @@ function App() {
 					<Header setIsLoginOpen={setIsLoginOpen} />
 					{isLoginOpen ? <LogIn setIsLoginOpen={setIsLoginOpen} /> : null}
 					<Routes>
-						<Route path="/" element={<HomeContainer />} />
+						<Route exact path="/" element={<HomeContainer />} />
+						<Route path="*" element={<Navigate replace to="/404" />} />
+						<Route path="404" element={<NotFoundPage />} />
 						<Route path="register" element={<Register />} />
 						<Route path="cursos/:name" element={<CoursesPages />} />
 						<Route path="admin" element={<AdminPage />} />
