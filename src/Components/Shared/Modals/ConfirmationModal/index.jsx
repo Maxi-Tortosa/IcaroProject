@@ -11,6 +11,7 @@ const ConfirmationModal = ({
 	cancelButtonContent,
 	confirmButtonContent,
 	withCloseButton,
+	mainColor,
 }) => {
 	const customStyles = {
 		content: {
@@ -21,10 +22,21 @@ const ConfirmationModal = ({
 			marginRight: "-50%",
 			transform: "translate(-50%, -50%)",
 			width: "560px",
-			height: "250px",
+			// height: "250px",
 			padding: "0 !important",
+			borderRadius: "0px 0px 15px 15px",
 		},
 	}
+
+	function handleCancel() {
+		closeModal()
+	}
+
+	function handleConfirm() {
+		//el submit
+		closeModal()
+	}
+
 	return (
 		<ReactModal
 			isOpen={modalIsOpen}
@@ -33,20 +45,24 @@ const ConfirmationModal = ({
 		>
 			<ModalContentContainer>
 				<HeaderTitle>
-					<Title>{modalTitle}</Title>
+					<Title color={mainColor}>{modalTitle}</Title>
 					{withCloseButton && <CloseButton onClick={closeModal}>x</CloseButton>}
 				</HeaderTitle>
 				{children}
 				<ConfirationButtons>
-					<CancelButton>{cancelButtonContent}</CancelButton>
-					<ConfirmButton>{confirmButtonContent}</ConfirmButton>
+					<CancelButton onClick={handleCancel}>
+						{cancelButtonContent}
+					</CancelButton>
+					<ConfirmButton color={mainColor} onClick={handleConfirm}>
+						{confirmButtonContent}
+					</ConfirmButton>
 				</ConfirationButtons>
 			</ModalContentContainer>
 		</ReactModal>
 	)
 }
 const ModalContentContainer = styled.div`
-	padding: 25px 25px 0 25px;
+	padding-top: 25px;
 	display: flex;
 	flex-direction: column;
 	/* height: 100%; */
@@ -54,9 +70,35 @@ const ModalContentContainer = styled.div`
 `
 const ConfirationButtons = styled.div`
 	justify-self: flex-end;
+	display: flex;
+	margin-top: 35px;
 `
-const CancelButton = styled.button``
-const ConfirmButton = styled.button``
+const CancelButton = styled.button`
+	font-family: "Montserrat";
+	font-style: normal;
+	font-size: 19px;
+	line-height: 23px;
+	text-align: center;
+	color: ${theme.color.darkGrey};
+	background-color: ${theme.color.white};
+	border-color: ${theme.color.white};
+	padding: 16px 40px;
+	width: 50%;
+	cursor: pointer;
+`
+const ConfirmButton = styled.button`
+	font-family: "Montserrat";
+	font-style: normal;
+	font-size: 19px;
+	line-height: 23px;
+	text-align: center;
+	color: ${theme.color.white};
+	background-color: ${({ color }) => color};
+	border-color: ${({ color }) => color};
+	padding: 16px 40px;
+	width: 50%;
+	cursor: pointer;
+`
 
 const HeaderTitle = styled.div`
 	display: flex;
@@ -71,7 +113,7 @@ const Title = styled.h3`
 	line-height: 24px;
 	text-align: center;
 	width: 90%;
-	color: #1744ff;
+	color: ${({ color }) => (color ? color : theme.color.blue)};
 `
 const CloseButton = styled.div`
 	background: transparent;

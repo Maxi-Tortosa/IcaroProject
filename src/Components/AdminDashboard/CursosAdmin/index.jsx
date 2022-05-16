@@ -9,10 +9,12 @@ import ConfirmationModal from "../../Shared/Modals/ConfirmationModal"
 
 const CursosAdmin = ({ cursos }) => {
 	const [modalIsOpen, setIsOpen] = useState(false)
+	const [selectedCourse, setSelectedCourse] = useState()
 	const navigate = useNavigate()
 
-	function openDeleteModal() {
-		console.log("se hizo click")
+	function openDeleteModal(selected) {
+		console.log("se hizo click", selected)
+		setSelectedCourse(selected)
 		setIsOpen(true)
 	}
 
@@ -50,7 +52,7 @@ const CursosAdmin = ({ cursos }) => {
 								<div>
 									<EditIcon />
 								</div>
-								<div onClick={openDeleteModal}>
+								<div onClick={(e) => openDeleteModal(el)}>
 									<DeleteIcon />
 								</div>
 							</TableColumn>
@@ -65,8 +67,12 @@ const CursosAdmin = ({ cursos }) => {
 				cancelButtonContent="Cancelar"
 				confirmButtonContent="Eliminar"
 				withCloseButton
+				mainColor={theme.color.redError}
 			>
-				<p>hola</p>
+				<ModalContent>
+					<p>¿Confirma que desea eliminar el siguiente curso?</p>
+					<b>{selectedCourse?.nombre}</b>
+				</ModalContent>
 			</ConfirmationModal>
 		</div>
 	)
@@ -108,6 +114,18 @@ const TableColumn = styled.div`
 	${({ isHeader }) => !isHeader && `color: ${theme.color.lightGrey};`}
 	background-color: ${({ bgcolor }) => bgcolor && theme.categories[bgcolor]};
 	color: ${({ bgcolor }) => bgcolor && theme.color.white};
+`
+const ModalContent = styled.div`
+	width: 80%;
+	margin: 0 auto;
+	text-align: center;
+	font-family: "Montserrat";
+	font-style: normal;
+	font-weight: 400;
+	font-size: 20px;
+	line-height: 24px;
+	text-align: center;
+	color: ${theme.color.lightGrey};
 `
 
 export default CursosAdmin

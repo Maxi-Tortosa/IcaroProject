@@ -1,22 +1,20 @@
 import { useState } from "react"
 import styled from "styled-components"
 import theme from "../../../Theme/base"
-import ReactModal from "react-modal"
 import EditIcon from "../../Shared/Icons/Edit"
 import DeleteIcon from "../../Shared/Icons/Delete"
 import { CATEGORYFIELDS } from "../../../Constants/Category"
 import { useNavigate } from "react-router-dom"
+import ConfirmationModal from "../../Shared/Modals/ConfirmationModal"
 
 const CategoriasAdmin = ({ categorias }) => {
 	const [modalIsOpen, setIsOpen] = useState(false)
+	const [selectedCategory, setSelectedCategory] = useState()
 	const navigate = useNavigate()
 
-	function handleClick() {
-		navigate("/admin/new/categoria", { replace: false })
-	}
-
-	function openDeleteModal() {
-		console.log("se hizo click")
+	function openDeleteModal(selected) {
+		console.log("se hizo click", selected)
+		setSelectedCategory(selected)
 		setIsOpen(true)
 	}
 
@@ -24,15 +22,8 @@ const CategoriasAdmin = ({ categorias }) => {
 		setIsOpen(false)
 	}
 
-	const customStyles = {
-		content: {
-			top: "50%",
-			left: "50%",
-			right: "auto",
-			bottom: "auto",
-			marginRight: "-50%",
-			transform: "translate(-50%, -50%)",
-		},
+	function handleClick() {
+		navigate("/admin/new/categoria", { replace: false })
 	}
 
 	return (
@@ -64,7 +55,7 @@ const CategoriasAdmin = ({ categorias }) => {
 								<div>
 									<EditIcon />
 								</div>
-								<div onClick={openDeleteModal}>
+								<div onClick={(e) => openDeleteModal(el)}>
 									<DeleteIcon />
 								</div>
 							</TableColumn>
@@ -72,14 +63,20 @@ const CategoriasAdmin = ({ categorias }) => {
 					)
 				})}
 			</TableContent>
-			<ReactModal
-				isOpen={modalIsOpen}
-				onRequestClose={closeModal}
-				style={customStyles}
+			<ConfirmationModal
+				modalIsOpen={modalIsOpen}
+				closeModal={closeModal}
+				modalTitle="Eliminar categoria"
+				cancelButtonContent="Cancelar"
+				confirmButtonContent="Eliminar"
+				withCloseButton
+				mainColor={theme.color.redError}
 			>
-				<p>hola</p>
-				<button onClick={closeModal}> cerrar</button>
-			</ReactModal>
+				<ModalContent>
+					<p>¿Confirma que desea eliminar la siguiente categoria?</p>
+					<b>{selectedCategory?.Nombre}</b>
+				</ModalContent>
+			</ConfirmationModal>
 		</div>
 	)
 }
@@ -132,6 +129,19 @@ const TableColumn = styled.div`
 			color: red;
 		}
 	}
+`
+
+const ModalContent = styled.div`
+	width: 80%;
+	margin: 0 auto;
+	text-align: center;
+	font-family: "Montserrat";
+	font-style: normal;
+	font-weight: 400;
+	font-size: 20px;
+	line-height: 24px;
+	text-align: center;
+	color: ${theme.color.lightGrey};
 `
 
 export default CategoriasAdmin
