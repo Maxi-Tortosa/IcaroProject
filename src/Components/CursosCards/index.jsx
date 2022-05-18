@@ -2,6 +2,7 @@ import { Timestamp, addDoc, collection } from 'firebase/firestore';
 import { useContext, useEffect, useState } from 'react';
 
 import Card from './Card';
+import CategoriesMobile from '../CategoriesMobile';
 import Loader from '../Shared/Loader';
 import { projectContext } from '../../Context/ProjectContext';
 import styled from 'styled-components';
@@ -74,8 +75,8 @@ const CursosCards = ({ isProximos }) => {
 	};
 
 	return (
-		<MainContainer id={isProximos ? 'proximos' : 'cursos'}>
-			<Container>
+		<MainContainer mobile={mobile} id={isProximos ? 'proximos' : 'cursos'}>
+			<Container mobile={mobile}>
 				{isProximos ? (
 					<Title mobile={mobile}>Próximos cursos</Title>
 				) : (
@@ -85,19 +86,26 @@ const CursosCards = ({ isProximos }) => {
 					<Loader />
 				) : (
 					<>
-						<Categories>
-							{getCategorias().map(({ Nombre, CategoriaID }, index) => (
-								<Category
-									mobile={mobile}
-									id={CategoriaID}
-									onClick={() => toggleTab(index, Nombre)}
-									key={index}
-									isActive={toggleState === index}>
-									{Nombre}
-								</Category>
-							))}
-						</Categories>
-						<CardsContainer isProximos={isProximos}>
+						{mobile ? (
+							<CategoriesMobile
+								toggleTab={toggleTab}
+								categories={getCategorias}
+							/>
+						) : (
+							<Categories>
+								{getCategorias().map(({ Nombre, CategoriaID }, index) => (
+									<Category
+										id={CategoriaID}
+										onClick={() => toggleTab(index, Nombre)}
+										key={index}
+										isActive={toggleState === index}>
+										{Nombre}
+									</Category>
+								))}
+							</Categories>
+						)}
+
+						<CardsContainer isProximos={isProximos} mobile={mobile}>
 							{getSelectedCourses(isProximos ? courseDates : course).map(
 								(elem, index) => (
 									<Card
@@ -124,22 +132,24 @@ const CursosCards = ({ isProximos }) => {
 export default CursosCards;
 
 const MainContainer = styled.div`
-	width: 80%;
+	width: ${({ mobile }) => (mobile ? '80%' : '80%')};
 	max-width: 1095px;
-	margin: 50px auto;
+	margin: ${({ mobile }) => (mobile ? 'auto' : '50px auto')};
 `;
 const Container = styled.div`
 	font-family: ${theme.fontFamily.primary};
-	margin: 50px auto;
+	margin: ${({ mobile }) => (mobile ? 'auto' : '50px auto')};
+	overflow: ${({ mobile }) => (mobile ? 'hidden' : null)}; ;
 `;
 
 const Title = styled.h3`
-	/* margin: 0 0 5% 0; */
+	width: ${({ mobile }) => (mobile ? '90%' : null)};
+	margin: ${({ mobile }) => (mobile ? '0 auto 5% 0' : ' 0 0 5% 0')};
 
 	font-size: ${({ mobile }) => (mobile ? '1.5rem' : ' 2.5rem')};
-	padding: ${({ mobile }) => (mobile ? '0 10px' : ' 0 20px')};
+	padding: ${({ mobile }) => (mobile ? '0' : ' 0 20px')};
 	font-weight: 700;
-	line-height: 2.5rem;
+	line-height: ${({ mobile }) => (mobile ? '1.625' : '2.5rem')};
 `;
 const Categories = styled.div`
 	display: flex;
@@ -162,7 +172,6 @@ const Category = styled.button`
 	font-style: normal;
 	border: none;
 	background-color: ${theme.color.white};
-
 	color: ${({ isActive }) =>
 		isActive ? theme.color.white : theme.color.darkGrey};
 	background: ${({ isActive }) =>
@@ -170,13 +179,11 @@ const Category = styled.button`
 	/* transition: background 1s ease-out; */
 `;
 const CardsContainer = styled.div`
-	width: 100%;
-	margin-left: ${({ containerPosition }) =>
-		containerPosition > 0 && containerPosition}px;
-	transition: margin 1s;
+	width: ${({ mobile }) => (mobile ? '1000px' : '100%')};
 	display: flex;
 	flex-direction: row;
-	justify-content: center;
-	gap: 40px;
-	flex-wrap: wrap;
+	justify-content: ${({ mobile }) => (mobile ? 'start' : 'center')};
+	gap: ${({ mobile }) => (mobile ? '22px' : '40px')};
+	flex-wrap: ${({ mobile }) => (mobile ? 'no-wrap' : 'wrap')};
+	overflow-x: ${({ mobile }) => (mobile ? 'scroll' : 'null')};
 `;
