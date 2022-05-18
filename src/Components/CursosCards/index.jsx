@@ -132,7 +132,7 @@ const CursosCards = ({ isProximos }) => {
 export default CursosCards;
 
 const MainContainer = styled.div`
-	width: ${({ mobile }) => (mobile ? '80%' : '80%')};
+	width: ${({ mobile }) => (mobile ? '85%' : '80%')};
 	max-width: 1095px;
 	margin: ${({ mobile }) => (mobile ? 'auto' : '50px auto')};
 `;
