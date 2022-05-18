@@ -80,7 +80,10 @@ export default QuienesSomos;
 
 const Container = styled.div`
 	font-family: ${theme.fontFamily.primary};
-	background-image: url('https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/fondoQuienesSomos.png?alt=media&token=bcad7241-d11b-4761-a9d4-2629b6065d76');
+	background-image: ${({ mobile }) =>
+		mobile
+			? 'unset'
+			: `url('https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/fondoQuienesSomos.png?alt=media&token=bcad7241-d11b-4761-a9d4-2629b6065d76')`};
 	background-repeat: no-repeat;
 	background-size: cover;
 	padding: ${({ mobile }) => (mobile ? '5% 0 5% 0' : '5% 0 5% 0')};
@@ -123,7 +126,7 @@ const Container = styled.div`
 				img {
 					width: ${({ mobile }) => (mobile ? '90px' : null)};
 					margin: ${({ mobile }) =>
-						mobile ? '6.3% auto 4.8% auto' : '15% auto 12% auto'};
+						mobile ? '7% auto 4.8% auto' : '15% auto 12% auto'};
 					border-radius: 100px;
 				}
 
@@ -142,7 +145,7 @@ const Container = styled.div`
 					width: ${({ mobile }) => (mobile ? '65%' : null)};
 					text-align: center;
 					margin: ${({ mobile }) =>
-						mobile ? '0 auto 9% auto' : '0 7.8% 0 7.8%'};
+						mobile ? '0 auto 10.33% auto' : '0 7.8% 0 7.8%'};
 					font-size: ${({ mobile }) => (mobile ? '0.875rem' : '1rem')};
 					line-height: ${({ mobile }) => (mobile ? '1.125rem' : null)};
 				}
@@ -160,7 +163,7 @@ const Container = styled.div`
 				img {
 					width: ${({ mobile }) => (mobile ? '90px' : null)};
 					margin: ${({ mobile }) =>
-						mobile ? '6.3% auto 4.8% auto' : '15% auto 12% auto'};
+						mobile ? '7% auto 4.8% auto' : '15% auto 12% auto'};
 					border-radius: 100px;
 				}
 
@@ -179,7 +182,7 @@ const Container = styled.div`
 					width: ${({ mobile }) => (mobile ? '65%' : null)};
 					text-align: center;
 					margin: ${({ mobile }) =>
-						mobile ? '0 auto 9% auto' : '0 7.8% 0 7.8%'};
+						mobile ? '0 auto 10.33% auto' : '0 7.8% 0 7.8%'};
 					font-size: ${({ mobile }) => (mobile ? '0.875rem' : '1rem')};
 					line-height: ${({ mobile }) => (mobile ? '1.125rem' : null)};
 				}
@@ -197,7 +200,7 @@ const Container = styled.div`
 				img {
 					width: ${({ mobile }) => (mobile ? '90px' : null)};
 					margin: ${({ mobile }) =>
-						mobile ? '6.3% auto 4.8% auto' : '15% auto 12% auto'};
+						mobile ? '7% auto 4.8% auto' : '15% auto 12% auto'};
 					border-radius: 100px;
 				}
 
@@ -216,7 +219,7 @@ const Container = styled.div`
 					width: ${({ mobile }) => (mobile ? '65%' : null)};
 					text-align: center;
 					margin: ${({ mobile }) =>
-						mobile ? '0 auto 9% auto' : '0 7.8% 0 7.8%'};
+						mobile ? '0 auto 10.33% auto' : '0 7.8% 0 7.8%'};
 					font-size: ${({ mobile }) => (mobile ? '0.875rem' : '1rem')};
 					line-height: ${({ mobile }) => (mobile ? '1.125rem' : null)};
 				}
