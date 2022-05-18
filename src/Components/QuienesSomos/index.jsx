@@ -1,5 +1,5 @@
-import styled from 'styled-components';
 import Sponsors from '../Sponsors';
+import styled from 'styled-components';
 import theme from '../../Theme/base';
 import { useIsMobile } from '../../Hooks/Client';
 
@@ -83,23 +83,24 @@ const Container = styled.div`
 	background-image: url('https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/fondoQuienesSomos.png?alt=media&token=bcad7241-d11b-4761-a9d4-2629b6065d76');
 	background-repeat: no-repeat;
 	background-size: cover;
-	padding: ${({ mobile }) => (mobile ? null : '5% 0 5% 0')};
+	padding: ${({ mobile }) => (mobile ? '5% 0 5% 0' : '5% 0 5% 0')};
 	// ;
 	.padre {
 		max-width: 1095px;
-		width: 90%;
+		width: ${({ mobile }) => (mobile ? '85%' : '90%')};
 		margin: 0 auto 0 auto;
 
 		.titulo {
 			font-size: ${({ mobile }) => (mobile ? '1.5rem' : '2.5rem')};
 			font-weight: 700;
 			line-height: ${({ mobile }) => (mobile ? '1.625rem' : '2.5rem')};
+			margin: ${({ mobile }) => (mobile ? '0 auto auto auto' : null)};
 		}
 
 		.parrafo {
 			font-size: ${({ mobile }) => (mobile ? '0.875rem' : '1rem')};
 			line-height: ${({ mobile }) => (mobile ? '1.125rem' : '1.43rem')};
-			margin: ${({ mobile }) => (mobile ? '2% 1.5% 6.5% 1.5%' : '2% 0 0 0')};
+			margin: ${({ mobile }) => (mobile ? '4% 1.5% 6.5% 1.5%' : '2% 0 0 0')};
 		}
 
 		.contenedor {
