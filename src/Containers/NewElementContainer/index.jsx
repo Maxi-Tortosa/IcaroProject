@@ -12,10 +12,9 @@ import { normalizeSelectOptions, sortArrayByOrderNumber } from "../../Utils"
 const NewElementContainer = ({ fieldsList, type, selectOptions }) => {
 	const [disabledButton, setDisabledButton] = useState(true)
 	const [newData, setNewData] = useState({})
-	const [loading, setLoading] = useState(false)
+	// const [loading, setLoading] = useState(false)
 	const navigate = useNavigate()
 	sortArrayByOrderNumber(fieldsList)
-	//agregar numero de orden y separar todo en dos columnas
 	//link del tablero de slack
 	//link del zoom de clase
 
@@ -181,7 +180,6 @@ const StyledForm = styled.form`
 	flex-direction: row;
 	flex-wrap: wrap;
 	gap: 30px;
-	/* width: 500px; */
 	margin: 0 auto;
 
 	.styled-text-area {

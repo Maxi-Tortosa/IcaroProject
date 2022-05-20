@@ -1,57 +1,65 @@
-import React, { useState } from 'react';
+import React, { useState } from "react"
 
-import Select from 'react-select';
-import { set } from 'firebase/database';
-import styled from 'styled-components';
+import Select from "react-select"
+import theme from "../../Theme/base"
 
 const CategoriesMobile = ({ toggleTab, categories }) => {
-	const categorias = categories();
+	const categorias = categories()
 	const options = categorias.map(({ Nombre }) => {
-		return { value: `${Nombre}`, label: `${Nombre}` };
-	});
+		return { value: `${Nombre}`, label: `${Nombre}` }
+	})
 
-	const [selectedOption, setSelectedOption] = useState(options[0]);
+	const [selectedOption, setSelectedOption] = useState(options[0])
 
 	const handleChange = (e) => {
-		const selected = options.find((option) => option.value === e.value);
+		const selected = options.find((option) => option.value === e.value)
 		const searchedCategory = categories().find(
 			(element) => element.Nombre === selectedOption
-		);
-		const searchedIndex = categories().indexOf(searchedCategory);
+		)
+		const searchedIndex = categories().indexOf(searchedCategory)
 
-		toggleTab(searchedIndex, e.value);
-		setSelectedOption(selected);
-	};
+		toggleTab(searchedIndex, e.value)
+		setSelectedOption(selected)
+	}
 
 	const customStyles = {
 		container: (provided, state) => ({
 			...provided,
-			marginBottom: '15px',
+			marginBottom: "15px",
 		}),
 		input: (provided, state) => ({
 			...provided,
 		}),
 		option: (provided, state) => ({
 			...provided,
-			color: state.isFocused ? 'black' : null,
-			background: state.isSelected ? null : 'white',
+			color: state.isFocused ? "black" : null,
+			background: state.isSelected ? theme.color.blue : "white",
 		}),
 
 		control: (provided) => ({
 			...provided,
-			width: '80%',
+			width: "100%",
+			boxShadow: "hsl(0, 0%, 80%)",
+			color: "hsl(0, 0%, 80%)",
+			borderColor: "hsl(0, 0%, 80%)",
+
+			"&:active": {
+				borderColor: theme.color.blue,
+				color: theme.color.blue,
+				boxShadow: `0 0 0 1px ${theme.color.blue}`,
+			},
 		}),
 		singleValue: (provided) => ({
 			...provided,
-			fontSize: '1rem',
-			fontFamily: 'Montserrat, sans-serif',
-			padding: '0 0 0 6px',
+			fontSize: "1rem",
+			fontFamily: "Montserrat, sans-serif",
+			padding: "0 0 0 6px",
 		}),
 		menu: (provided) => ({
 			...provided,
-			width: '80%',
+			width: "100%",
 		}),
-	};
+	}
 
 	return (
 		<Select
@@ -61,35 +69,7 @@ const CategoriesMobile = ({ toggleTab, categories }) => {
 			styles={customStyles}
 			isSearchable={false}
 		/>
-	);
-};
+	)
+}
 
-export default CategoriesMobile;
-
-// const Select = styled.div`
-// 	width: 200px;
-// 	select {
-// 		font-family: 'Montserrat', sans-serif;
-// 		font-weight: 400;
-// 		font-size: 1rem;
-// 		line-height: 1.5rem;
-// 		color: #363636;
-// 		border: 1px solid #e6e6e6;
-// 		box-shadow: 0px 0px 4px #f2f2f2;
-// 		border-radius: 1px;
-// 		margin: 0 0 5.5% 0;
-// 		padding: 0 0 0 0;
-
-// 		option {
-// 			border: 1px solid #e6e6e6;
-// 			box-shadow: 0px 0px 4px #f2f2f2;
-// 			border-radius: 1px;
-// 			font-family: 'Montserrat', sans-serif;
-// 			font-weight: 400;
-// 			font-size: 1rem !important;
-// 			line-height: 1.5rimport { useState } from 'react';
-
-// 			color: #363636;
-// 		}
-// 	}
-// `;
+export default CategoriesMobile
