@@ -1,16 +1,16 @@
-import { useContext, useState, useEffect } from "react"
-import { BrowserRouter, Route, Routes } from "react-router-dom"
+// import { useContext, useState, useEffect } from "react"
+// import { BrowserRouter, Route, Routes } from "react-router-dom"
 
 import styled from "styled-components"
-import { projectContext } from "../../Context/ProjectContext"
-import Loader from "../../Components/Shared/Loader"
+// import { projectContext } from "../../Context/ProjectContext"
+// import Loader from "../../Components/Shared/Loader"
 import AdminHeader from "../../Components/AdminDashboard/AdminHeader"
 import Spacer from "../../Components/Shared/Spacer"
-import CursosAdmin from "../../Components/AdminDashboard/CursosAdmin"
-import CategoriassAdmin from "../../Components/AdminDashboard/CategoriasAdmin"
+// import CursosAdmin from "../../Components/AdminDashboard/CursosAdmin"
+// import CategoriassAdmin from "../../Components/AdminDashboard/CategoriasAdmin"
 import AdminHome from "../../Components/AdminDashboard/AdminHome"
 
-const AdminPage = ({}) => {
+const AdminPage = () => {
 	return (
 		<AdminContainer>
 			<AdminHeader />

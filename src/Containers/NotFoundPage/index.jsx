@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import Link from "react-scroll/modules/components/Link"
+// import Link from "react-scroll/modules/components/Link"
 import theme from "../../Theme/base"
 
 const NotFoundPage = () => {
