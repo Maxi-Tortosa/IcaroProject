@@ -1,9 +1,8 @@
 import { useState } from "react"
 import styled from "styled-components"
 import theme from "../../../Theme/base"
-import ReactModal from "react-modal"
 import EditIcon from "../../Shared/Icons/Edit"
-import { useLocation, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import DeleteIcon from "../../Shared/Icons/Delete"
 import ConfirmationModal from "../../Shared/Modals/ConfirmationModal"
 

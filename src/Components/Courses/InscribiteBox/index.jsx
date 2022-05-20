@@ -1,14 +1,13 @@
-import { Timestamp, addDoc, collection } from "firebase/firestore"
+import { Timestamp } from "firebase/firestore"
 import { useContext, useEffect, useState } from "react"
 
 import LinearBttn from "../../Shared/Buttons/LinearBttn"
-import db from "../../../Firebase"
 import { projectContext } from "../../../Context/ProjectContext"
 import styled from "styled-components"
 import theme from "../../../Theme/base"
 
 const InscribiteBox = ({ course }) => {
-	const { nextCourses, nombres } = useContext(projectContext)
+	const { nextCourses } = useContext(projectContext)
 	const { CategoriaID } = course
 
 	const [courseDates, setCoursesDates] = useState([])
