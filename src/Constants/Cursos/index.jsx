@@ -119,7 +119,7 @@ export const CURSOSCFIELDS = [
 		inputLabel: "Plan de estudios PDF",
 		type: "file",
 		id: 2,
-		nroOrden: 12,
+		nroOrden: 13,
 		width: "100%",
 	},
 	{
@@ -129,6 +129,7 @@ export const CURSOSCFIELDS = [
 		type: "text",
 		id: 13,
 		children: [],
+		nroOrden: 14,
 		width: "45%",
 	},
 	// {

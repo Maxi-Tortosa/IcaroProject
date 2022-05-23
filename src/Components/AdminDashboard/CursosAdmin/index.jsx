@@ -5,11 +5,39 @@ import EditIcon from "../../Shared/Icons/Edit"
 import { useNavigate } from "react-router-dom"
 import DeleteIcon from "../../Shared/Icons/Delete"
 import ConfirmationModal from "../../Shared/Modals/ConfirmationModal"
+import ConfirmationToast from "../../Shared/Toasts/GenericBottomToast"
 
 const CursosAdmin = ({ cursos }) => {
 	const [modalIsOpen, setIsOpen] = useState(false)
 	const [selectedCourse, setSelectedCourse] = useState()
 	const navigate = useNavigate()
+
+	const [list, setList] = useState([])
+	let toastProperties = null
+
+	const showToast = (type) => {
+		switch (type) {
+			case "success":
+				toastProperties = {
+					id: list.length + 1,
+					title: "Success",
+					description: "This is a success toast component",
+					backgroundColor: "#5cb85c",
+				}
+				break
+			case "error":
+				toastProperties = {
+					id: list.length + 1,
+					title: "error",
+					description: "This is a danger toast component",
+					backgroundColor: "#d9534f",
+				}
+				break
+			default:
+				toastProperties = []
+		}
+		setList([...list, toastProperties])
+	}
 
 	function openDeleteModal(selected) {
 		console.log("se hizo click", selected)
@@ -23,6 +51,12 @@ const CursosAdmin = ({ cursos }) => {
 
 	function handleClick() {
 		navigate("/admin/new/curso", { replace: false })
+	}
+
+	console.log(list)
+	function handleDelete() {
+		console.log("se elimino el elemento")
+		showToast("success")
 	}
 
 	return (
@@ -48,7 +82,7 @@ const CursosAdmin = ({ cursos }) => {
 							<TableColumn bgcolor={el.CategoriaID}>{el.categoria}</TableColumn>
 							<TableColumn>{el.detalles?.modalidad}</TableColumn>
 							<TableColumn>
-								<div>
+								<div onClick={(e) => showToast("success")}>
 									<EditIcon />
 								</div>
 								<div onClick={(e) => openDeleteModal(el)}>
@@ -65,6 +99,7 @@ const CursosAdmin = ({ cursos }) => {
 				modalTitle="Eliminar curso"
 				cancelButtonContent="Cancelar"
 				confirmButtonContent="Eliminar"
+				confirmButtonSubmit={handleDelete}
 				withCloseButton
 				mainColor={theme.color.redError}
 			>
@@ -73,6 +108,11 @@ const CursosAdmin = ({ cursos }) => {
 					<b>{selectedCourse?.nombre}</b>
 				</ModalContent>
 			</ConfirmationModal>
+			<ConfirmationToast
+				toastlist={list}
+				position="buttom-right"
+				setList={setList}
+			/>
 		</div>
 	)
 }
