@@ -69,18 +69,20 @@ const Footer = () => {
 															<FooterParragraph key={index + 20}>
 																{nombre} {url}
 															</FooterParragraph>
-															<EmailForm key={index + 10}>
-																<StyledInput
-																	type='text'
-																	placeholder={placeholder}
-																/>
-																<EnviaBttn
-																	backgroundColor={theme.color.white}
-																	padding=' 5px 10px'
-																	color={theme.color.darkBlue}
-																	borderRadius='5px'
-																/>
-															</EmailForm>
+															{!mobile && (
+																<EmailForm key={index + 10}>
+																	<StyledInput
+																		type='text'
+																		placeholder={placeholder}
+																	/>
+																	<EnviaBttn
+																		backgroundColor={theme.color.white}
+																		padding=' 5px 10px'
+																		color={theme.color.darkBlue}
+																		borderRadius='5px'
+																	/>
+																</EmailForm>
+															)}
 														</>
 													);
 												}
@@ -104,11 +106,12 @@ const FooterContainer = styled.div`
 const ContentContainer = styled.div`
 	width: 80%;
 	max-width: 1095px;
-	margin: auto;
+	margin: ${({ mobile }) => (mobile ? 'auto auto auto 1.93rem' : 'auto')};
 	padding-top: 40px;
+	padding-bottom: ${({ mobile }) => (mobile ? '2.5rem' : '0')};
 	display: flex;
 	flex-direction: ${({ mobile }) => (mobile ? 'column' : 'row')};
-	gap: 60px;
+	gap: ${({ mobile }) => (mobile ? '0.2rem' : '60px')};
 	align-items: flex-start;
 	justify-content: space-between;
 `;
@@ -120,10 +123,10 @@ const ColumnContainer = styled.div`
 const FooterTitle = styled.h3`
 	font-family: ${theme.fontFamily.secondary};
 	text-transform: capitalize;
-	font-size: 20px;
+	font-size: 1.25rem;
 	font-style: normal;
 	font-weight: 400;
-	line-height: 23px;
+	line-height: 1.4375rem;
 	letter-spacing: 0em;
 	text-align: left;
 `;
@@ -132,13 +135,14 @@ const FooterParragraph = styled.p`
 	color: ${theme.color.white};
 	text-decoration: none;
 	display: block;
+	font-size: 0.875rem;
 `;
 
 const FooterAnchor = styled.a`
 	font-family: ${theme.fontFamily.secondary};
 	color: ${theme.color.white};
 	/* font-size: ${({ icono }) => (icono ? '18px' : '14px')}; */
-	font-size: 14px;
+	font-size: 0.875rem;
 	display: ${({ icono }) => (icono ? ' flex' : 'block')};
 	align-items: center;
 	flex-wrap: wrap;

@@ -1,5 +1,5 @@
-import styled from 'styled-components';
 import Sponsors from '../Sponsors';
+import styled from 'styled-components';
 import theme from '../../Theme/base';
 import { useIsMobile } from '../../Hooks/Client';
 
@@ -80,30 +80,35 @@ export default QuienesSomos;
 
 const Container = styled.div`
 	font-family: ${theme.fontFamily.primary};
-	background-image: url('https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/fondoQuienesSomos.png?alt=media&token=bcad7241-d11b-4761-a9d4-2629b6065d76');
+	background-image: ${({ mobile }) =>
+		mobile
+			? 'unset'
+			: `url('https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/fondoQuienesSomos.png?alt=media&token=bcad7241-d11b-4761-a9d4-2629b6065d76')`};
 	background-repeat: no-repeat;
 	background-size: cover;
-	padding: ${({ mobile }) => (mobile ? null : '5% 0 5% 0')};
-	// ;
+	padding: ${({ mobile }) => (mobile ? '5% 0 5% 0' : '5% 0 5% 0')};
+
 	.padre {
 		max-width: 1095px;
-		width: 90%;
+		width: ${({ mobile }) => (mobile ? '85%' : '90%')};
 		margin: 0 auto 0 auto;
 
 		.titulo {
 			font-size: ${({ mobile }) => (mobile ? '1.5rem' : '2.5rem')};
 			font-weight: 700;
 			line-height: ${({ mobile }) => (mobile ? '1.625rem' : '2.5rem')};
+			margin: ${({ mobile }) => (mobile ? '0 auto auto auto' : null)};
 		}
 
 		.parrafo {
+			font-weight: 500;
 			font-size: ${({ mobile }) => (mobile ? '0.875rem' : '1rem')};
 			line-height: ${({ mobile }) => (mobile ? '1.125rem' : '1.43rem')};
-			margin: ${({ mobile }) => (mobile ? '2% 1.5% 6.5% 1.5%' : '2% 0 0 0')};
+			margin: ${({ mobile }) => (mobile ? '4% 1.5% 6.5% 1.5%' : '2% 0 0 0')};
 		}
 
 		.contenedor {
-			margin: 2% 0 6% 0;
+			margin: 3.2% 0 6% 0;
 			display: flex;
 			flex-direction: ${({ mobile }) => (mobile ? 'column' : 'row')};
 			justify-content: space-between;
@@ -122,7 +127,7 @@ const Container = styled.div`
 				img {
 					width: ${({ mobile }) => (mobile ? '90px' : null)};
 					margin: ${({ mobile }) =>
-						mobile ? '6.3% auto 4.8% auto' : '15% auto 12% auto'};
+						mobile ? '7% auto 4.8% auto' : '15% auto 12% auto'};
 					border-radius: 100px;
 				}
 
@@ -141,7 +146,7 @@ const Container = styled.div`
 					width: ${({ mobile }) => (mobile ? '65%' : null)};
 					text-align: center;
 					margin: ${({ mobile }) =>
-						mobile ? '0 auto 9% auto' : '0 7.8% 0 7.8%'};
+						mobile ? '0 auto 10.33% auto' : '0 7.8% 0 7.8%'};
 					font-size: ${({ mobile }) => (mobile ? '0.875rem' : '1rem')};
 					line-height: ${({ mobile }) => (mobile ? '1.125rem' : null)};
 				}
@@ -159,7 +164,7 @@ const Container = styled.div`
 				img {
 					width: ${({ mobile }) => (mobile ? '90px' : null)};
 					margin: ${({ mobile }) =>
-						mobile ? '6.3% auto 4.8% auto' : '15% auto 12% auto'};
+						mobile ? '7% auto 4.8% auto' : '15% auto 12% auto'};
 					border-radius: 100px;
 				}
 
@@ -178,7 +183,7 @@ const Container = styled.div`
 					width: ${({ mobile }) => (mobile ? '65%' : null)};
 					text-align: center;
 					margin: ${({ mobile }) =>
-						mobile ? '0 auto 9% auto' : '0 7.8% 0 7.8%'};
+						mobile ? '0 auto 10.33% auto' : '0 7.8% 0 7.8%'};
 					font-size: ${({ mobile }) => (mobile ? '0.875rem' : '1rem')};
 					line-height: ${({ mobile }) => (mobile ? '1.125rem' : null)};
 				}
@@ -196,7 +201,7 @@ const Container = styled.div`
 				img {
 					width: ${({ mobile }) => (mobile ? '90px' : null)};
 					margin: ${({ mobile }) =>
-						mobile ? '6.3% auto 4.8% auto' : '15% auto 12% auto'};
+						mobile ? '7% auto 4.8% auto' : '15% auto 12% auto'};
 					border-radius: 100px;
 				}
 
@@ -215,7 +220,7 @@ const Container = styled.div`
 					width: ${({ mobile }) => (mobile ? '65%' : null)};
 					text-align: center;
 					margin: ${({ mobile }) =>
-						mobile ? '0 auto 9% auto' : '0 7.8% 0 7.8%'};
+						mobile ? '0 auto 10.33% auto' : '0 7.8% 0 7.8%'};
 					font-size: ${({ mobile }) => (mobile ? '0.875rem' : '1rem')};
 					line-height: ${({ mobile }) => (mobile ? '1.125rem' : null)};
 				}
