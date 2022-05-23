@@ -1,9 +1,10 @@
-import { Timestamp, addDoc, collection } from 'firebase/firestore';
 import { useContext, useEffect, useState } from 'react';
 
 import Card from './Card';
 import CategoriesMobile from '../CategoriesMobile';
+import DotIndicatorCards from './DotIndicatorCards';
 import Loader from '../Shared/Loader';
+import { Timestamp } from 'firebase/firestore';
 import { projectContext } from '../../Context/ProjectContext';
 import styled from 'styled-components';
 import theme from '../../Theme/base';
@@ -20,7 +21,8 @@ const CursosCards = ({ isProximos }) => {
 		categories.length > 0 ? categories[0].Nombre : 'Programación'
 	);
 	const [courseDates, setCoursesDates] = useState([]);
-	const mobile = useIsMobile();
+	const isMobile = useIsMobile();
+	const [index, setIndex] = useState(0);
 
 	useEffect(() => {
 		if (course.length > 0 || categories.length > 0 || nextCourses.length > 0) {
@@ -75,18 +77,20 @@ const CursosCards = ({ isProximos }) => {
 	};
 
 	return (
-		<MainContainer mobile={mobile} id={isProximos ? 'proximos' : 'cursos'}>
-			<Container mobile={mobile}>
+		<MainContainer isMobile={isMobile} id={isProximos ? 'proximos' : 'cursos'}>
+			<Container isMobile={isMobile}>
 				{isProximos ? (
-					<Title mobile={mobile}>Próximos cursos</Title>
+					<Title isMobile={isMobile}>Próximos cursos</Title>
 				) : (
-					<Title mobile={mobile}>Conocé nuestros cursos y diplomaturas</Title>
+					<Title isMobile={isMobile}>
+						Conocé nuestros cursos y diplomaturas
+					</Title>
 				)}
 				{pending ? (
 					<Loader />
 				) : (
 					<>
-						{mobile ? (
+						{isMobile ? (
 							<CategoriesMobile
 								toggleTab={toggleTab}
 								categories={getCategorias}
@@ -105,13 +109,21 @@ const CursosCards = ({ isProximos }) => {
 							</Categories>
 						)}
 
-						<CardsContainer isProximos={isProximos} mobile={mobile}>
+						<CardsContainer
+							length={
+								getSelectedCourses(isProximos ? courseDates : course).length
+							}
+							gap={10}
+							isProximos={isProximos}
+							isMobile={isMobile}
+							index={index}>
 							{getSelectedCourses(isProximos ? courseDates : course).map(
 								(elem, index) => (
 									<Card
 										isProximos={isProximos}
 										info={elem}
 										key={index}
+										isMobile={isMobile}
 										overridecolor={
 											selectedCategorie ===
 											'Diplomaturas y Programas Especializados'
@@ -122,6 +134,21 @@ const CursosCards = ({ isProximos }) => {
 								)
 							)}
 						</CardsContainer>
+						{isMobile &&
+							getSelectedCourses(isProximos ? courseDates : course).length >
+								1 && (
+								<DotIndicatorWrapper>
+									<DotIndicatorCards
+										index={index}
+										setIndex={setIndex}
+										length={
+											getSelectedCourses(isProximos ? courseDates : course)
+												.length
+										}
+										overrideColor='grey'
+									/>
+								</DotIndicatorWrapper>
+							)}
 					</>
 				)}
 			</Container>
@@ -129,27 +156,38 @@ const CursosCards = ({ isProximos }) => {
 	);
 };
 
-export default CursosCards;
+const DotIndicatorWrapper = styled.div`
+	margin: 20px auto;
+	width: fit-content;
+`;
+
+const getCalcString = (index, gap, positive) => {
+	const sign = positive ? '' : '-';
+	const percentage = index * 100;
+	const action = positive ? '+' : '-';
+	const pixels = index * gap;
+
+	return `calc(${sign}${percentage}% ${action} ${pixels}px)`;
+};
 
 const MainContainer = styled.div`
-	width: ${({ mobile }) => (mobile ? '85%' : '80%')};
-	max-width: 1095px;
-	margin: ${({ mobile }) => (mobile ? 'auto' : '50px auto')};
+	width: 80%;
+	margin: ${({ isMobile }) => (isMobile ? 'auto' : '50px auto')};
+	overflow-x: hidden;
 `;
 const Container = styled.div`
 	font-family: ${theme.fontFamily.primary};
-	margin: ${({ mobile }) => (mobile ? 'auto' : '50px auto')};
-	overflow: ${({ mobile }) => (mobile ? 'hidden' : null)}; ;
+	margin: ${({ isMobile }) => (isMobile ? 'auto' : '50px auto')};
 `;
 
 const Title = styled.h3`
-	width: ${({ mobile }) => (mobile ? '90%' : null)};
-	margin: ${({ mobile }) => (mobile ? '0 auto 5% 0' : ' 0 0 5% 0')};
+	width: ${({ isMobile }) => (isMobile ? '90%' : null)};
+	margin: ${({ isMobile }) => (isMobile ? '0 auto 5% 0' : ' 0 0 5% 0')};
 
-	font-size: ${({ mobile }) => (mobile ? '1.5rem' : ' 2.5rem')};
-	padding: ${({ mobile }) => (mobile ? '0' : ' 0 20px')};
+	font-size: ${({ isMobile }) => (isMobile ? '1.5rem' : ' 2.5rem')};
+	padding: ${({ isMobile }) => (isMobile ? '0' : ' 0 20px')};
 	font-weight: 700;
-	line-height: ${({ mobile }) => (mobile ? '1.625' : '2.5rem')};
+	line-height: ${({ isMobile }) => (isMobile ? '1.625' : '2.5rem')};
 `;
 const Categories = styled.div`
 	display: flex;
@@ -160,7 +198,7 @@ const Categories = styled.div`
 `;
 
 const Category = styled.button`
-	white-space: ${({ mobile }) => (mobile ? 'wrap' : 'nowrap')};
+	white-space: ${({ isMobile }) => (isMobile ? 'wrap' : 'nowrap')};
 	padding: 10px;
 	margin: 10px;
 	text-decoration: none;
@@ -176,14 +214,36 @@ const Category = styled.button`
 		isActive ? theme.color.white : theme.color.darkGrey};
 	background: ${({ isActive }) =>
 		isActive ? theme.color.gradient : theme.color.white};
-	/* transition: background 1s ease-out; */
 `;
-const CardsContainer = styled.div`
-	width: ${({ mobile }) => (mobile ? '1000px' : '100%')};
+const isMobileStyles = (gap, length, index) => {
+	return `
+		overflow: hidden;
+		display: grid;
+		grid-template-columns: repeat(${length}, minmax(0, 1fr));
+		column-gap: ${gap}px;
+		width: calc(
+			${length * 100}% +
+				${gap * (length - 1)}px
+		);
+		margin-left: ${getCalcString(index, gap, false)};
+		transition: margin .5s;
+	`;
+};
+const desktopStyles = () => {
+	return `
+	width: 100%;
+	transition: margin 1s ease 0s;
 	display: flex;
-	flex-direction: row;
-	justify-content: ${({ mobile }) => (mobile ? 'start' : 'center')};
-	gap: ${({ mobile }) => (mobile ? '22px' : '40px')};
-	flex-wrap: ${({ mobile }) => (mobile ? 'no-wrap' : 'wrap')};
-	overflow-x: ${({ mobile }) => (mobile ? 'scroll' : 'null')};
+	flex-flow: row wrap;
+	-webkit-box-pack: center;
+	justify-content: center;
+	gap: 40px;
 `;
+};
+
+const CardsContainer = styled.div`
+	${({ isMobile, gap, length, index }) =>
+		isMobile ? isMobileStyles(gap, length, index) : desktopStyles()}
+`;
+
+export default CursosCards;

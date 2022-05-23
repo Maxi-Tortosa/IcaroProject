@@ -11,7 +11,11 @@ import { userContext } from "../../Context/UserContext"
 import { useIsMobile } from "../../Hooks/Client"
 
 const Header = ({ setIsLoginOpen }) => {
-	const { setCurrentUser, currentUser, users } = useContext(userContext)
+	const {
+		//  setCurrentUser,
+		currentUser,
+		users,
+	} = useContext(userContext)
 	const [isScroll, setIsScroll] = useState(false)
 	const [modalIsOpen, setIsOpen] = useState(false)
 	const [displayUser, setDisplayUser] = useState(null)

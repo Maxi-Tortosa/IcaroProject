@@ -25,12 +25,9 @@ const HomeContainer = () => {
 			) : (
 				<>
 					<MainCarousel />
-					{/* <Spacer height={100} /> */}
 					<Sponsors />
 					<Container>
 						<CursosCards />
-						<Spacer height={50} />
-
 						<CursosCards isProximos />
 						<Spacer height={50} />
 

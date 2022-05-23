@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import theme from "../../../../Theme/base"
-import { Link } from "react-router-dom"
+// import { Link } from "react-router-dom"
 
 const EmptyButton = ({ content, href }) => {
 	return <StyledButton>{content}</StyledButton>

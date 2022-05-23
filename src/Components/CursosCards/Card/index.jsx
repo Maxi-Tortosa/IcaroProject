@@ -1,27 +1,23 @@
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import theme from '../../../Theme/base';
-import { useIsMobile } from '../../../Hooks/Client';
+import { Link } from "react-router-dom"
+import styled from "styled-components"
+import theme from "../../../Theme/base"
 
-const Card = ({ isProximos, info, width, overridecolor }) => {
-	const { clasesSemanales, duracion, modalidad } = info.detalles;
-	const { fechaInicio } = info;
-	const mobile = useIsMobile();
+const Card = ({ isProximos, info, overridecolor, isMobile }) => {
+	const { clasesSemanales, duracion, modalidad } = info.detalles
+	const { fechaInicio } = info
 
 	return (
-		<CardContainer
-			mobile={mobile}
-			isProximos={isProximos}
-			// width={width}
-		>
+		<CardContainer isMobile={isMobile} isProximos={isProximos}>
 			<TitleContainer
 				to={`/cursos/${info.href}`}
 				categoriacolor={info.CategoriaID}
-				overridecolor={overridecolor}>
+				overridecolor={overridecolor}
+			>
 				<CardTitle
 					isProximos={isProximos}
 					categoriacolor={info.CategoriaID}
-					overridecolor={overridecolor}>
+					overridecolor={overridecolor}
+				>
 					{info.nombre}
 				</CardTitle>
 			</TitleContainer>
@@ -31,7 +27,7 @@ const Card = ({ isProximos, info, width, overridecolor }) => {
 					<>
 						<CardInfoContainer>
 							<p>
-								<span>Fecha de inicio:</span>{' '}
+								<span>Fecha de inicio:</span>{" "}
 								{fechaInicio.toDate().toJSON().slice(0, 10)}
 							</p>
 							<p>
@@ -57,14 +53,14 @@ const Card = ({ isProximos, info, width, overridecolor }) => {
 				)}
 			</CardContent>
 		</CardContainer>
-	);
-};
+	)
+}
 
-export default Card;
+export default Card
 
 const CardContainer = styled.div`
-	width: ${({ mobile, width, isProximos }) =>
-		isProximos ? (mobile ? '33%' : '29%') : mobile ? '250px' : '20%'};
+	width: ${({ isMobile, isProximos }) =>
+		isProximos ? (isMobile ? "250px" : "29%") : isMobile ? "250px" : "20%"};
 
 	background: #ffffff;
 	box-shadow: ${theme.shadow.boxShadow};
@@ -73,8 +69,8 @@ const CardContainer = styled.div`
 	flex-direction: column;
 	font-family: ${theme.fontFamily.primary};
 	justify-content: space-between;
-	margin: ${({ mobile }) => (mobile ? '10px 0' : null)};
-`;
+	margin: ${({ isMobile }) => isMobile && "10px 0"};
+`
 const TitleContainer = styled(Link)`
 	background-color: ${theme.color.white};
 	width: 80%;
@@ -93,21 +89,21 @@ const TitleContainer = styled(Link)`
 		color: ${({ isProximos, categoriacolor }) =>
 			isProximos ? theme.color.black : theme.categories[categoriacolor]};
 	}
-`;
+`
 
 const CardTitle = styled.h5`
 	font-weight: 700;
 	font-size: 1.12rem;
 	text-align: center;
-	margin-bottom: ${({ isProximos }) => !isProximos && '0px'};
+	margin-bottom: ${({ isProximos }) => !isProximos && "0px"};
 
 	color: ${({ categoriacolor, overridecolor }) =>
 		overridecolor
 			? theme.categories[overridecolor]
 			: theme.categories[categoriacolor]};
-`;
+`
 const CardContent = styled.div`
-	padding: ${({ isProximos }) => (isProximos ? '0px' : '20px')};
+	padding: ${({ isProximos }) => (isProximos ? "0px" : "20px")};
 	p {
 		font-size: 1rem;
 		line-height: 1.18rem;
@@ -116,20 +112,20 @@ const CardContent = styled.div`
 			font-weight: 700;
 		}
 	}
-`;
+`
 const CardInfoContainer = styled.div`
 	padding: 20px;
-`;
+`
 
 const CourseContent = styled.p`
 	font-family: ${theme.fontFamily.tertiary};
-	${({ isItalic }) => isItalic && 'font-style: italic;'}
+	${({ isItalic }) => isItalic && "font-style: italic;"}
 	font-weight: 500;
 	font-size: 16px;
 	line-height: 18px;
 	text-align: center;
 	color: #282828;
-`;
+`
 const ConoceMasBttn = styled(Link)`
 	background: #1744ff;
 	border-radius: 0px 0px 10px 10px;
@@ -146,7 +142,7 @@ const ConoceMasBttn = styled(Link)`
 	text-align: center;
 	padding: 9% 0 9% 0;
 	cursor: pointer;
-`;
+`
 
 const VerMasButton = styled(Link)`
 	display: block;
@@ -159,4 +155,4 @@ const VerMasButton = styled(Link)`
 	text-decoration-line: underline;
 	cursor: pointer;
 	color: #282828;
-`;
+`

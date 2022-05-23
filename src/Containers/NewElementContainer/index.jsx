@@ -12,10 +12,9 @@ import { normalizeSelectOptions, sortArrayByOrderNumber } from "../../Utils"
 const NewElementContainer = ({ fieldsList, type, selectOptions }) => {
 	const [disabledButton, setDisabledButton] = useState(true)
 	const [newData, setNewData] = useState({})
-	const [loading, setLoading] = useState(false)
+	// const [loading, setLoading] = useState(false)
 	const navigate = useNavigate()
 	sortArrayByOrderNumber(fieldsList)
-	//agregar numero de orden y separar todo en dos columnas
 	//link del tablero de slack
 	//link del zoom de clase
 
@@ -90,43 +89,42 @@ const NewElementContainer = ({ fieldsList, type, selectOptions }) => {
 			<StyledForm>
 				{fieldsList.map((elem, index, array) => (
 					<FormLabel key={elem.id} htmlFor={elem.nombre} elemWidth={elem.width}>
-						{elem.children ? (
-							elem.children.map((child) => {
-								return <p>{child.nombre}</p>
-							})
-						) : (
-							<>
-								{elem.nroOrden}. {elem.inputLabel}
-								{elem.isRequired && (
-									<RequiredText>* Campo obligatorio</RequiredText>
-								)}
-								{elem.helpText && <Small>{elem.helpText}</Small>}
-								{elem.type === "select" ? (
+						<>
+							{elem.nroOrden}. {elem.inputLabel}
+							{elem.isRequired && (
+								<RequiredText>* Campo obligatorio</RequiredText>
+							)}
+							{elem.helpText && elem.type !== "textarea" && (
+								<Small>{elem.helpText}</Small>
+							)}
+							{elem.type === "select" ? (
+								<SelectContainer hasExtraMargin={!elem.helpText}>
 									<Select
 										options={categoriesOptions}
 										onChange={(value) => handleChange(elem.nombre, value.name)}
 										placeholder="Seleccione categoria"
 									/>
-								) : elem.type === "textarea" ? (
-									<TextareaAutosize
-										onChange={(e) => handleChange(elem.nombre, e.target.value)}
-										minRows={3}
-										placeholder={"Ingrese una descripcion"}
-										className="styled-text-area"
-									/>
-								) : (
-									<FormInput
-										withBorder={elem.type === "text" || elem.type === "number"}
-										type={elem.type}
-										onChange={(e) => handleChange(elem.nombre, e.target.value)}
-										defaultValue={
-											elem.defaultValue || getDefaultValue(elem.nombre)
-										}
-										disabled={elem.isDisabled}
-									/>
-								)}
-							</>
-						)}
+								</SelectContainer>
+							) : elem.type === "textarea" ? (
+								<TextareaAutosize
+									onChange={(e) => handleChange(elem.nombre, e.target.value)}
+									minRows={3}
+									placeholder={elem.helpText}
+									className="styled-text-area"
+								/>
+							) : (
+								<FormInput
+									hasExtraMargin={!elem.helpText}
+									withBorder={elem.type === "text" || elem.type === "number"}
+									type={elem.type}
+									onChange={(e) => handleChange(elem.nombre, e.target.value)}
+									defaultValue={
+										elem.defaultValue || getDefaultValue(elem.nombre)
+									}
+									disabled={elem.isDisabled}
+								/>
+							)}
+						</>
 					</FormLabel>
 				))}
 			</StyledForm>
@@ -182,7 +180,6 @@ const StyledForm = styled.form`
 	flex-direction: row;
 	flex-wrap: wrap;
 	gap: 30px;
-	/* width: 500px; */
 	margin: 0 auto;
 
 	.styled-text-area {
@@ -235,6 +232,9 @@ const FormLabel = styled.label`
 	margin: 10px 0px;
 	text-transform: capitalize;
 `
+const SelectContainer = styled.div`
+	margin-top: ${({ hasExtraMargin }) => (hasExtraMargin ? "26px" : 0)};
+`
 
 const Small = styled.p`
 	display: block;
@@ -270,6 +270,7 @@ const FormInput = styled.input`
 	font-weight: normal;
 	font-size: 16px;
 	line-height: 24px;
+	margin-top: ${({ hasExtraMargin }) => (hasExtraMargin ? "26px" : 0)};
 
 	:focus {
 		font-style: normal;

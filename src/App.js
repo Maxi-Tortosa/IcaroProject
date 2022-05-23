@@ -1,6 +1,6 @@
 import { Navigate, BrowserRouter, Route, Routes } from "react-router-dom"
 
-import AdminContainer from "./Containers/AdminContainer"
+// import AdminContainer from "./Containers/AdminContainer"
 import AdminPage from "./Containers/AdminContainer"
 import CoursesPages from "./Containers/CoursesContainer"
 import Footer from "./Components/Footer"

@@ -1,6 +1,6 @@
 import theme from "../../../Theme/base"
 import styled from "styled-components"
-import LinearBttn from "../../Shared/Buttons/LinearBttn"
+// import LinearBttn from "../../Shared/Buttons/LinearBttn"
 
 const StudentProgram = ({ course }) => {
 	const { CategoriaID, planDeEstudioContent, PDF } = course
