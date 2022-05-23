@@ -1,65 +1,59 @@
-import React, { useState } from "react"
+import React, { useState } from 'react';
 
-import Select from "react-select"
-import theme from "../../Theme/base"
+import Select from 'react-select';
+import theme from '../../Theme/base';
 
 const CategoriesMobile = ({ toggleTab, categories }) => {
-	const categorias = categories()
+	const categorias = categories();
 	const options = categorias.map(({ Nombre }) => {
-		return { value: `${Nombre}`, label: `${Nombre}` }
-	})
+		return { value: `${Nombre}`, label: `${Nombre}` };
+	});
 
-	const [selectedOption, setSelectedOption] = useState(options[0])
+	const [selectedOption, setSelectedOption] = useState(options[0]);
 
 	const handleChange = (e) => {
-		const selected = options.find((option) => option.value === e.value)
+		const selected = options.find((option) => option.value === e.value);
 		const searchedCategory = categories().find(
 			(element) => element.Nombre === selectedOption
-		)
-		const searchedIndex = categories().indexOf(searchedCategory)
+		);
+		const searchedIndex = categories().indexOf(searchedCategory);
 
-		toggleTab(searchedIndex, e.value)
-		setSelectedOption(selected)
-	}
+		toggleTab(searchedIndex, e.value);
+		setSelectedOption(selected);
+	};
 
 	const customStyles = {
 		container: (provided, state) => ({
 			...provided,
-			marginBottom: "15px",
+			marginBottom: '15px',
 		}),
 		input: (provided, state) => ({
 			...provided,
 		}),
 		option: (provided, state) => ({
 			...provided,
-			color: state.isFocused ? "black" : null,
-			background: state.isSelected ? theme.color.blue : "white",
+			color: state.isFocused ? 'black' : null,
+			background: state.isSelected ? `${theme.color.blue}` : 'white',
 		}),
 
 		control: (provided) => ({
 			...provided,
-			width: "100%",
-			boxShadow: "hsl(0, 0%, 80%)",
-			color: "hsl(0, 0%, 80%)",
-			borderColor: "hsl(0, 0%, 80%)",
-
-			"&:active": {
-				borderColor: theme.color.blue,
-				color: theme.color.blue,
-				boxShadow: `0 0 0 1px ${theme.color.blue}`,
-			},
+			width: '100%',
+			boxShadow: 'hsl(0, 0%, 80%)',
+			color: 'hsl(0, 0%, 80%)',
+			borderColor: 'hsl(0, 0%, 80%)',
 		}),
 		singleValue: (provided) => ({
 			...provided,
-			fontSize: "1rem",
-			fontFamily: "Montserrat, sans-serif",
-			padding: "0 0 0 6px",
+			fontSize: '1rem',
+			fontFamily: 'Montserrat, sans-serif',
+			padding: '0 0 0 6px',
 		}),
 		menu: (provided) => ({
 			...provided,
-			width: "100%",
+			width: '100%',
 		}),
-	}
+	};
 
 	return (
 		<Select
@@ -69,7 +63,7 @@ const CategoriesMobile = ({ toggleTab, categories }) => {
 			styles={customStyles}
 			isSearchable={false}
 		/>
-	)
-}
+	);
+};
 
-export default CategoriesMobile
+export default CategoriesMobile;

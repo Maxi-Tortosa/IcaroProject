@@ -87,7 +87,7 @@ const Container = styled.div`
 	background-repeat: no-repeat;
 	background-size: cover;
 	padding: ${({ mobile }) => (mobile ? '5% 0 5% 0' : '5% 0 5% 0')};
-	// ;
+
 	.padre {
 		max-width: 1095px;
 		width: ${({ mobile }) => (mobile ? '85%' : '90%')};
@@ -101,13 +101,14 @@ const Container = styled.div`
 		}
 
 		.parrafo {
+			font-weight: 500;
 			font-size: ${({ mobile }) => (mobile ? '0.875rem' : '1rem')};
 			line-height: ${({ mobile }) => (mobile ? '1.125rem' : '1.43rem')};
 			margin: ${({ mobile }) => (mobile ? '4% 1.5% 6.5% 1.5%' : '2% 0 0 0')};
 		}
 
 		.contenedor {
-			margin: 2% 0 6% 0;
+			margin: 3.2% 0 6% 0;
 			display: flex;
 			flex-direction: ${({ mobile }) => (mobile ? 'column' : 'row')};
 			justify-content: space-between;

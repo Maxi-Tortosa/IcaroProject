@@ -172,8 +172,8 @@ const getCalcString = (index, gap, positive) => {
 
 const MainContainer = styled.div`
 	width: 80%;
-	margin: ${({ isMobile }) => (isMobile ? 'auto' : '50px auto')};
-	overflow-x: hidden;
+	max-width: ${({ isMobile }) => !isMobile && '1095px'};
+	margin: ${({ isMobile }) => (isMobile ? '0 auto' : '50px auto')};
 `;
 const Container = styled.div`
 	font-family: ${theme.fontFamily.primary};
