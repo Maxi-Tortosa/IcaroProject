@@ -28,7 +28,6 @@ const ImageContainer = styled.div`
 	background-image: url(${({ src }) => src});
 	background-position: center;
 	background-size: cover;
-	height: ${({ mobile }) => (mobile ? '644px' : null)};
 `;
 
 const StyledTextContainer = styled.div`
