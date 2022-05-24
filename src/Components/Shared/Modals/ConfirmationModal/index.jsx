@@ -10,6 +10,7 @@ const ConfirmationModal = ({
 	children,
 	cancelButtonContent,
 	confirmButtonContent,
+	confirmButtonSubmit,
 	withCloseButton,
 	mainColor,
 }) => {
@@ -34,6 +35,7 @@ const ConfirmationModal = ({
 
 	function handleConfirm() {
 		//el submit
+		confirmButtonSubmit()
 		closeModal()
 	}
 

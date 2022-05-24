@@ -4,7 +4,6 @@ import theme from "../../Theme/base"
 import { useNavigate } from "react-router-dom"
 import Select from "react-select"
 import TextareaAutosize from "react-textarea-autosize"
-
 import BlueButton from "../../Components/Shared/Buttons/BlueButton"
 import LinearBttn from "../../Components/Shared/Buttons/LinearBttn"
 import { normalizeSelectOptions, sortArrayByOrderNumber } from "../../Utils"
@@ -76,6 +75,9 @@ const NewElementContainer = ({ fieldsList, type, selectOptions }) => {
 		if (newData) {
 			// setLoading(true)
 			console.log("aca submit lo nuevo", newData)
+			// showToast("success")
+		} else {
+			// showToast("danger")
 		}
 		handleClose()
 	}
