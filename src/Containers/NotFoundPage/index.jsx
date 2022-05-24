@@ -58,7 +58,6 @@ const NotFoundPageContainer = styled.div`
 			font-size: ${({ mobile }) => (mobile ? '3.12rem' : '6.25rem')};
 			line-height: ${({ mobile }) => (mobile ? '3rem' : '7rem')};
 			color: #363636;
-			line-height: 48px;
 		}
 		p:nth-child(2) {
 			text-align: ${({ mobile }) => (mobile ? 'center' : null)};
@@ -68,6 +67,7 @@ const NotFoundPageContainer = styled.div`
 			line-height: ${({ mobile }) => (mobile ? '1.1rem' : '1.5rem')};
 			color: #363636;
 			margin-bottom: ${({ mobile }) => (mobile ? '1.8rem' : null)};
+			/* margin: ${({ mobile }) => (mobile ? null : '1.4rem 0')}; */
 		}
 		a {
 			align-self: ${({ mobile }) => (mobile ? 'center' : 'flex-start')};
