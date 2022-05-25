@@ -66,22 +66,24 @@ const Footer = () => {
 												} else {
 													return (
 														<>
-															<FooterParragraph key={index + 20}>
-																{nombre} {url}
-															</FooterParragraph>
 															{!mobile && (
-																<EmailForm key={index + 10}>
-																	<StyledInput
-																		type='text'
-																		placeholder={placeholder}
-																	/>
-																	<EnviaBttn
-																		backgroundColor={theme.color.white}
-																		padding=' 5px 10px'
-																		color={theme.color.darkBlue}
-																		borderRadius='5px'
-																	/>
-																</EmailForm>
+																<>
+																	<FooterParragraph key={index + 20}>
+																		{nombre} {url}
+																	</FooterParragraph>
+																	<EmailForm key={index + 10}>
+																		<StyledInput
+																			type='text'
+																			placeholder={placeholder}
+																		/>
+																		<EnviaBttn
+																			backgroundColor={theme.color.white}
+																			padding=' 5px 10px'
+																			color={theme.color.darkBlue}
+																			borderRadius='5px'
+																		/>
+																	</EmailForm>
+																</>
 															)}
 														</>
 													);

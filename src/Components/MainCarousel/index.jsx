@@ -35,7 +35,7 @@ const getCalcString = (index, gap, positive) => {
 };
 
 const Row = styled.div`
-	height: ${({ mobile }) => (mobile ? '644px' : '854px')};
+	height: ${({ mobile }) => (mobile ? null : '854px')};
 	display: grid;
 	grid-template-columns: repeat(${({ length }) => length}, minmax(0, 1fr));
 	column-gap: ${({ gap }) => gap}px;
