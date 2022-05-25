@@ -5,6 +5,7 @@ import IngresaBttn from '../Shared/Buttons/IngresaBttn';
 import { Link } from 'react-router-dom';
 import MenuMobile from '../MenuMobile';
 import { auth } from '../../Firebase';
+import { projectContext } from '../../Context/ProjectContext';
 import { signOut } from 'firebase/auth';
 import styled from 'styled-components';
 import theme from '../../Theme/base';
@@ -12,6 +13,7 @@ import { useIsMobile } from '../../Hooks/Client';
 import { userContext } from '../../Context/UserContext';
 
 const Header = ({ setIsLoginOpen }) => {
+	const { is404 } = useContext(projectContext);
 	const {
 		//  setCurrentUser,
 		currentUser,
@@ -56,51 +58,55 @@ const Header = ({ setIsLoginOpen }) => {
 	}
 
 	return (
-		<Container mobile={mobile} isScroll={isScroll}>
-			<div className='header'>
-				{mobile ? (
-					<button
-						class='mobileButton'
-						onClick={() => setMobileMenuIsOpen(true)}>
-						<img
-							src='https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/mobile%2FiconoMenuMobile.png?alt=media&token=e4546394-de4a-4812-b5d5-f53a40bce518'
-							alt=''
-						/>
-					</button>
-				) : null}{' '}
-				{mobileMenuIsOpen ? (
-					<MenuMobile setMobileMenuIsOpen={setMobileMenuIsOpen} />
-				) : null}
-				<Link to='/' className='logo'>
-					<img
-						src='https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/logo.svg?alt=media&token=b47dccac-e962-48ab-99f1-f3d250f879f5'
-						alt='Logo de Ícaro'
-					/>
-				</Link>
-				<ul mobile={mobile} className='menu'>
-					<li>
-						<CenterLinks to={'/#cursos'}>Cursos</CenterLinks>
-					</li>
-					<li>
-						<CenterLinks to={'/quienes-somos'}>Quiénes somos</CenterLinks>
-					</li>
-					<li>
-						<ButtonLink onClick={openModal}>Contacto</ButtonLink>
-					</li>
-				</ul>
-				{displayUser ? (
-					<div className='signinButton'>
-						<span>{displayUser.name}</span>
-						<button onClick={handleClick}>Cerrar sesión</button>
+		<>
+			{!is404 && (
+				<Container mobile={mobile} isScroll={isScroll}>
+					<div className='header'>
+						{mobile ? (
+							<button
+								class='mobileButton'
+								onClick={() => setMobileMenuIsOpen(true)}>
+								<img
+									src='https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/mobile%2FiconoMenuMobile.png?alt=media&token=e4546394-de4a-4812-b5d5-f53a40bce518'
+									alt=''
+								/>
+							</button>
+						) : null}{' '}
+						{mobileMenuIsOpen ? (
+							<MenuMobile setMobileMenuIsOpen={setMobileMenuIsOpen} />
+						) : null}
+						<Link to='/' className='logo'>
+							<img
+								src='https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/logo.svg?alt=media&token=b47dccac-e962-48ab-99f1-f3d250f879f5'
+								alt='Logo de Ícaro'
+							/>
+						</Link>
+						<ul mobile={mobile} className='menu'>
+							<li>
+								<CenterLinks to={'/#cursos'}>Cursos</CenterLinks>
+							</li>
+							<li>
+								<CenterLinks to={'/quienes-somos'}>Quiénes somos</CenterLinks>
+							</li>
+							<li>
+								<ButtonLink onClick={openModal}>Contacto</ButtonLink>
+							</li>
+						</ul>
+						{displayUser ? (
+							<div className='signinButton'>
+								<span>{displayUser.name}</span>
+								<button onClick={handleClick}>Cerrar sesión</button>
+							</div>
+						) : (
+							<div className='signoutButton'>
+								<IngresaBttn setIsLoginOpen={setIsLoginOpen} />
+							</div>
+						)}
 					</div>
-				) : (
-					<div className='signoutButton'>
-						<IngresaBttn setIsLoginOpen={setIsLoginOpen} />
-					</div>
-				)}
-			</div>
-			<ContactModal modalIsOpen={modalIsOpen} closeModal={closeModal} />
-		</Container>
+					<ContactModal modalIsOpen={modalIsOpen} closeModal={closeModal} />
+				</Container>
+			)}
+		</>
 	);
 };
 

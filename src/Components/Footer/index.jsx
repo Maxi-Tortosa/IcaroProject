@@ -4,11 +4,13 @@ import EnviaBttn from '../Shared/Buttons/EnviaBttn';
 import React from 'react';
 import SocialMediaIcon from '../Shared/Icons/FooterIcons';
 import { mainFooterContext } from '../../Context/FooterContext';
+import { projectContext } from './../../Context/ProjectContext';
 import styled from 'styled-components';
 import theme from '../../Theme/base';
 import { useIsMobile } from '../../Hooks/Client';
 
 const Footer = () => {
+	const { is404 } = useContext(projectContext);
 	const { footerContent } = useContext(mainFooterContext);
 	const [pending, setPending] = useState(true);
 	const mobile = useIsMobile();
@@ -27,74 +29,81 @@ const Footer = () => {
 	};
 
 	return (
-		<FooterContainer>
-			<ContentContainer mobile={mobile}>
-				{pending
-					? null
-					: getFooterContent().map((element, index) => {
-							const { Titulo, links } = element;
-							return (
-								<ColumnContainer key={index}>
-									<FooterTitle>{Titulo}</FooterTitle>
-									{links &&
-										links.map(
-											({ nombre, url, icono, placeholder, type }, index) => {
-												if (url) {
-													return (
-														<>
-															<FooterAnchor
-																key={index + 100}
-																href={url}
-																icono={icono}
-																target='_blank'>
-																{icono && (
-																	// <IconImg
-																	// 	key={index}
-																	// 	src={`./img/${icono}-icon.png`}
-																	// 	alt="icono"
-																	// />
-																	<SocialMediaIcon
-																		key={index}
-																		type={type}
-																		size={20}
-																	/>
-																)}
-																{nombre}
-															</FooterAnchor>
-														</>
-													);
-												} else {
-													return (
-														<>
-															{!mobile && (
+		<>
+			{!is404 && (
+				<FooterContainer>
+					<ContentContainer mobile={mobile}>
+						{pending
+							? null
+							: getFooterContent().map((element, index) => {
+									const { Titulo, links } = element;
+									return (
+										<ColumnContainer key={index}>
+											<FooterTitle>{Titulo}</FooterTitle>
+											{links &&
+												links.map(
+													(
+														{ nombre, url, icono, placeholder, type },
+														index
+													) => {
+														if (url) {
+															return (
 																<>
-																	<FooterParragraph key={index + 20}>
-																		{nombre} {url}
-																	</FooterParragraph>
-																	<EmailForm key={index + 10}>
-																		<StyledInput
-																			type='text'
-																			placeholder={placeholder}
-																		/>
-																		<EnviaBttn
-																			backgroundColor={theme.color.white}
-																			padding=' 5px 10px'
-																			color={theme.color.darkBlue}
-																			borderRadius='5px'
-																		/>
-																	</EmailForm>
+																	<FooterAnchor
+																		key={index + 100}
+																		href={url}
+																		icono={icono}
+																		target='_blank'>
+																		{icono && (
+																			// <IconImg
+																			// 	key={index}
+																			// 	src={`./img/${icono}-icon.png`}
+																			// 	alt="icono"
+																			// />
+																			<SocialMediaIcon
+																				key={index}
+																				type={type}
+																				size={20}
+																			/>
+																		)}
+																		{nombre}
+																	</FooterAnchor>
 																</>
-															)}
-														</>
-													);
-												}
-											}
-										)}
-								</ColumnContainer>
-							);
-					  })}
-			</ContentContainer>
-		</FooterContainer>
+															);
+														} else {
+															return (
+																<>
+																	{!mobile && (
+																		<>
+																			<FooterParragraph key={index + 20}>
+																				{nombre} {url}
+																			</FooterParragraph>
+																			<EmailForm key={index + 10}>
+																				<StyledInput
+																					type='text'
+																					placeholder={placeholder}
+																				/>
+																				<EnviaBttn
+																					backgroundColor={theme.color.white}
+																					padding=' 5px 10px'
+																					color={theme.color.darkBlue}
+																					borderRadius='5px'
+																				/>
+																			</EmailForm>
+																		</>
+																	)}
+																</>
+															);
+														}
+													}
+												)}
+										</ColumnContainer>
+									);
+							  })}
+					</ContentContainer>
+				</FooterContainer>
+			)}
+		</>
 	);
 };
 

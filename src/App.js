@@ -1,4 +1,5 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { useContext, useEffect, useState } from 'react';
 
 import AdminPage from './Containers/AdminContainer';
 import CoursesPages from './Containers/CoursesContainer';
@@ -11,7 +12,6 @@ import NotFoundPage from './Containers/NotFoundPage';
 import ProjectContext from './Context/ProjectContext';
 import Register from './Containers/RegisterContainer';
 import UserContext from './Context/UserContext';
-import { useState } from 'react';
 
 // import AdminContainer from "./Containers/AdminContainer"
 
