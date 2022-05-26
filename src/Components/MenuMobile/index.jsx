@@ -3,6 +3,10 @@ import React from 'react';
 import styled from 'styled-components';
 
 const MenuMobile = ({ openModal, setMobileMenuIsOpen }) => {
+	const handleClick = () => {
+		openModal();
+		setMobileMenuIsOpen(false);
+	};
 	return (
 		<BackgroundMenu>
 			<Menu>
@@ -27,7 +31,7 @@ const MenuMobile = ({ openModal, setMobileMenuIsOpen }) => {
 							<Link to={'/quienes-somos'}>Quiénes somos</Link>
 						</li>
 						<li>
-							<Link to=''>Contacto</Link>
+							<button onClick={handleClick}>Contacto</button>
 						</li>
 					</ul>
 				</div>
@@ -84,6 +88,16 @@ const Menu = styled.div`
 				margin-bottom: 1.5rem;
 				a {
 					text-decoration: none;
+					font-weight: 500;
+					font-size: 0.8rem;
+					line-height: 1.5rem;
+					color: rgba(0, 0, 0, 0.87);
+				}
+				button {
+					font-family: 'Roboto', sans-serif;
+					background: unset;
+					border: unset;
+					padding: 0;
 					font-weight: 500;
 					font-size: 0.8rem;
 					line-height: 1.5rem;

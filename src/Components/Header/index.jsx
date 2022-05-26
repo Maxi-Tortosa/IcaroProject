@@ -73,7 +73,10 @@ const Header = ({ setIsLoginOpen }) => {
 							</button>
 						) : null}{' '}
 						{mobileMenuIsOpen ? (
-							<MenuMobile setMobileMenuIsOpen={setMobileMenuIsOpen} />
+							<MenuMobile
+								openModal={openModal}
+								setMobileMenuIsOpen={setMobileMenuIsOpen}
+							/>
 						) : null}
 						<Link to='/' className='logo'>
 							<img
@@ -120,7 +123,7 @@ const Container = styled.div`
 	position: ${({ mobile }) => (mobile ? 'fixed' : 'fixed')};
 	top: 0;
 	left: 0;
-	z-index: 200;
+	z-index: 100;
 
 	.header {
 		width: ${({ mobile }) => (mobile ? '100%' : '80%')};

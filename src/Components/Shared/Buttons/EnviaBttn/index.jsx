@@ -1,19 +1,18 @@
-import styled from "styled-components"
-import theme from "../../../../Theme/base"
+import styled from 'styled-components';
+import theme from '../../../../Theme/base';
 
 const EnviaBttn = (props) => {
 	return (
 		<SendButton
 			{...props}
-			type="submit"
+			type='submit'
 			onClick={(e) => {
-				e.preventDefault()
-			}}
-		>
+				e.preventDefault();
+			}}>
 			Enviar
 		</SendButton>
-	)
-}
+	);
+};
 
 const SendButton = styled.button`
 	${({ width }) => width && `width: ${width}`};
@@ -25,8 +24,14 @@ const SendButton = styled.button`
 			? `background-color: ${backgroundColor}`
 			: theme.color.darkBlue};
 	${({ color }) => (color ? `color: ${color} !important` : theme.color.white)};
+	${({ fontFamily }) =>
+		fontFamily
+			? `font-family: ${fontFamily} !important`
+			: theme.fontFamily.primary};
+	${({ fontSize }) =>
+		fontSize ? `font-size: ${fontSize} !important` : 'font-size:1rem'};
 	color: white;
 	border: none;
 	cursor: pointer;
-`
-export default EnviaBttn
+`;
+export default EnviaBttn;
