@@ -4,6 +4,7 @@ const theme = {
 		blue: "#17ABFF",
 		darkBlue: "#1744FF",
 		disabledBlue: "#A4B3ED",
+		successGreen: "#2EBE16",
 		redError: "#C01E3B",
 		black: "#000",
 		white: "#FFF",
