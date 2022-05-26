@@ -5,38 +5,41 @@ import EditIcon from "../../Shared/Icons/Edit"
 import { useNavigate } from "react-router-dom"
 import DeleteIcon from "../../Shared/Icons/Delete"
 import ConfirmationModal from "../../Shared/Modals/ConfirmationModal"
-import ConfirmationToast from "../../Shared/Toasts/GenericBottomToast"
+import ToastList from "../../Shared/Toasts/ToastList"
 
 const CursosAdmin = ({ cursos }) => {
 	const [modalIsOpen, setIsOpen] = useState(false)
 	const [selectedCourse, setSelectedCourse] = useState()
 	const navigate = useNavigate()
 
-	const [list, setList] = useState([])
-	let toastProperties = null
+	const [visible, setVisible] = useState(false)
 
-	const showToast = (type) => {
-		switch (type) {
-			case "success":
-				toastProperties = {
-					id: list.length + 1,
-					title: "Success",
-					description: "This is a success toast component",
-					backgroundColor: "#5cb85c",
-				}
-				break
-			case "error":
-				toastProperties = {
-					id: list.length + 1,
-					title: "error",
-					description: "This is a danger toast component",
-					backgroundColor: "#d9534f",
-				}
-				break
-			default:
-				toastProperties = []
-		}
-		setList([...list, toastProperties])
+	// const [list, setList] = useState([])
+	// let toastProperties = null
+
+	// const showToast = (type) => {
+	// 	switch (type) {
+	// 		case "success":
+	// 			toastProperties = {
+	// 				id: list.length + 1,
+	// 				content: "El curso se ha eliminado con exito",
+	// 				backgroundColor: "#2EBE16",
+	// 			}
+	// 			break
+	// 		case "error":
+	// 			toastProperties = {
+	// 				id: list.length + 1,
+	// 				content: "This is a danger toast component",
+	// 				backgroundColor: "#d9534f",
+	// 			}
+	// 			break
+	// 		default:
+	// 			toastProperties = []
+	// 	}
+	// 	setList([...list, toastProperties])
+	// }
+	function showToast(type, content) {
+		return <ToastList type={type} content={content} />
 	}
 
 	function openDeleteModal(selected) {
@@ -53,10 +56,9 @@ const CursosAdmin = ({ cursos }) => {
 		navigate("/admin/new/curso", { replace: false })
 	}
 
-	console.log(list)
 	function handleDelete() {
 		console.log("se elimino el elemento")
-		showToast("success")
+		showToast("success", { success: "Se ha eliminado el elemento" })
 	}
 
 	return (
@@ -108,11 +110,12 @@ const CursosAdmin = ({ cursos }) => {
 					<b>{selectedCourse?.nombre}</b>
 				</ModalContent>
 			</ConfirmationModal>
-			<ConfirmationToast
+			{visible && <ToastList />}
+			{/* <ConfirmationToast
 				toastlist={list}
 				position="buttom-right"
 				setList={setList}
-			/>
+			/> */}
 		</div>
 	)
 }
