@@ -28,6 +28,7 @@ const ImageContainer = styled.div`
 	background-image: url(${({ src }) => src});
 	background-position: center;
 	background-size: cover;
+	height: ${({ mobile }) => (mobile ? '650px' : null)}; ;
 `;
 
 const StyledTextContainer = styled.div`
@@ -45,7 +46,7 @@ const StyledH1 = styled.h1`
 	font-size: ${({ mobile }) => (mobile ? '2.31rem' : '48px')};
 	line-height: ${({ mobile }) => (mobile ? '2.43rem' : '48px')};
 	color: #ffffff;
-	width: ${({ mobile }) => (mobile ? '100%' : '55%')};
+	width: ${({ mobile }) => (mobile ? '50px' : '55%')};
 	text-transform: uppercase;
 `;
 

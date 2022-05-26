@@ -13,6 +13,7 @@ const ProjectContext = ({ children }) => {
 	const [carousel, setCarousel] = useState([]);
 	const [isLogin, setIsLogin] = useState(false);
 	const [modalOpen, setModalOpen] = useState(false);
+	const [is404, setIs404] = useState(false);
 
 	useEffect(() => {
 		onSnapshot(
@@ -62,6 +63,8 @@ const ProjectContext = ({ children }) => {
 				setCarousel,
 				nextCourses,
 				nombres,
+				setIs404,
+				is404,
 			}}>
 			{children}
 		</projectContext.Provider>
