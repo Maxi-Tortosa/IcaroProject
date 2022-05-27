@@ -143,6 +143,7 @@ const CursosCards = ({ isProximos }) => {
 									<DotIndicatorCards
 										index={index}
 										setIndex={setIndex}
+										selectedCategorie={selectedCategorie}
 										length={
 											getSelectedCourses(isProximos ? courseDates : course)
 												.length
@@ -221,6 +222,7 @@ const Category = styled.button`
 const isMobileStyles = (gap, length, index) => {
 	return `
 		overflow: hidden;
+		min-height: 300px;
 		display: grid;
 		grid-template-columns: repeat(${length}, minmax(0, 1fr));
 		column-gap: ${gap}px;
