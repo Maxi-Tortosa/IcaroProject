@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 import styled from "styled-components"
 import theme from "../../../Theme/base"
 
@@ -74,11 +75,16 @@ const DotInfo = styled(StyledText)`
 const DotIndicatorCards = ({
 	index,
 	setIndex,
+	selectedCategorie,
 	length,
 	overrideColor,
 	withText,
 }) => {
 	const color = overrideColor
+
+	useEffect(() => {
+		setIndex(0)
+	}, [selectedCategorie])
 
 	return (
 		<Flex>
