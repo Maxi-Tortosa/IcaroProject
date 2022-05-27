@@ -1,7 +1,8 @@
-import React from "react"
-import ReactModal from "react-modal"
-import styled from "styled-components"
-import theme from "../../../../Theme/base"
+import React from 'react';
+import ReactModal from 'react-modal';
+import styled from 'styled-components';
+import theme from '../../../../Theme/base';
+import { useIsMobile } from '../../../../Hooks/Client';
 
 const ConfirmationModal = ({
 	modalIsOpen,
@@ -14,69 +15,102 @@ const ConfirmationModal = ({
 	withCloseButton,
 	mainColor,
 }) => {
+	const mobile = useIsMobile();
+
 	const customStyles = {
 		content: {
-			top: "50%",
-			left: "50%",
-			right: "auto",
-			bottom: "auto",
-			marginRight: "-50%",
-			transform: "translate(-50%, -50%)",
-			width: "560px",
+			top: '50%',
+			left: '50%',
+			right: 'auto',
+			bottom: 'auto',
+			marginRight: '-50%',
+			transform: 'translate(-50%, -50%)',
+			width: '560px',
 			// height: "250px",
-			padding: "0 !important",
-			borderRadius: "0px 0px 15px 15px",
+			padding: '0 !important',
+			borderRadius: '0px 0px 15px 15px',
 		},
-	}
+	};
+
+	const customMobileStyles = {
+		overlay: { zIndex: 3000 },
+		content: {
+			width: '100%',
+			height: '100vh',
+			top: 0,
+			left: 0,
+			bottom: 0,
+			right: 0,
+			display: 'flex',
+			alignItems: 'center',
+		},
+	};
 
 	function handleCancel() {
-		closeModal()
+		closeModal();
 	}
 
 	function handleConfirm() {
 		//el submit
-		confirmButtonSubmit()
-		closeModal()
+		confirmButtonSubmit();
+		closeModal();
 	}
 
 	return (
 		<ReactModal
 			isOpen={modalIsOpen}
 			onRequestClose={closeModal}
-			style={customStyles}
-		>
-			<ModalContentContainer>
-				<HeaderTitle>
-					<Title color={mainColor}>{modalTitle}</Title>
-					{withCloseButton && <CloseButton onClick={closeModal}>x</CloseButton>}
+			style={mobile ? customMobileStyles : customStyles}>
+			<ModalContentContainer mobile={mobile}>
+				<HeaderTitle mobile={mobile}>
+					<Title mobile={mobile} color={mainColor}>
+						{modalTitle}
+					</Title>
+					{withCloseButton && (
+						<CloseButton mobile={mobile} onClick={closeModal}>
+							<img
+								src='https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/mobile%2FContactModalCloseIcon.png?alt=media&token=edf0e5a3-1f0b-4ecd-a8af-004593804807'
+								alt='Cerrar ventana de confirmación'
+							/>
+						</CloseButton>
+					)}
 				</HeaderTitle>
 				{children}
-				<ConfirationButtons>
-					<CancelButton onClick={handleCancel}>
+				<ConfirationButtons mobile={mobile}>
+					<CancelButton mobile={mobile} onClick={handleCancel}>
 						{cancelButtonContent}
 					</CancelButton>
-					<ConfirmButton color={mainColor} onClick={handleConfirm}>
+					<ConfirmButton
+						mobile={mobile}
+						color={mainColor}
+						onClick={handleConfirm}>
 						{confirmButtonContent}
 					</ConfirmButton>
 				</ConfirationButtons>
 			</ModalContentContainer>
 		</ReactModal>
-	)
-}
+	);
+};
 const ModalContentContainer = styled.div`
 	padding-top: 25px;
 	display: flex;
 	flex-direction: column;
 	/* height: 100%; */
 	justify-content: space-between;
-`
+	p,
+	b {
+		${({ mobile }) => (mobile ? 'font-size: 0.87rem' : null)};
+	}
+`;
 const ConfirationButtons = styled.div`
-	justify-self: flex-end;
+	${({ mobile }) => (mobile ? null : 'justify-self: flex-end')};
 	display: flex;
-	margin-top: 35px;
-`
+	margin-top: ${({ mobile }) => (mobile ? '11.87rem' : '35px')};
+	${({ mobile }) => (mobile ? 'flex-direction: column-reverse' : null)};
+	${({ mobile }) => (mobile ? 'align-items: center' : null)};
+`;
 const CancelButton = styled.button`
-	font-family: "Montserrat";
+	font-family: 'Montserrat';
 	font-style: normal;
 	font-size: 19px;
 	line-height: 23px;
@@ -85,11 +119,12 @@ const CancelButton = styled.button`
 	background-color: ${theme.color.white};
 	border-color: ${theme.color.white};
 	padding: 16px 40px;
-	width: 50%;
+	width: ${({ mobile }) => (mobile ? '80%' : '50%')};
 	cursor: pointer;
-`
+	border: ${({ mobile }) => (mobile ? 'unset' : null)};
+`;
 const ConfirmButton = styled.button`
-	font-family: "Montserrat";
+	font-family: 'Montserrat';
 	font-style: normal;
 	font-size: 19px;
 	line-height: 23px;
@@ -97,18 +132,20 @@ const ConfirmButton = styled.button`
 	color: ${theme.color.white};
 	background-color: ${({ color }) => color};
 	border-color: ${({ color }) => color};
-	padding: 16px 40px;
-	width: 50%;
+	padding: ${({ mobile }) => (mobile ? '16px 33px' : '16px 40px')};
+	width: ${({ mobile }) => (mobile ? '80%' : '50%')};
 	cursor: pointer;
-`
+	border: ${({ mobile }) => (mobile ? 'unset' : null)};
+`;
 
 const HeaderTitle = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: flex-start;
-`
+	flex-direction: ${({ mobile }) => (mobile ? 'column-reverse' : 'row')};
+`;
 const Title = styled.h3`
-	font-family: "Montserrat";
+	font-family: 'Montserrat';
 	font-style: normal;
 	font-weight: 600;
 	font-size: 20px;
@@ -116,11 +153,12 @@ const Title = styled.h3`
 	text-align: center;
 	width: 90%;
 	color: ${({ color }) => (color ? color : theme.color.blue)};
-`
+	margin-bottom: ${({ mobile }) => (mobile ? '2.5rem' : null)}; ;
+`;
 const CloseButton = styled.div`
 	background: transparent;
 	border: unset;
-	font-size: 20px;
 	cursor: pointer;
-`
-export default ConfirmationModal
+	align-self: ${({ mobile }) => (mobile ? 'flex-end' : null)};
+`;
+export default ConfirmationModal;
