@@ -1,54 +1,57 @@
-import { useContext, useState } from "react"
-import { signInWithEmailAndPassword } from "firebase/auth"
-import { Link, useNavigate } from "react-router-dom"
-import { auth } from "../../Firebase"
+import { Link, useNavigate } from 'react-router-dom';
+import { useContext, useState } from 'react';
+
+import { auth } from '../../Firebase';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import styled from 'styled-components';
+import theme from '../../Theme/base';
+import { userContext } from '../../Context/UserContext';
+
 // import { projectContext } from '../../Context/ProjectContext';
-import styled from "styled-components"
-import { userContext } from "../../Context/UserContext"
 
 const LogIn = ({ setIsLoginOpen }) => {
 	// const { setIsLogin } = useContext(projectContext);
-	const { users } = useContext(userContext)
+	const { users } = useContext(userContext);
 
-	const [userEmail, setUserEmail] = useState("")
-	const [userPassword, setUserPassword] = useState()
-	const [passwordError, setPasswordError] = useState(false)
+	const [userEmail, setUserEmail] = useState('');
+	const [userPassword, setUserPassword] = useState();
+	const [passwordError, setPasswordError] = useState(false);
 	const [
 		hasError,
 		//  setHasError
-	] = useState(false)
+	] = useState(false);
 
-	const navigate = useNavigate()
+	const navigate = useNavigate();
 
 	const handleSubmit = () => {
-		const matchEmail = users.find((user) => user.email === userEmail)
-		const matchPassword = matchEmail.password === userPassword ? true : false
+		const matchEmail = users.find((user) => user.email === userEmail);
+		const matchPassword = matchEmail.password === userPassword ? true : false;
 		if (matchEmail & matchPassword) {
-			signInWithEmailAndPassword(auth, userEmail, userPassword)
+			signInWithEmailAndPassword(auth, userEmail, userPassword);
 
-			if (matchEmail.rol === "estudiante") {
+			if (matchEmail.rol === 'estudiante') {
 				// setTimeout(() => {
 				// 	navigate('');
 				// }, 1000);
 			}
-			if (matchEmail.rol === "administrador") {
+			if (matchEmail.rol === 'administrador') {
 				setTimeout(() => {
-					navigate("admin")
-				}, 1000)
+					navigate('admin');
+				}, 1000);
 			}
 		} else {
-			console.log("usuario no existente")
+			console.log('usuario no existente');
 		}
-	}
+	};
 
 	const handleChange = (e) => {
 		if (e.target.value.length < 6 && e.target.value.length > 0) {
-			setPasswordError(true)
+			setPasswordError(true);
 		} else {
-			setUserPassword(e.target.value)
-			setPasswordError(false)
+			setUserPassword(e.target.value);
+			setPasswordError(false);
 		}
-	}
+	};
 
 	/* Quedó terminado el inicio de sesión con Firebase */
 	// auth
@@ -65,63 +68,62 @@ const LogIn = ({ setIsLoginOpen }) => {
 	// 	});
 	return (
 		<Container>
-			<div className="background"></div>
-			<div className="modal">
-				<div className="loginImage"></div>
-				<div className="loginData">
+			<div className='background'></div>
+			<div className='modal'>
+				<div className='loginImage'></div>
+				<div className='loginData'>
 					<p>Inicia Sesión</p>
 					{/* Ver de meter una validación con el hook de reactfire */}
 					{/*Ver de permitir el ingreso con un enter en el input */}
-					<div className="input">
-						<label htmlFor="user"> Email </label>
+					<div className='input'>
+						<label htmlFor='user'> Email </label>
 						<input
-							id="usuario"
+							id='usuario'
 							onChange={(e) => setUserEmail(e.target.value)}
-							type="text"
-							name="user"
+							type='text'
+							name='user'
 						/>
 					</div>
-					<div className="input">
-						<label htmlFor="password"> Contraseña </label>
+					<div className='input'>
+						<label htmlFor='password'> Contraseña </label>
 						<input
 							onChange={handleChange}
-							id="contraseña"
-							type="password"
-							name="password"
-							className={passwordError ? "passwordError" : "ok"}
+							id='contraseña'
+							type='password'
+							name='password'
+							className={passwordError ? 'passwordError' : 'ok'}
 						/>
 						{hasError ? <p> su contraseña no existe </p> : null}
 					</div>
-					<Link className="forgot" to="/">
+					<Link className='forgot' to='/'>
 						Olvidé mi contraseña
 					</Link>
-					<button className="submit" type="submit" onClick={handleSubmit}>
+					<button className='submit' type='submit' onClick={handleSubmit}>
 						Inicia sesión
 					</button>
 					<Link
 						onClick={() => setIsLoginOpen(false)}
-						className="register"
-						to="/register"
-					>
-						¿No tenés cuenta? Únete a Icaro{" "}
+						className='register'
+						to='/register'>
+						¿No tenés cuenta? Únete a Icaro{' '}
 					</Link>
-					<button className="close" onClick={() => setIsLoginOpen(false)}>
-						{" "}
-						x{" "}
+					<button className='close' onClick={() => setIsLoginOpen(false)}>
+						{' '}
+						x{' '}
 					</button>
 				</div>
 			</div>
 		</Container>
-	)
-}
+	);
+};
 
-export default LogIn
+export default LogIn;
 
 const Container = styled.div`
 	position: fixed;
 	width: 100%;
 	height: 100vh;
-	z-index: 3;
+	z-index: ${theme.zIndex.logIn};
 
 	.background {
 		width: 100%;
@@ -131,7 +133,7 @@ const Container = styled.div`
 	}
 
 	.modal {
-		z-index: 4;
+		z-index: ${theme.zIndex.logInModal};
 		width: 68%;
 		max-width: 980px;
 		height: 65vh;
@@ -144,12 +146,12 @@ const Container = styled.div`
 		background-color: white;
 		display: flex;
 		border-radius: 10px;
-		font-family: "Montserrat", sans-serif;
+		font-family: 'Montserrat', sans-serif;
 
 		.loginImage {
 			width: 50%;
 
-			background-image: url("https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/loginImg.png?alt=media&token=70a74179-9437-4a47-9efb-0f70d0281341");
+			background-image: url('https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/loginImg.png?alt=media&token=70a74179-9437-4a47-9efb-0f70d0281341');
 			background-position: right top;
 			border-radius: 10px 0 0 10px;
 		}
@@ -182,7 +184,7 @@ const Container = styled.div`
 					border: 1px solid #e6e6e6;
 					height: 1.875rem;
 					font-size: 1rem;
-					font-family: "Montserrat", sans-serif;
+					font-family: 'Montserrat', sans-serif;
 				}
 
 				input:focus {
@@ -190,7 +192,7 @@ const Container = styled.div`
 					outline: none;
 					border-radius: 5px;
 					font-size: 1rem;
-					font-family: "Montserrat", sans-serif;
+					font-family: 'Montserrat', sans-serif;
 				}
 
 				input:placeholder {
@@ -208,7 +210,7 @@ const Container = styled.div`
 				border-radius: 10px;
 				border: unset;
 				color: white;
-				font-family: "Montserrat", sans-serif;
+				font-family: 'Montserrat', sans-serif;
 				font-size: 1.25rem;
 				line-height: 1.5rem;
 				font-weight: 500;
@@ -251,4 +253,4 @@ const Container = styled.div`
 			color: red;
 		}
 	}
-`
+`;

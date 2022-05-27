@@ -123,7 +123,7 @@ const Container = styled.div`
 	position: ${({ mobile }) => (mobile ? 'fixed' : 'fixed')};
 	top: 0;
 	left: 0;
-	z-index: 100;
+	z-index: ${theme.zIndex.header};
 
 	.header {
 		width: ${({ mobile }) => (mobile ? '100%' : '80%')};

@@ -10,7 +10,7 @@ const ContactModal = ({ modalIsOpen, closeModal }) => {
 	const mobile = useIsMobile();
 
 	const customStyles = {
-		overlay: { position: 'fixed', zIndex: 300 },
+		overlay: { position: 'fixed', zIndex: `${theme.zIndex.modals}` },
 		content: {
 			top: '50%',
 			left: '50%',
@@ -24,7 +24,7 @@ const ContactModal = ({ modalIsOpen, closeModal }) => {
 	};
 
 	const customMobileStyles = {
-		overlay: { position: 'fixed', zIndex: 300 },
+		overlay: { position: 'fixed', zIndex: `${theme.zIndex.modals}` },
 
 		content: {
 			width: '85%',

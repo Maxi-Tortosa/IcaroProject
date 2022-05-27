@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import theme from '../../Theme/base';
 import { useIsMobile } from '../../Hooks/Client';
 
 const Banners = () => {
@@ -42,7 +43,7 @@ const Container = styled.div`
 		h2 {
 			font-family: 'Montserrat', sans-serif !important;
 			position: relative;
-			z-index: 2;
+			z-index: ${theme.zIndex.banners};
 			width: 65%;
 			color: white;
 			font-weight: 900;
@@ -60,7 +61,7 @@ const Container = styled.div`
 		top: 0;
 		width: 100%;
 		height: 100%;
-		z-index: 2;
+		z-index: ${theme.zIndex.banners};
 		opacity: 0.6;
 		background-image: url('https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/banner1.png?alt=media&token=1c123642-94bd-4747-ad74-180edc927f58');
 		background-position: center;
@@ -78,7 +79,7 @@ const Container = styled.div`
 		h2 {
 			font-family: 'Montserrat', sans-serif !important;
 			position: relative;
-			z-index: 2;
+			${theme.zIndex.banners};
 			width: 50%;
 			color: white;
 			font-weight: 900;
@@ -96,7 +97,7 @@ const Container = styled.div`
 		top: 0;
 		width: 100%;
 		height: 100%;
-		z-index: 1;
+		${theme.zIndex.banners};
 		opacity: 0.6;
 		background-image: url('https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/banner2.png?alt=media&token=fa58d4ef-9dad-4ea9-bf3b-ab1ac24765cf');
 		background-position: center;

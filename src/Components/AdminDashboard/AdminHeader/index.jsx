@@ -1,8 +1,8 @@
-import styled from 'styled-components';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import theme from '../../../Theme/base';
 import { FiSettings } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import theme from '../../../Theme/base';
+import { useState } from 'react';
 
 const AdminHeader = () => {
 	const [isScroll, setIsScroll] = useState(false);
@@ -47,7 +47,7 @@ const Container = styled.div`
 	position: fixed;
 	top: 0;
 	left: 0;
-	z-index: 2000;
+	z-index: ${theme.zIndex.header};
 
 	.header {
 		width: 80%;

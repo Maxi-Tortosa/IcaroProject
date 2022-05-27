@@ -18,6 +18,7 @@ const ConfirmationModal = ({
 	const mobile = useIsMobile();
 
 	const customStyles = {
+		overlay: { zIndex: `${theme.zIndex.modals}` },
 		content: {
 			top: '50%',
 			left: '50%',
@@ -33,7 +34,7 @@ const ConfirmationModal = ({
 	};
 
 	const customMobileStyles = {
-		overlay: { zIndex: 3000 },
+		overlay: { zIndex: `${theme.zIndex.modals}` },
 		content: {
 			width: '100%',
 			height: '100vh',
