@@ -6,14 +6,32 @@ import DeleteIcon from "../../Shared/Icons/Delete"
 import { CATEGORYFIELDS } from "../../../Constants/Category"
 import { useNavigate } from "react-router-dom"
 import ConfirmationModal from "../../Shared/Modals/ConfirmationModal"
+import { successToast, errorToast } from "../../Shared/Toasts/ToastList"
+import ToastListContainer from "../../Shared/Toasts/ToastListContainer"
 
 const CategoriasAdmin = ({ categorias }) => {
 	const [modalIsOpen, setIsOpen] = useState(false)
 	const [selectedCategory, setSelectedCategory] = useState()
 	const navigate = useNavigate()
 
+	const [list, setList] = useState([])
+
+	function showToast(type, content) {
+		let selectedToast = []
+		switch (type) {
+			case "success":
+				selectedToast = successToast(content, list)
+				break
+			case "error":
+				selectedToast = errorToast(content, list)
+				break
+			default:
+				break
+		}
+		setList([...list, selectedToast])
+	}
+
 	function openDeleteModal(selected) {
-		console.log("se hizo click", selected)
 		setSelectedCategory(selected)
 		setIsOpen(true)
 	}
@@ -24,6 +42,10 @@ const CategoriasAdmin = ({ categorias }) => {
 
 	function handleClick() {
 		navigate("/admin/new/categoria", { replace: false })
+	}
+
+	function handleDelete() {
+		showToast("success", "Se ha eliminado el elemento")
 	}
 
 	return (
@@ -69,6 +91,7 @@ const CategoriasAdmin = ({ categorias }) => {
 				modalTitle="Eliminar categoria"
 				cancelButtonContent="Cancelar"
 				confirmButtonContent="Eliminar"
+				confirmButtonSubmit={handleDelete}
 				withCloseButton
 				mainColor={theme.color.redError}
 			>
@@ -77,6 +100,11 @@ const CategoriasAdmin = ({ categorias }) => {
 					<b>{selectedCategory?.Nombre}</b>
 				</ModalContent>
 			</ConfirmationModal>
+			<ToastListContainer
+				toastlist={list}
+				position="buttom-right"
+				setList={setList}
+			/>
 		</div>
 	)
 }

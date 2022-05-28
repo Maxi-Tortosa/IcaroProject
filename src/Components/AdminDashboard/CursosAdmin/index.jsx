@@ -8,8 +8,6 @@ import { useState } from "react"
 import { successToast, errorToast } from "../../Shared/Toasts/ToastList"
 import ToastListContainer from "../../Shared/Toasts/ToastListContainer"
 
-// import ToastList from '../../Shared/Toasts/ToastList';
-
 const CursosAdmin = ({ cursos }) => {
 	const [modalIsOpen, setIsOpen] = useState(false)
 	const [selectedCourse, setSelectedCourse] = useState()
@@ -48,7 +46,7 @@ const CursosAdmin = ({ cursos }) => {
 
 	function handleDelete() {
 		console.log("se elimino el elemento")
-		// showToast('success', { success: 'Se ha eliminado el elemento' });
+		showToast("success", "Se ha eliminado el elemento")
 	}
 
 	return (
@@ -74,7 +72,7 @@ const CursosAdmin = ({ cursos }) => {
 							<TableColumn bgcolor={el.CategoriaID}>{el.categoria}</TableColumn>
 							<TableColumn>{el.detalles?.modalidad}</TableColumn>
 							<TableColumn>
-								<div onClick={(e) => showToast("error", "mensaje de exito")}>
+								<div>
 									<EditIcon />
 								</div>
 								<div onClick={(e) => openDeleteModal(el)}>
@@ -100,7 +98,6 @@ const CursosAdmin = ({ cursos }) => {
 					<b>{selectedCourse?.nombre}</b>
 				</ModalContent>
 			</ConfirmationModal>
-			{/* {visible && <ToastList />} */}
 			<ToastListContainer
 				toastlist={list}
 				position="buttom-right"
