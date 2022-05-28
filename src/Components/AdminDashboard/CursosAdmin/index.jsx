@@ -15,8 +15,6 @@ const CursosAdmin = ({ cursos }) => {
 	const [selectedCourse, setSelectedCourse] = useState()
 	const navigate = useNavigate()
 
-	const [visible, setVisible] = useState(false)
-
 	const [list, setList] = useState([])
 
 	function showToast(type, content) {
@@ -33,33 +31,6 @@ const CursosAdmin = ({ cursos }) => {
 		}
 		setList([...list, selectedToast])
 	}
-
-	// let toastProperties = null
-
-	// const showToast = (type) => {
-	// 	switch (type) {
-	// 		case "success":
-	// 			toastProperties = {
-	// 				id: list.length + 1,
-	// 				content: "El curso se ha eliminado con exito",
-	// 				backgroundColor: "#2EBE16",
-	// 			}
-	// 			break
-	// 		case "error":
-	// 			toastProperties = {
-	// 				id: list.length + 1,
-	// 				content: "This is a danger toast component",
-	// 				backgroundColor: "#d9534f",
-	// 			}
-	// 			break
-	// 		default:
-	// 			toastProperties = []
-	// 	}
-	// 	setList([...list, toastProperties])
-	// }
-	// function showToast(type, content) {
-	// 	return <ToastList type={type} content={content} />;
-	// }
 
 	function openDeleteModal(selected) {
 		console.log("se hizo click", selected)
