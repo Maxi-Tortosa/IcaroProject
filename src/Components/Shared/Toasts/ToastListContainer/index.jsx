@@ -63,7 +63,7 @@ const Container = styled.div`
 	left: 0;
 	right: 0;
 	text-align: center;
-	position: absolute;
+	position: fixed;
 	bottom: 40px;
 	z-index: 10;
 	animation-name: ${AnimationToast};
