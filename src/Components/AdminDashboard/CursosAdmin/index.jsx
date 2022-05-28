@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom"
 import { useState } from "react"
 import { successToast, errorToast } from "../../Shared/Toasts/ToastList"
 import ToastListContainer from "../../Shared/Toasts/ToastListContainer"
+import Spacer from "../../Shared/Spacer"
 
 const CursosAdmin = ({ cursos }) => {
 	const [modalIsOpen, setIsOpen] = useState(false)
@@ -104,6 +105,7 @@ const CursosAdmin = ({ cursos }) => {
 				position="buttom-right"
 				setList={setList}
 			/>
+			<Spacer height={100} />
 		</div>
 	)
 }

@@ -2,8 +2,10 @@ import { useCallback } from "react"
 import { useEffect } from "react/cjs/react.development"
 import styled from "styled-components"
 import { keyframes } from "styled-components"
+import { useIsMobile } from "../../../../Hooks/Client"
 
 const ToastListContainer = ({ toastlist, setList }) => {
+	const isMobile = useIsMobile()
 	const deleteToast = useCallback(
 		(id) => {
 			const toastListItem = toastlist.filter((e) => e.id !== id)

@@ -30,11 +30,11 @@ const AdminContainer = styled.div`
 	}
 	.tab {
 		float: left;
-		height: 80vh !important;
+		min-height: 80vh !important;
 		border: 1px solid #ccc;
 		background-color: #f1f1f1;
 		width: 20%;
-		height: 100%;
+		/* height: 100%; */
 	}
 
 	/* Style the buttons that are used to open the tab content */

@@ -7,6 +7,7 @@ import TextareaAutosize from "react-textarea-autosize"
 import BlueButton from "../../Components/Shared/Buttons/BlueButton"
 import LinearBttn from "../../Components/Shared/Buttons/LinearBttn"
 import { normalizeSelectOptions, sortArrayByOrderNumber } from "../../Utils"
+import Spacer from "../../Components/Shared/Spacer"
 
 const NewElementContainer = ({ fieldsList, type, selectOptions }) => {
 	const [disabledButton, setDisabledButton] = useState(true)
@@ -83,10 +84,15 @@ const NewElementContainer = ({ fieldsList, type, selectOptions }) => {
 	}
 
 	return (
-		<ModalContainer>
+		<NewElementMainContainer>
 			<HeaderTitle>
 				<Title>{type}</Title>
-				<CloseButton onClick={handleClose}>X</CloseButton>
+				<CloseButton onClick={handleClose}>
+					<img
+						src="https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/mobile%2FContactModalCloseIcon.png?alt=media&token=edf0e5a3-1f0b-4ecd-a8af-004593804807"
+						alt="Cerrar ventana de confirmación"
+					/>
+				</CloseButton>
 			</HeaderTitle>
 			<StyledForm>
 				{fieldsList.map((elem, index, array) => (
@@ -148,11 +154,12 @@ const NewElementContainer = ({ fieldsList, type, selectOptions }) => {
 					Guardar
 				</BlueButton>
 			</SubmitContainer>
-		</ModalContainer>
+			<Spacer height={100} />
+		</NewElementMainContainer>
 	)
 }
 
-const ModalContainer = styled.div`
+const NewElementMainContainer = styled.div`
 	padding: 20px;
 `
 const HeaderTitle = styled.div`
