@@ -1,9 +1,9 @@
 import { useContext } from "react"
-import { FiSettings } from "react-icons/fi"
 import { projectContext } from "../../../Context/ProjectContext"
 import { Link } from "react-router-dom"
 import styled from "styled-components"
 import theme from "../../../Theme/base"
+import SettingsIcon from "../../Shared/Icons/SettingsIcon"
 import { useState } from "react"
 
 const AdminHeader = () => {
@@ -24,19 +24,19 @@ const AdminHeader = () => {
 		<>
 			{isAdmin && (
 				<Container isScroll={isScroll}>
-					<div className="header">
+					<HeaderContent>
 						<Link to="/" className="logo">
 							<img
 								src="https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/logo.svg?alt=media&token=b47dccac-e962-48ab-99f1-f3d250f879f5"
 								alt="Logo de Ícaro"
 							/>
 						</Link>
-						<h3>Bienvenido!</h3>
+						{/* <h3>Bienvenido!</h3> */}
 
-						<button>
-							<FiSettings size={50} />
-						</button>
-					</div>
+						<SettingsButton>
+							<SettingsIcon iconSize={50} />
+						</SettingsButton>
+					</HeaderContent>
 				</Container>
 			)}
 		</>
@@ -57,15 +57,6 @@ const Container = styled.div`
 	z-index: ${theme.zIndex.header};
 
 	.header {
-		width: 80%;
-		max-width: 1095px;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		flex-direction: row;
-
-		padding: 20px 0;
-		margin: auto;
 	}
 
 	.logo {
@@ -91,4 +82,20 @@ const Container = styled.div`
 			margin: 0;
 		}
 	}
+`
+const HeaderContent = styled.div`
+	width: 80%;
+	max-width: 1095px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-direction: row;
+
+	padding: 20px 0;
+	margin: auto;
+`
+
+const SettingsButton = styled.button`
+	background: transparent;
+	border: none;
 `

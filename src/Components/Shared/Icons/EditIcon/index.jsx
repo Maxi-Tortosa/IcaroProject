@@ -1,11 +1,12 @@
 import { CgPen } from "react-icons/cg"
+import { BiEdit } from "react-icons/bi"
 import styled from "styled-components"
 import theme from "../../../../Theme/base"
 
 const EditIcon = () => {
 	return (
 		<Container>
-			<CgPen size={30} className="edit" />
+			<BiEdit size={30} className="edit" />
 		</Container>
 	)
 }

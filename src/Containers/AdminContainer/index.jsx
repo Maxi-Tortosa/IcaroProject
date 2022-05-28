@@ -18,7 +18,7 @@ const AdminPage = () => {
 	return (
 		<AdminContainer>
 			<AdminHeader />
-			<Spacer height={100} />
+			<Spacer height={80} />
 			<AdminHome />
 		</AdminContainer>
 	)

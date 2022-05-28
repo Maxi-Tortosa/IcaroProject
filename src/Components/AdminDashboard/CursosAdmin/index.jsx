@@ -1,6 +1,6 @@
 import ConfirmationModal from "../../Shared/Modals/ConfirmationModal"
-import DeleteIcon from "../../Shared/Icons/Delete"
-import EditIcon from "../../Shared/Icons/Edit"
+import DeleteIcon from "../../Shared/Icons/DeleteIcon"
+import EditIcon from "../../Shared/Icons/EditIcon"
 import styled from "styled-components"
 import theme from "../../../Theme/base"
 import { useNavigate } from "react-router-dom"
@@ -61,7 +61,7 @@ const CursosAdmin = ({ cursos }) => {
 					<TableColumn isHeader>Nombre Curso</TableColumn>
 					<TableColumn isHeader>Categoria</TableColumn>
 					<TableColumn isHeader>Modalidad</TableColumn>
-					<TableColumn></TableColumn>
+					<TableColumn isHeader>Editar/Eliminar</TableColumn>
 				</TableHeader>
 
 				{cursos.map((el, index) => {
@@ -71,7 +71,7 @@ const CursosAdmin = ({ cursos }) => {
 							<TableColumn>{el.nombre}</TableColumn>
 							<TableColumn bgcolor={el.CategoriaID}>{el.categoria}</TableColumn>
 							<TableColumn>{el.detalles?.modalidad}</TableColumn>
-							<TableColumn>
+							<TableColumn isEditDelete>
 								<div>
 									<EditIcon />
 								</div>
@@ -125,7 +125,7 @@ const TableHeader = styled.header`
 	font-weight: bold;
 	font-size: 16px;
 	line-height: 24px;
-	color: ${theme.color.blue};
+	color: ${theme.color.darkGrey};
 `
 const TableRow = styled.div`
 	display: flex;
@@ -143,6 +143,9 @@ const TableColumn = styled.div`
 	${({ isHeader }) => !isHeader && `color: ${theme.color.lightGrey};`}
 	background-color: ${({ bgcolor }) => bgcolor && theme.categories[bgcolor]};
 	color: ${({ bgcolor }) => bgcolor && theme.color.white};
+	${({ isEditDelete }) =>
+		isEditDelete && "display: flex; justify-content: space-evenly"};
+	text-align: center;
 `
 const ModalContent = styled.div`
 	width: 80%;
