@@ -37,3 +37,37 @@ export const CATEGORYFIELDS = [
 		width: "100%",
 	},
 ]
+
+export const CATEGORYROWS = [
+	{
+		nombre: "CategoriaID",
+		inputLabel: "Categoria Id",
+		isRequired: true,
+		helpText: "Ingrese un valor alfanumerico",
+		type: "text",
+		id: 1,
+		nroOrden: 1,
+		width: "100%",
+	},
+	{
+		nombre: "Nombre",
+		inputLabel: "Nombre",
+		isRequired: true,
+		type: "text",
+		id: 2,
+		nroOrden: 2,
+		width: "100%",
+	},
+	{
+		nombre: "Color",
+		inputLabel: "Color",
+		isRequired: true,
+		type: "color",
+		id: 4,
+		nroOrden: 3,
+		width: "100%",
+	},
+	{
+		nombre: "Editar/Eliminar",
+	},
+]

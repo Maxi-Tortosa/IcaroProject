@@ -3,6 +3,7 @@ import DeleteIcon from "../../Shared/Icons/DeleteIcon"
 import EditIcon from "../../Shared/Icons/EditIcon"
 import styled from "styled-components"
 import theme from "../../../Theme/base"
+import { CURSOSROWS } from "../../../Constants/Cursos"
 import { useNavigate } from "react-router-dom"
 import { useState } from "react"
 import { successToast, errorToast } from "../../Shared/Toasts/ToastList"
@@ -52,16 +53,16 @@ const CursosAdmin = ({ cursos }) => {
 	return (
 		<div>
 			<TitleContainer>
-				<h3>Cursos</h3>
-				<button onClick={handleClick}> + Nuevo Curso</button>
+				<h3></h3>
+				<NewCourseButton onClick={handleClick}> + Nuevo Curso</NewCourseButton>
 			</TitleContainer>
 			<TableContent>
 				<TableHeader>
-					<TableColumn isHeader>Id</TableColumn>
-					<TableColumn isHeader>Nombre Curso</TableColumn>
-					<TableColumn isHeader>Categoria</TableColumn>
-					<TableColumn isHeader>Modalidad</TableColumn>
-					<TableColumn isHeader>Editar/Eliminar</TableColumn>
+					{CURSOSROWS.map((elem) => (
+						<TableColumn key={elem.id} isHeader>
+							{elem.nombre}
+						</TableColumn>
+					))}
 				</TableHeader>
 
 				{cursos.map((el, index) => {
@@ -111,6 +112,21 @@ const TitleContainer = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+`
+const NewCourseButton = styled.button`
+	background-color: ${theme.color.darkBlue};
+	color: ${theme.color.white};
+	padding: 10px 25px;
+	border-radius: 10px;
+	border: 1px solid ${theme.color.darkBlue};
+	cursor: pointer;
+	margin: 10px;
+	font-family: ${theme.fontFamily.tertiary};
+	font-style: normal;
+	font-weight: 700;
+	font-size: 14px;
+	line-height: 24px;
+	text-align: center;
 `
 const TableContent = styled.div`
 	width: 100%;

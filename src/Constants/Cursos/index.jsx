@@ -156,3 +156,49 @@ export const CURSOSCFIELDS = [
 	// 	],
 	// },
 ]
+
+export const CURSOSROWS = [
+	{
+		nombre: "Id",
+	},
+	{
+		nombre: "Nombre Curso",
+		inputLabel: "Nombre del Curso",
+		isRequired: true,
+		type: "text",
+		id: 11,
+		nroOrden: 2,
+		width: "45%",
+	},
+	{
+		nombre: "Categoria",
+		inputLabel: "Nombre de categoria",
+		isRequired: true,
+		type: "select",
+		id: 3,
+		nroOrden: 3,
+		width: "45%",
+	},
+
+	{
+		nombre: "Modalidad",
+		inputLabel: "Modalidad del curso",
+		isRequired: true,
+		defaultValue: "Online - En vivo",
+		type: "text",
+		id: 6,
+		nroOrden: 8,
+		width: "45%",
+	},
+
+	{
+		nombre: "Editar/Eliminar",
+		inputLabel: "Programa de estudio",
+		helpText: "Este es un ejemplo autogenerado",
+		type: "text",
+		id: 13,
+		children: [],
+		nroOrden: 15,
+		width: "45%",
+	},
+]

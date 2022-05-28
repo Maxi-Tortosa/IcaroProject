@@ -3,7 +3,7 @@ import styled from "styled-components"
 import theme from "../../../Theme/base"
 import EditIcon from "../../Shared/Icons/EditIcon"
 import DeleteIcon from "../../Shared/Icons/DeleteIcon"
-import { CATEGORYFIELDS } from "../../../Constants/Category"
+import { CATEGORYROWS } from "../../../Constants/Category"
 import { useNavigate } from "react-router-dom"
 import ConfirmationModal from "../../Shared/Modals/ConfirmationModal"
 import { successToast, errorToast } from "../../Shared/Toasts/ToastList"
@@ -51,14 +51,14 @@ const CategoriasAdmin = ({ categorias }) => {
 	return (
 		<div>
 			<TitleContainer>
-				<h3>Categorias</h3>
-				<button onClick={handleClick} className="nueva-categoria">
+				<h3></h3>
+				<NewCourseButton onClick={handleClick} className="nueva-categoria">
 					+ Nueva Categoria
-				</button>
+				</NewCourseButton>
 			</TitleContainer>
 			<TableContent>
 				<TableHeader>
-					{CATEGORYFIELDS.map((elem) => (
+					{CATEGORYROWS.map((elem) => (
 						<TableColumn key={elem.id} isHeader>
 							{elem.nombre}
 						</TableColumn>
@@ -73,7 +73,7 @@ const CategoriasAdmin = ({ categorias }) => {
 							<TableColumn bgcolor={el.CategoriaID}>
 								{theme.categories[el.CategoriaID]}
 							</TableColumn>
-							<TableColumn>
+							<TableColumn isEditDelete>
 								<div>
 									<EditIcon />
 								</div>
@@ -114,6 +114,23 @@ const TitleContainer = styled.div`
 	align-items: center;
 	justify-content: space-between;
 `
+
+const NewCourseButton = styled.button`
+	background-color: ${theme.color.darkBlue};
+	color: ${theme.color.white};
+	padding: 10px 25px;
+	border-radius: 10px;
+	border: 1px solid ${theme.color.darkBlue};
+	cursor: pointer;
+	margin: 10px;
+	font-family: ${theme.fontFamily.tertiary};
+	font-style: normal;
+	font-weight: 700;
+	font-size: 14px;
+	line-height: 24px;
+	text-align: center;
+`
+
 const TableContent = styled.div`
 	width: 100%;
 	padding: 10px 20px;
@@ -127,7 +144,7 @@ const TableHeader = styled.header`
 	font-weight: bold;
 	font-size: 16px;
 	line-height: 24px;
-	color: ${theme.color.blue};
+	color: ${theme.color.darkGrey};
 `
 const TableRow = styled.div`
 	display: flex;
@@ -145,18 +162,9 @@ const TableColumn = styled.div`
 	${({ isHeader }) => !isHeader && `color: ${theme.color.lightGrey};`}
 	background-color: ${({ bgcolor }) => bgcolor && theme.categories[bgcolor]};
 	color: ${({ bgcolor }) => bgcolor && theme.color.white};
-
-	.edit {
-		:hover {
-			color: ${theme.color.darkBlue};
-		}
-	}
-
-	.delete {
-		:hover {
-			color: red;
-		}
-	}
+	${({ isEditDelete }) =>
+		isEditDelete && "display: flex; justify-content: space-evenly"};
+	text-align: center;
 `
 
 const ModalContent = styled.div`

@@ -30,6 +30,7 @@ const AdminContainer = styled.div`
 	}
 	.tab {
 		float: left;
+		height: 80vh !important;
 		border: 1px solid #ccc;
 		background-color: #f1f1f1;
 		width: 20%;
