@@ -6,7 +6,7 @@ const CoursesBanner = ({ src, course }) => {
 	const { CategoriaID, nombre } = course
 
 	return (
-		<ImageContainer src={src} colorFilter={CategoriaID}>
+		<ImageContainer src={course?.bannerImage || src} colorFilter={CategoriaID}>
 			<StyledTextContainer>
 				<BannerName>Curso</BannerName>
 				<StyledH1>{nombre}</StyledH1>
