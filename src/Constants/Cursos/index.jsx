@@ -1,7 +1,7 @@
 export const CURSOSCFIELDS = [
 	{
 		nombre: "bannerImage",
-		inputLabel: "Imagen Banner",
+		inputLabel: "Imagen Portada",
 		isRequired: true,
 		type: "file",
 		id: 15,

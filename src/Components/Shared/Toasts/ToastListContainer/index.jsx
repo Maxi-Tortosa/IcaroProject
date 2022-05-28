@@ -4,7 +4,6 @@ import styled from "styled-components"
 import { keyframes } from "styled-components"
 
 const ToastListContainer = ({ toastlist, setList }) => {
-	console.log("se abre el toast")
 	const deleteToast = useCallback(
 		(id) => {
 			const toastListItem = toastlist.filter((e) => e.id !== id)
