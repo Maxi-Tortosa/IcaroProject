@@ -55,10 +55,14 @@ const Container = styled.div`
 	.banner1 {
 		width: ${({ mobile }) => (mobile ? "100%" : "50%")};
 		position: relative;
-		background: black;
+		background: rgba(54, 54, 54);
 		display: flex;
 		justify-content: center;
 		align-items: center;
+
+		&:hover {
+			background: black;
+		}
 
 		h2 {
 			font-family: "Montserrat", sans-serif !important;
@@ -91,10 +95,15 @@ const Container = styled.div`
 	.banner2 {
 		width: ${({ mobile }) => (mobile ? "100%" : "50%")};
 		position: relative;
-		background: black;
+		/* background: black; */
+		background: rgba(54, 54, 54);
 		display: flex;
 		justify-content: center;
 		align-items: center;
+
+		&:hover {
+			background: black;
+		}
 
 		h2 {
 			font-family: "Montserrat", sans-serif !important;
