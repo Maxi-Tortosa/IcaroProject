@@ -1,16 +1,16 @@
-import Sponsors from '../Sponsors';
-import styled from 'styled-components';
-import theme from '../../Theme/base';
-import { useIsMobile } from '../../Hooks/Client';
+import Sponsors from "../Sponsors"
+import styled from "styled-components"
+import theme from "../../Theme/base"
+import { useIsMobile } from "../../Hooks/Client"
 
 const QuienesSomos = () => {
-	const mobile = useIsMobile();
+	const mobile = useIsMobile()
 
 	return (
 		<Container mobile={mobile}>
-			<div className='padre'>
-				<h3 className='titulo'>Quiénes Somos</h3>
-				<p className='parrafo'>
+			<div className="padre">
+				<h3 className="titulo">Quiénes Somos</h3>
+				<p className="parrafo">
 					Somos un equipo de profesionales con un objetivo en común: facilitar
 					el acceso a una educación de calidad para democratizar hoy, el
 					conocimiento del mañana.
@@ -25,11 +25,11 @@ const QuienesSomos = () => {
 					de nuestra comunidad y prepararte para el futuro.
 				</p>
 
-				<div className='contenedor'>
-					<div className='card1'>
+				<div className="contenedor">
+					<div className="card1">
 						<img
-							src='https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/haciendo.png?alt=media&token=8d9abb06-a674-4489-8c51-687588aaba10'
-							alt=''
+							src="https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/haciendo.png?alt=media&token=8d9abb06-a674-4489-8c51-687588aaba10"
+							alt=""
 						/>
 
 						<h5>Cursos presenciales y virtuales</h5>
@@ -38,10 +38,10 @@ const QuienesSomos = () => {
 							y en vivo dictados a través de videoconferencia.
 						</p>
 					</div>
-					<div className='card2'>
+					<div className="card2">
 						<img
-							src='https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/certificacion.png?alt=media&token=73088be5-d351-40ab-a4bd-ef61c89ad528'
-							alt=''
+							src="https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/certificacion.png?alt=media&token=73088be5-d351-40ab-a4bd-ef61c89ad528"
+							alt=""
 						/>
 
 						<h5>Aprendé haciendo</h5>
@@ -50,73 +50,72 @@ const QuienesSomos = () => {
 							estudia de una manera diferente y prepárate para el futuro.
 						</p>
 					</div>
-					<div className='card3'>
+					<div className="card3">
 						<img
-							src='https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/cursos.png?alt=media&token=7ae4bf15-65ff-4e1a-a0cb-282b782c2bde'
-							alt=''
+							src="https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/cursos.png?alt=media&token=7ae4bf15-65ff-4e1a-a0cb-282b782c2bde"
+							alt=""
 						/>
 
 						<h5>Obtén certificación universitaria</h5>
 						<p>
 							Todas nuestras capacitaciones cuentan con certificación oficial de
-							la UNC. {mobile ? null : <br />}
+							la UNC. {mobile && <br />}
 							Garantizamos formacion de calidad a un precio mucho más accesible.
 						</p>
 					</div>
 				</div>
-				<div className='contenedor2'>
+				<div className="contenedor2">
 					<h4>
-						Calidad y certificación universitaria,
-						{mobile ? null : <br />} al mejor precio del mercado
+						Calidad y certificación universitaria, al mejor precio del mercado
 					</h4>
 					<Sponsors />
 				</div>
 			</div>
 		</Container>
-	);
-};
+	)
+}
 
-export default QuienesSomos;
+export default QuienesSomos
 
 const Container = styled.div`
 	font-family: ${theme.fontFamily.primary};
 	background-image: ${({ mobile }) =>
 		mobile
-			? 'unset'
+			? "unset"
 			: `url('https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/fondoQuienesSomos.png?alt=media&token=bcad7241-d11b-4761-a9d4-2629b6065d76')`};
 	background-repeat: no-repeat;
 	background-size: cover;
-	padding: ${({ mobile }) => (mobile ? '5% 0 5% 0' : '5% 0 5% 0')};
+	padding: ${({ mobile }) => (mobile ? "5% 0 5% 0" : "5% 0 5% 0")};
 
 	.padre {
 		max-width: 1095px;
-		width: ${({ mobile }) => (mobile ? '85%' : '90%')};
+		width: ${({ mobile }) => (mobile ? "85%" : "90%")};
 		margin: 0 auto 0 auto;
 
 		.titulo {
-			font-size: ${({ mobile }) => (mobile ? '1.5rem' : '2.5rem')};
+			font-size: ${({ mobile }) => (mobile ? "1.5rem" : "2.5rem")};
 			font-weight: 700;
-			line-height: ${({ mobile }) => (mobile ? '1.625rem' : '2.5rem')};
-			margin: ${({ mobile }) => (mobile ? '0 auto auto auto' : null)};
+			line-height: ${({ mobile }) => (mobile ? "1.625rem" : "2.5rem")};
+			margin: ${({ mobile }) => (mobile ? "0 auto auto auto" : null)};
 		}
 
 		.parrafo {
 			font-weight: 500;
-			font-size: ${({ mobile }) => (mobile ? '0.875rem' : '1rem')};
-			line-height: ${({ mobile }) => (mobile ? '1.125rem' : '1.43rem')};
-			margin: ${({ mobile }) => (mobile ? '4% 1.5% 6.5% 1.5%' : '2% 0 0 0')};
+			font-size: ${({ mobile }) => (mobile ? "0.875rem" : "1rem")};
+			line-height: ${({ mobile }) => (mobile ? "1.125rem" : "1.43rem")};
+			margin: ${({ mobile }) => (mobile ? "4% 1.5% 6.5% 1.5%" : "2% 0 0 0")};
 		}
 
 		.contenedor {
 			margin: 3.2% 0 6% 0;
 			display: flex;
-			flex-direction: ${({ mobile }) => (mobile ? 'column' : 'row')};
+			flex-direction: ${({ mobile }) => (mobile ? "column" : "row")};
 			justify-content: space-between;
-			flex-wrap: ${({ mobile }) => (mobile ? null : 'wrap')};
+			flex-wrap: ${({ mobile }) => mobile && "wrap"};
 
 			.card1 {
-				width: ${({ mobile }) => (mobile ? '100%' : '27.5%')};
-				margin: ${({ mobile }) => (mobile ? '0 0 15px 0' : null)};
+				width: ${({ mobile }) => (mobile ? "100%" : "27.5%")};
+				margin: ${({ mobile }) => (mobile ? "0 0 15px 0" : null)};
 				background: #ffffff;
 				box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
 				border-radius: 10px;
@@ -125,9 +124,9 @@ const Container = styled.div`
 				align-items: center;
 
 				img {
-					width: ${({ mobile }) => (mobile ? '90px' : null)};
+					width: ${({ mobile }) => (mobile ? "90px" : null)};
 					margin: ${({ mobile }) =>
-						mobile ? '7% auto 4.8% auto' : '15% auto 12% auto'};
+						mobile ? "7% auto 4.8% auto" : "15% auto 12% auto"};
 					border-radius: 100px;
 				}
 
@@ -136,24 +135,24 @@ const Container = styled.div`
 						mobile ? `${theme.fontFamily.secondary}` : null};
 					text-align: center;
 					margin: 0 11% 2% 11%;
-					font-size: ${({ mobile }) => (mobile ? '0.875rem' : '1.25rem')};
+					font-size: ${({ mobile }) => (mobile ? "0.875rem" : "1.25rem")};
 					font-weight: 700;
-					line-height: ${({ mobile }) => (mobile ? '1rem' : '1.43rem')};
+					line-height: ${({ mobile }) => (mobile ? "1rem" : "1.43rem")};
 					letter-spacing: 0em;
 				}
 
 				p {
-					width: ${({ mobile }) => (mobile ? '65%' : null)};
+					width: ${({ mobile }) => (mobile ? "65%" : null)};
 					text-align: center;
 					margin: ${({ mobile }) =>
-						mobile ? '0 auto 10.33% auto' : '0 7.8% 0 7.8%'};
-					font-size: ${({ mobile }) => (mobile ? '0.875rem' : '1rem')};
-					line-height: ${({ mobile }) => (mobile ? '1.125rem' : null)};
+						mobile ? "0 auto 10.33% auto" : "0 7.8% 0 7.8%"};
+					font-size: ${({ mobile }) => (mobile ? "0.875rem" : "1rem")};
+					line-height: ${({ mobile }) => (mobile ? "1.125rem" : null)};
 				}
 			}
 			.card2 {
-				width: ${({ mobile }) => (mobile ? '100%' : '27.5%')};
-				margin: ${({ mobile }) => (mobile ? '0 0 15px 0' : null)};
+				width: ${({ mobile }) => (mobile ? "100%" : "27.5%")};
+				margin: ${({ mobile }) => (mobile ? "0 0 15px 0" : null)};
 				background: #ffffff;
 				box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
 				border-radius: 10px;
@@ -162,9 +161,9 @@ const Container = styled.div`
 				align-items: center;
 
 				img {
-					width: ${({ mobile }) => (mobile ? '90px' : null)};
+					width: ${({ mobile }) => (mobile ? "90px" : null)};
 					margin: ${({ mobile }) =>
-						mobile ? '7% auto 4.8% auto' : '15% auto 12% auto'};
+						mobile ? "7% auto 4.8% auto" : "15% auto 12% auto"};
 					border-radius: 100px;
 				}
 
@@ -173,24 +172,24 @@ const Container = styled.div`
 						mobile ? `${theme.fontFamily.secondary}` : null};
 					text-align: center;
 					margin: 0 11% 2% 11%;
-					font-size: ${({ mobile }) => (mobile ? '0.875rem' : '1.25rem')};
+					font-size: ${({ mobile }) => (mobile ? "0.875rem" : "1.25rem")};
 					font-weight: 700;
-					line-height: ${({ mobile }) => (mobile ? '1rem' : '1.43rem')};
+					line-height: ${({ mobile }) => (mobile ? "1rem" : "1.43rem")};
 					letter-spacing: 0em;
 				}
 
 				p {
-					width: ${({ mobile }) => (mobile ? '65%' : null)};
+					width: ${({ mobile }) => (mobile ? "65%" : null)};
 					text-align: center;
 					margin: ${({ mobile }) =>
-						mobile ? '0 auto 10.33% auto' : '0 7.8% 0 7.8%'};
-					font-size: ${({ mobile }) => (mobile ? '0.875rem' : '1rem')};
-					line-height: ${({ mobile }) => (mobile ? '1.125rem' : null)};
+						mobile ? "0 auto 10.33% auto" : "0 7.8% 0 7.8%"};
+					font-size: ${({ mobile }) => (mobile ? "0.875rem" : "1rem")};
+					line-height: ${({ mobile }) => (mobile ? "1.125rem" : null)};
 				}
 			}
 			.card3 {
-				width: ${({ mobile }) => (mobile ? '100%' : '27.5%')};
-				margin: ${({ mobile }) => (mobile ? '0 0 15px 0' : null)};
+				width: ${({ mobile }) => (mobile ? "100%" : "27.5%")};
+				margin: ${({ mobile }) => (mobile ? "0 0 15px 0" : null)};
 				background: #ffffff;
 				box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
 				border-radius: 10px;
@@ -199,9 +198,9 @@ const Container = styled.div`
 				align-items: center;
 
 				img {
-					width: ${({ mobile }) => (mobile ? '90px' : null)};
+					width: ${({ mobile }) => (mobile ? "90px" : null)};
 					margin: ${({ mobile }) =>
-						mobile ? '7% auto 4.8% auto' : '15% auto 12% auto'};
+						mobile ? "7% auto 4.8% auto" : "15% auto 12% auto"};
 					border-radius: 100px;
 				}
 
@@ -210,32 +209,32 @@ const Container = styled.div`
 						mobile ? `${theme.fontFamily.secondary}` : null};
 					text-align: center;
 					margin: 0 11% 2% 11%;
-					font-size: ${({ mobile }) => (mobile ? '0.875rem' : '1.25rem')};
+					font-size: ${({ mobile }) => (mobile ? "0.875rem" : "1.25rem")};
 					font-weight: 700;
-					line-height: ${({ mobile }) => (mobile ? '1rem' : '1.43rem')};
+					line-height: ${({ mobile }) => (mobile ? "1rem" : "1.43rem")};
 					letter-spacing: 0em;
 				}
 
 				p {
-					width: ${({ mobile }) => (mobile ? '65%' : null)};
+					width: ${({ mobile }) => (mobile ? "65%" : null)};
 					text-align: center;
 					margin: ${({ mobile }) =>
-						mobile ? '0 auto 10.33% auto' : '0 7.8% 0 7.8%'};
-					font-size: ${({ mobile }) => (mobile ? '0.875rem' : '1rem')};
-					line-height: ${({ mobile }) => (mobile ? '1.125rem' : null)};
+						mobile ? "0 auto 10.33% auto" : "0 7.8% 0 7.8%"};
+					font-size: ${({ mobile }) => (mobile ? "0.875rem" : "1rem")};
+					line-height: ${({ mobile }) => (mobile ? "1.125rem" : null)};
 				}
 			}
 		}
 		.contenedor2 {
 			h4 {
-				width: ${({ mobile }) => (mobile ? '75%' : null)};
+				width: ${({ mobile }) => mobile && "95%"};
 				font-weight: normal;
-				font-size: ${({ mobile }) => (mobile ? '1.25rem' : '1.5rem')};
+				font-size: ${({ mobile }) => (mobile ? "1.25rem" : "1.5rem")};
 				line-height: 1.5rem;
 				text-align: center;
 				margin: ${({ mobile }) =>
-					mobile ? '0 auto 3.75% auto' : '0 auto 3% auto'};
+					mobile ? "0 auto 3.75% auto" : "0 auto 3% auto"};
 			}
 		}
 	}
-`;
+`
