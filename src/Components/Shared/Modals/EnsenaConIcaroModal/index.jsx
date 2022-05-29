@@ -80,7 +80,7 @@ const EnsenaConIcaroModal = ({ modalIsOpen, closeModal }) => {
 					<FormInput id="profesion" name="profesion" type="text" />
 				</FormLabel>
 				<FormLabel mobile={mobile} htmlFor="contactMedia">
-					Por qué medio prefieres ser contactado?
+					Por cual medio prefiere ser contactado?
 					<div style={{ width: "100%" }}>
 						<Select
 							options={CONTACTMEDIA}
