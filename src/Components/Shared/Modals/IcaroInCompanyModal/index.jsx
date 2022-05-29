@@ -6,7 +6,7 @@ import styled from "styled-components"
 import theme from "../../../../Theme/base"
 import { useIsMobile } from "../../../../Hooks/Client"
 
-const ContactModal = ({ modalIsOpen, closeModal }) => {
+const IcaroInCompanyModal = ({ modalIsOpen, closeModal }) => {
 	const mobile = useIsMobile()
 
 	function handleSubmit(e) {
@@ -52,17 +52,18 @@ const ContactModal = ({ modalIsOpen, closeModal }) => {
 			style={mobile ? customMobileStyles : customStyles}
 		>
 			<HeaderTitle>
-				<Title>Contactanos</Title>
+				<Title>Sumate a nuestra comunidad!</Title>
+
 				<CloseButton onClick={closeModal}>
 					<img
 						src="https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/mobile%2FContactModalCloseIcon.png?alt=media&token=edf0e5a3-1f0b-4ecd-a8af-004593804807"
-						alt="Cerrar formulario de contacto"
+						alt="Cerrar ventana de confirmación"
 					/>
 				</CloseButton>
 			</HeaderTitle>
 			<Parragraph mobile={mobile}>
-				Escríbenos y nos contactaremos para brindarte toda la información que
-				necesites.
+				Si eres profesional especializado en la industria, si te apasiona la
+				educación y trabajar en equipo, nos gustaría conocerte!.
 			</Parragraph>
 			<StyledForm mobile={mobile}>
 				<FormLabel mobile={mobile} htmlFor="fullname">
@@ -223,4 +224,4 @@ const FormInput = styled.input`
 		margin: 10px 0px;
 	}
 `
-export default ContactModal
+export default IcaroInCompanyModal

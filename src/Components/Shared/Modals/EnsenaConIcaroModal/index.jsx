@@ -5,8 +5,10 @@ import TextareaAutosize from "react-textarea-autosize"
 import styled from "styled-components"
 import theme from "../../../../Theme/base"
 import { useIsMobile } from "../../../../Hooks/Client"
+import Select from "react-select"
+import { CONTACTMEDIA } from "../../../../Constants/ConatctMedia"
 
-const ContactModal = ({ modalIsOpen, closeModal }) => {
+const EnsenaConIcaroModal = ({ modalIsOpen, closeModal }) => {
 	const mobile = useIsMobile()
 
 	function handleSubmit(e) {
@@ -24,7 +26,7 @@ const ContactModal = ({ modalIsOpen, closeModal }) => {
 			bottom: "auto",
 			marginRight: "-50%",
 			transform: "translate(-50%, -50%)",
-			width: "500px",
+			width: "80%",
 			padding: "40px",
 		},
 	}
@@ -52,59 +54,90 @@ const ContactModal = ({ modalIsOpen, closeModal }) => {
 			style={mobile ? customMobileStyles : customStyles}
 		>
 			<HeaderTitle>
-				<Title>Contactanos</Title>
+				<div>
+					<Title>Sumate a nuestra comunidad!</Title>
+					<Parragraph mobile={mobile}>
+						Si eres profesional especializado en la industria, si te apasiona la
+						educación y trabajar en equipo, nos gustaría conocerte!.
+					</Parragraph>
+				</div>
+
 				<CloseButton onClick={closeModal}>
 					<img
 						src="https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/mobile%2FContactModalCloseIcon.png?alt=media&token=edf0e5a3-1f0b-4ecd-a8af-004593804807"
-						alt="Cerrar formulario de contacto"
+						alt="Cerrar ventana de confirmación"
 					/>
 				</CloseButton>
 			</HeaderTitle>
-			<Parragraph mobile={mobile}>
-				Escríbenos y nos contactaremos para brindarte toda la información que
-				necesites.
-			</Parragraph>
+
 			<StyledForm mobile={mobile}>
 				<FormLabel mobile={mobile} htmlFor="fullname">
 					Nombre
 					<FormInput id="fullname" name="fullname" type="text" />
 				</FormLabel>
+				<FormLabel mobile={mobile} htmlFor="profesion">
+					Profesión
+					<FormInput id="profesion" name="profesion" type="text" />
+				</FormLabel>
+				<FormLabel mobile={mobile} htmlFor="contactMedia">
+					Por qué medio prefieres ser contactado?
+					<div style={{ width: "100%" }}>
+						<Select
+							options={CONTACTMEDIA}
+							onChange={(value) => console.log(value.name)}
+							// placeholder="Seleccione categoria"
+						/>
+					</div>
+				</FormLabel>
+				<FormLabel mobile={mobile} htmlFor="lastName">
+					Apellido
+					<FormInput id="lastName" name="lastName" type="text" />
+				</FormLabel>
+				<FormLabel mobile={mobile} htmlFor="enterprise">
+					Empresa
+					<FormInput id="enterprise" name="enterprise" type="text" />
+				</FormLabel>
+				<FormLabel mobile={mobile} htmlFor="correoElectronico">
+					Correo electrónico
+					<FormInput
+						id="correoElectronico"
+						name="correoElectronico"
+						type="email"
+					/>
+				</FormLabel>
+				<FormLabel mobile={mobile} htmlFor="dni">
+					DNI
+					<FormInput id="dni" name="dni" type="number" />
+				</FormLabel>
+				<FormLabel mobile={mobile} htmlFor="linkedinProfile">
+					Perfil Linkedin
+					<FormInput id="linkedinProfile" name="linkedinProfile" type="url" />
+				</FormLabel>
 				<FormLabel mobile={mobile} htmlFor="telefono">
 					Teléfono
-					<FormInput id="telefono" name="telefono" type="etelefono" />
+					<FormInput id="telefono" name="telefono" type="number" />
 				</FormLabel>
-				<FormLabel mobile={mobile} htmlFor="correo-electronico">
-					Correo Electrónico
-					<FormInput
-						id="correo-electronico"
-						name="correo-electronico"
-						type="text"
+
+				<div style={{ width: "100%" }}>
+					<EnviaBttn
+						fontFamily="Montserrat, sans-serif"
+						fontSize="1.18rem"
+						width={mobile ? "100%" : "58%"}
+						margin={mobile ? "60px 0 0 0" : "20px 21%"}
+						padding="16px"
+						backgroundColor={theme.color.darkBlue}
+						onClick={(e) => handleSubmit(e)}
 					/>
-				</FormLabel>
-				<FormLabel mobile={mobile} htmlFor="question">
-					<TextareaAutosize
-						minRows={3}
-						placeholder={"Mensaje"}
-						className="styled-text-area"
-					/>
-				</FormLabel>
-				<EnviaBttn
-					fontFamily="Montserrat, sans-serif"
-					fontSize="1.18rem"
-					width={mobile ? "100%" : "58%"}
-					margin={mobile ? "60px 0 0 0" : "20px 21%"}
-					padding="16px"
-					backgroundColor={theme.color.darkBlue}
-					onClick={(e) => handleSubmit(e)}
-				/>
+				</div>
 			</StyledForm>
 		</ReactModal>
 	)
 }
 const HeaderTitle = styled.div`
 	display: flex;
-	justify-content: space-between;
+	justify-content: flex-end;
 	align-items: flex-start;
+	margin: 20px 0;
 `
 const Title = styled.h3`
 	font-family: "Montserrat";
@@ -128,15 +161,19 @@ const Parragraph = styled.div`
 	font-style: normal;
 	font-weight: 400;
 	font-size: ${({ mobile }) => (mobile ? "0.87rem" : "1rem")};
-	width: ${({ mobile }) => (mobile ? "75%" : null)};
+	width: ${({ mobile }) => (mobile ? "100%" : "60%")};
 	line-height: 19.5px;
 	text-align: center;
 	margin: 20px auto;
 	color: #3d3d3d;
 `
 const StyledForm = styled.form`
-	width: 90%;
-	margin: auto;
+	/* width: 95%; */
+	margin: 0 10px;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px;
+	justify-content: space-between;
 
 	.styled-text-area {
 		display: block;
@@ -178,6 +215,7 @@ const StyledForm = styled.form`
 `
 
 const FormLabel = styled.label`
+	width: ${({ mobile }) => (mobile ? "100%" : "30%")};
 	display: block;
 	font-family: ${theme.fontFamily.primary};
 	font-style: normal;
@@ -186,6 +224,10 @@ const FormLabel = styled.label`
 	line-height: 24px;
 	color: ${theme.color.lightGrey};
 	margin: 10px 0px;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: space-between;
 `
 
 const FormInput = styled.input`
@@ -223,4 +265,4 @@ const FormInput = styled.input`
 		margin: 10px 0px;
 	}
 `
-export default ContactModal
+export default EnsenaConIcaroModal
