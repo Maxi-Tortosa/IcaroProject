@@ -1,34 +1,33 @@
-import { Link } from 'react-router-dom';
-import React from 'react';
-import styled from 'styled-components';
+import { Link } from "react-router-dom"
+import { AiOutlineArrowLeft } from "react-icons/ai"
+import React from "react"
+import styled from "styled-components"
+import theme from "../../Theme/base"
 
 const MenuMobile = ({ openModal, setMobileMenuIsOpen }) => {
 	const handleClick = () => {
-		openModal();
-		setMobileMenuIsOpen(false);
-	};
+		openModal()
+		setMobileMenuIsOpen(false)
+	}
 	return (
 		<BackgroundMenu>
 			<Menu>
 				<div>
-					<span>Bienvenidos!</span>
+					<span>¡Bienvenido!</span>
 					<button onClick={() => setMobileMenuIsOpen(false)}>
-						<img
-							src='https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/mobile%2FMenuMobileArrow.png?alt=media&token=22b512fb-7a1f-4d34-bc64-441c4d77d928'
-							alt='Cerrar Menú Mobile'
-						/>
+						<ArrowLeft size={20} />
 					</button>
 				</div>
 				<div>
 					<ul>
 						<li>
-							<Link to=''>Inicio</Link>
+							<Link to="">Inicio</Link>
 						</li>
 						<li>
-							<Link to={'/#cursos'}>Cursos</Link>
+							<Link to={"/#cursos"}>Cursos</Link>
 						</li>
 						<li>
-							<Link to={'/quienes-somos'}>Quiénes somos</Link>
+							<Link to={"/quienes-somos"}>Quiénes somos</Link>
 						</li>
 						<li>
 							<button onClick={handleClick}>Contacto</button>
@@ -37,10 +36,10 @@ const MenuMobile = ({ openModal, setMobileMenuIsOpen }) => {
 				</div>
 			</Menu>
 		</BackgroundMenu>
-	);
-};
+	)
+}
 
-export default MenuMobile;
+export default MenuMobile
 
 const BackgroundMenu = styled.div`
 	position: absolute;
@@ -49,12 +48,12 @@ const BackgroundMenu = styled.div`
 	top: 0;
 	left: 0;
 	background: rgba(26, 27, 28, 0.502267);
-`;
+`
 
 const Menu = styled.div`
 	width: 280px;
 	height: 295px;
-	font-family: 'Roboto', sans-serif;
+	font-family: "Roboto", sans-serif;
 
 	div:nth-child(1) {
 		height: 20%;
@@ -86,6 +85,8 @@ const Menu = styled.div`
 
 			li {
 				margin-bottom: 1.5rem;
+				cursor: pointer;
+
 				a {
 					text-decoration: none;
 					font-weight: 500;
@@ -94,7 +95,7 @@ const Menu = styled.div`
 					color: rgba(0, 0, 0, 0.87);
 				}
 				button {
-					font-family: 'Roboto', sans-serif;
+					font-family: "Roboto", sans-serif;
 					background: unset;
 					border: unset;
 					padding: 0;
@@ -106,4 +107,8 @@ const Menu = styled.div`
 			}
 		}
 	}
-`;
+`
+const ArrowLeft = styled(AiOutlineArrowLeft)`
+	color: ${theme.color.white};
+	cursor: pointer;
+`

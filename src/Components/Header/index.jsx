@@ -169,6 +169,7 @@ const Container = styled.div`
 		border: none;
 		position: absolute;
 		margin-right: 80%;
+		cursor: pointer;
 	}
 `
 const CenterLinks = styled(Link)`
