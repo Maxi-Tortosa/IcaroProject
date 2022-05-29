@@ -24,8 +24,9 @@ const IcaroInCompanyModal = ({ modalIsOpen, closeModal }) => {
 			bottom: "auto",
 			marginRight: "-50%",
 			transform: "translate(-50%, -50%)",
-			width: "500px",
-			padding: "40px",
+			width: "800px",
+			padding: "20px 40px",
+			borderRadius: "0px 0px 15px 15px",
 		},
 	}
 
@@ -52,7 +53,13 @@ const IcaroInCompanyModal = ({ modalIsOpen, closeModal }) => {
 			style={mobile ? customMobileStyles : customStyles}
 		>
 			<HeaderTitle>
-				<Title>Sumate a nuestra comunidad!</Title>
+				<div>
+					<Title mobile={mobile}>ICARO IN COMPANY</Title>
+					<Parragraph mobile={mobile}>
+						Escríbemos y nos contactaremos para brindarte toda la información
+						que necesites
+					</Parragraph>
+				</div>
 
 				<CloseButton onClick={closeModal}>
 					<img
@@ -61,10 +68,7 @@ const IcaroInCompanyModal = ({ modalIsOpen, closeModal }) => {
 					/>
 				</CloseButton>
 			</HeaderTitle>
-			<Parragraph mobile={mobile}>
-				Si eres profesional especializado en la industria, si te apasiona la
-				educación y trabajar en equipo, nos gustaría conocerte!.
-			</Parragraph>
+
 			<StyledForm mobile={mobile}>
 				<FormLabel mobile={mobile} htmlFor="fullname">
 					Nombre
@@ -72,7 +76,15 @@ const IcaroInCompanyModal = ({ modalIsOpen, closeModal }) => {
 				</FormLabel>
 				<FormLabel mobile={mobile} htmlFor="telefono">
 					Teléfono
-					<FormInput id="telefono" name="telefono" type="etelefono" />
+					<FormInput id="telefono" name="telefono" type="number" />
+				</FormLabel>
+				<FormLabel mobile={mobile} htmlFor="represents">
+					Institución que representa
+					<FormInput id="represents" name="represents" type="text" />
+				</FormLabel>
+				<FormLabel mobile={mobile} htmlFor="lastName">
+					Apellido
+					<FormInput id="lastName" name="lastName" type="text" />
 				</FormLabel>
 				<FormLabel mobile={mobile} htmlFor="correo-electronico">
 					Correo Electrónico
@@ -82,12 +94,13 @@ const IcaroInCompanyModal = ({ modalIsOpen, closeModal }) => {
 						type="text"
 					/>
 				</FormLabel>
-				<FormLabel mobile={mobile} htmlFor="question">
-					<TextareaAutosize
-						minRows={3}
-						placeholder={"Mensaje"}
-						className="styled-text-area"
-					/>
+				<FormLabel mobile={mobile} htmlFor="position">
+					Puesto
+					<FormInput id="position" name="position" type="text" />
+				</FormLabel>
+				<FormLabel mobile={mobile} htmlFor="trainingNeeds" extraWidth>
+					Cuáles son sus necesidades de capacitación?
+					<FormInput id="trainingNeeds" name="trainingNeeds" type="text" />
 				</FormLabel>
 				<EnviaBttn
 					fontFamily="Montserrat, sans-serif"
@@ -104,8 +117,9 @@ const IcaroInCompanyModal = ({ modalIsOpen, closeModal }) => {
 }
 const HeaderTitle = styled.div`
 	display: flex;
-	justify-content: space-between;
 	align-items: flex-start;
+	justify-content: center;
+	margin: 20px 0;
 `
 const Title = styled.h3`
 	font-family: "Montserrat";
@@ -114,8 +128,9 @@ const Title = styled.h3`
 	font-size: 20px;
 	line-height: 24px;
 	text-align: center;
-	width: 90%;
 	color: #1744ff;
+	width: ${({ mobile }) => (mobile ? "100%" : "60%")};
+	margin: auto;
 `
 const CloseButton = styled.div`
 	background: transparent;
@@ -129,15 +144,19 @@ const Parragraph = styled.div`
 	font-style: normal;
 	font-weight: 400;
 	font-size: ${({ mobile }) => (mobile ? "0.87rem" : "1rem")};
-	width: ${({ mobile }) => (mobile ? "75%" : null)};
+	width: ${({ mobile }) => (mobile ? "100%" : "60%")};
 	line-height: 19.5px;
 	text-align: center;
 	margin: 20px auto;
 	color: #3d3d3d;
 `
 const StyledForm = styled.form`
-	width: 90%;
-	margin: auto;
+	/* width: 95%; */
+	margin: 0 10px;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px;
+	justify-content: space-between;
 
 	.styled-text-area {
 		display: block;
@@ -166,7 +185,7 @@ const StyledForm = styled.form`
 
 		:focus {
 			font-family: ${theme.fontFamily.primary};
-			border: 2px solid ${theme.color.darkBlue};
+			border-bottom: 2px solid ${theme.color.darkBlue};
 			outline: none;
 			border-radius: 5px;
 			font-size: 1rem;
@@ -179,6 +198,8 @@ const StyledForm = styled.form`
 `
 
 const FormLabel = styled.label`
+	width: ${({ mobile, extraWidth }) =>
+		extraWidth ? "100%" : mobile ? "100%" : "45%"};
 	display: block;
 	font-family: ${theme.fontFamily.primary};
 	font-style: normal;
@@ -187,6 +208,10 @@ const FormLabel = styled.label`
 	line-height: 24px;
 	color: ${theme.color.lightGrey};
 	margin: 10px 0px;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: space-between;
 `
 
 const FormInput = styled.input`
@@ -206,9 +231,9 @@ const FormInput = styled.input`
 		font-weight: normal;
 		font-size: 16px;
 		line-height: 24px;
-		border: 2px solid ${theme.color.darkBlue};
+		border-bottom: 2px solid ${theme.color.darkBlue};
 		outline: none;
-		border-radius: 5px;
+		border-radius: 0;
 		font-size: 1rem;
 		font-family: ${theme.fontFamily.primary};
 	}

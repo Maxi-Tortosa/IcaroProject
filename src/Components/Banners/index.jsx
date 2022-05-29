@@ -50,6 +50,7 @@ const Container = styled.div`
 	margin: 0 auto 0 auto;
 	/* max-width: 1440px; */
 	width: 100%;
+	cursor: pointer;
 
 	.banner1 {
 		width: ${({ mobile }) => (mobile ? "100%" : "50%")};

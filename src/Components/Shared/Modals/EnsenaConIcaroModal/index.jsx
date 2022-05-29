@@ -27,7 +27,8 @@ const EnsenaConIcaroModal = ({ modalIsOpen, closeModal }) => {
 			marginRight: "-50%",
 			transform: "translate(-50%, -50%)",
 			width: "80%",
-			padding: "40px",
+			padding: "20px 40px",
+			borderRadius: "0px 0px 15px 15px",
 		},
 	}
 
@@ -58,7 +59,7 @@ const EnsenaConIcaroModal = ({ modalIsOpen, closeModal }) => {
 					<Title>Sumate a nuestra comunidad!</Title>
 					<Parragraph mobile={mobile}>
 						Si eres profesional especializado en la industria, si te apasiona la
-						educación y trabajar en equipo, nos gustaría conocerte!.
+						educación y trabajar en equipo, nos gustaría conocerte!
 					</Parragraph>
 				</div>
 
@@ -135,7 +136,7 @@ const EnsenaConIcaroModal = ({ modalIsOpen, closeModal }) => {
 }
 const HeaderTitle = styled.div`
 	display: flex;
-	justify-content: flex-end;
+	justify-content: center;
 	align-items: flex-start;
 	margin: 20px 0;
 `
@@ -146,8 +147,9 @@ const Title = styled.h3`
 	font-size: 20px;
 	line-height: 24px;
 	text-align: center;
-	width: 90%;
 	color: #1744ff;
+	width: ${({ mobile }) => (mobile ? "100%" : "60%")};
+	margin: auto;
 `
 const CloseButton = styled.div`
 	background: transparent;
@@ -247,9 +249,9 @@ const FormInput = styled.input`
 		font-weight: normal;
 		font-size: 16px;
 		line-height: 24px;
-		border: 2px solid ${theme.color.darkBlue};
+		border-bottom: 2px solid ${theme.color.darkBlue};
 		outline: none;
-		border-radius: 5px;
+		border-radius: 0;
 		font-size: 1rem;
 		font-family: ${theme.fontFamily.primary};
 	}
