@@ -31,10 +31,8 @@ const AdminContainer = styled.div`
 	.tab {
 		float: left;
 		min-height: 80vh !important;
-		border: 1px solid #ccc;
-		background-color: #f1f1f1;
 		width: 20%;
-		/* height: 100%; */
+		box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
 	}
 
 	/* Style the buttons that are used to open the tab content */
@@ -53,12 +51,12 @@ const AdminContainer = styled.div`
 
 	/* Change background color of buttons on hover */
 	.tab button:hover {
-		background-color: #ddd;
+		background: #f2f2f2;
 	}
 
 	/* Create an active/current "tab button" class */
 	.tab button.active {
-		background-color: #ccc;
+		background: #f2f2f2;
 	}
 
 	.tabs-content-container {

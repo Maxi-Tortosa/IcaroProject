@@ -15,7 +15,6 @@ const Container = styled.div`
 		color: ${theme.color.white};
 		:hover {
 			cursor: pointer;
-			color: red;
 		}
 	}
 `

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import ConfirmationModal from "../../Shared/Modals/ConfirmationModal"
 import DeleteIcon from "../../Shared/Icons/DeleteIcon"
 import EditIcon from "../../Shared/Icons/EditIcon"
@@ -74,9 +75,9 @@ const CursosAdmin = ({ cursos }) => {
 							<TableColumn bgcolor={el.CategoriaID}>{el.categoria}</TableColumn>
 							<TableColumn>{el.detalles?.modalidad}</TableColumn>
 							<TableColumn isEditDelete>
-								<div>
+								<EditContainer to={`/admin/edit/${el.href}`}>
 									<EditIcon />
-								</div>
+								</EditContainer>
 								<div onClick={(e) => openDeleteModal(el)}>
 									<DeleteIcon />
 								</div>
@@ -165,6 +166,11 @@ const TableColumn = styled.div`
 		isEditDelete && "display: flex; justify-content: space-evenly"};
 	text-align: center;
 `
+const EditContainer = styled(Link)`
+	text-decoration: none;
+	color: ${theme.color.darkGrey};
+`
+
 const ModalContent = styled.div`
 	width: 80%;
 	margin: 0 auto;

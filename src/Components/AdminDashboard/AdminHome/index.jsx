@@ -8,6 +8,7 @@ import { SIDEMENUCATEGORIES } from "../../../Constants/AdminDashboard"
 import NewElementContainer from "../../../Containers/NewElementContainer"
 import { CATEGORYFIELDS } from "../../../Constants/Category"
 import { CURSOSCFIELDS } from "../../../Constants/Cursos"
+import EditElementContainer from "../../../Containers/EditElementContainer"
 
 const AdminHome = ({ isNew }) => {
 	const { course, categories } = useContext(projectContext)
@@ -58,6 +59,12 @@ const AdminHome = ({ isNew }) => {
 								type="Nuevo Curso"
 								selectOptions={categories}
 							/>
+						) : location.pathname.includes("admin/edit/") ? (
+							<EditElementContainer
+								fieldsList={CURSOSCFIELDS}
+								type="Editar Curso"
+								selectOptions={categories}
+							/>
 						) : (
 							<CursosAdmin cursos={course} />
 						)}
@@ -71,6 +78,11 @@ const AdminHome = ({ isNew }) => {
 							<NewElementContainer
 								fieldsList={CATEGORYFIELDS}
 								type="Nueva Categoria"
+							/>
+						) : location.pathname.includes("admin/edit/") ? (
+							<EditElementContainer
+								fieldsList={CATEGORYFIELDS}
+								type="Editar Categoria"
 							/>
 						) : (
 							<>

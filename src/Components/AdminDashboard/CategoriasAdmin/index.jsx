@@ -44,6 +44,10 @@ const CategoriasAdmin = ({ categorias }) => {
 		navigate("/admin/new/categoria", { replace: false })
 	}
 
+	function handleEdit(elem) {
+		navigate(`/admin/edit/${elem.CategoriaID}`, { replace: false })
+	}
+
 	function handleDelete() {
 		showToast("success", "Se ha eliminado el elemento")
 	}
@@ -74,7 +78,7 @@ const CategoriasAdmin = ({ categorias }) => {
 								{theme.categories[el.CategoriaID]}
 							</TableColumn>
 							<TableColumn isEditDelete>
-								<div>
+								<div onClick={(e) => handleEdit(el)}>
 									<EditIcon />
 								</div>
 								<div onClick={(e) => openDeleteModal(el)}>
