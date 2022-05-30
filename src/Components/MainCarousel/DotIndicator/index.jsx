@@ -7,7 +7,7 @@ const Flex = styled.div`
 	height: ${dotSize}px;
 	display: flex;
 	align-items: center;
-	justify-content: flex-start;
+	justify-content: center;
 	margin-left: -${dotSize / 2}px;
 `
 
