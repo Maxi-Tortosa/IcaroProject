@@ -3,9 +3,8 @@ import theme from "../../../Theme/base"
 import { hexcodeToRGBA } from "../../../Helpers/colors"
 
 const GreyBkgrTop = styled.div`
-	/* height: ${({ height }) => height}px; */
 	min-height: fit-content;
-	padding-top: 50px;
+	padding-top: 70px;
 	background: ${theme.color.white};
 	background: linear-gradient(
 		355deg,
