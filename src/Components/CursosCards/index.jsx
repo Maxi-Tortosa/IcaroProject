@@ -78,7 +78,7 @@ const CursosCards = ({ isProximos }) => {
 
 	return (
 		<MainContainer isMobile={isMobile} id={isProximos ? "proximos" : "cursos"}>
-			<Container isMobile={isMobile}>
+			<Container isMobile={isMobile} isProximos={isProximos}>
 				{isProximos ? (
 					<Title isMobile={isMobile}>Próximos cursos</Title>
 				) : (
@@ -182,6 +182,7 @@ const MainContainer = styled.div`
 const Container = styled.div`
 	font-family: ${theme.fontFamily.primary};
 	margin: ${({ isMobile }) => (isMobile ? "auto" : "50px auto")};
+	margin-bottom: ${({ isProximos }) => isProximos && "0"};
 `
 
 const Title = styled.h3`

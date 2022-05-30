@@ -27,6 +27,7 @@ const EnsenaConIcaroModal = ({ modalIsOpen, closeModal }) => {
 			marginRight: "-50%",
 			transform: "translate(-50%, -50%)",
 			width: "80%",
+			maxWidth: "1020px",
 			padding: "20px 40px",
 			borderRadius: "0px 0px 15px 15px",
 		},
