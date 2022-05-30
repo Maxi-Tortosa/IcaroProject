@@ -12,7 +12,7 @@ import { projectContext } from "../../Context/ProjectContext"
 import Loader from "../../Components/Shared/Loader"
 
 const EditElementContainer = ({ fieldsList, type, selectOptions }) => {
-	const { editCategorie, editCourse } = useParams()
+	const { editElement } = useParams()
 	const [disabledButton, setDisabledButton] = useState(true)
 	const [newData, setNewData] = useState({})
 	const navigate = useNavigate()
@@ -26,17 +26,16 @@ const EditElementContainer = ({ fieldsList, type, selectOptions }) => {
 	//link del zoom de clase
 	useEffect(() => {
 		if (course.length > 0 && categories.length > 0) {
-			const elemResult = course.find(
-				(elem) => elem.href === editCategorie || editCourse
-			)
-			console.log(elemResult)
+			const elemResult =
+				course.find((elem) => elem.href === editElement) ||
+				categories.find((elem) => elem.CategoriaID === editElement)
 			setSelectedEditElement(elemResult)
 			setPending(false)
 		}
-	}, [course, categories, editCategorie, editCourse])
+	}, [course, categories, editElement])
+	// console.log("elem", selectedEditElement)
 
 	sortArrayByOrderNumber(fieldsList)
-	const categoriesOptions = normalizeSelectOptions(selectOptions)
 
 	useEffect(() => {
 		const requiredFields = fieldsList
@@ -101,12 +100,16 @@ const EditElementContainer = ({ fieldsList, type, selectOptions }) => {
 		handleClose()
 	}
 
-	if (pending) return <Loader />
+	if (pending || !selectedEditElement) return <Loader />
 
 	return (
 		<NewElementMainContainer>
 			<HeaderTitle>
-				<Title>{type}</Title>
+				<Title>
+					{type}{" "}
+					{selectedEditElement["Nombre"] || selectedEditElement["nombre"]}
+				</Title>
+
 				<CloseButton onClick={handleClose}>
 					<img
 						src="https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/mobile%2FContactModalCloseIcon.png?alt=media&token=edf0e5a3-1f0b-4ecd-a8af-004593804807"
@@ -115,7 +118,10 @@ const EditElementContainer = ({ fieldsList, type, selectOptions }) => {
 				</CloseButton>
 			</HeaderTitle>
 			<StyledForm>
-				{selectedEditElement.map((elem, index, array) => (
+				{Object.keys(selectedEditElement).map((elem) => {
+					return <p>{elem}</p>
+				})}
+				{/* {fieldsList.map((elem, index, array) => (
 					<FormLabel key={elem.id} htmlFor={elem.nombre} elemWidth={elem.width}>
 						<>
 							{elem.nroOrden}. {elem.inputLabel}
@@ -154,47 +160,7 @@ const EditElementContainer = ({ fieldsList, type, selectOptions }) => {
 							)}
 						</>
 					</FormLabel>
-				))}
-				{fieldsList.map((elem, index, array) => (
-					<FormLabel key={elem.id} htmlFor={elem.nombre} elemWidth={elem.width}>
-						<>
-							{elem.nroOrden}. {elem.inputLabel}
-							{elem.isRequired && (
-								<RequiredText>* Campo obligatorio</RequiredText>
-							)}
-							{elem.helpText && elem.type !== "textarea" && (
-								<Small>{elem.helpText}</Small>
-							)}
-							{elem.type === "select" ? (
-								<SelectContainer hasExtraMargin={!elem.helpText}>
-									<Select
-										options={categoriesOptions}
-										onChange={(value) => handleChange(elem.nombre, value.name)}
-										placeholder="Seleccione categoria"
-									/>
-								</SelectContainer>
-							) : elem.type === "textarea" ? (
-								<TextareaAutosize
-									onChange={(e) => handleChange(elem.nombre, e.target.value)}
-									minRows={3}
-									placeholder={elem.helpText}
-									className="styled-text-area"
-								/>
-							) : (
-								<FormInput
-									hasExtraMargin={!elem.helpText}
-									withBorder={elem.type === "text" || elem.type === "number"}
-									type={elem.type}
-									onChange={(e) => handleChange(elem.nombre, e.target.value)}
-									defaultValue={
-										elem.defaultValue || getDefaultValue(elem.nombre)
-									}
-									disabled={elem.isDisabled}
-								/>
-							)}
-						</>
-					</FormLabel>
-				))}
+				))} */}
 			</StyledForm>
 			<SubmitContainer>
 				<LinearBttn type="cancel" onClick={handleClose}>
