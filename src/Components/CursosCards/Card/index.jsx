@@ -61,7 +61,7 @@ export default Card
 
 const CardContainer = styled.div`
 	width: ${({ isMobile, isProximos }) =>
-		isProximos ? (isMobile ? "230" : "29%") : isMobile ? "185px" : "20%"};
+		isProximos ? (isMobile ? "250px" : "29%") : isMobile ? "185px" : "20%"};
 	max-width: ${({ isMobile, isProximos }) =>
 		isProximos ? !isMobile && "295px" : !isMobile && "185px"};
 	background: #ffffff;

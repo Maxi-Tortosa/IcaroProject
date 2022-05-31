@@ -114,7 +114,7 @@ const CursosCards = ({ isProximos }) => {
 							length={
 								getSelectedCourses(isProximos ? courseDates : course).length
 							}
-							gap={10}
+							gap={isProximos ? 10 : 10}
 							isProximos={isProximos}
 							isMobile={isMobile}
 							index={index}
@@ -164,17 +164,19 @@ const DotIndicatorWrapper = styled.div`
 	width: fit-content;
 `
 
-const getCalcString = (index, gap, positive) => {
+const getCalcString = (index, gap, positive, isProximos) => {
 	const sign = positive ? "" : "-"
-	const percentage = index * 100
+	const percentage = index * (isProximos ? 100 : 65)
 	const action = positive ? "+" : "-"
 	const pixels = index * gap
 
-	return `calc(${sign}${percentage}% ${action} ${pixels}px)`
+	return `calc(${sign}${percentage}% ${action} ${pixels}px ${
+		!isProximos ? "+ 18%" : ""
+	})`
 }
 
 const MainContainer = styled.div`
-	width: 80%;
+	width: ${({ isMobile }) => (isMobile ? "90%" : "80%")};
 	overflow: hidden;
 	max-width: ${({ isMobile }) => !isMobile && "1095px"};
 	margin: ${({ isMobile }) => (isMobile ? "0 auto" : "50px auto")};
@@ -220,7 +222,7 @@ const Category = styled.button`
 	background: ${({ isActive }) =>
 		isActive ? theme.color.gradient : theme.color.white};
 `
-const isMobileStyles = (gap, length, index) => {
+const isMobileStyles = (gap, length, index, isProximos) => {
 	return `
 		overflow: hidden;
 		min-height: 300px;
@@ -228,10 +230,10 @@ const isMobileStyles = (gap, length, index) => {
 		grid-template-columns: repeat(${length}, minmax(0, 1fr));
 		column-gap: ${gap}px;
 		width: calc(
-			${length * 100}% +
+			${length * (isProximos ? 100 : 65)}% +
 				${gap * (length - 1)}px
 		);
-		margin-left: ${getCalcString(index, gap, false)};
+		margin-left: ${getCalcString(index, gap, false, isProximos)};
 		transition: margin .5s;
 	`
 }
@@ -248,8 +250,8 @@ const desktopStyles = () => {
 }
 
 const CardsContainer = styled.div`
-	${({ isMobile, gap, length, index }) =>
-		isMobile ? isMobileStyles(gap, length, index) : desktopStyles()}
+	${({ isMobile, gap, length, index, isProximos }) =>
+		isMobile ? isMobileStyles(gap, length, index, isProximos) : desktopStyles()}
 `
 
 export default CursosCards
