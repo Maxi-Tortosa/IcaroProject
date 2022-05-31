@@ -114,7 +114,7 @@ const CursosCards = ({ isProximos }) => {
 							length={
 								getSelectedCourses(isProximos ? courseDates : course).length
 							}
-							gap={isProximos ? 10 : 10}
+							gap={isProximos ? 10 : 5}
 							isProximos={isProximos}
 							isMobile={isMobile}
 							index={index}
