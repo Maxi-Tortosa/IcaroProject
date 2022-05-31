@@ -1,31 +1,31 @@
-import { useState } from "react"
-import { Link } from "react-router-dom"
-import styled from "styled-components"
-import theme from "../../Theme/base"
-import { useIsMobile } from "../../Hooks/Client"
-import EnsenaConIcaroModal from "../Shared/Modals/EnsenaConIcaroModal"
-import IcaroInCompanyModal from "../Shared/Modals/IcaroInCompanyModal"
+import EnsenaConIcaroModal from '../Shared/Modals/EnsenaConIcaroModal';
+import IcaroInCompanyModal from '../Shared/Modals/IcaroInCompanyModal';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import theme from '../../Theme/base';
+import { useIsMobile } from '../../Hooks/Client';
+import { useState } from 'react';
 
 const Banners = () => {
-	const mobile = useIsMobile()
-	const [ensenaModalIsOpen, setEnsenaModalIsOpen] = useState(false)
-	const [inCompanyModalIsOpen, setInCompanyModalIsOpen] = useState(false)
+	const mobile = useIsMobile();
+	const [ensenaModalIsOpen, setEnsenaModalIsOpen] = useState(false);
+	const [inCompanyModalIsOpen, setInCompanyModalIsOpen] = useState(false);
 
 	function closeModal() {
-		setEnsenaModalIsOpen(false)
-		setInCompanyModalIsOpen(false)
+		setEnsenaModalIsOpen(false);
+		setInCompanyModalIsOpen(false);
 	}
 
 	return (
 		<Container mobile={mobile}>
-			<div className="banner1" onClick={setEnsenaModalIsOpen}>
-				<StyledLink to="/">
+			<div className='banner1' onClick={setEnsenaModalIsOpen}>
+				<StyledLink to='/'>
 					<h2>Enseñá con ICARO</h2>
 				</StyledLink>
 				{/* Ver de meter las imágenes opacas ya desde el origen */}
 			</div>
-			<div className="banner2" onClick={setInCompanyModalIsOpen}>
-				<StyledLink to="/">
+			<div className='banner2' onClick={setInCompanyModalIsOpen}>
+				<StyledLink to='/'>
 					<h2>ICARO in company</h2>
 				</StyledLink>
 			</div>
@@ -38,22 +38,22 @@ const Banners = () => {
 				closeModal={closeModal}
 			/>
 		</Container>
-	)
-}
+	);
+};
 
-export default Banners
+export default Banners;
 
 const Container = styled.div`
 	display: flex;
-	flex-direction: ${({ mobile }) => (mobile ? "column" : "row")};
+	flex-direction: ${({ mobile }) => (mobile ? 'column' : 'row')};
 	justify-content: center;
 	margin: 0 auto 0 auto;
-	/* max-width: 1440px; */
+	max-width: 1440px;
 	width: 100%;
 	cursor: pointer;
 
 	.banner1 {
-		width: ${({ mobile }) => (mobile ? "100%" : "50%")};
+		width: ${({ mobile }) => (mobile ? '100%' : '50%')};
 		position: relative;
 		background: rgba(54, 54, 54);
 		display: flex;
@@ -65,7 +65,7 @@ const Container = styled.div`
 		}
 
 		h2 {
-			font-family: "Montserrat", sans-serif !important;
+			font-family: 'Montserrat', sans-serif !important;
 			position: relative;
 			z-index: ${theme.zIndex.banners};
 			width: 65%;
@@ -78,7 +78,7 @@ const Container = styled.div`
 		}
 	}
 	.banner1:before {
-		content: "";
+		content: '';
 		display: block;
 		position: absolute;
 		left: 0;
@@ -87,13 +87,13 @@ const Container = styled.div`
 		height: 100%;
 		z-index: ${theme.zIndex.banners};
 		opacity: 0.6;
-		background-image: url("https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/banner1.png?alt=media&token=1c123642-94bd-4747-ad74-180edc927f58");
+		background-image: url('https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/banner1.png?alt=media&token=1c123642-94bd-4747-ad74-180edc927f58');
 		background-position: center;
 		background-size: cover;
 	}
 
 	.banner2 {
-		width: ${({ mobile }) => (mobile ? "100%" : "50%")};
+		width: ${({ mobile }) => (mobile ? '100%' : '50%')};
 		position: relative;
 		/* background: black; */
 		background: rgba(54, 54, 54);
@@ -106,7 +106,7 @@ const Container = styled.div`
 		}
 
 		h2 {
-			font-family: "Montserrat", sans-serif !important;
+			font-family: 'Montserrat', sans-serif !important;
 			position: relative;
 			${theme.zIndex.banners};
 			width: 50%;
@@ -119,7 +119,7 @@ const Container = styled.div`
 		}
 	}
 	.banner2:before {
-		content: "";
+		content: '';
 		display: block;
 		position: absolute;
 		left: 0;
@@ -128,11 +128,11 @@ const Container = styled.div`
 		height: 100%;
 		${theme.zIndex.banners};
 		opacity: 0.6;
-		background-image: url("https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/banner2.png?alt=media&token=fa58d4ef-9dad-4ea9-bf3b-ab1ac24765cf");
+		background-image: url('https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/banner2.png?alt=media&token=fa58d4ef-9dad-4ea9-bf3b-ab1ac24765cf');
 		background-position: center;
 		background-size: cover;
 	}
-`
+`;
 const StyledLink = styled(Link)`
 	text-decoration: none !important;
-`
+`;

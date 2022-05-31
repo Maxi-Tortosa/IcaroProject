@@ -1,64 +1,69 @@
-import theme from "../../../Theme/base"
-import styled from "styled-components"
-import Icons from "./Icons"
+import Icons from './Icons';
+import styled from 'styled-components';
+import theme from '../../../Theme/base';
+import { useIsMobile } from '../../../Hooks/Client';
 
 const IconsInformation = ({ course }) => {
-	const { detalles, CategoriaID } = course
+	const { detalles, CategoriaID } = course;
+
+	const mobile = useIsMobile();
 
 	return (
-		<IconsInformationContainer>
-			<IconContainer>
+		<IconsInformationContainer mobile={mobile}>
+			<IconContainer mobile={mobile}>
 				<Icons.ModalidadCurso fill={theme.categories[CategoriaID]} />
-				<Details>
+				<Details mobile={mobile}>
 					{detalles.modalidad
 						? detalles.modalidad
-						: "Clases en vivo, 1 vez a la semana, 2 horas"}
+						: 'Clases en vivo, 1 vez a la semana, 2 horas'}
 				</Details>
 			</IconContainer>
-			<IconContainer>
+			<IconContainer mobile={mobile}>
 				<Icons.BeneficioCurso fill={theme.categories[CategoriaID]} />
-				<Details>
+				<Details mobile={mobile}>
 					{detalles.beneficio
 						? detalles.beneficio
-						: "Docentes avalados por su experiencia en el rubro"}
+						: 'Docentes avalados por su experiencia en el rubro'}
 				</Details>
 			</IconContainer>
-			<IconContainer>
+			<IconContainer mobile={mobile}>
 				<Icons.CertificacionCurso fill={theme.categories[CategoriaID]} />
-				<Details>
+				<Details mobile={mobile}>
 					{detalles.certificacion
 						? detalles.certificacion
-						: "Certificación universitaria con el aval de la UNC"}
+						: 'Certificación universitaria con el aval de la UNC'}
 				</Details>
 			</IconContainer>
-			<IconContainer>
+			<IconContainer mobile={mobile}>
 				<Icons.RequisitosCurso fill={theme.categories[CategoriaID]} />
-				<Details>
+				<Details mobile={mobile}>
 					{detalles.requisitos
 						? detalles.requisitos
-						: "Requisitos: Computadora compatible con OpenGl 4.1 y conexión a internet"}
+						: 'Requisitos: Computadora compatible con OpenGl 4.1 y conexión a internet'}
 				</Details>
 			</IconContainer>
 		</IconsInformationContainer>
-	)
-}
+	);
+};
 
 const IconsInformationContainer = styled.div`
 	margin: 50px 0;
 
 	display: flex;
 	justify-content: space-between;
-	padding: 0 20px;
+	${({ mobile }) => mobile && 'flex-wrap:wrap'};
+	padding: ${({ mobile }) => (mobile ? '0 1.94rem' : '0 20px')};
 	/* flex-grow: 1; */
-`
+`;
 
 const IconContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	gap: 15px;
 	align-items: center;
-	width: 135px;
-`
+	width: ${({ mobile }) => (mobile ? '42.5%' : '135px')};
+	${({ mobile }) => mobile && 'margin-bottom:1.25rem'};
+`;
 
 const Details = styled.p`
 	font-family: ${theme.fontFamily.primary};
@@ -66,9 +71,9 @@ const Details = styled.p`
 	text-align: center;
 	font-style: normal;
 	font-weight: normal;
-	font-size: 16px;
+	font-size: ${({ mobile }) => (mobile ? '13px' : '16px')};
 	line-height: 24px;
 	margin: 0px;
-`
+`;
 
-export default IconsInformation
+export default IconsInformation;

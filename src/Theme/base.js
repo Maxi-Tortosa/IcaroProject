@@ -3,7 +3,6 @@ const theme = {
 		banners: 3,
 		carousel: 3,
 		header: 4,
-		footer: 4,
 		logIn: 5,
 		logInModal: 6,
 		modals: 7,
