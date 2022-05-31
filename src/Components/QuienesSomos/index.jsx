@@ -2,76 +2,80 @@ import Sponsors from "../Sponsors"
 import styled from "styled-components"
 import theme from "../../Theme/base"
 import { useIsMobile } from "../../Hooks/Client"
+import GreyBkgrTop from "../Backgrounds/TopGrey"
 
 const QuienesSomos = () => {
 	const mobile = useIsMobile()
 
 	return (
-		<Container mobile={mobile}>
-			<div className="padre">
-				<h3 className="titulo">Quiénes Somos</h3>
-				<p className="parrafo">
-					Somos un equipo de profesionales con un objetivo en común: facilitar
-					el acceso a una educación de calidad para democratizar hoy, el
-					conocimiento del mañana.
-					<br />
-					Trabajamos junto a jóvenes, profesionales, instituciones y empresas
-					que compartan nuestros valores centrales. Entre nuestras actividades,
-					ofrecemos una amplia variedad de capacitaciones en temáticas de
-					vanguardia, pensadas y dictadas por profesionales que saben hacer, y
-					enseñar.
-					<br /> Encuentra con Icaro la oportunidad de aprender como nunca antes
-					lo habías hecho. Donde quiera que estés, te invitamos a formar parte
-					de nuestra comunidad y prepararte para el futuro.
-				</p>
+		<GreyBkgrTop height={1000}>
+			<Container mobile={mobile}>
+				<div className="padre">
+					<h3 className="titulo">Quiénes Somos</h3>
+					<p className="parrafo">
+						Somos un equipo de profesionales con un objetivo en común: facilitar
+						el acceso a una educación de calidad para democratizar hoy, el
+						conocimiento del mañana.
+						<br />
+						Trabajamos junto a jóvenes, profesionales, instituciones y empresas
+						que compartan nuestros valores centrales. Entre nuestras
+						actividades, ofrecemos una amplia variedad de capacitaciones en
+						temáticas de vanguardia, pensadas y dictadas por profesionales que
+						saben hacer, y enseñar.
+						<br /> Encuentra con Icaro la oportunidad de aprender como nunca
+						antes lo habías hecho. Donde quiera que estés, te invitamos a formar
+						parte de nuestra comunidad y prepararte para el futuro.
+					</p>
 
-				<div className="contenedor">
-					<div className="card1">
-						<img
-							src="https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/haciendo.png?alt=media&token=8d9abb06-a674-4489-8c51-687588aaba10"
-							alt=""
-						/>
+					<div className="contenedor">
+						<div className="card1">
+							<img
+								src="https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/haciendo.png?alt=media&token=8d9abb06-a674-4489-8c51-687588aaba10"
+								alt=""
+							/>
 
-						<h5>Cursos presenciales y virtuales</h5>
-						<p>
-							Aprende de manera presencial o virtual con nuestros cursos online
-							y en vivo dictados a través de videoconferencia.
-						</p>
+							<h5>Cursos presenciales y virtuales</h5>
+							<p>
+								Aprende de manera presencial o virtual con nuestros cursos
+								online y en vivo dictados a través de videoconferencia.
+							</p>
+						</div>
+						<div className="card2">
+							<img
+								src="https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/certificacion.png?alt=media&token=73088be5-d351-40ab-a4bd-ef61c89ad528"
+								alt=""
+							/>
+
+							<h5>Aprendé haciendo</h5>
+							<p>
+								Trabaja en proyectos reales junto a profesionales expertos,
+								estudia de una manera diferente y prepárate para el futuro.
+							</p>
+						</div>
+						<div className="card3">
+							<img
+								src="https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/cursos.png?alt=media&token=7ae4bf15-65ff-4e1a-a0cb-282b782c2bde"
+								alt=""
+							/>
+
+							<h5>Obtén certificación universitaria</h5>
+							<p>
+								Todas nuestras capacitaciones cuentan con certificación oficial
+								de la UNC. {mobile && <br />}
+								Garantizamos formacion de calidad a un precio mucho más
+								accesible.
+							</p>
+						</div>
 					</div>
-					<div className="card2">
-						<img
-							src="https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/certificacion.png?alt=media&token=73088be5-d351-40ab-a4bd-ef61c89ad528"
-							alt=""
-						/>
-
-						<h5>Aprendé haciendo</h5>
-						<p>
-							Trabaja en proyectos reales junto a profesionales expertos,
-							estudia de una manera diferente y prepárate para el futuro.
-						</p>
-					</div>
-					<div className="card3">
-						<img
-							src="https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/cursos.png?alt=media&token=7ae4bf15-65ff-4e1a-a0cb-282b782c2bde"
-							alt=""
-						/>
-
-						<h5>Obtén certificación universitaria</h5>
-						<p>
-							Todas nuestras capacitaciones cuentan con certificación oficial de
-							la UNC. {mobile && <br />}
-							Garantizamos formacion de calidad a un precio mucho más accesible.
-						</p>
+					<div className="contenedor2">
+						<h4>
+							Calidad y certificación universitaria, al mejor precio del mercado
+						</h4>
+						<Sponsors />
 					</div>
 				</div>
-				<div className="contenedor2">
-					<h4>
-						Calidad y certificación universitaria, al mejor precio del mercado
-					</h4>
-					<Sponsors />
-				</div>
-			</div>
-		</Container>
+			</Container>
+		</GreyBkgrTop>
 	)
 }
 
@@ -79,10 +83,10 @@ export default QuienesSomos
 
 const Container = styled.div`
 	font-family: ${theme.fontFamily.primary};
-	background-image: ${({ mobile }) =>
+	/* background-image: ${({ mobile }) =>
 		mobile
 			? "unset"
-			: `url('https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/fondoQuienesSomos.png?alt=media&token=bcad7241-d11b-4761-a9d4-2629b6065d76')`};
+			: `url('https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/fondoQuienesSomos.png?alt=media&token=bcad7241-d11b-4761-a9d4-2629b6065d76')`}; */
 	background-repeat: no-repeat;
 	background-size: cover;
 	padding: ${({ mobile }) => (mobile ? "5% 0 5% 0" : "5% 0 5% 0")};

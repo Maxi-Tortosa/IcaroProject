@@ -29,8 +29,6 @@ const HomeContainer = () => {
 					<Container>
 						<CursosCards />
 						<CursosCards isProximos />
-						<Spacer height={50} />
-
 						<QuienesSomos />
 					</Container>
 					<Banners />

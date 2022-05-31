@@ -36,8 +36,7 @@ function App() {
 						<Route path="admin" element={<AdminPage />} />
 						<Route path="admin/new/categoria" element={<AdminPage />} />
 						<Route path="admin/new/curso" element={<AdminPage />} />
-						<Route path="admin/edit/:editCategorie" element={<AdminPage />} />
-						<Route path="admin/edit/:editCourse" element={<AdminPage />} />
+						<Route path="admin/edit/:editElement" element={<AdminPage />} />
 					</Routes>
 					<FooterContext>
 						<Footer />

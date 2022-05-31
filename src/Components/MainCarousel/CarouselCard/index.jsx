@@ -28,15 +28,18 @@ const ImageContainer = styled.div`
 	background-image: url(${({ src }) => src});
 	background-position: center;
 	background-size: cover;
-	height: ${({ mobile }) => (mobile ? "650px" : null)}; ;
+	height: ${({ mobile }) => mobile && "650px"};
 `
 
 const StyledTextContainer = styled.div`
 	position: relative;
-	top: ${({ mobile }) => (mobile ? "15%" : "30%")};
+	top: ${({ mobile }) => (mobile ? "0" : "30%")};
 	max-width: 1095px;
 	margin: auto;
 	width: ${({ mobile }) => (mobile ? "82.66%" : "80%")};
+	${({ mobile }) =>
+		mobile &&
+		" height: 100%; display: flex; flex-direction: column; justify-content: center"}
 `
 
 const StyledH1 = styled.h1`

@@ -10,13 +10,13 @@ import { useIsMobile } from "../../Hooks/Client"
 
 const useCarouselTimer = (items, milliseconds = 5000) => {
 	const [index, setIndex] = useState(0)
-	// useEffect(() => {
-	// 	const timeout = setTimeout(() => {
-	// 		setIndex((oldIndex) => (oldIndex + 1) % items.length);
-	// 	}, milliseconds);
+	useEffect(() => {
+		const timeout = setTimeout(() => {
+			setIndex((oldIndex) => (oldIndex + 1) % items.length)
+		}, milliseconds)
 
-	// 	return () => clearTimeout(timeout);
-	// }, [index, items.length, milliseconds]);
+		return () => clearTimeout(timeout)
+	}, [index, items.length, milliseconds])
 
 	return [index, setIndex]
 }
@@ -54,7 +54,7 @@ const CarouselWrapper = styled.div`
 const DotIndicatorWrapper = styled.div`
 	position: absolute;
 	top: 90%;
-	left: 45%;
+	width: 100%;
 `
 
 const MainCarousel = ({ gap = 0 }) => {
