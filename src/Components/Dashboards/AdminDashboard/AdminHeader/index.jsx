@@ -1,9 +1,9 @@
 import { useContext } from "react"
-import { projectContext } from "../../../Context/ProjectContext"
+import { projectContext } from "../../../../Context/ProjectContext"
 import { Link } from "react-router-dom"
 import styled from "styled-components"
-import theme from "../../../Theme/base"
-import SettingsIcon from "../../Shared/Icons/SettingsIcon"
+import theme from "../../../../Theme/base"
+import SettingsIcon from "../../../Shared/Icons/SettingsIcon"
 import { useState } from "react"
 
 const AdminHeader = () => {

@@ -1,6 +1,6 @@
 import styled from "styled-components"
-import theme from "../../../Theme/base"
-import { hexcodeToRGBA } from "../../../Helpers/colors"
+import theme from "../../../../Theme/base"
+import { hexcodeToRGBA } from "../../../../Helpers/colors"
 
 const GreyBkgrBottom = styled.div`
 	min-height: ${({ height }) => height + 900}px;

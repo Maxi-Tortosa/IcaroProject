@@ -2,7 +2,7 @@ import Sponsors from "../Sponsors"
 import styled from "styled-components"
 import theme from "../../Theme/base"
 import { useIsMobile } from "../../Hooks/Client"
-import GreyBkgrTop from "../Backgrounds/TopGrey"
+import GreyBkgrTop from "../Shared/Backgrounds/TopGrey"
 
 const QuienesSomos = () => {
 	const mobile = useIsMobile()

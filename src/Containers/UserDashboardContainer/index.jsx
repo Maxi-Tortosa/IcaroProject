@@ -2,10 +2,10 @@ import { useContext, useState, useEffect } from "react"
 import styled from "styled-components"
 import { projectContext } from "../../Context/ProjectContext"
 import Loader from "../../Components/Shared/Loader"
-import AdminHeader from "../../Components/AdminDashboard/AdminHeader"
+import AdminHeader from "../../Components/Dashboards/AdminDashboard/AdminHeader"
 import Spacer from "../../Components/Shared/Spacer"
-import CursosAdmin from "../../Components/AdminDashboard/CursosAdmin"
-import CategoriassAdmin from "../../Components/AdminDashboard/CategoriasAdmin"
+import CursosAdmin from "../../Components/Dashboards/AdminDashboard/CursosAdmin"
+import CategoriassAdmin from "../../Components/Dashboards/AdminDashboard/CategoriasAdmin"
 
 const UserPage = () => {
 	const { course, categories } = useContext(projectContext)
