@@ -1,19 +1,17 @@
-import { Link } from "react-router-dom"
-import ConfirmationModal from "../../Shared/Modals/ConfirmationModal"
-import DeleteIcon from "../../Shared/Icons/DeleteIcon"
-import EditIcon from "../../Shared/Icons/EditIcon"
-import styled from "styled-components"
-import theme from "../../../Theme/base"
-import { CURSOSROWS } from "../../../Constants/Cursos"
-import { useNavigate } from "react-router-dom"
 import { useState } from "react"
-import { successToast, errorToast } from "../../Shared/Toasts/ToastList"
-import ToastListContainer from "../../Shared/Toasts/ToastListContainer"
-import Spacer from "../../Shared/Spacer"
+import styled from "styled-components"
+import theme from "../../../../Theme/base"
+import EditIcon from "../../../Shared/Icons/EditIcon"
+import DeleteIcon from "../../../Shared/Icons/DeleteIcon"
+import { CATEGORYROWS } from "../../../../Constants/Category"
+import { useNavigate } from "react-router-dom"
+import ConfirmationModal from "../../../Shared/Modals/ConfirmationModal"
+import { successToast, errorToast } from "../../../Shared/Toasts/ToastList"
+import ToastListContainer from "../../../Shared/Toasts/ToastListContainer"
 
-const CursosAdmin = ({ cursos }) => {
+const CategoriasAdmin = ({ categorias }) => {
 	const [modalIsOpen, setIsOpen] = useState(false)
-	const [selectedCourse, setSelectedCourse] = useState()
+	const [selectedCategory, setSelectedCategory] = useState()
 	const navigate = useNavigate()
 
 	const [list, setList] = useState([])
@@ -34,8 +32,7 @@ const CursosAdmin = ({ cursos }) => {
 	}
 
 	function openDeleteModal(selected) {
-		console.log("se hizo click", selected)
-		setSelectedCourse(selected)
+		setSelectedCategory(selected)
 		setIsOpen(true)
 	}
 
@@ -44,11 +41,14 @@ const CursosAdmin = ({ cursos }) => {
 	}
 
 	function handleClick() {
-		navigate("/admin/new/curso", { replace: false })
+		navigate("/admin/new/categoria", { replace: false })
+	}
+
+	function handleEdit(elem) {
+		navigate(`/admin/edit/${elem.CategoriaID}`, { replace: false })
 	}
 
 	function handleDelete() {
-		console.log("se elimino el elemento")
 		showToast("success", "Se ha eliminado el elemento")
 	}
 
@@ -56,28 +56,31 @@ const CursosAdmin = ({ cursos }) => {
 		<div>
 			<TitleContainer>
 				<h3></h3>
-				<NewCourseButton onClick={handleClick}> + Nuevo Curso</NewCourseButton>
+				<NewCourseButton onClick={handleClick} className="nueva-categoria">
+					+ Nueva Categoria
+				</NewCourseButton>
 			</TitleContainer>
 			<TableContent>
 				<TableHeader>
-					{CURSOSROWS.map((elem) => (
+					{CATEGORYROWS.map((elem) => (
 						<TableColumn key={elem.id} isHeader>
 							{elem.nombre}
 						</TableColumn>
 					))}
 				</TableHeader>
 
-				{cursos.map((el, index) => {
+				{categorias.map((el, index) => {
 					return (
 						<TableRow key={index}>
 							<TableColumn>{index + 1}</TableColumn>
-							<TableColumn>{el.nombre}</TableColumn>
-							<TableColumn bgcolor={el.CategoriaID}>{el.categoria}</TableColumn>
-							<TableColumn>{el.detalles?.modalidad}</TableColumn>
+							<TableColumn>{el.Nombre}</TableColumn>
+							<TableColumn bgcolor={el.CategoriaID}>
+								{theme.categories[el.CategoriaID]}
+							</TableColumn>
 							<TableColumn isEditDelete>
-								<EditContainer to={`/admin/edit/${el.href}`}>
+								<div onClick={(e) => handleEdit(el)}>
 									<EditIcon />
-								</EditContainer>
+								</div>
 								<div onClick={(e) => openDeleteModal(el)}>
 									<DeleteIcon />
 								</div>
@@ -89,7 +92,7 @@ const CursosAdmin = ({ cursos }) => {
 			<ConfirmationModal
 				modalIsOpen={modalIsOpen}
 				closeModal={closeModal}
-				modalTitle="Eliminar curso"
+				modalTitle="Eliminar categoria"
 				cancelButtonContent="Cancelar"
 				confirmButtonContent="Eliminar"
 				confirmButtonSubmit={handleDelete}
@@ -97,8 +100,8 @@ const CursosAdmin = ({ cursos }) => {
 				mainColor={theme.color.redError}
 			>
 				<ModalContent>
-					<p>¿Confirma que desea eliminar el siguiente curso?</p>
-					<b>{selectedCourse?.nombre}</b>
+					<p>¿Confirma que desea eliminar la siguiente categoria?</p>
+					<b>{selectedCategory?.Nombre}</b>
 				</ModalContent>
 			</ConfirmationModal>
 			<ToastListContainer
@@ -106,7 +109,6 @@ const CursosAdmin = ({ cursos }) => {
 				position="buttom-right"
 				setList={setList}
 			/>
-			<Spacer height={100} />
 		</div>
 	)
 }
@@ -116,6 +118,7 @@ const TitleContainer = styled.div`
 	align-items: center;
 	justify-content: space-between;
 `
+
 const NewCourseButton = styled.button`
 	background-color: ${theme.color.darkBlue};
 	color: ${theme.color.white};
@@ -131,6 +134,7 @@ const NewCourseButton = styled.button`
 	line-height: 24px;
 	text-align: center;
 `
+
 const TableContent = styled.div`
 	width: 100%;
 	padding: 10px 20px;
@@ -166,10 +170,6 @@ const TableColumn = styled.div`
 		isEditDelete && "display: flex; justify-content: space-evenly"};
 	text-align: center;
 `
-const EditContainer = styled(Link)`
-	text-decoration: none;
-	color: ${theme.color.darkGrey};
-`
 
 const ModalContent = styled.div`
 	width: 80%;
@@ -184,4 +184,4 @@ const ModalContent = styled.div`
 	color: ${theme.color.lightGrey};
 `
 
-export default CursosAdmin
+export default CategoriasAdmin

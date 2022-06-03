@@ -1,6 +1,6 @@
 import styled from "styled-components"
-import theme from "../../../Theme/base"
-import { hexcodeToRGBA } from "../../../Helpers/colors"
+import theme from "../../../../Theme/base"
+import { hexcodeToRGBA } from "../../../../Helpers/colors"
 
 const GreyBkgrTop = styled.div`
 	min-height: fit-content;

@@ -3,9 +3,9 @@ import { projectContext } from "../../Context/ProjectContext"
 import { useLocation } from "react-router-dom"
 
 import styled from "styled-components"
-import AdminHeader from "../../Components/AdminDashboard/AdminHeader"
+import AdminHeader from "../../Components/Dashboards/AdminDashboard/AdminHeader"
 import Spacer from "../../Components/Shared/Spacer"
-import AdminHome from "../../Components/AdminDashboard/AdminHome"
+import AdminHome from "../../Components/Dashboards/AdminDashboard/AdminHome"
 
 const AdminPage = () => {
 	const { setIsAdmin } = useContext(projectContext)

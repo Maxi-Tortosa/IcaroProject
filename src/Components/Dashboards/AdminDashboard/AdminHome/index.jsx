@@ -1,14 +1,14 @@
 import { useContext, useState, useEffect } from "react"
-import { projectContext } from "../../../Context/ProjectContext"
-import Loader from "../../Shared/Loader"
+import { projectContext } from "../../../../Context/ProjectContext"
+import Loader from "../../../Shared/Loader"
 import CursosAdmin from "../CursosAdmin"
 import CategoriasAdmin from "../CategoriasAdmin"
 import { useLocation } from "react-router-dom"
-import { SIDEMENUCATEGORIES } from "../../../Constants/AdminDashboard"
-import NewElementContainer from "../../../Containers/NewElementContainer"
-import { CATEGORYFIELDS } from "../../../Constants/Category"
-import { CURSOSCFIELDS } from "../../../Constants/Cursos"
-import EditElementContainer from "../../../Containers/EditElementContainer"
+import NewElementContainer from "../../../../Containers/NewElementContainer"
+import EditElementContainer from "../../../../Containers/EditElementContainer"
+import { SIDEMENUCATEGORIES } from "../../../../Constants/AdminDashboard"
+import { CATEGORYFIELDS } from "../../../../Constants/Category"
+import { CURSOSCFIELDS } from "../../../../Constants/Cursos"
 
 const AdminHome = ({ isNew }) => {
 	const { course, categories } = useContext(projectContext)
