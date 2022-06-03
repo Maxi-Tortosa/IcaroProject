@@ -1,8 +1,8 @@
-import { useEffect } from "react"
-import styled from "styled-components"
-import theme from "../../../Theme/base"
+import styled from 'styled-components';
+import theme from '../../../Theme/base';
+import { useEffect } from 'react';
 
-const dotSize = 15
+const dotSize = 15;
 
 const Flex = styled.div`
 	height: ${dotSize}px;
@@ -10,7 +10,7 @@ const Flex = styled.div`
 	align-items: center;
 	justify-content: flex-start;
 	margin-left: -${dotSize / 2}px;
-`
+`;
 
 const DotDrawing = styled.div`
 	width: ${dotSize}px;
@@ -18,40 +18,40 @@ const DotDrawing = styled.div`
 	border-radius: ${dotSize / 2}px;
 	box-sizing: border-box;
 	border: thin solid ${({ color }) => color};
-	background: ${({ color, isActive }) => (isActive ? color : "none")};
-`
+	background: ${({ color, isActive }) => (isActive ? color : 'none')};
+`;
 
 const DotClickable = styled.div`
 	cursor: pointer;
 	margin: -${dotSize / 2}px 0;
 	padding: ${dotSize / 2}px;
-`
+`;
 
-const textMaxWidth = 800
+const textMaxWidth = 800;
 
 const getTextAlign = (props) => {
-	if (props.centered) return "center"
-	if (props.rightAligned) return "right"
+	if (props.centered) return 'center';
+	if (props.rightAligned) return 'right';
 
-	return "left"
-}
+	return 'left';
+};
 
 const StyledText = styled.p`
 	margin: 0;
 	padding: 0;
-	max-width: ${(props) => (props.centered ? "none" : `${textMaxWidth}px`)};
+	max-width: ${(props) => (props.centered ? 'none' : `${textMaxWidth}px`)};
 	line-height: ${(props) => props.lineHeight}px;
 	font-family: ${(props) => props.family}, sans-serif;
 	font-size: ${(props) => props.size}px;
 	font-weight: ${(props) => props.weight};
 	color: ${({ theme, color, overrideColor }) =>
 		overrideColor || color || theme.color.headerText};
-	text-transform: ${(props) => (props.caps ? "uppercase" : "none")};
-	font-style: ${(props) => (props.italics ? "italic" : "normal")};
+	text-transform: ${(props) => (props.caps ? 'uppercase' : 'none')};
+	font-style: ${(props) => (props.italics ? 'italic' : 'normal')};
 	text-align: ${(props) => getTextAlign(props)};
-	white-space: ${(props) => (props.noBreak ? "nowrap" : "normal")};
+	white-space: ${(props) => (props.noBreak ? 'nowrap' : 'normal')};
 	margin-top: ${(props) => (props.withNewLineSpacing ? 20 : 0)}px;
-	text-decoration: ${({ underline }) => (underline ? "underline" : "none")};
+	text-decoration: ${({ underline }) => (underline ? 'underline' : 'none')};
 	${(props) =>
 		props.lines &&
 		`
@@ -61,7 +61,7 @@ const StyledText = styled.p`
 		-webkit-box-orient: vertical;
 		-webkit-line-clamp: ${props.lines};
 	`}
-`
+`;
 
 const DotInfo = styled(StyledText)`
 	margin-left: ${dotSize / 2}px;
@@ -71,7 +71,7 @@ const DotInfo = styled(StyledText)`
 	font-size: 24px;
 	line-height: 24px;
 	color: #ffffff;
-`
+`;
 const DotIndicatorCards = ({
 	index,
 	setIndex,
@@ -80,21 +80,16 @@ const DotIndicatorCards = ({
 	overrideColor,
 	withText,
 }) => {
-	const color = overrideColor
+	const color = overrideColor;
 
 	useEffect(() => {
-		setIndex(0)
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [selectedCategorie])
+		setIndex(0);
+	}, [selectedCategorie]);
 
 	return (
 		<Flex>
 			{[...Array(length)].map((item, i) => (
-				<DotClickable
-					// eslint-disable-next-line react/no-array-index-key
-					key={i}
-					onClick={() => setIndex(i)}
-				>
+				<DotClickable key={i} onClick={() => setIndex(i)}>
 					<DotDrawing color={color} isActive={i === index} />
 				</DotClickable>
 			))}
@@ -104,7 +99,7 @@ const DotIndicatorCards = ({
 				</DotInfo>
 			)}
 		</Flex>
-	)
-}
+	);
+};
 
-export default DotIndicatorCards
+export default DotIndicatorCards;

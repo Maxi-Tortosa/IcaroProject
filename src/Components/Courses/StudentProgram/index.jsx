@@ -1,34 +1,45 @@
-import theme from "../../../Theme/base"
-import styled from "styled-components"
-// import LinearBttn from "../../Shared/Buttons/LinearBttn"
+import styled from 'styled-components';
+import theme from '../../../Theme/base';
+import { useIsMobile } from '../../../Hooks/Client';
 
 const StudentProgram = ({ course }) => {
-	const { CategoriaID, planDeEstudioContent, PDF } = course
+	const { CategoriaID, planDeEstudioContent, PDF } = course;
+	const mobile = useIsMobile();
 
 	return (
-		<StudentProgramContainer>
+		<StudentProgramContainer mobile={mobile}>
 			<Title colorFilter={CategoriaID}>Programa de estudio</Title>
-			<MainContent>
+			<MainContent mobile={mobile}>
 				{planDeEstudioContent &&
 					planDeEstudioContent.map((element, index) => {
 						return (
-							<ParragraphContainer key={index}>
-								<Type>{Object.keys(element)}</Type>
-								<Description>{Object.values(element)}</Description>
+							<ParragraphContainer mobile={mobile} key={index}>
+								<Type mobile={mobile}>{Object.keys(element)}</Type>
+								<Description mobile={mobile}>
+									{Object.values(element)}
+								</Description>
 							</ParragraphContainer>
-						)
+						);
 					})}
 			</MainContent>
 			{PDF && (
-				<DownloadLink href={PDF} target="_blank" rel="noreferrer">
+				<DownloadLink
+					href={PDF}
+					target='_blank'
+					rel='noreferrer'
+					mobile={mobile}>
 					Descargar programa completo
 				</DownloadLink>
 			)}
 		</StudentProgramContainer>
-	)
-}
+	);
+};
 
-const StudentProgramContainer = styled.div``
+const StudentProgramContainer = styled.div`
+	${({ mobile }) => mobile && 'padding: 0 1.93rem'};
+	${({ mobile }) => mobile && 'display:flex'};
+	${({ mobile }) => mobile && 'flex-direction:column'};
+`;
 
 const Title = styled.h5`
 	font-family: ${theme.fontFamily.tertiary};
@@ -38,25 +49,26 @@ const Title = styled.h5`
 	line-height: 20px;
 	color: ${({ colorFilter }) => theme.categories[colorFilter]};
 	margin: 0px;
-`
+`;
 const MainContent = styled.div`
-	margin: 30px 0;
+	margin: ${({ mobile }) => (mobile ? '1.19rem 0 2.5rem 0' : '30px 0')};
 	display: flex;
+	flex-direction: ${({ mobile }) => (mobile ? 'column' : 'row')};
 	flex-wrap: wrap;
 	gap: 4%;
-`
+`;
 
 const ParragraphContainer = styled.div`
-	width: 48%;
-`
+	width: ${({ mobile }) => (mobile ? '100%' : '48%')};
+`;
 const Type = styled.p`
 	font-family: ${theme.fontFamily.tertiary};
 	color: ${theme.color.lightGrey};
 	font-style: normal;
 	font-weight: bold;
-	font-size: 16px;
+	font-size: ${({ mobile }) => (mobile ? '0.87rem' : '1rem')};
 	line-height: 18px;
-`
+`;
 
 const Description = styled.p`
 	font-family: ${theme.fontFamily.primary};
@@ -64,27 +76,24 @@ const Description = styled.p`
 	text-align: justify;
 	font-style: normal;
 	font-weight: normal;
-	font-size: 16px;
+	font-size: ${({ mobile }) => (mobile ? '0.87rem' : '1rem')};
 	line-height: 18px;
-`
+	${({ mobile }) => mobile && 'margin:0'};
+`;
 
 const DownloadLink = styled.a`
 	text-decoration: none;
 	background-color: ${theme.color.white};
 	border: 1px solid ${theme.color.darkBlue};
 	border-radius: 10px;
-	padding: 10px 17px;
-	${({ width }) => width && `width: ${width}`};
-	${({ margin }) => margin && `margin: ${margin}`};
-	${({ borderRadius }) => borderRadius && `border-radius: ${borderRadius}`};
+	padding: ${({ mobile }) => (mobile ? '0.75rem 0' : '10px 17px')};
 	font-family: ${theme.fontFamily.tertiary};
 	font-style: normal;
 	font-weight: normal;
-	font-size: 20px;
+	font-size: ${({ mobile }) => (mobile ? '0.87rem' : '1.25rem')};
 	line-height: 20px;
 	text-align: center;
 	color: ${theme.color.darkBlue};
-	margin: 0;
-`
+`;
 
-export default StudentProgram
+export default StudentProgram;

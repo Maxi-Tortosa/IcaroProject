@@ -82,6 +82,7 @@ const Footer = () => {
 																			placeholder={placeholder}
 																		/>
 																		<EnviaBttn
+																			fontSize='0.825rem'
 																			backgroundColor={theme.color.white}
 																			padding=' 5px 10px'
 																			color={theme.color.darkBlue}

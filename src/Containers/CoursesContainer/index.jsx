@@ -49,7 +49,7 @@ const CoursesPages = () => {
 						<CursosData course={selectedCourse} />
 						<InscribiteBox course={selectedCourse} />
 						<IconsInformation course={selectedCourse} />
-						<Spacer height={75} />
+						{!mobile && <Spacer height={75} />}
 						<StudentProgram course={selectedCourse} />
 						<SimilarCourses course={selectedCourse} courseList={course} />
 					</LeftContent>
@@ -59,7 +59,7 @@ const CoursesPages = () => {
 						</RightContent>
 					)}
 				</FlexContent>
-				<Spacer height={100} />
+				{!mobile && <Spacer height={100} />}
 			</GreyBkgrBottom>
 		</>
 	);

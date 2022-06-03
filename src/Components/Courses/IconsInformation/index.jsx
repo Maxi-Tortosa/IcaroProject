@@ -47,12 +47,12 @@ const IconsInformation = ({ course }) => {
 };
 
 const IconsInformationContainer = styled.div`
-	margin: 50px 0;
+	margin: ${({ mobile }) => (mobile ? '2.12rem 0 1.31rem 0' : '50px 0')};
 
 	display: flex;
 	justify-content: space-between;
 	${({ mobile }) => mobile && 'flex-wrap:wrap'};
-	padding: ${({ mobile }) => (mobile ? '0 1.94rem' : '0 20px')};
+	padding: ${({ mobile }) => (mobile ? '0 1.93rem' : '0 20px')};
 	/* flex-grow: 1; */
 `;
 
