@@ -1,15 +1,15 @@
-import Card from '../../CursosCards/Card';
-import DotIndicatorCards from '../../CursosCards/DotIndicatorCards/index';
-import styled from 'styled-components';
-import theme from '../../../Theme/base';
-import { useIsMobile } from '../../../Hooks/Client';
-import { useState } from 'react';
+import Card from "../../CursosCards/Card"
+import DotIndicatorCards from "../../CursosCards/DotIndicatorCards/index"
+import styled from "styled-components"
+import theme from "../../../Theme/base"
+import { useIsMobile } from "../../../Hooks/Client"
+import { useState } from "react"
 
 const SimilarCourses = ({ course, courseList }) => {
-	const { CategoriaID } = course;
-	const [index, setIndex] = useState(0);
+	const { CategoriaID } = course
+	const [index, setIndex] = useState(0)
 
-	const mobile = useIsMobile();
+	const mobile = useIsMobile()
 
 	const getSimilarCourses = () => {
 		const categoryList = courseList.filter(
@@ -17,10 +17,10 @@ const SimilarCourses = ({ course, courseList }) => {
 				elem.CategoriaID === CategoriaID ||
 				elem.nombre.includes(course.nombre) ||
 				(course.CategoriaID2 && elem.CategoriaID2 === course.CategoriaID2)
-		);
-		const newList = categoryList.filter((item) => item !== course);
-		return newList;
-	};
+		)
+		const newList = categoryList.filter((item) => item !== course)
+		return newList
+	}
 	// getSimilarCourses();
 
 	return (
@@ -30,7 +30,8 @@ const SimilarCourses = ({ course, courseList }) => {
 				length={getSimilarCourses().length}
 				gap={5}
 				mobile={mobile}
-				index={index}>
+				index={index}
+			>
 				{getSimilarCourses().map((elem, index) => (
 					<Card
 						info={elem}
@@ -46,18 +47,19 @@ const SimilarCourses = ({ course, courseList }) => {
 						index={index}
 						setIndex={setIndex}
 						length={getSimilarCourses().length}
-						overrideColor='grey'
+						overrideColor="grey"
 					/>
 				</DotIndicatorWrapper>
 			)}
 		</SimilarCoursesContainer>
-	);
-};
+	)
+}
 
 const SimilarCoursesContainer = styled.div`
 	margin: 50px 0;
-	${({ mobile }) => mobile && 'padding: 0 1.93rem'};
-`;
+	${({ mobile }) => mobile && "padding: 0 1.93rem"};
+	overflow-x: hidden;
+`
 const Title = styled.h5`
 	font-family: ${theme.fontFamily.tertiary};
 	font-style: normal;
@@ -65,19 +67,19 @@ const Title = styled.h5`
 	font-size: 20px;
 	line-height: 20px;
 	color: ${theme.color.darkGrey};
-	margin: ${({ mobile }) => (mobile ? '' : '0px')};
-`;
+	margin: ${({ mobile }) => (mobile ? "" : "0px")};
+`
 
 const getCalcString = (index, gap, positive, isProximos) => {
-	const sign = positive ? '' : '-';
-	const percentage = index * (isProximos ? 100 : 65);
-	const action = positive ? '+' : '-';
-	const pixels = index * gap;
+	const sign = positive ? "" : "-"
+	const percentage = index * (isProximos ? 100 : 65)
+	const action = positive ? "+" : "-"
+	const pixels = index * gap
 
 	return `calc(${sign}${percentage}% ${action} ${pixels}px ${
-		!isProximos ? '+ 18%' : ''
-	})`;
-};
+		!isProximos ? "+ 18%" : ""
+	})`
+}
 
 const isMobileStyles = (gap, length, index, isProximos) => {
 	return `
@@ -92,8 +94,8 @@ const isMobileStyles = (gap, length, index, isProximos) => {
 		);
 		margin-left: ${getCalcString(index, gap, false, isProximos)};
 		transition: margin .5s;
-	`;
-};
+	`
+}
 
 const desktopStyles = () => {
 	return `
@@ -107,17 +109,17 @@ const desktopStyles = () => {
 	justify-content: flex-start;
 	gap: 20px;
 	flex-wrap: wrap;
-`;
-};
+`
+}
 
 const CardsContainer = styled.div`
 	${({ mobile, gap, length, index }) =>
 		mobile ? isMobileStyles(gap, length, index) : desktopStyles()}
-`;
+`
 
 const DotIndicatorWrapper = styled.div`
 	margin: 20px auto;
 	width: fit-content;
-`;
+`
 
-export default SimilarCourses;
+export default SimilarCourses
