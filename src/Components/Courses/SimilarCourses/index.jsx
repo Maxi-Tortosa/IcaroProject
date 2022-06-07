@@ -28,7 +28,7 @@ const SimilarCourses = ({ course, courseList }) => {
 			<Title mobile={mobile}>Cursos Similares</Title>
 			<CardsContainer
 				length={getSimilarCourses().length}
-				gap={5}
+				gap={1}
 				mobile={mobile}
 				index={index}>
 				{getSimilarCourses().map((elem, index) => (
@@ -58,6 +58,7 @@ const SimilarCourses = ({ course, courseList }) => {
 const SimilarCoursesContainer = styled.div`
 	margin: 50px 0;
 	${({ mobile }) => mobile && 'padding: 0 1.93rem'};
+	overflow: hidden;
 `;
 const Title = styled.h5`
 	font-family: ${theme.fontFamily.tertiary};
@@ -69,18 +70,16 @@ const Title = styled.h5`
 	margin: ${({ mobile }) => (mobile ? '' : '0px')};
 `;
 
-const getCalcString = (index, gap, positive, isProximos) => {
+const getCalcString = (index, gap, positive) => {
 	const sign = positive ? '' : '-';
-	const percentage = index * (isProximos ? 100 : 65);
+	const percentage = index * 65;
 	const action = positive ? '+' : '-';
 	const pixels = index * gap;
 
-	return `calc(${sign}${percentage}% ${action} ${pixels}px ${
-		!isProximos ? '+ 18%' : ''
-	})`;
+	return `calc(${sign}${percentage}% ${action} ${pixels}px)`;
 };
 
-const isMobileStyles = (gap, length, index, isProximos) => {
+const isMobileStyles = (gap, length, index) => {
 	return `
 		overflow: hidden;
 		min-height: 300px;
@@ -88,10 +87,10 @@ const isMobileStyles = (gap, length, index, isProximos) => {
 		grid-template-columns: repeat(${length}, minmax(0, 1fr));
 		column-gap: ${gap}px;
 		width: calc(
-			${length * (isProximos ? 100 : 65)}% +
+			${length * 65}% +
 				${gap * (length - 1)}px
 		);
-		margin-left: ${getCalcString(index, gap, false, isProximos)};
+		margin-left: ${getCalcString(index, gap, false)};
 		transition: margin .5s;
 	`;
 };
