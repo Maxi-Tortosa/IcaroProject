@@ -79,12 +79,13 @@ const DotIndicatorCards = ({
 	length,
 	overrideColor,
 	withText,
+	course,
 }) => {
 	const color = overrideColor;
 
 	useEffect(() => {
 		setIndex(0);
-	}, [selectedCategorie]);
+	}, [selectedCategorie, course]);
 
 	return (
 		<Flex>

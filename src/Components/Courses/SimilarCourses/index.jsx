@@ -47,6 +47,7 @@ const SimilarCourses = ({ course, courseList }) => {
 						setIndex={setIndex}
 						length={getSimilarCourses().length}
 						overrideColor='grey'
+						course={course}
 					/>
 				</DotIndicatorWrapper>
 			)}
