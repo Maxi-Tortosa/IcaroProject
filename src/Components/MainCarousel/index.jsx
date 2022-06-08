@@ -50,6 +50,7 @@ const Row = styled.div`
 const CarouselWrapper = styled.div`
 	position: relative;
 	overflow: hidden;
+	max-height: 100vh;
 `
 const DotIndicatorWrapper = styled.div`
 	position: absolute;
