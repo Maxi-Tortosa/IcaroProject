@@ -93,7 +93,7 @@ const Container = styled.div`
 
 	.padre {
 		max-width: 1095px;
-		width: ${({ mobile }) => (mobile ? "85%" : "90%")};
+		width: ${({ mobile }) => (mobile ? "85%" : "80%")};
 		margin: 0 auto 0 auto;
 
 		.titulo {
