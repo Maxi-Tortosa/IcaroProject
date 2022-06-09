@@ -58,7 +58,7 @@ const SimilarCourses = ({ course, courseList }) => {
 const SimilarCoursesContainer = styled.div`
 	margin: 50px 0;
 	${({ mobile }) => mobile && 'padding: 0 1.93rem'};
-	overflow: hidden;
+	${({ mobile }) => mobile && 'overflow: hidden'};
 `;
 const Title = styled.h5`
 	font-family: ${theme.fontFamily.tertiary};

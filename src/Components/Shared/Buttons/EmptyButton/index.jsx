@@ -1,16 +1,17 @@
-import styled from "styled-components"
-import theme from "../../../../Theme/base"
+import styled from 'styled-components';
+import theme from '../../../../Theme/base';
+
 // import { Link } from "react-router-dom"
 
-const EmptyButton = ({ content, href }) => {
-	return <StyledButton>{content}</StyledButton>
-}
+const EmptyButton = ({ content, href, props }) => {
+	return <StyledButton {...props}>{content}</StyledButton>;
+};
 
 const StyledButton = styled.button`
 	font-family: ${theme.fontFamily.primary};
 	font-size: 16px;
 	cursor: pointer;
-	font-weight: ${({ isCourses }) => (isCourses ? 500 : "normal")};
+	font-weight: ${({ isCourses }) => (isCourses ? 500 : 'normal')};
 	color: ${({ isCourses }) =>
 		isCourses ? theme.color.darkBlue : theme.color.white};
 	background: ${({ isCourses }) =>
@@ -30,6 +31,6 @@ const StyledButton = styled.button`
 
 		background-position: 160px;
 	}
-`
+`;
 
-export default EmptyButton
+export default EmptyButton;

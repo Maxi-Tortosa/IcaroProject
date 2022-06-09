@@ -24,10 +24,6 @@ const UserContext = ({ children }) => {
 		});
 	}, []);
 
-	// if (pending) {
-	// 	return <>Loading...</>;
-	// }
-
 	return (
 		<userContext.Provider
 			value={{

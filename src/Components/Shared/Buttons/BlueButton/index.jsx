@@ -1,13 +1,13 @@
-import styled from "styled-components"
-import theme from "../../../../Theme/base"
+import styled from 'styled-components';
+import theme from '../../../../Theme/base';
 
 const BlueButton = (props) => {
 	return (
-		<StyledButton {...props} type="submit" disabled={props.disabled}>
+		<StyledButton {...props} type='submit' disabled={props.disabled}>
 			{props.children}
 		</StyledButton>
-	)
-}
+	);
+};
 
 const StyledButton = styled.button`
 	${({ width }) => width && `width: ${width}`};
@@ -17,10 +17,19 @@ const StyledButton = styled.button`
 	${({ backgroundColor }) =>
 		backgroundColor
 			? `background-color: ${backgroundColor}`
-			: theme.color.darkBlue};
+			: `background-color:${theme.color.darkBlue}`};
 	${({ color }) => (color ? `color: ${color} !important` : theme.color.white)};
 	color: white;
 	border: none;
-	cursor: ${({ disabled }) => !disabled && "pointer"};
-`
-export default BlueButton
+	cursor: ${({ disabled }) => !disabled && 'pointer'};
+	${({ fontFamily }) =>
+		fontFamily
+			? `font-family: ${fontFamily}`
+			: `font-family: ${theme.fontFamily.primary}`};
+	font-weight: 700;
+	${({ fontSize }) =>
+		fontSize ? `font-size: ${fontSize}` : 'font-size: 1rem'};
+	${({ lineHeight }) =>
+		lineHeight ? `line-height: ${lineHeight}` : 'line-height: 1.5rem'};
+`;
+export default BlueButton;
