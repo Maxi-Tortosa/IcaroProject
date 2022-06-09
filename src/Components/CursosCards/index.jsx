@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react"
 
 import Card from "./Card"
+import ProximosCard from "./ProximosCard"
 import CategoriesMobile from "../CategoriesMobile"
 import DotIndicatorCards from "./DotIndicatorCards"
 import Loader from "../Shared/Loader"
@@ -120,20 +121,34 @@ const CursosCards = ({ isProximos }) => {
 							index={index}
 						>
 							{getSelectedCourses(isProximos ? courseDates : course).map(
-								(elem, index) => (
-									<Card
-										isProximos={isProximos}
-										info={elem}
-										key={index}
-										isMobile={isMobile}
-										overridecolor={
-											selectedCategorie ===
-											"Diplomaturas y Programas Especializados"
-												? elem.CategoriaID2
-												: null
-										}
-									/>
-								)
+								(elem, index) =>
+									isProximos ? (
+										<ProximosCard
+											isProximos={isProximos}
+											info={elem}
+											key={index}
+											isMobile={isMobile}
+											overridecolor={
+												selectedCategorie ===
+												"Diplomaturas y Programas Especializados"
+													? elem.CategoriaID2
+													: null
+											}
+										/>
+									) : (
+										<Card
+											isProximos={isProximos}
+											info={elem}
+											key={index}
+											isMobile={isMobile}
+											overridecolor={
+												selectedCategorie ===
+												"Diplomaturas y Programas Especializados"
+													? elem.CategoriaID2
+													: null
+											}
+										/>
+									)
 							)}
 						</CardsContainer>
 						{isMobile &&
@@ -225,7 +240,6 @@ const Category = styled.button`
 const isMobileStyles = (gap, length, index, isProximos) => {
 	return `
 		overflow: hidden;
-		min-height: 300px;
 		display: grid;
 		grid-template-columns: repeat(${length}, minmax(0, 1fr));
 		column-gap: ${gap}px;
