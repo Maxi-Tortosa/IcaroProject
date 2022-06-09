@@ -34,7 +34,6 @@ const CursosAdmin = ({ cursos }) => {
 	}
 
 	function openDeleteModal(selected) {
-		console.log("se hizo click", selected)
 		setSelectedCourse(selected)
 		setIsOpen(true)
 	}
@@ -48,7 +47,6 @@ const CursosAdmin = ({ cursos }) => {
 	}
 
 	function handleDelete() {
-		console.log("se elimino el elemento")
 		showToast("success", "Se ha eliminado el elemento")
 	}
 

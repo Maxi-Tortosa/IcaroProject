@@ -36,6 +36,7 @@ const getCalcString = (index, gap, positive) => {
 
 const Row = styled.div`
 	height: ${({ mobile }) => (mobile ? null : "854px")};
+	max-height: 100vh;
 	display: grid;
 	grid-template-columns: repeat(${({ length }) => length}, minmax(0, 1fr));
 	column-gap: ${({ gap }) => gap}px;
@@ -50,6 +51,7 @@ const Row = styled.div`
 const CarouselWrapper = styled.div`
 	position: relative;
 	overflow: hidden;
+	max-height: 100vh;
 `
 const DotIndicatorWrapper = styled.div`
 	position: absolute;

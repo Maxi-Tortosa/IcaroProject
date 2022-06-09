@@ -14,7 +14,9 @@ const CarouselCard = ({ src, slide }) => {
 				<StyledParragraph mobile={mobile}>{Description}</StyledParragraph>
 				{ButtonLink?.length && ButtonText?.length ? (
 					ButtonText === "Ingresá" ? (
-						<IngresaBttn />
+						<div style={{ width: "min-content" }}>
+							<IngresaBttn />
+						</div>
 					) : (
 						<EmptyButton href={ButtonLink} content={ButtonText} />
 					)
@@ -33,13 +35,14 @@ const ImageContainer = styled.div`
 
 const StyledTextContainer = styled.div`
 	position: relative;
-	top: ${({ mobile }) => (mobile ? "0" : "30%")};
+	/* top: ${({ mobile }) => (mobile ? "0" : "30%")}; */
 	max-width: 1095px;
 	margin: auto;
 	width: ${({ mobile }) => (mobile ? "82.66%" : "80%")};
-	${({ mobile }) =>
-		mobile &&
-		" height: 100%; display: flex; flex-direction: column; justify-content: center"}
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 `
 
 const StyledH1 = styled.h1`

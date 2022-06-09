@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 import styled from "styled-components"
 import theme from "../../../Theme/base"
 
-const Card = ({ isProximos, info, overridecolor, isMobile }) => {
+const ProximosCard = ({ isProximos, info, overridecolor, isMobile }) => {
 	const { clasesSemanales, duracion, modalidad } = info.detalles
 	const { fechaInicio } = info
 
@@ -24,17 +24,40 @@ const Card = ({ isProximos, info, overridecolor, isMobile }) => {
 			</TitleContainer>
 
 			<CardContent isProximos={isProximos}>
-				<>
-					<CourseContent isItalic>{duracion || `  `}</CourseContent>
-					<CourseContent>$20.000</CourseContent>
-					<VerMasButton to={`/cursos/${info.href}`}>Ver Mas</VerMasButton>
-				</>
+				{isProximos ? (
+					<>
+						<CardInfoContainer>
+							<p>
+								<span>Fecha de inicio:</span>{" "}
+								{fechaInicio.toDate().toJSON().slice(0, 10)}
+							</p>
+							<p>
+								<span>Duración:</span> {duracion}
+							</p>
+							<p>
+								<span>Modalidad:</span> {modalidad}
+							</p>
+							<p>
+								<span>Clases semanales:</span> {clasesSemanales}
+							</p>
+						</CardInfoContainer>
+						<ConoceMasBttn to={`/cursos/${info.href}`}>
+							Conoce Mas
+						</ConoceMasBttn>
+					</>
+				) : (
+					<>
+						<CourseContent isItalic>{duracion || `  `}</CourseContent>
+						<CourseContent>$20.000</CourseContent>
+						<VerMasButton to={`/cursos/${info.href}`}>Ver Mas</VerMasButton>
+					</>
+				)}
 			</CardContent>
 		</CardContainer>
 	)
 }
 
-export default Card
+export default ProximosCard
 
 const CardContainer = styled.div`
 	width: ${({ isMobile, isProximos }) =>
@@ -49,12 +72,11 @@ const CardContainer = styled.div`
 	font-family: ${theme.fontFamily.primary};
 	justify-content: space-between;
 	margin: ${({ isMobile }) => isMobile && "10px auto"};
-	/* padding-top: ${({ isMobile }) => (isMobile ? "5%" : null)}; */
-	padding: 20px;
+	padding-top: ${({ isMobile }) => (isMobile ? "5%" : null)};
 `
 const TitleContainer = styled(Link)`
 	background-color: ${theme.color.white};
-	/* width: 80%; */
+	width: 80%;
 	margin: auto;
 	text-decoration: none;
 	display: flex;
@@ -76,7 +98,8 @@ const CardTitle = styled.h5`
 	font-weight: 700;
 	font-size: 1.12rem;
 	text-align: center;
-	margin: 0px;
+	margin-bottom: ${({ isProximos }) => !isProximos && "0px"};
+	margin-top: ${({ isMobile }) => isMobile && "0px"};
 
 	color: ${({ categoriacolor, overridecolor }) =>
 		overridecolor
@@ -84,7 +107,7 @@ const CardTitle = styled.h5`
 			: theme.categories[categoriacolor]};
 `
 const CardContent = styled.div`
-	/* padding: ${({ isProximos }) => (isProximos ? "0px" : "20px")}; */
+	padding: ${({ isProximos }) => (isProximos ? "0px" : "20px")};
 	p {
 		font-size: 1rem;
 		line-height: 1.18rem;
