@@ -59,6 +59,7 @@ const BannerContainer = styled.div`
 	background-size: cover;
 	box-shadow: inset 0 0 0 1000px
 		${({ colorFilter }) => hexcodeToRGBA(theme.categories[colorFilter], 0.75)};
+	border-radius: 10px 10px 0 0;
 `;
 
 const Container = styled.div`
