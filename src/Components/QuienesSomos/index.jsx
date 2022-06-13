@@ -10,7 +10,7 @@ const QuienesSomos = () => {
 	return (
 		<GreyBkgrTop height={1000}>
 			<Container mobile={mobile}>
-				<div className="padre">
+				<div className="padre" id="quienes-somos">
 					<h3 className="titulo">Quiénes Somos</h3>
 					<p className="parrafo">
 						Somos un equipo de profesionales con un objetivo en común: facilitar
