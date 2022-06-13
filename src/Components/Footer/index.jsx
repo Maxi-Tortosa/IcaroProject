@@ -18,6 +18,8 @@ const Footer = () => {
 	const [inCompanyModalIsOpen, setInCompanyModalIsOpen] = useState(false);
 	const [ContactoModalIsOpen, setContactoModalIsOpen] = useState(false);
 	const mobile = useIsMobile();
+	const cursosElement = document.getElementById('cursos');
+	const rootElement = document.getElementById('root');
 
 	useEffect(() => {
 		if (footerContent) {
@@ -30,7 +32,13 @@ const Footer = () => {
 			return a.Orden - b.Orden;
 		});
 		return filterfooterContent;
-	};
+	}; 
+	function scrollTo(element , offset = 0){
+		const elementPosition = element.getBoundingClientRect().top
+		const offsetPosition = elementPosition + window.pageYOffset - offset
+
+		window.scrollTo({top:offsetPosition , behavior:"smooth"})
+	}
 
 	return (
 		<>
@@ -55,10 +63,11 @@ const Footer = () => {
 															function footerUrl(){
 																console.log(url)
 																 switch(url){
-																	
+																	case '/':scrollTo(rootElement); break;
+																	case '/cursos':scrollTo(cursosElement, 70); break;
 																	case '/in-company': setInCompanyModalIsOpen(true); break;
 																	case '/contacto' : setContactoModalIsOpen(true); break;
-																	default: {break;}
+																	default: break;
 																}
 																// if(url === '/in-company'){
 																// 	setInCompanyModalIsOpen(true)
