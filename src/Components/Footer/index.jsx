@@ -1,5 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 
+import IcaroInCompanyModal from '../Shared/Modals/IcaroInCompanyModal';
+import ContactoModal from '../Shared/Modals/ContactModal';
 import EnviaBttn from '../Shared/Buttons/EnviaBttn';
 import React from 'react';
 import SocialMediaIcon from '../Shared/Icons/FooterIcons';
@@ -13,6 +15,8 @@ const Footer = () => {
 	const { is404 } = useContext(projectContext);
 	const { footerContent } = useContext(mainFooterContext);
 	const [pending, setPending] = useState(true);
+	const [inCompanyModalIsOpen, setInCompanyModalIsOpen] = useState(false);
+	const [ContactoModalIsOpen, setContactoModalIsOpen] = useState(false);
 	const mobile = useIsMobile();
 
 	useEffect(() => {
@@ -46,14 +50,30 @@ const Footer = () => {
 														{ nombre, url, icono, placeholder, type },
 														index
 													) => {
+													
 														if (url) {
+															function footerUrl(){
+																console.log(url)
+																 switch(url){
+																	
+																	case '/in-company': setInCompanyModalIsOpen(true); break;
+																	case '/contacto' : setContactoModalIsOpen(true); break;
+																	default: {break;}
+																}
+																// if(url === '/in-company'){
+																// 	setInCompanyModalIsOpen(true)
+																// }
+															}
 															return (
 																<>
 																	<FooterAnchor
 																		key={index + 100}
-																		href={url}
+																		//href={url}
+																		
+																		onClick={footerUrl}
 																		icono={icono}
-																		target='_blank'>
+																		//target='_blank'
+																		>
 																		{icono && (
 																			// <IconImg
 																			// 	key={index}
@@ -68,6 +88,7 @@ const Footer = () => {
 																		)}
 																		{nombre}
 																	</FooterAnchor>
+																	
 																</>
 															);
 														} else {
@@ -97,9 +118,18 @@ const Footer = () => {
 										</ColumnContainer>
 									);
 							  })}
+							  
 					</ContentContainer>
 				</FooterContainer>
 			)}
+			<IcaroInCompanyModal
+																		modalIsOpen={inCompanyModalIsOpen}
+																		closeModal={() => setInCompanyModalIsOpen(false)}
+																	/>
+																	<ContactoModal
+																		modalIsOpen={ContactoModalIsOpen}
+																		closeModal={() => setContactoModalIsOpen(false)}
+																	/>
 		</>
 	);
 };
