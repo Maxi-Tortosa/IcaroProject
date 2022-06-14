@@ -69,19 +69,15 @@ const Footer = () => {
 																	case '/contacto' : setContactoModalIsOpen(true); break;
 																	default: break;
 																}
-																// if(url === '/in-company'){
-																// 	setInCompanyModalIsOpen(true)
-																// }
+																
 															}
 															return (
 																<>
 																	<FooterAnchor
-																		key={index + 100}
-																		//href={url}
-																		
+																		key={index + 100}																															
 																		onClick={footerUrl}
 																		icono={icono}
-																		//target='_blank'
+																		
 																		>
 																		{icono && (
 																			// <IconImg
