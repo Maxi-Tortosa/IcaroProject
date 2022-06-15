@@ -16,9 +16,9 @@ const theme = {
 		redError: '#C01E3B',
 		black: '#000',
 		white: '#FFF',
-		grey: '#F8F8F8',
+		grey: '#363636',
 		darkGrey: '#282828',
-		lightGrey: '#363636',
+		lightGrey: '#F8F8F8',
 		gradient: 'linear-gradient(90deg,#179cff 0%,#1743ff 100.01%)',
 		oppositeGradient: 'linear-gradient(90deg,#1743ff 0%,#179cff 100.01%)',
 		verticalGradient:

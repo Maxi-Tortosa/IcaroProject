@@ -1,4 +1,5 @@
 import BlueButton from '../../../Shared/Buttons/BlueButton/index';
+import ModalCertificado from './ModalCertificado';
 import styled from 'styled-components';
 import theme from './../../../../Theme/base';
 import { useEffect } from 'react';
@@ -29,6 +30,7 @@ const Certificados = () => {
 
 				<Label for='inputFile'>Cargar certificado</Label>
 			</Container>
+			<ModalCertificado />
 		</CertificadosMainContainer>
 	);
 };

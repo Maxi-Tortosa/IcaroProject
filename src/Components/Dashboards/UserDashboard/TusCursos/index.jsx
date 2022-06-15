@@ -14,12 +14,14 @@ const TusCursos = () => {
 		console.log(course[0]);
 	}, [course]);
 
+	// const arr = course && course.slice(0, 4);
+
 	return (
 		<TusCursosMainContainer>
 			<TitleContainer mobile={mobile}>
 				<Title mobile={mobile}>Tus cursos</Title>
 			</TitleContainer>
-			<CardContainer>
+			<CardContainer mobile={mobile}>
 				{course.map((elem, index) => (
 					<CurrentCourseCard key={index} course={elem} />
 				))}
@@ -34,12 +36,13 @@ const TusCursosMainContainer = styled.div`
 	width: 100%;
 	height: 22.82rem;
 	background: #ffffff;
+
 	box-shadow: 0px 0px 10px #dadada;
 	border-radius: 5px;
 	margin-bottom: 1.3%;
 	display: flex;
 	flex-direction: column;
-	padding: 0 0 0.5rem 0;
+	padding: 0 0 1.5rem 0;
 `;
 
 const TitleContainer = styled.div`
@@ -68,5 +71,17 @@ const CardContainer = styled.div`
 	height: 74%;
 	margin: 0 1.87rem;
 	flex: 1;
-	/* overflow-anchor: ; */
+
+	${({ mobile }) =>
+		!mobile &&
+		`::-webkit-scrollbar {
+		height: 0.8rem;
+	}`};
+	${({ mobile }) =>
+		!mobile &&
+		`::-webkit-scrollbar-thumb {
+		
+		background-color: ${theme.color.grey};
+		border-radius: 10px;
+	} `};
 `;
