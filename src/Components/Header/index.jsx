@@ -34,7 +34,7 @@ const Header = ({ setIsLoginOpen }) => {
 			setDisplayUser(display)
 		}
 	}, [users, currentUser])
-
+ 
 	function scrollTo(element , offset){
 		const elementPosition = element.getBoundingClientRect().top
 		const offsetPosition = elementPosition + window.pageYOffset - offset
@@ -183,6 +183,7 @@ const Container = styled.div`
 	}
 `
 const CenterLinks = styled.div`
+	cursor: pointer;	
 	text-decoration: none;
 	color: #fff;
 	font-style: normal;
