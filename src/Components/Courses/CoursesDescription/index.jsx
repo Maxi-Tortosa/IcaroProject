@@ -4,62 +4,63 @@ import theme from '../../../Theme/base';
 import { useIsMobile } from '../../../Hooks/Client';
 
 const CoursesDescription = ({ course }) => {
-	const mobile = useIsMobile();
+  const mobile = useIsMobile();
 
-	return (
-		<>
-			{!mobile ? (
-				<StyledParragraph mobile={mobile}>
-					{course.detalles.descripcion
-						? course.detalles.descripcion
-						: 'Texto no disponible...'}
-				</StyledParragraph>
-			) : (
-				<Container>
-					<ShowMoreText
-						lines={6}
-						more='Ver más'
-						less='Ver menos'
-						className='toggleText'
-						anchorClass='toggleButton'
-						expanded={false}
-						width={0}>
-						{course.detalles.descripcion
-							? course.detalles.descripcion
-							: 'Texto no disponible...'}
-					</ShowMoreText>
-				</Container>
-			)}
-		</>
-	);
+  return (
+    <>
+      {!mobile ? (
+        <StyledParragraph mobile={mobile}>
+          {course.detalles.descripcion
+            ? course.detalles.descripcion
+            : 'Texto no disponible...'}
+        </StyledParragraph>
+      ) : (
+        <Container>
+          <ShowMoreText
+            lines={6}
+            more="Ver más"
+            less="Ver menos"
+            className="toggleText"
+            anchorClass="toggleButton"
+            expanded={false}
+            width={0}
+          >
+            {course.detalles.descripcion
+              ? course.detalles.descripcion
+              : 'Texto no disponible...'}
+          </ShowMoreText>
+        </Container>
+      )}
+    </>
+  );
 };
 
 const StyledParragraph = styled.p`
-	font-family: ${theme.fontFamily.primary};
-	font-style: normal;
-	font-weight: 500;
-	font-size: 16px;
-	line-height: 18px;
-	color: ${theme.color.lightGrey};
-	/* width: 70%; */
-	/* max-height: 100px;
+  font-family: ${theme.fontFamily.primary};
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 18px;
+  color: ${theme.color.grey};
+  /* width: 70%; */
+  /* max-height: 100px;
 	overflow: scroll; */
 `;
 const Container = styled.div`
-	margin: 0 8.5% 0 8.5%;
-	.toggleText {
-		span:nth-child(1) span {
-			font-family: ${theme.fontFamily.primary};
-			font-style: normal;
-			font-weight: 500;
-			font-size: 0.875rem;
-			line-height: 1.125rem;
-			color: ${theme.color.lightGrey};
-		}
-	}
-	.toggleButton {
-		color: ${theme.color.darkBlue};
-	}
+  margin: 0 8.5% 0 8.5%;
+  .toggleText {
+    span:nth-child(1) span {
+      font-family: ${theme.fontFamily.primary};
+      font-style: normal;
+      font-weight: 500;
+      font-size: 0.875rem;
+      line-height: 1.125rem;
+      color: ${theme.color.grey};
+    }
+  }
+  .toggleButton {
+    color: ${theme.color.darkBlue};
+  }
 `;
 
 export default CoursesDescription;
