@@ -1,15 +1,15 @@
-import BlueButton from '../../../Shared/Buttons/BlueButton/index';
-import ModalCertificado from './ModalCertificado';
+import { useEffect, useState } from 'react';
+
+import StyledButton from '../../../Shared/Buttons/StyledButton';
 import styled from 'styled-components';
 import theme from './../../../../Theme/base';
-import { useEffect } from 'react';
 
 const Certificados = () => {
 	useEffect(() => {
 		const input = document.getElementById('inputFile');
 		input.style.display = 'none';
-		console.log(input);
 	}, []);
+
 	return (
 		<CertificadosMainContainer>
 			<BannerContainer>
@@ -29,8 +29,13 @@ const Certificados = () => {
 				<FileInput id='inputFile' name='file' type='file' />
 
 				<Label for='inputFile'>Cargar certificado</Label>
+				<StyledButton
+					text='Cargar certificado'
+					width='100%'
+					borderRadius='10px'
+					padding='0.75rem 0'
+				/>
 			</Container>
-			<ModalCertificado />
 		</CertificadosMainContainer>
 	);
 };

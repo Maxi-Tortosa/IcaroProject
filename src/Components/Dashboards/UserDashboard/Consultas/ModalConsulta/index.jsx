@@ -1,27 +1,30 @@
+import EnviaBttn from '../../../../Shared/Buttons/EnviaBttn';
 import React from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
 import styled from 'styled-components';
 import theme from '../../../../../Theme/base';
 import { useIsMobile } from '../../../../../Hooks/Client';
 
-const ModalCertificado = () => {
+const ModalConsulta = ({ setModalOpen }) => {
 	const mobile = useIsMobile();
 	return (
 		<MainContainer>
 			<ModalContainer>
 				<HeaderTitle>
-					<Title>Nueva Consulta</Title>
-					<CloseButton onClick={() => null}>
+					<CloseButton onClick={() => setModalOpen(false)}>
 						<img
 							src='https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/mobile%2FContactModalCloseIcon.png?alt=media&token=edf0e5a3-1f0b-4ecd-a8af-004593804807'
 							alt='Cerrar formulario de contacto'
 						/>
 					</CloseButton>
+					<Title>Nueva Consulta</Title>
+
+					<Parragraph mobile={mobile}>
+						Escríbenos y nos contactaremos para brindarte toda la información
+						que necesites.
+					</Parragraph>
 				</HeaderTitle>
-				<Parragraph mobile={mobile}>
-					Escríbenos y nos contactaremos para brindarte toda la información que
-					necesites.
-				</Parragraph>
+
 				<StyledForm mobile={mobile}>
 					<FormLabel mobile={mobile} htmlFor='reason'>
 						Motivo
@@ -35,13 +38,22 @@ const ModalCertificado = () => {
 							className='styled-text-area'
 						/>
 					</FormLabel>
+					<EnviaBttn
+						fontFamily='Montserrat, sans-serif'
+						fontSize='1.18rem'
+						width={mobile ? '100%' : '58%'}
+						margin={mobile ? '60px 0 0 0' : '20px 21%'}
+						padding='16px'
+						backgroundColor={theme.color.darkBlue}
+						onClick={() => null}
+					/>
 				</StyledForm>
 			</ModalContainer>
 		</MainContainer>
 	);
 };
 
-export default ModalCertificado;
+export default ModalConsulta;
 
 const MainContainer = styled.div`
 	position: fixed;
@@ -50,22 +62,32 @@ const MainContainer = styled.div`
 	width: 100%;
 	background-color: #00000080;
 	top: 0;
-	left: 00;
+	left: 0;
 	display: flex;
 	justify-content: center;
-	align-items: center;
+	align-items: start;
 `;
 
 const ModalContainer = styled.div`
-	width: 40%;
+	margin: 5% 0 0 0;
+	width: 35rem;
+	height: 66%;
+	padding: 2rem 0;
 	background: white;
 	border-radius: 0 0 10px 10px;
+	overflow-y: scroll;
+	::-webkit-scrollbar {
+		display: none;
+	}
 `;
 
 const HeaderTitle = styled.div`
 	display: flex;
+	flex-direction: column;
 	justify-content: space-between;
-	align-items: flex-start;
+	align-items: center;
+	width: 90%;
+	margin: auto;
 `;
 
 const Title = styled.h3`
@@ -75,10 +97,11 @@ const Title = styled.h3`
 	font-size: 20px;
 	line-height: 24px;
 	text-align: center;
-	width: 90%;
+	margin: 1rem 0 0 0;
 	color: #1744ff;
 `;
 const CloseButton = styled.div`
+	align-self: flex-end;
 	background: transparent;
 	border: unset;
 	font-size: 20px;
@@ -108,6 +131,7 @@ const StyledForm = styled.form`
 		border: 1px solid #e6e6e6;
 		resize: none;
 		margin-top: 20px;
+		padding: 0;
 		font-style: normal;
 		font-weight: normal;
 		font-size: 16px;
@@ -127,7 +151,7 @@ const StyledForm = styled.form`
 
 		:focus {
 			font-family: ${theme.fontFamily.primary};
-			border: 2px solid ${theme.color.darkBlue};
+			border: 1px solid ${theme.color.darkBlue};
 			outline: none;
 			border-radius: 5px;
 			font-size: 1rem;
@@ -167,7 +191,7 @@ const FormInput = styled.input`
 		font-weight: normal;
 		font-size: 16px;
 		line-height: 24px;
-		border: 2px solid ${theme.color.darkBlue};
+		border: 1px solid ${theme.color.darkBlue};
 		outline: none;
 		border-radius: 5px;
 		font-size: 1rem;
