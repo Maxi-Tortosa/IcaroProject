@@ -8,7 +8,7 @@ const GreyBkgrTop = styled.div`
   background: ${theme.color.white};
   background: linear-gradient(
     355deg,
-    ${hexcodeToRGBA(theme.color.grey, 1)} 90%,
+    ${hexcodeToRGBA(theme.color.lightGrey, 1)} 90%,
     ${hexcodeToRGBA(theme.color.white, 1)} 90%
   );
 `;
