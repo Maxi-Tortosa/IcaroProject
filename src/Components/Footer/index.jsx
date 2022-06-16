@@ -1,5 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 
+import IcaroInCompanyModal from '../Shared/Modals/IcaroInCompanyModal';
+import ContactoModal from '../Shared/Modals/ContactModal';
 import EnviaBttn from '../Shared/Buttons/EnviaBttn';
 import React from 'react';
 import SocialMediaIcon from '../Shared/Icons/FooterIcons';
@@ -13,7 +15,11 @@ const Footer = () => {
 	const { is404 } = useContext(projectContext);
 	const { footerContent } = useContext(mainFooterContext);
 	const [pending, setPending] = useState(true);
+	const [inCompanyModalIsOpen, setInCompanyModalIsOpen] = useState(false);
+	const [ContactoModalIsOpen, setContactoModalIsOpen] = useState(false);
 	const mobile = useIsMobile();
+	const cursosElement = document.getElementById('cursos');
+	const rootElement = document.getElementById('root');
 
 	useEffect(() => {
 		if (footerContent) {
@@ -26,7 +32,13 @@ const Footer = () => {
 			return a.Orden - b.Orden;
 		});
 		return filterfooterContent;
-	};
+	}; 
+	function scrollTo(element , offset = 0){
+		const elementPosition = element.getBoundingClientRect().top
+		const offsetPosition = elementPosition + window.pageYOffset - offset
+
+		window.scrollTo({top:offsetPosition , behavior:"smooth"})
+	}
 
 	return (
 		<>
@@ -46,14 +58,27 @@ const Footer = () => {
 														{ nombre, url, icono, placeholder, type },
 														index
 													) => {
+													
 														if (url) {
+															function footerUrl(){
+																console.log(url)
+																 switch(url){
+																	case '/':scrollTo(rootElement); break;
+																	case '/cursos':scrollTo(cursosElement, 70); break;
+																	case '/in-company': setInCompanyModalIsOpen(true); break;
+																	case '/contacto' : setContactoModalIsOpen(true); break;
+																	default: break;
+																}
+																
+															}
 															return (
 																<>
 																	<FooterAnchor
-																		key={index + 100}
-																		href={url}
+																		key={index + 100}																															
+																		onClick={footerUrl}
 																		icono={icono}
-																		target='_blank'>
+																		
+																		>
 																		{icono && (
 																			// <IconImg
 																			// 	key={index}
@@ -68,6 +93,7 @@ const Footer = () => {
 																		)}
 																		{nombre}
 																	</FooterAnchor>
+																	
 																</>
 															);
 														} else {
@@ -97,9 +123,18 @@ const Footer = () => {
 										</ColumnContainer>
 									);
 							  })}
+							  
 					</ContentContainer>
 				</FooterContainer>
 			)}
+			<IcaroInCompanyModal
+																		modalIsOpen={inCompanyModalIsOpen}
+																		closeModal={() => setInCompanyModalIsOpen(false)}
+																	/>
+																	<ContactoModal
+																		modalIsOpen={ContactoModalIsOpen}
+																		closeModal={() => setContactoModalIsOpen(false)}
+																	/>
 		</>
 	);
 };
