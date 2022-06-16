@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import theme from '../../../../Theme/base';
 import EditIcon from '../../../Shared/Icons/EditIcon';
-import DeleteIcon from '../../../Shared/Icons/DeleteIcon';
+import HideIcon from '../../../Shared/Icons/HideIcon';
 import { CATEGORYROWS } from '../../../../Constants/Category';
 import { useNavigate } from 'react-router-dom';
 import ConfirmationModal from '../../../Shared/Modals/ConfirmationModal';
@@ -82,7 +82,7 @@ const CategoriasAdmin = ({ categorias }) => {
                   <EditIcon />
                 </div>
                 <div onClick={(e) => openDeleteModal(el)}>
-                  <DeleteIcon />
+                  <HideIcon />
                 </div>
               </TableColumn>
             </TableRow>
@@ -92,15 +92,15 @@ const CategoriasAdmin = ({ categorias }) => {
       <ConfirmationModal
         modalIsOpen={modalIsOpen}
         closeModal={closeModal}
-        modalTitle="Eliminar categoria"
+        modalTitle="Ocultar categoria"
         cancelButtonContent="Cancelar"
-        confirmButtonContent="Eliminar"
+        confirmButtonContent="Ocultar"
         confirmButtonSubmit={handleDelete}
         withCloseButton
         mainColor={theme.color.redError}
       >
         <ModalContent>
-          <p>¿Confirma que desea eliminar la siguiente categoria?</p>
+          <p>¿Confirma que desea ocultar la siguiente categoria?</p>
           <b>{selectedCategory?.Nombre}</b>
         </ModalContent>
       </ConfirmationModal>

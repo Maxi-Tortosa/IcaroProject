@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import ConfirmationModal from '../../../Shared/Modals/ConfirmationModal';
-import DeleteIcon from '../../../Shared/Icons/DeleteIcon';
+import HideIcon from '../../../Shared/Icons/HideIcon';
 import EditIcon from '../../../Shared/Icons/EditIcon';
 import styled from 'styled-components';
 import theme from '../../../../Theme/base';
@@ -77,7 +77,7 @@ const CursosAdmin = ({ cursos }) => {
                   <EditIcon />
                 </EditContainer>
                 <div onClick={(e) => openDeleteModal(el)}>
-                  <DeleteIcon />
+                  <HideIcon />
                 </div>
               </TableColumn>
             </TableRow>
@@ -87,15 +87,15 @@ const CursosAdmin = ({ cursos }) => {
       <ConfirmationModal
         modalIsOpen={modalIsOpen}
         closeModal={closeModal}
-        modalTitle="Eliminar curso"
+        modalTitle="Ocultar curso"
         cancelButtonContent="Cancelar"
-        confirmButtonContent="Eliminar"
+        confirmButtonContent="Ocultar"
         confirmButtonSubmit={handleDelete}
         withCloseButton
         mainColor={theme.color.redError}
       >
         <ModalContent>
-          <p>¿Confirma que desea eliminar el siguiente curso?</p>
+          <p>¿Confirma que desea ocultar el siguiente curso?</p>
           <b>{selectedCourse?.nombre}</b>
         </ModalContent>
       </ConfirmationModal>
