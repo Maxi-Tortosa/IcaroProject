@@ -10,9 +10,9 @@ const TusCursos = () => {
 	const mobile = useIsMobile();
 	const { course } = useContext(projectContext);
 
-	useEffect(() => {
-		console.log(course[0]);
-	}, [course]);
+	// useEffect(() => {
+	// 	console.log(course[0]);
+	// }, [course]);
 
 	// const arr = course && course.slice(0, 4);
 

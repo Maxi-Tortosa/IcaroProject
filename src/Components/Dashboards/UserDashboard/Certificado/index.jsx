@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react';
 
+import ModalCertificado from './ModalCertificado';
 import StyledButton from '../../../Shared/Buttons/StyledButton';
 import styled from 'styled-components';
 import theme from './../../../../Theme/base';
 
 const Certificados = () => {
-	useEffect(() => {
-		const input = document.getElementById('inputFile');
-		input.style.display = 'none';
-	}, []);
+	const [modalOpen, setModalOpen] = useState(false);
+	const modalEvent = () => setModalOpen(true);
 
 	return (
 		<CertificadosMainContainer>
@@ -26,16 +25,17 @@ const Certificados = () => {
 					Cargá aquí tu certificado de alumno regular y aprovecha nuestros
 					descuentos especiales!
 				</ContainerParagraph>
-				<FileInput id='inputFile' name='file' type='file' />
 
-				<Label for='inputFile'>Cargar certificado</Label>
 				<StyledButton
+					onClickEvent={modalEvent}
 					text='Cargar certificado'
 					width='100%'
 					borderRadius='10px'
 					padding='0.75rem 0'
 				/>
 			</Container>
+
+			{modalOpen && <ModalCertificado setModalOpen={setModalOpen} />}
 		</CertificadosMainContainer>
 	);
 };
@@ -87,20 +87,4 @@ const ContainerParagraph = styled.p`
 	margin: ${({ mobile }) => (mobile ? null : '0 0 1.2rem 0')};
 	text-align: center;
 	color: #363636;
-`;
-
-const FileInput = styled.input``;
-
-const Label = styled.label`
-	width: 100%;
-	background-color: ${theme.color.darkBlue};
-	border-radius: 10px;
-	cursor: pointer;
-	text-align: center;
-	padding: 0.6rem 0;
-	color: ${theme.color.white};
-	font-family: ${theme.fontFamily.primary};
-	font-size: ${({ mobile }) => (mobile ? null : '1rem')};
-	font-weight: ${({ mobile }) => (mobile ? null : '600')};
-	line-height: ${({ mobile }) => (mobile ? null : '1.25rem')};
 `;

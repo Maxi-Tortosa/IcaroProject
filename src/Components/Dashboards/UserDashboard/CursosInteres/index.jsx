@@ -11,7 +11,6 @@ const CursosInteres = () => {
 	const mobile = useIsMobile();
 	const relatedCourses = course.slice(0, 7);
 
-	console.log(relatedCourses);
 	return (
 		<CursosDeInteresMainContainer>
 			<TitleContainer>

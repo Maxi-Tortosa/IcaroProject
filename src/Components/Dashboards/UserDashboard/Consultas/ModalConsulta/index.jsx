@@ -118,6 +118,7 @@ const Parragraph = styled.div`
 	text-align: center;
 	margin: 20px auto;
 	color: #3d3d3d;
+	width: 90%;
 `;
 
 const StyledForm = styled.form`
