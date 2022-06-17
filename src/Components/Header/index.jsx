@@ -24,6 +24,9 @@ const Header = ({ setIsLoginOpen }) => {
 	const [displayUser, setDisplayUser] = useState(null)
 	const [mobileMenuIsOpen, setMobileMenuIsOpen] = useState(false)
 	const mobile = useIsMobile()
+	const cursosElement = document.getElementById('cursos')
+	const quienesSomosElement = document.getElementById('quienes-somos')
+	const rootElement = document.getElementById('root')
 
 	useEffect(() => {
 		if (currentUser) {
@@ -31,6 +34,13 @@ const Header = ({ setIsLoginOpen }) => {
 			setDisplayUser(display)
 		}
 	}, [users, currentUser])
+ 
+	function scrollTo(element , offset){
+		const elementPosition = element.getBoundingClientRect().top
+		const offsetPosition = elementPosition + window.pageYOffset - offset
+
+		window.scrollTo({top:offsetPosition , behavior:"smooth"})
+	}
 
 	function openModal() {
 		setIsOpen(true)
@@ -79,7 +89,7 @@ const Header = ({ setIsLoginOpen }) => {
 								setMobileMenuIsOpen={setMobileMenuIsOpen}
 							/>
 						) : null}
-						<Link to="/" className="logo">
+						<Link to="/" className="logo" onClick={()=> {scrollTo(rootElement, 70)}}>
 							<img
 								src="https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/logo.svg?alt=media&token=b47dccac-e962-48ab-99f1-f3d250f879f5"
 								alt="Logo de Ícaro"
@@ -87,10 +97,10 @@ const Header = ({ setIsLoginOpen }) => {
 						</Link>
 						<ul mobile={mobile} className="menu">
 							<li>
-								<CenterLinks to={"/#cursos"}>Cursos</CenterLinks>
+								<CenterLinks onClick={()=> {scrollTo(cursosElement, 70)}}>Cursos</CenterLinks>
 							</li>
 							<li>
-								<CenterLinks to={"/quienes-somos"}>Quiénes somos</CenterLinks>
+								<CenterLinks onClick={()=> {scrollTo(quienesSomosElement, 100)}}>Quiénes somos</CenterLinks>
 							</li>
 							<li>
 								<ButtonLink onClick={openModal}>Contacto</ButtonLink>
@@ -172,7 +182,8 @@ const Container = styled.div`
 		cursor: pointer;
 	}
 `
-const CenterLinks = styled(Link)`
+const CenterLinks = styled.div`
+	cursor: pointer;	
 	text-decoration: none;
 	color: #fff;
 	font-style: normal;
