@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import ConfirmationModal from '../../../Shared/Modals/ConfirmationModal';
 import HideIcon from '../../../Shared/Icons/HideIcon';
+import ShowIcon from '../../../Shared/Icons/ShowIcon';
 import EditIcon from '../../../Shared/Icons/EditIcon';
 import styled from 'styled-components';
 import theme from '../../../../Theme/base';
@@ -47,7 +48,7 @@ const CursosAdmin = ({ cursos }) => {
   }
 
   function handleDelete() {
-    showToast('success', 'Se ha eliminado el elemento');
+    showToast('success', 'Se ha ocultado el elemento');
   }
 
   return (
@@ -67,7 +68,7 @@ const CursosAdmin = ({ cursos }) => {
 
         {cursos.map((el, index) => {
           return (
-            <TableRow key={index}>
+            <TableRow key={index} isHidden={el.isHidden}>
               <TableColumn>{index + 1}</TableColumn>
               <TableColumn>{el.nombre}</TableColumn>
               <TableColumn bgcolor={el.CategoriaID}>{el.categoria}</TableColumn>
@@ -77,7 +78,7 @@ const CursosAdmin = ({ cursos }) => {
                   <EditIcon />
                 </EditContainer>
                 <div onClick={(e) => openDeleteModal(el)}>
-                  <HideIcon />
+                  {el.isHidden ? <ShowIcon /> : <HideIcon />}
                 </div>
               </TableColumn>
             </TableRow>
@@ -149,9 +150,10 @@ const TableRow = styled.div`
   text-align: left;
   gap: 10px;
   padding: 10px 0;
+  ${({ isHidden }) => isHidden && `background-color: #757575; `}
 
   :hover {
-    background-color: #f1f1f1;
+    background-color: ${({ isHidden }) => !isHidden && ' #f1f1f1'};
     cursor: pointer;
   }
 `;
