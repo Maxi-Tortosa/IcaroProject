@@ -31,7 +31,9 @@ const CurrentCourseCard = ({ course }) => {
 				colorFilter={course.CategoriaID}></BannerContainer>
 			<Container mobile={mobile}>
 				<ContainerTitle mobile={mobile}>{course.nombre}</ContainerTitle>
+
 				<ContainerParagraph mobile={mobile}>
+					Lunes y viernes: 8 a 10 AM <br />
 					{fechaInicio} / {fechaFin}
 				</ContainerParagraph>
 			</Container>
@@ -43,7 +45,7 @@ export default CurrentCourseCard;
 
 const CurrentCourseCardContainer = styled.div`
 	width: 20rem !important;
-	margin: 0 0 0.5rem 0;
+	margin: 0 0 1rem 0;
 	background: #ffffff;
 	border: 1px solid #c1c1c1;
 	border-radius: 10px;
@@ -74,10 +76,10 @@ const Container = styled.div`
 
 const ContainerTitle = styled.h5`
 	font-family: ${({ mobile }) =>
-		mobile ? null : `${theme.fontFamily.primary}`};
-	font-size: ${({ mobile }) => (mobile ? null : '1rem')};
-	font-weight: ${({ mobile }) => (mobile ? null : '600')};
-	line-height: ${({ mobile }) => (mobile ? null : '1.25rem')};
+		mobile ? null : `${theme.fontFamily.secondary}`};
+	font-size: ${({ mobile }) => (mobile ? null : '1.25rem')};
+	font-weight: ${({ mobile }) => (mobile ? null : '700')};
+	line-height: ${({ mobile }) => (mobile ? null : '1.5rem')};
 	margin: ${({ mobile }) => (mobile ? null : '0 0 1.2rem 0')};
 	text-align: center;
 	color: #363636;
@@ -86,7 +88,7 @@ const ContainerParagraph = styled.p`
 	font-family: ${({ mobile }) =>
 		mobile ? null : `${theme.fontFamily.primary}`};
 	font-size: ${({ mobile }) => (mobile ? null : '1rem')};
-	font-weight: ${({ mobile }) => (mobile ? null : '400')};
+	font-weight: ${({ mobile }) => (mobile ? null : '500')};
 	line-height: ${({ mobile }) => (mobile ? null : '1.25rem')};
 	margin: ${({ mobile }) => (mobile ? null : '0 0 1.2rem 0')};
 	text-align: center;
