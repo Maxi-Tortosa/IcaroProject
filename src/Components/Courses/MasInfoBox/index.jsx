@@ -7,7 +7,7 @@ import { useIsMobile } from '../../../Hooks/Client';
 const MasInfoBox = () => {
   return (
     <MasInfoContainer>
-      <Title>Quéres más información?</Title>
+      <Title>¿Quéres más información?</Title>
       <StyledForm>
         <FormLabel htmlFor="fullname">
           Nombre y Apellido

@@ -57,10 +57,10 @@ const EnsenaConIcaroModal = ({ modalIsOpen, closeModal }) => {
     >
       <HeaderTitle>
         <div>
-          <Title>Sumate a nuestra comunidad!</Title>
+          <Title>¡Sumate a nuestra comunidad!</Title>
           <Parragraph mobile={mobile}>
             Si eres profesional especializado en la industria, si te apasiona la
-            educación y trabajar en equipo, nos gustaría conocerte!
+            educación y trabajar en equipo ¡nos gustaría conocerte!
           </Parragraph>
         </div>
 
@@ -82,7 +82,7 @@ const EnsenaConIcaroModal = ({ modalIsOpen, closeModal }) => {
           <FormInput id="profesion" name="profesion" type="text" />
         </FormLabel>
         <FormLabel mobile={mobile} htmlFor="contactMedia">
-          Por cual medio prefiere ser contactado?
+          ¿Por cual medio prefiere ser contactado?
           <div style={{ width: '100%' }}>
             <Select
               options={CONTACTMEDIA}

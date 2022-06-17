@@ -99,7 +99,7 @@ const IcaroInCompanyModal = ({ modalIsOpen, closeModal }) => {
           <FormInput id="position" name="position" type="text" />
         </FormLabel>
         <FormLabel mobile={mobile} htmlFor="trainingNeeds" extraWidth>
-          Cuáles son sus necesidades de capacitación?
+          ¿Cuáles son sus necesidades de capacitación?
           <FormInput id="trainingNeeds" name="trainingNeeds" type="text" />
         </FormLabel>
         <EnviaBttn
