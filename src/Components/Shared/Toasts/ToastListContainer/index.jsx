@@ -14,19 +14,19 @@ const ToastListContainer = ({ toastlist, setList }) => {
     [toastlist, setList]
   );
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (toastlist?.length) {
-        deleteToast(toastlist[0].id);
-      }
-    }, 5000);
+  //   useEffect(() => {
+  //     const interval = setInterval(() => {
+  //       if (toastlist?.length) {
+  //         deleteToast(toastlist[0].id);
+  //       }
+  //     }, 5000);
 
-    return () => {
-		if (toastlist) {
-      clearInterval(interval);
-    }
-    };
-  }, [toastlist, deleteToast]);
+  //     return () => {
+  // 		if (toastlist) {
+  //       clearInterval(interval);
+  //     }
+  //     };
+  //   }, [toastlist, deleteToast]);
 
   return (
     <Container className={`container `}>
