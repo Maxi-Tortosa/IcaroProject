@@ -68,7 +68,7 @@ const CursosAdmin = ({ cursos }) => {
 
         {cursos.map((el, index) => {
           return (
-            <TableRow key={index} isHidden={el.isHidden}>
+            <TableRow key={el.href} isHidden={el.isHidden}>
               <TableColumn>{index + 1}</TableColumn>
               <TableColumn>{el.nombre}</TableColumn>
               <TableColumn bgcolor={el.CategoriaID}>{el.categoria}</TableColumn>

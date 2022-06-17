@@ -4,8 +4,7 @@ import QuienesSomos from "../../Components/QuienesSomos/index"
 import Banners from "../../Components/Banners/index"
 import { useContext } from "react"
 import CursosCards from "../../Components/CursosCards"
-import MainCarousel from "../../Components/MainCarousel/index"
-import Spacer from "../../Components/Shared/Spacer/index"
+import MainCarousel from '../../Components/MainCarousel/index';
 import Sponsors from "../../Components/Sponsors/index"
 
 const HomeContainer = () => {
