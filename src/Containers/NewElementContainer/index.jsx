@@ -8,6 +8,7 @@ import BlueButton from '../../Components/Shared/Buttons/BlueButton';
 import LinearBttn from '../../Components/Shared/Buttons/LinearBttn';
 import { normalizeSelectOptions, sortArrayByOrderNumber } from '../../Utils';
 import Spacer from '../../Components/Shared/Spacer';
+import { VscClose } from 'react-icons/vsc';
 
 const NewElementContainer = ({ fieldsList, type, selectOptions }) => {
   const [disabledButton, setDisabledButton] = useState(true);
@@ -89,9 +90,7 @@ const NewElementContainer = ({ fieldsList, type, selectOptions }) => {
       <HeaderTitle>
         <Title>{type}</Title>
         <CloseButton onClick={handleClose}>
-          <img
-            src="https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/mobile%2FContactModalCloseIcon.png?alt=media&token=edf0e5a3-1f0b-4ecd-a8af-004593804807"
-            alt="Cerrar ventana de confirmación"
+        <VscClose size={20}
           />
         </CloseButton>
       </HeaderTitle>

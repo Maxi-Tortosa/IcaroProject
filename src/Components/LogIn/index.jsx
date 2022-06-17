@@ -6,6 +6,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import styled from 'styled-components';
 import theme from '../../Theme/base';
 import { userContext } from '../../Context/UserContext';
+import { VscClose } from 'react-icons/vsc';
 
 // import { projectContext } from '../../Context/ProjectContext';
 
@@ -108,8 +109,8 @@ const LogIn = ({ setIsLoginOpen }) => {
 						¿No tenés cuenta? Únete a Icaro{' '}
 					</Link>
 					<button className='close' onClick={() => setIsLoginOpen(false)}>
-						{' '}
-						x{' '}
+					<VscClose size={20}
+          />
 					</button>
 				</div>
 			</div>
@@ -229,7 +230,7 @@ const Container = styled.div`
 				border: unset;
 				font-size: 1.6rem;
 				position: absolute;
-				bottom: 92%;
+				bottom: 90%;
 				left: 60%;
 			}
 

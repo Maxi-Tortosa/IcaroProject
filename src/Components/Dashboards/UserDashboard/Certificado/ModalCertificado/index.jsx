@@ -4,6 +4,7 @@ import EnviaBttn from '../../../../Shared/Buttons/EnviaBttn';
 import styled from 'styled-components';
 import theme from './../../../../../Theme/base';
 import { useIsMobile } from '../../../../../Hooks/Client';
+import { VscClose } from 'react-icons/vsc'
 
 const ModalCertificado = ({ setModalOpen }) => {
 	const [file, setFile] = useState(null);
@@ -18,10 +19,8 @@ const ModalCertificado = ({ setModalOpen }) => {
 			<ModalContainer>
 				<HeaderTitle>
 					<CloseButton onClick={() => setModalOpen(false)}>
-						<img
-							src='https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/mobile%2FContactModalCloseIcon.png?alt=media&token=edf0e5a3-1f0b-4ecd-a8af-004593804807'
-							alt='Cerrar formulario de contacto'
-						/>
+					<VscClose size={20} />
+					
 					</CloseButton>
 					<Title>Beneficios Especiales</Title>
 				</HeaderTitle>

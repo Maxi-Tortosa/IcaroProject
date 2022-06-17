@@ -10,6 +10,7 @@ import { normalizeSelectOptions, sortArrayByOrderNumber } from '../../Utils';
 import Spacer from '../../Components/Shared/Spacer';
 import { projectContext } from '../../Context/ProjectContext';
 import Loader from '../../Components/Shared/Loader';
+import { VscClose } from 'react-icons/vsc';
 
 const EditElementContainer = ({ fieldsList, type, selectOptions }) => {
   const { editElement } = useParams();
@@ -111,9 +112,7 @@ const EditElementContainer = ({ fieldsList, type, selectOptions }) => {
         </Title>
 
         <CloseButton onClick={handleClose}>
-          <img
-            src="https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/mobile%2FContactModalCloseIcon.png?alt=media&token=edf0e5a3-1f0b-4ecd-a8af-004593804807"
-            alt="Cerrar ventana de confirmación"
+        <VscClose size={20}
           />
         </CloseButton>
       </HeaderTitle>
