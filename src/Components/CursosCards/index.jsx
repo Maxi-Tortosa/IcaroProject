@@ -27,7 +27,6 @@ const CursosCards = ({ isProximos }) => {
 
   useEffect(() => {
     if (course.length > 0 || categories.length > 0 || nextCourses.length > 0) {
-      console.log('lista que viene', course);
       setPending(false);
     }
   }, [course, categories, nextCourses]);

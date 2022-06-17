@@ -35,6 +35,12 @@ const ProjectContext = ({ children }) => {
     );
 
     onSnapshot(
+      collection(db, 'CarouselContent'),
+      (snapshot) => setCarousel(snapshot.docs.map((doc) => doc.data())),
+      (error) => console.log('error', error)
+    );
+    
+    onSnapshot(
       collection(db, 'CategoriasCursos'),
       (snapshot) => setCategories(snapshot.docs.map((doc) => doc.data())),
       (error) => console.log('error', error)
