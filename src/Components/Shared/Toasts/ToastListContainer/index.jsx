@@ -22,7 +22,9 @@ const ToastListContainer = ({ toastlist, setList }) => {
     }, 5000);
 
     return () => {
+		if (toastlist) {
       clearInterval(interval);
+    }
     };
   }, [toastlist, deleteToast]);
 
