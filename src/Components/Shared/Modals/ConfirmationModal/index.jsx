@@ -3,6 +3,8 @@ import ReactModal from 'react-modal';
 import styled from 'styled-components';
 import theme from '../../../../Theme/base';
 import { useIsMobile } from '../../../../Hooks/Client';
+import { VscClose } from 'react-icons/vsc';
+
 
 const ConfirmationModal = ({
 	modalIsOpen,
@@ -69,9 +71,7 @@ const ConfirmationModal = ({
 					</Title>
 					{withCloseButton && (
 						<CloseButton mobile={mobile} onClick={closeModal}>
-							<img
-								src='https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/mobile%2FContactModalCloseIcon.png?alt=media&token=edf0e5a3-1f0b-4ecd-a8af-004593804807'
-								alt='Cerrar ventana de confirmación'
+							<VscClose size={20}
 							/>
 						</CloseButton>
 					)}
