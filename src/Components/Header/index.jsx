@@ -1,165 +1,168 @@
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useState } from 'react';
 
-import ContactModal from "../Shared/Modals/ContactModal"
-import IngresaBttn from "../Shared/Buttons/IngresaBttn"
-import { Link } from "react-router-dom"
-import MenuMobile from "../MenuMobile"
-import { auth } from "../../Firebase"
-import { projectContext } from "../../Context/ProjectContext"
-import { signOut } from "firebase/auth"
-import styled from "styled-components"
-import theme from "../../Theme/base"
-import { useIsMobile } from "../../Hooks/Client"
-import { userContext } from "../../Context/UserContext"
+import ContactModal from '../Shared/Modals/ContactModal';
+import IngresaBttn from '../Shared/Buttons/IngresaBttn';
+import { Link, useLocation } from 'react-router-dom';
+import MenuMobile from '../MenuMobile';
+import { auth } from '../../Firebase';
+import { projectContext } from '../../Context/ProjectContext';
+import { signOut } from 'firebase/auth';
+import styled from 'styled-components';
+import theme from '../../Theme/base';
+import { useIsMobile } from '../../Hooks/Client';
+import { userContext } from '../../Context/UserContext';
 
 const Header = ({ setIsLoginOpen }) => {
-	const { is404 } = useContext(projectContext)
+	const { is404 } = useContext(projectContext);
 	const {
 		//  setCurrentUser,
 		currentUser,
 		users,
-	} = useContext(userContext)
-	const [isScroll, setIsScroll] = useState(false)
-	const [modalIsOpen, setIsOpen] = useState(false)
-	const [displayUser, setDisplayUser] = useState(null)
-	const [mobileMenuIsOpen, setMobileMenuIsOpen] = useState(false)
-	const mobile = useIsMobile()
-	const cursosElement = document.getElementById('cursos')
-	const quienesSomosElement = document.getElementById('quienes-somos')
-	const rootElement = document.getElementById('root')
+	} = useContext(userContext);
+	const [isScroll, setIsScroll] = useState(false);
+	const [modalIsOpen, setIsOpen] = useState(false);
+	const [displayUser, setDisplayUser] = useState(null);
+	const [mobileMenuIsOpen, setMobileMenuIsOpen] = useState(false);
+	const mobile = useIsMobile();
+	const cursosElement = document.getElementById('cursos');
+	const quienesSomosElement = document.getElementById('quienes-somos');
+	const rootElement = document.getElementById('root');
+
+	const location = useLocation().pathname;
 
 	useEffect(() => {
 		if (currentUser) {
-			const display = users.find((user) => user.email === currentUser.email)
-			setDisplayUser(display)
+			const display = users.find((user) => user.email === currentUser.email);
+			setDisplayUser(display);
 		}
-	}, [users, currentUser])
- 
-	function scrollTo(element , offset){
-		const elementPosition = element.getBoundingClientRect().top
-		const offsetPosition = elementPosition + window.pageYOffset - offset
+	}, [users, currentUser]);
 
-		window.scrollTo({top:offsetPosition , behavior:"smooth"})
+	function scrollTo(element, offset) {
+		const elementPosition = element.getBoundingClientRect().top;
+		const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+		window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
 	}
 
 	function openModal() {
-		setIsOpen(true)
+		setIsOpen(true);
 	}
 
 	function closeModal() {
-		setIsOpen(false)
+		setIsOpen(false);
 	}
 
-	window.addEventListener("scroll", changeNavColor)
+	window.addEventListener('scroll', changeNavColor);
 
 	function changeNavColor() {
 		if (window.scrollY >= 85) {
-			setIsScroll(true)
+			setIsScroll(true);
 		} else {
-			setIsScroll(false)
+			setIsScroll(false);
 		}
 	}
 
 	function handleClick() {
-		signOut(auth)
+		signOut(auth);
 		setTimeout(() => {
-			setDisplayUser(null)
-		}, 1000)
+			setDisplayUser(null);
+		}, 1000);
 	}
 
 	return (
-    <>
-      {!is404 && (
-        <Container mobile={mobile} isScroll={isScroll}>
-          <div className="header">
-            {mobile ? (
-              <button
-                class="mobileButton"
-                onClick={() => setMobileMenuIsOpen(true)}
-              >
-                <img
-                  src="https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/mobile%2FiconoMenuMobile.png?alt=media&token=e4546394-de4a-4812-b5d5-f53a40bce518"
-                  alt=""
-                />
-              </button>
-            ) : null}{' '}
-            {mobileMenuIsOpen ? (
-              <MenuMobile
-                openModal={openModal}
-                setMobileMenuIsOpen={setMobileMenuIsOpen}
-              />
-            ) : null}
-            <Link
-              to="/"
-              className="logo"
-              onClick={() => {
-                scrollTo(rootElement, 70);
-              }}
-            >
-              <img
-                src="https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/logo.svg?alt=media&token=b47dccac-e962-48ab-99f1-f3d250f879f5"
-                alt="Logo de Ícaro"
-              />
-            </Link>
-            <ul className="menu">
-              <li>
-                <CenterLinks
-                  onClick={() => {
-                    scrollTo(cursosElement, 70);
-                  }}
-                >
-                  Cursos
-                </CenterLinks>
-              </li>
-              <li>
-                <CenterLinks
-                  onClick={() => {
-                    scrollTo(quienesSomosElement, 100);
-                  }}
-                >
-                  Quiénes somos
-                </CenterLinks>
-              </li>
-              <li>
-                <ButtonLink onClick={openModal}>Contacto</ButtonLink>
-              </li>
-            </ul>
-            {displayUser ? (
-              <div className="signinButton">
-                <span>{displayUser.name}</span>
-                <button onClick={handleClick}>Cerrar sesión</button>
-              </div>
-            ) : (
-              <div className="signoutButton">
-                <IngresaBttn setIsLoginOpen={setIsLoginOpen} />
-              </div>
-            )}
-          </div>
-          <ContactModal modalIsOpen={modalIsOpen} closeModal={closeModal} />
-        </Container>
-      )}
-    </>
-  );
-}
+		<>
+			{!is404 && (
+				<Container location={location} mobile={mobile} isScroll={isScroll}>
+					<div className='header'>
+						{mobile ? (
+							<button
+								class='mobileButton'
+								onClick={() => setMobileMenuIsOpen(true)}>
+								<img
+									src='https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/mobile%2FiconoMenuMobile.png?alt=media&token=e4546394-de4a-4812-b5d5-f53a40bce518'
+									alt=''
+								/>
+							</button>
+						) : null}{' '}
+						{mobileMenuIsOpen ? (
+							<MenuMobile
+								openModal={openModal}
+								setMobileMenuIsOpen={setMobileMenuIsOpen}
+							/>
+						) : null}
+						<Link
+							to='/'
+							className='logo'
+							onClick={() => {
+								scrollTo(rootElement, 70);
+							}}>
+							<img
+								src='https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/logo.svg?alt=media&token=b47dccac-e962-48ab-99f1-f3d250f879f5'
+								alt='Logo de Ícaro'
+							/>
+						</Link>
+						<ul className='menu'>
+							<li>
+								<CenterLinks
+									onClick={() => {
+										scrollTo(cursosElement, 70);
+									}}>
+									Cursos
+								</CenterLinks>
+							</li>
+							<li>
+								<CenterLinks
+									onClick={() => {
+										scrollTo(quienesSomosElement, 100);
+									}}>
+									Quiénes somos
+								</CenterLinks>
+							</li>
+							<li>
+								<ButtonLink onClick={openModal}>Contacto</ButtonLink>
+							</li>
+						</ul>
+						{displayUser ? (
+							<div className='signinButton'>
+								<span>{displayUser.name}</span>
+								<button onClick={handleClick}>Cerrar sesión</button>
+							</div>
+						) : (
+							<div className='signoutButton'>
+								<IngresaBttn setIsLoginOpen={setIsLoginOpen} />
+							</div>
+						)}
+					</div>
+					<ContactModal modalIsOpen={modalIsOpen} closeModal={closeModal} />
+				</Container>
+			)}
+		</>
+	);
+};
 
-export default Header
+export default Header;
 
 const Container = styled.div`
 	font-family: ${theme.fontFamily.primary};
 	width: 100%;
-	background-color: ${({ isScroll }) => (isScroll ? "grey" : " transparent")};
+	background-color: ${({ location, isScroll }) =>
+		isScroll
+			? `${theme.color.darkBlue}`
+			: location === '/user'
+			? `${theme.color.darkBlue}`
+			: ' transparent'};
 	transition: all 0.3s ease-out 0s;
-	position: ${({ mobile }) => (mobile ? "fixed" : "fixed")};
+	position: ${({ mobile }) => (mobile ? 'fixed' : 'fixed')};
 	top: 0;
 	left: 0;
 	z-index: ${theme.zIndex.header};
 
 	.header {
-		width: ${({ mobile }) => (mobile ? "100%" : "80%")};
-		max-width: ${({ mobile }) => (mobile ? "null" : "1095px")};
+		width: ${({ mobile }) => (mobile ? '100%' : '80%')};
+		max-width: ${({ mobile }) => (mobile ? 'null' : '1095px')};
 		display: flex;
 		flex-direction: row;
-		justify-content: ${({ mobile }) => (mobile ? "center" : "space-between")};
+		justify-content: ${({ mobile }) => (mobile ? 'center' : 'space-between')};
 		align-items: center;
 		padding: 20px 0;
 		margin: auto;
@@ -171,7 +174,7 @@ const Container = styled.div`
 		}
 	}
 	.menu {
-		display: ${({ mobile }) => (mobile ? "none" : "flex")};
+		display: ${({ mobile }) => (mobile ? 'none' : 'flex')};
 		flex-direction: row;
 		justify-content: space-between;
 		list-style-type: none;
@@ -189,7 +192,7 @@ const Container = styled.div`
 	}
 	.signinButton,
 	.signoutButton {
-		display: ${({ mobile }) => (mobile ? "none" : null)};
+		display: ${({ mobile }) => (mobile ? 'none' : null)};
 	}
 
 	.mobileButton {
@@ -199,9 +202,9 @@ const Container = styled.div`
 		margin-right: 80%;
 		cursor: pointer;
 	}
-`
+`;
 const CenterLinks = styled.div`
-	cursor: pointer;	
+	cursor: pointer;
 	text-decoration: none;
 	color: #fff;
 	font-style: normal;
@@ -216,14 +219,14 @@ const CenterLinks = styled.div`
 	}
 
 	&::after {
-		content: "";
+		content: '';
 		display: block;
 		width: 0;
 		height: 3px;
 		background: #fff;
 		transition: width 0.3s;
 	}
-`
+`;
 
 const ButtonLink = styled.div`
 	text-decoration: none;
@@ -241,11 +244,11 @@ const ButtonLink = styled.div`
 	}
 
 	&::after {
-		content: "";
+		content: '';
 		display: block;
 		width: 0;
 		height: 3px;
 		background: #fff;
 		transition: width 0.3s;
 	}
-`
+`;
