@@ -12,7 +12,7 @@ const CursosInteres = () => {
 	const relatedCourses = course.slice(0, 7);
 
 	return (
-		<CursosDeInteresMainContainer>
+		<CursosDeInteresMainContainer mobile={mobile}>
 			<TitleContainer>
 				<Title mobile={mobile}>Estos cursos pueden interesarte</Title>
 			</TitleContainer>
@@ -34,7 +34,7 @@ const CursosInteres = () => {
 export default CursosInteres;
 
 const CursosDeInteresMainContainer = styled.div`
-	width: 29%;
+	width: ${({ mobile }) => (mobile ? '100%' : '29%')};
 	height: 25.93rem;
 	background: #ffffff;
 	box-shadow: 0px 0px 10px #dadada;

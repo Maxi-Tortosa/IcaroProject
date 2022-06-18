@@ -11,7 +11,7 @@ const Consultas = () => {
 	const [modalOpen, setModalOpen] = useState(false);
 	const modalEvent = () => setModalOpen(true);
 	return (
-		<ConsultasMainContainer>
+		<ConsultasMainContainer mobile={mobile}>
 			<TitleContainer mobile={mobile}>
 				<Title mobile={mobile}>Consultas</Title>
 				<AddButton alt='Nueva Consulta' clickEvent={modalEvent} />
@@ -27,7 +27,7 @@ const Consultas = () => {
 export default Consultas;
 
 const ConsultasMainContainer = styled.div`
-	width: 35%;
+	width: ${({ mobile }) => (mobile ? '100%' : '35%')};
 	height: 25.93rem;
 	background: #ffffff;
 	box-shadow: 0px 0px 10px #dadada;
@@ -35,7 +35,7 @@ const ConsultasMainContainer = styled.div`
 `;
 
 const TitleContainer = styled.div`
-	display: ${({ mobile }) => (mobile ? null : 'flex')};
+	display: ${({ mobile }) => (mobile ? 'flex' : 'flex')};
 	flex-direction: ${({ mobile }) => (mobile ? null : 'row')};
 	justify-content: ${({ mobile }) => (mobile ? null : 'space-between')};
 	align-items: center;

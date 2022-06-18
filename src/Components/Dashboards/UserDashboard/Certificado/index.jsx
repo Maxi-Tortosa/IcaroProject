@@ -4,13 +4,16 @@ import ModalCertificado from './ModalCertificado';
 import StyledButton from '../../../Shared/Buttons/StyledButton';
 import styled from 'styled-components';
 import theme from './../../../../Theme/base';
+import { useIsMobile } from '../../../../Hooks/Client';
 
 const Certificados = () => {
 	const [modalOpen, setModalOpen] = useState(false);
 	const modalEvent = () => setModalOpen(true);
 
+	const mobile = useIsMobile();
+
 	return (
-		<CertificadosMainContainer>
+		<CertificadosMainContainer mobile={mobile}>
 			<BannerContainer>
 				<img
 					src='https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/certificadosBanner.png?alt=media&token=38ae4bec-354f-4b19-bd64-d58a570757a7'
@@ -43,7 +46,7 @@ const Certificados = () => {
 export default Certificados;
 
 const CertificadosMainContainer = styled.div`
-	width: 33%;
+	width: ${({ mobile }) => (mobile ? '100%' : '33%')};
 	height: 25.93rem;
 	background: #ffffff;
 	box-shadow: 0px 0px 10px #dadada;
