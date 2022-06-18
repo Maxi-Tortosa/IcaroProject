@@ -10,6 +10,7 @@ import { projectContext } from './../../Context/ProjectContext';
 import styled from 'styled-components';
 import theme from '../../Theme/base';
 import { useIsMobile } from '../../Hooks/Client';
+import { sortArrayByOrdenValue } from '../../Utils';
 
 const Footer = () => {
   const { is404 } = useContext(projectContext);
@@ -28,11 +29,9 @@ const Footer = () => {
   }, [footerContent]);
 
   const getFooterContent = () => {
-    const filterfooterContent = footerContent.sort(function (a, b) {
-      return a.Orden - b.Orden;
-    });
-    return filterfooterContent;
+    return sortArrayByOrdenValue(footerContent);
   };
+
   function scrollTo(element, offset = 0) {
     const elementPosition = element.getBoundingClientRect().top;
     const offsetPosition = elementPosition + window.pageYOffset - offset;

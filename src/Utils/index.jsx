@@ -29,6 +29,18 @@ export function sortArrayByOrderNumber(array) {
 	})
 }
 
+export function sortArrayByOrdenValue(array) {
+  return array.sort(function (a, b) {
+    return a.Orden - b.Orden;
+  });
+}
+
+export function sortArrayByNroOrden(array) {
+  return array.sort((a, b) => {
+    return a.NroOrden - b.NroOrden;
+  });
+}
+
 export function sortArrayAlphabetically(array) {
 	return array.sort((a, b) => {
 		if (a.name === b.name) {

@@ -99,7 +99,7 @@ const NewElementContainer = ({ fieldsList, type, selectOptions }) => {
         {fieldsList.map((elem, index, array) => (
           <FormLabel key={elem.id} htmlFor={elem.nombre} elemWidth={elem.width}>
             <>
-              {elem.nroOrden}. {elem.inputLabel}
+              {index + 1}. {elem.inputLabel}
               {elem.isRequired && (
                 <RequiredText>* Campo obligatorio</RequiredText>
               )}
@@ -121,6 +121,15 @@ const NewElementContainer = ({ fieldsList, type, selectOptions }) => {
                   placeholder={elem.helpText}
                   className="styled-text-area"
                 />
+              ) : elem.type === 'file' ? (
+                <>
+                  <FileInput id="inputFile" name="file" type="file" />
+
+                  <Label htmlFor="inputFile" hasExtraMargin={!elem.helpText}>
+                    <span>Seleccionar archivo</span>
+                    <span>{'Límite 2 mb'}</span>
+                  </Label>
+                </>
               ) : (
                 <FormInput
                   hasExtraMargin={!elem.helpText}
@@ -312,5 +321,46 @@ const SubmitContainer = styled.div`
   flex-direction: row;
   gap: 20px;
 `;
+
+const FileInput = styled.input`
+  display: none;
+`;
+
+const Label = styled.label`
+  margin-top: ${({ hasExtraMargin }) => (hasExtraMargin ? '26px' : 0)};
+  align-self: center;
+  display: flex;
+  align-items: center;
+  background-color: ${theme.color.white};
+  cursor: pointer;
+  text-align: start;
+  padding: 0;
+  font-family: ${theme.fontFamily.primary};
+  font-size: ${({ mobile }) => (mobile ? null : '1rem')};
+  font-weight: ${({ mobile }) => (mobile ? null : '400')};
+  line-height: ${({ mobile }) => (mobile ? null : '1.25rem')};
+
+  span:nth-child(1) {
+    color: ${theme.color.darkGrey};
+    width: 45%;
+    text-align: center;
+    background-color: #e5e5e5;
+    padding: 0.5rem 0;
+    border: ${({ mobile }) => (mobile ? null : '1px solid  #E5E5E5')};
+  }
+  span:nth-child(2) {
+    font-size: 0.9rem;
+    text-align: center;
+    width: 55%;
+    padding: 0.5rem;
+    flex: 1;
+    border: ${({ mobile }) => (mobile ? null : '1px solid  #E5E5E5')};
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-weight: 500;
+  }
+`;
+
 
 export default NewElementContainer;

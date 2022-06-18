@@ -1,12 +1,21 @@
 export const CURSOSCFIELDS = [
   {
+    nombre: 'NroOrden',
+    inputLabel: 'Numero de orden',
+    isRequired: true,
+    type: 'number',
+    id: 16,
+    nroOrden: 0,
+    width: '45%',
+  },
+  {
     nombre: 'bannerImage',
     inputLabel: 'Imagen Portada',
     isRequired: true,
     type: 'file',
     id: 15,
     nroOrden: 1,
-    width: '100%',
+    width: '45%',
   },
   {
     nombre: 'nombre',
@@ -131,7 +140,7 @@ export const CURSOSCFIELDS = [
     type: 'file',
     id: 2,
     nroOrden: 14,
-    width: '100%',
+    width: '45%',
   },
   {
     nombre: 'planDeEstudioContent',

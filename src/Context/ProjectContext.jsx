@@ -2,6 +2,7 @@ import { collection, onSnapshot } from 'firebase/firestore';
 import { createContext, useEffect, useState } from 'react';
 
 import db from '../../src/Firebase';
+import { sortArrayByNroOrden } from '../Utils';
 
 export const projectContext = createContext();
 
@@ -20,8 +21,10 @@ const ProjectContext = ({ children }) => {
   useEffect(() => {
     onSnapshot(
       collection(db, 'NuevosCursos'),
-      (snapshot) =>
-        setCourseCompleteList(snapshot.docs.map((doc) => doc.data())),
+      (snapshot) => {
+        const courseList = snapshot.docs.map((doc) => doc.data());
+        setCourseCompleteList(sortArrayByNroOrden(courseList));
+      },
       (error) => console.log('error', error)
     );
 
@@ -29,7 +32,8 @@ const ProjectContext = ({ children }) => {
       collection(db, 'NuevosCursos'),
       (snapshot) => {
         const courseList = snapshot.docs.map((doc) => doc.data());
-        setCourse(courseList.filter((elem) => !elem.isHidden));
+        const filteredList = courseList.filter((elem) => !elem.isHidden);
+        setCourse(sortArrayByNroOrden(filteredList));
       },
       (error) => console.log('error', error)
     );
@@ -39,7 +43,7 @@ const ProjectContext = ({ children }) => {
       (snapshot) => setCarousel(snapshot.docs.map((doc) => doc.data())),
       (error) => console.log('error', error)
     );
-    
+
     onSnapshot(
       collection(db, 'CategoriasCursos'),
       (snapshot) => setCategories(snapshot.docs.map((doc) => doc.data())),

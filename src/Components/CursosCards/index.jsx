@@ -10,6 +10,7 @@ import { projectContext } from '../../Context/ProjectContext';
 import styled from 'styled-components';
 import theme from '../../Theme/base';
 import { useIsMobile } from '../../Hooks/Client';
+import { sortArrayByOrdenValue } from '../../Utils';
 
 const CursosCards = ({ isProximos }) => {
   const { course } = useContext(projectContext);
@@ -56,10 +57,7 @@ const CursosCards = ({ isProximos }) => {
   }, [nextCourses, course]);
 
   const getCategorias = () => {
-    const categCopy = categories.sort(function (a, b) {
-      return a.Orden - b.Orden;
-    });
-    return categCopy;
+    return sortArrayByOrdenValue(categories);
   };
 
   const getSelectedCourses = (courseList) => {

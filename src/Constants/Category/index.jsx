@@ -7,7 +7,7 @@ export const CATEGORYFIELDS = [
     type: 'text',
     id: 1,
     nroOrden: 1,
-    width: '100%',
+    width: '45%',
   },
   {
     nombre: 'Nombre',
@@ -16,7 +16,7 @@ export const CATEGORYFIELDS = [
     type: 'text',
     id: 2,
     nroOrden: 2,
-    width: '100%',
+    width: '45%',
   },
   {
     nombre: 'Orden',
@@ -25,7 +25,7 @@ export const CATEGORYFIELDS = [
     type: 'number',
     id: 3,
     nroOrden: 4,
-    width: '100%',
+    width: '45%',
   },
   {
     nombre: 'Color',
@@ -34,7 +34,7 @@ export const CATEGORYFIELDS = [
     type: 'color',
     id: 4,
     nroOrden: 3,
-    width: '100%',
+    width: '45%',
   },
 ];
 
