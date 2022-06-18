@@ -20,7 +20,7 @@ const NotFoundPage = () => {
 	return (
 		<NotFoundPageContainer compact={compact} mobile={mobile}>
 			<div>
-				<p>Ups!</p>
+				<p>¡Ups!</p>
 				<p>
 					Esta página no se encuentra dentro de
 					<br />
