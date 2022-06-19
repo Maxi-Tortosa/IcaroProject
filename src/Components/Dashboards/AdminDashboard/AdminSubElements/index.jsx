@@ -1,3 +1,7 @@
+import styled from 'styled-components';
+import { SIDEMENUCATEGORIES } from '../../../../Constants/AdminDashboard';
+import { Link } from 'react-router-dom';
+import AdminInicio from '../AdminInicio';
 import { useContext, useState, useEffect } from 'react';
 import { projectContext } from '../../../../Context/ProjectContext';
 import Loader from '../../../Shared/Loader';
@@ -6,12 +10,15 @@ import CategoriasAdmin from '../CategoriasAdmin';
 import { useLocation } from 'react-router-dom';
 import NewElementContainer from '../../../../Containers/NewElementContainer';
 import EditElementContainer from '../../../../Containers/EditElementContainer';
-import { SIDEMENUCATEGORIES } from '../../../../Constants/AdminDashboard';
 import { CATEGORYFIELDS } from '../../../../Constants/Category';
 import { CURSOSCFIELDS } from '../../../../Constants/Cursos';
-import AdminInicio from '../AdminInicio';
 
-const AdminHome = ({ isNew }) => {
+const AdminSubElements = ({
+  selectedTab,
+  setSelectedTab,
+  handleClick,
+  toggleState,
+}) => {
   const { courseCompleteList, categories } = useContext(projectContext);
   const [pending, setPending] = useState(true);
   const location = useLocation();
@@ -24,35 +31,17 @@ const AdminHome = ({ isNew }) => {
     }
   }, [courseCompleteList, categories]);
 
-  if (pending) {
-    return <Loader />;
-  }
-
-  function openMenuElement(evt, menuName) {
-    // Declare all variables
-    var i, tabcontent, tablinks;
-
-    // Get all elements with class="tabcontent" and hide them
-    tabcontent = document.getElementsByClassName('tabcontent');
-    for (i = 0; i < tabcontent.length; i++) {
-      tabcontent[i].style.display = 'none';
-    }
-
-    // Get all elements with class="tablinks" and remove the class "active"
-    tablinks = document.getElementsByClassName('tablinks');
-    for (i = 0; i < tablinks.length; i++) {
-      tablinks[i].className = tablinks[i].className.replace(' active', '');
-    }
-
-    // Show the current tab, and add an "active" class to the link that opened the tab
-    document.getElementById(menuName).style.display = 'block';
-    evt.currentTarget.className += ' active';
-  }
-
-  function getAdminComponent(menuName, sideLinks) {
-    switch (menuName) {
+  function getSelectedTab() {
+    switch (selectedTab) {
       case 'Inicio':
-        return <AdminInicio />;
+        return (
+          <AdminInicio
+            selectedTab={selectedTab}
+            setSelectedTab={setSelectedTab}
+            handleClick={handleClick}
+            toggleState={toggleState}
+          />
+        );
       case 'Cursos':
         return (
           <>
@@ -100,32 +89,18 @@ const AdminHome = ({ isNew }) => {
     }
   }
 
-  return (
-    <div className="tabs-content">
-      <div className="tab">
-        {SIDEMENUCATEGORIES.map(({ menuName }, index) => (
-          <button
-            className={`tablinks ${index === 0 && 'active'}`}
-            key={index}
-            onClick={(event) => openMenuElement(event, menuName)}
-          >
-            {menuName}
-          </button>
-        ))}
-      </div>
-      <div className="tabs-content-container">
-        {SIDEMENUCATEGORIES.map(({ menuName, sideLinks }, index) => (
-          <div
-            id={menuName}
-            className={`tabcontent ${index === 0 && 'active'}`}
-            key={index}
-          >
-            {getAdminComponent(menuName, sideLinks)}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+  if (pending) {
+    return <Loader />;
+  }
+
+  return <AdminSubElementsContent>{getSelectedTab()}</AdminSubElementsContent>;
 };
 
-export default AdminHome;
+const AdminSubElementsContent = styled.div`
+  float: left;
+  min-height: 80vh !important;
+  width: 80%;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+`;
+
+export default AdminSubElements;

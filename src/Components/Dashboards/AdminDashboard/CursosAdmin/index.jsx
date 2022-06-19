@@ -54,7 +54,7 @@ const CursosAdmin = ({ cursos }) => {
   return (
     <div>
       <TitleContainer>
-        <h3></h3>
+        <Title>Listado de Cursos</Title>
         <NewCourseButton onClick={handleClick}> + Nuevo Curso</NewCourseButton>
       </TitleContainer>
       <TableContent>
@@ -112,9 +112,22 @@ const CursosAdmin = ({ cursos }) => {
 
 const TitleContainer = styled.div`
   display: flex;
+  width: 85%;
+  margin: auto;
   align-items: center;
   justify-content: space-between;
 `;
+
+const Title = styled.h3`
+  font-family: ${({ mobile }) =>
+    mobile ? null : `${theme.fontFamily.primary}`};
+  margin: 0;
+  font-weight: 700;
+  font-size: ${({ mobile }) => (mobile ? null : '1.25rem')};
+  line-height: 24px;
+  color: #29343e;
+`;
+
 const NewCourseButton = styled.button`
   background-color: ${theme.color.darkBlue};
   color: ${theme.color.white};
@@ -131,7 +144,7 @@ const NewCourseButton = styled.button`
   text-align: center;
 `;
 const TableContent = styled.div`
-  width: 100%;
+  /* width: 100%; */
   padding: 10px 20px;
 `;
 const TableHeader = styled.header`

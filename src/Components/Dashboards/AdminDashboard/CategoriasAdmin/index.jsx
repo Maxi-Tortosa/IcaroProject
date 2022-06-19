@@ -55,7 +55,7 @@ const CategoriasAdmin = ({ categorias }) => {
   return (
     <div>
       <TitleContainer>
-        <h3></h3>
+        <Title>Listado de Categorias</Title>
         <NewCourseButton onClick={handleClick} className="nueva-categoria">
           + Nueva Categoria
         </NewCourseButton>
@@ -114,9 +114,21 @@ const CategoriasAdmin = ({ categorias }) => {
 };
 
 const TitleContainer = styled.div`
+  width: 85%;
+  margin: auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
+`;
+
+const Title = styled.h3`
+  font-family: ${({ mobile }) =>
+    mobile ? null : `${theme.fontFamily.primary}`};
+  margin: 0;
+  font-weight: 700;
+  font-size: ${({ mobile }) => (mobile ? null : '1.25rem')};
+  line-height: 24px;
+  color: #29343e;
 `;
 
 const NewCourseButton = styled.button`
@@ -136,7 +148,7 @@ const NewCourseButton = styled.button`
 `;
 
 const TableContent = styled.div`
-  width: 100%;
+  /* width: 100%; */
   padding: 10px 20px;
 `;
 const TableHeader = styled.header`

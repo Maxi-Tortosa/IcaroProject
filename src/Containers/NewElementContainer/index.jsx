@@ -20,7 +20,6 @@ const NewElementContainer = ({ fieldsList, type, selectOptions }) => {
   //link del zoom de clase
 
   const categoriesOptions = normalizeSelectOptions(selectOptions);
-  console.log(categoriesOptions);
 
   useEffect(() => {
     const requiredFields = fieldsList

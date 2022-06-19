@@ -35,6 +35,13 @@ function App() {
 						<Route path='register' element={<Register />} />
 						<Route path='cursos/:name' element={<CoursesPages />} />
 						<Route path='admin' element={<AdminPage />} />
+						<Route path='admin/cursos' element={<AdminPage />} />
+						<Route path='admin/categorias' element={<AdminPage />} />
+						<Route path='admin/comisiones' element={<AdminPage />} />
+						<Route path='admin/usuarios' element={<AdminPage />} />
+						<Route path='admin/solicitudes' element={<AdminPage />} />
+						<Route path='admin/inscripciones' element={<AdminPage />} />
+						<Route path='admin/consultas' element={<AdminPage />} />
 						<Route path='admin/new/categoria' element={<AdminPage />} />
 						<Route path='admin/new/curso' element={<AdminPage />} />
 						<Route path='admin/edit/:editElement' element={<AdminPage />} />
