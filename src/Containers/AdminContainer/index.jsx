@@ -5,7 +5,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import AdminHeader from '../../Components/Dashboards/AdminDashboard/AdminHeader';
 import Spacer from '../../Components/Shared/Spacer';
-import AdminHome from '../../Components/Dashboards/AdminDashboard/AdminHome';
 import AdminSidebar from '../../Components/Dashboards/AdminDashboard/AdminSideBar';
 import AdminSubElements from '../../Components/Dashboards/AdminDashboard/AdminSubElements';
 import { SIDEMENUCATEGORIES } from '../../Constants/AdminDashboard';
