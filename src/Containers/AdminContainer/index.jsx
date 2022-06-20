@@ -32,12 +32,7 @@ const AdminPage = () => {
       <Spacer height={80} />
       <AdminContent>
         <AdminSidebar handleClick={handleClick} toggleState={toggleState} />
-        <AdminSubElements
-          selectedTab={selectedTab}
-          setSelectedTab={setSelectedTab}
-          handleClick={handleClick}
-          toggleState={toggleState}
-        />
+        <AdminSubElements selectedTab={selectedTab} handleClick={handleClick} />
       </AdminContent>
     </AdminContainer>
   );

@@ -8,16 +8,14 @@ import CategoriasAdmin from '../CategoriasAdmin';
 import { useLocation } from 'react-router-dom';
 import NewElementContainer from '../../../../Containers/NewElementContainer';
 import EditElementContainer from '../../../../Containers/EditElementContainer';
-import { CATEGORYFIELDS } from '../../../../Constants/Category';
-import { CURSOSCFIELDS } from '../../../../Constants/Cursos';
+import { CATEGORYFIELDS } from '../../../../Constants/Category/index.js';
+import { CURSOSCFIELDS } from '../../../../Constants/Cursos/index.js';
+import ComisionesAdmin from '../ComisionesAdmin';
+import { COMISIONESFIELDS } from '../../../../Constants/Comisions';
 
-const AdminSubElements = ({
-  selectedTab,
-  setSelectedTab,
-  handleClick,
-  toggleState,
-}) => {
-  const { courseCompleteList, categories } = useContext(projectContext);
+const AdminSubElements = ({ selectedTab, handleClick }) => {
+  const { courseCompleteList, categories, nextCourses } =
+    useContext(projectContext);
   const [pending, setPending] = useState(true);
   const location = useLocation();
 
@@ -70,6 +68,26 @@ const AdminSubElements = ({
             ) : (
               <>
                 <CategoriasAdmin categorias={categories} />
+              </>
+            )}
+          </>
+        );
+      case 'Comisiones':
+        return (
+          <>
+            {location.pathname.includes('new/comision') ? (
+              <NewElementContainer
+                fieldsList={COMISIONESFIELDS}
+                type="Nueva Comision"
+              />
+            ) : location.pathname.includes('admin/edit/') ? (
+              <EditElementContainer
+                fieldsList={COMISIONESFIELDS}
+                type="Editar Comision"
+              />
+            ) : (
+              <>
+                <ComisionesAdmin comisiones={nextCourses} />;
               </>
             )}
           </>

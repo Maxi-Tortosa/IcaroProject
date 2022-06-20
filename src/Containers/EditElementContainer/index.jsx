@@ -19,7 +19,7 @@ const EditElementContainer = ({ fieldsList, type, selectOptions }) => {
   const navigate = useNavigate();
   const [pending, setPending] = useState(true);
 
-  const { course, categories } = useContext(projectContext);
+  const { course, categories, nextCourses } = useContext(projectContext);
   const [selectedEditElement, setSelectedEditElement] = useState('');
   // const [selectedCategory, setSelectedCategory] = useState("")
 
@@ -29,11 +29,12 @@ const EditElementContainer = ({ fieldsList, type, selectOptions }) => {
     if (course.length > 0 && categories.length > 0) {
       const elemResult =
         course.find((elem) => elem.href === editElement) ||
-        categories.find((elem) => elem.CategoriaID === editElement);
+        categories.find((elem) => elem.CategoriaID === editElement) ||
+        nextCourses.find((elem) => elem.comisionId === editElement);
       setSelectedEditElement(elemResult);
       setPending(false);
     }
-  }, [course, categories, editElement]);
+  }, [course, categories, editElement, nextCourses]);
   // console.log("elem", selectedEditElement)
 
   sortArrayByOrderNumber(fieldsList);

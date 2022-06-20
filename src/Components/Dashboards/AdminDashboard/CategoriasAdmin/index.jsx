@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import theme from '../../../../Theme/base';
 import EditIcon from '../../../Shared/Icons/EditIcon';
 import HideIcon from '../../../Shared/Icons/HideIcon';
-import { CATEGORYROWS } from '../../../../Constants/Category';
+import { CATEGORYROWS } from '../../../../Constants/Category/index.js';
 import { useNavigate } from 'react-router-dom';
 import ConfirmationModal from '../../../Shared/Modals/ConfirmationModal';
 import { successToast, errorToast } from '../../../Shared/Toasts/ToastList';

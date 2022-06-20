@@ -5,14 +5,15 @@ import ShowIcon from '../../../Shared/Icons/ShowIcon';
 import EditIcon from '../../../Shared/Icons/EditIcon';
 import styled from 'styled-components';
 import theme from '../../../../Theme/base';
-import { CURSOSROWS } from '../../../../Constants/Cursos/index.js';
+import { COMISIONESROWS } from '../../../../Constants/Comisions';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { successToast, errorToast } from '../../../Shared/Toasts/ToastList';
 import ToastListContainer from '../../../Shared/Toasts/ToastListContainer';
 import Spacer from '../../../Shared/Spacer';
+import { sortArrayBynombreCurso } from '../../../../Utils';
 
-const CursosAdmin = ({ cursos }) => {
+const ComisionesAdmin = ({ comisiones }) => {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState();
   const navigate = useNavigate();
@@ -44,7 +45,7 @@ const CursosAdmin = ({ cursos }) => {
   }
 
   function handleClick() {
-    navigate('/admin/new/curso', { replace: false });
+    navigate('/admin/new/comision', { replace: false });
   }
 
   function handleDelete() {
@@ -54,27 +55,30 @@ const CursosAdmin = ({ cursos }) => {
   return (
     <div>
       <TitleContainer>
-        <Title>Listado de Cursos</Title>
-        <NewCourseButton onClick={handleClick}> + Nuevo Curso</NewCourseButton>
+        <Title>Listado de Comisiones</Title>
+        <NewCourseButton onClick={handleClick}>
+          {' '}
+          + Nueva Comision
+        </NewCourseButton>
       </TitleContainer>
       <TableContent>
         <TableHeader>
-          {CURSOSROWS.map((elem) => (
+          {COMISIONESROWS.map((elem) => (
             <TableColumn key={elem.id} isHeader>
               {elem.nombre}
             </TableColumn>
           ))}
         </TableHeader>
 
-        {cursos.map((el, index) => {
+        {sortArrayBynombreCurso(comisiones).map((el, index) => {
           return (
-            <TableRow key={el.href} isHidden={el.isHidden}>
+            <TableRow key={index} isHidden={el.isHidden}>
               <TableColumn>{index + 1}</TableColumn>
-              <TableColumn>{el.nombre}</TableColumn>
+              <TableColumn>{el.nombreCurso}</TableColumn>
               <TableColumn bgcolor={el.CategoriaID}>{el.categoria}</TableColumn>
               <TableColumn>{el.detalles?.modalidad}</TableColumn>
               <TableColumn isEditDelete>
-                <EditContainer to={`/admin/edit/${el.href}`}>
+                <EditContainer to={`/admin/edit/${el.comisionId}`}>
                   <EditIcon />
                 </EditContainer>
                 <div onClick={(e) => openDeleteModal(el)}>
@@ -197,4 +201,4 @@ const ModalContent = styled.div`
   color: ${theme.color.grey};
 `;
 
-export default CursosAdmin;
+export default ComisionesAdmin;

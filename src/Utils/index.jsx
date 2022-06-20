@@ -41,13 +41,22 @@ export function sortArrayByNroOrden(array) {
   });
 }
 
+export function sortArrayBynombreCurso(array) {
+  return array.sort((a, b) => {
+    if (a.nombreCurso === b.nombreCurso) {
+      return b.id - a.id;
+    }
+    return a.nombreCurso > b.nombreCurso ? 1 : -1;
+  });
+}
+
 export function sortArrayAlphabetically(array) {
-	return array.sort((a, b) => {
-		if (a.name === b.name) {
-			return b.id - a.id
-		}
-		return a.name > b.name ? 1 : -1
-	})
+  return array.sort((a, b) => {
+    if (a.name === b.name) {
+      return b.comisionId - a.comisionId;
+    }
+    return a.name > b.name ? 1 : -1;
+  });
 }
 
 export const normalizeSelectOptions = (normalized) => {

@@ -42,8 +42,7 @@ function App() {
 						<Route path='admin/solicitudes' element={<AdminPage />} />
 						<Route path='admin/inscripciones' element={<AdminPage />} />
 						<Route path='admin/consultas' element={<AdminPage />} />
-						<Route path='admin/new/categoria' element={<AdminPage />} />
-						<Route path='admin/new/curso' element={<AdminPage />} />
+						<Route path='admin/new/:newElement' element={<AdminPage />} />
 						<Route path='admin/edit/:editElement' element={<AdminPage />} />
 						<Route path='user' element={<UserPage />} />
 					</Routes>
