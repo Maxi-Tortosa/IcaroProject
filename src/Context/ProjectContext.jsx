@@ -51,7 +51,7 @@ const ProjectContext = ({ children }) => {
     );
 
     onSnapshot(
-      collection(db, 'FechasCursos'),
+      collection(db, 'ComisionesCursos'),
       (snapshot) => setNextCourses(snapshot.docs.map((doc) => doc.data())),
       (error) => console.log('error', error)
     );

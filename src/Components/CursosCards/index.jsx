@@ -17,6 +17,7 @@ const CursosCards = ({ isProximos }) => {
   const { categories } = useContext(projectContext);
   const { nextCourses } = useContext(projectContext);
 
+  const [nextCoursesList, setNextCoursesList] = useState();
   const [pending, setPending] = useState(true);
   const [toggleState, setToggleState] = useState(0);
   const [selectedCategorie, setSelectedCategorie] = useState(
@@ -51,23 +52,41 @@ const CursosCards = ({ isProximos }) => {
           ? (nextDates = [...nextDates, course])
           : null
       );
-
-      return setCoursesDates(nextDates);
+      setNextCoursesList(nextCoursesInfo);
+      setCoursesDates(nextDates);
     }
   }, [nextCourses, course]);
 
   const getCategorias = () => {
-    return sortArrayByOrdenValue(categories);
+    if (isProximos) {
+      let categoriasArray = [];
+      nextCoursesList.map((a) => categoriasArray.push(a.categoria));
+      const filtered = categories.filter((cat) =>
+        categoriasArray.includes(cat.Nombre)
+      );
+      return sortArrayByOrdenValue(filtered);
+    } else {
+      return sortArrayByOrdenValue(categories);
+    }
   };
 
   const getSelectedCourses = (courseList) => {
-    const localCursosCopy = courseList.filter(
-      (elem) =>
-        elem.categoria === selectedCategorie ||
-        elem.categoria2 === selectedCategorie
-    );
+    if (isProximos) {
+      const localCursosCopy = nextCoursesList.filter(
+        (elem) =>
+          elem.categoria === selectedCategorie ||
+          elem.categoria2 === selectedCategorie
+      );
+      return localCursosCopy;
+    } else {
+      const localCursosCopy = courseList.filter(
+        (elem) =>
+          elem.categoria === selectedCategorie ||
+          elem.categoria2 === selectedCategorie
+      );
 
-    return localCursosCopy;
+      return localCursosCopy;
+    }
   };
 
   const toggleTab = (index, nombre) => {
