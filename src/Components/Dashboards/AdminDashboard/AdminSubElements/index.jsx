@@ -12,9 +12,10 @@ import { CATEGORYFIELDS } from '../../../../Constants/Category/index.js';
 import { CURSOSCFIELDS } from '../../../../Constants/Cursos/index.js';
 import ComisionesAdmin from '../ComisionesAdmin';
 import { COMISIONESFIELDS } from '../../../../Constants/Comisions';
+import UsuariosAdmin from '../UsuariosAdmin';
 
 const AdminSubElements = ({ selectedTab, handleClick }) => {
-  const { courseCompleteList, categories, nextCourses } =
+  const { courseCompleteList, categories, nextCourses, usuariosList } =
     useContext(projectContext);
   const [pending, setPending] = useState(true);
   const location = useLocation();
@@ -92,6 +93,8 @@ const AdminSubElements = ({ selectedTab, handleClick }) => {
             )}
           </>
         );
+      case 'Usuarios':
+        return <UsuariosAdmin usuariosList={usuariosList} />;
 
       default:
         return;

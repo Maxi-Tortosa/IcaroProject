@@ -22,7 +22,7 @@ export const SIDEMENUCATEGORIES = [
     sideLinks: 'Comisiones',
     actions: [
       { name: 'Ver Comisiones', url: '/admin/comisiones' },
-      { name: 'Crear Comision', url: '/new/comision' },
+      { name: 'Crear Comision', url: '/admin/new/comision' },
     ],
   },
   {

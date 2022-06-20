@@ -13,6 +13,7 @@ const ProjectContext = ({ children }) => {
   const [nombres, setNombres] = useState([]);
   const [categories, setCategories] = useState([]);
   const [carousel, setCarousel] = useState([]);
+  const [usuariosList, setUsuariosList] = useState([]);
   const [isLogin, setIsLogin] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [is404, setIs404] = useState(false);
@@ -55,6 +56,12 @@ const ProjectContext = ({ children }) => {
       (snapshot) => setNextCourses(snapshot.docs.map((doc) => doc.data())),
       (error) => console.log('error', error)
     );
+
+    onSnapshot(
+      collection(db, 'Usuarios'),
+      (snapshot) => setUsuariosList(snapshot.docs.map((doc) => doc.data())),
+      (error) => console.log('error', error)
+    );
   }, []);
 
   useEffect(() => {
@@ -78,7 +85,10 @@ const ProjectContext = ({ children }) => {
         setModalOpen,
         carousel,
         setCarousel,
+        usuariosList,
+        setUsuariosList,
         nextCourses,
+        setNextCourses,
         nombres,
         setIs404,
         is404,
