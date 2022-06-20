@@ -20,7 +20,10 @@ export const SIDEMENUCATEGORIES = [
     menuName: 'Comisiones',
     url: '/admin/comisiones',
     sideLinks: 'Comisiones',
-    actions: [{ name: 'Crear Comision', url: '/new/comision' }],
+    actions: [
+      { name: 'Ver Comisiones', url: '/admin/comisiones' },
+      { name: 'Crear Comision', url: '/new/comision' },
+    ],
   },
   {
     menuName: 'Usuarios',

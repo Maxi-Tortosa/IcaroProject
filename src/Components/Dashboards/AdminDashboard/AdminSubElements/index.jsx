@@ -1,6 +1,4 @@
 import styled from 'styled-components';
-import { SIDEMENUCATEGORIES } from '../../../../Constants/AdminDashboard';
-import { Link } from 'react-router-dom';
 import AdminInicio from '../AdminInicio';
 import { useContext, useState, useEffect } from 'react';
 import { projectContext } from '../../../../Context/ProjectContext';
@@ -34,14 +32,7 @@ const AdminSubElements = ({
   function getSelectedTab() {
     switch (selectedTab) {
       case 'Inicio':
-        return (
-          <AdminInicio
-            selectedTab={selectedTab}
-            setSelectedTab={setSelectedTab}
-            handleClick={handleClick}
-            toggleState={toggleState}
-          />
-        );
+        return <AdminInicio handleClick={handleClick} />;
       case 'Cursos':
         return (
           <>

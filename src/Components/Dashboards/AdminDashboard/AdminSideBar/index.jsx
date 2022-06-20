@@ -1,23 +1,8 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { SIDEMENUCATEGORIES } from '../../../../Constants/AdminDashboard';
-import { Link, useNavigate } from 'react-router-dom';
 
-const AdminSidebar = ({
-  selectedTab,
-  setSelectedTab,
-  handleClick,
-  toggleState,
-}) => {
-  // const [toggleState, setToggleState] = useState(0);
-  // const navigate = useNavigate();
-
-  // function handleClick(index, nombre, currentUrl) {
-  //   setToggleState(index);
-  //   setSelectedTab(nombre);
-  //   navigate(currentUrl, { replace: true });
-  // }
-
+const AdminSidebar = ({ handleClick, toggleState }) => {
   return (
     <SidebarContainer>
       {SIDEMENUCATEGORIES.map((elem, index) => (

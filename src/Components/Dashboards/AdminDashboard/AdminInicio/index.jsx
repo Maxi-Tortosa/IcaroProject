@@ -7,12 +7,7 @@ import { useIsMobile } from '../../../../Hooks/Client';
 import Loader from '../../../Shared/Loader';
 import { SIDEMENUCATEGORIES } from '../../../../Constants/AdminDashboard';
 
-const AdminInicio = ({
-  selectedTab,
-  setSelectedTab,
-  handleClick,
-  toggleState,
-}) => {
+const AdminInicio = ({ handleClick }) => {
   const mobile = useIsMobile();
   const { course } = useContext(projectContext);
   const [pending, setPending] = useState(true);
