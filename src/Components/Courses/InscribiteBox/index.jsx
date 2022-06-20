@@ -14,18 +14,15 @@ const InscribiteBox = ({ course }) => {
   const mobile = useIsMobile();
 
   useEffect(() => {
-    let nextDates = [];
     const date = Timestamp.now().toDate();
 
-    nextCourses
-      .filter((crs) => crs.nombreCurso === course.nombre)
-      .map((course) =>
-        course.fechaInicio.toDate() > date
-          ? (nextDates = [...nextDates, course])
-          : null
+    const filteredComision = nextCourses.filter((crs) => {
+      return (
+        crs.nombreCurso === course.nombre && crs.fechaInicio.toDate() > date
       );
+    });
 
-    return setCoursesDates(nextDates);
+    return setCoursesDates(filteredComision);
   }, [nextCourses, course]);
 
   /*CÓDIGO PARA AGREGAR CURSOS PRÓXIMOS AUTOMÁTICAMENTE */
@@ -53,56 +50,65 @@ const InscribiteBox = ({ course }) => {
     <InscribiteBoxContainer mobile={mobile}>
       <TitleBoxContainer mobile={mobile} colorFilter={CategoriaID}>
         <Title mobile={mobile}>Inscribite hoy</Title>
-        <Description mobile={mobile}>12 cuotas sin interés de</Description>
-        <Title mobile={mobile}>$2500</Title>
+        {courseDates.length > 1 && (
+          <>
+            <Description mobile={mobile}>12 cuotas sin interés de</Description>
+            <Title mobile={mobile}>${courseDates[0]?.precioComision}</Title>
+          </>
+        )}
       </TitleBoxContainer>
       <IcribiteContent mobile={mobile}>
-        <TableContent mobile={mobile}>
-          <TableHeader mobile={mobile}>
-            <TableColumn mobile={mobile} isHeader>
-              {mobile ? 'Fecha' : 'Fecha de inicio/fin'}
-            </TableColumn>
-            {!mobile && (
+        {courseDates.length < 1 ? (
+          <p>No se han encontrado comisiones proximas :c </p>
+        ) : (
+          <TableContent mobile={mobile}>
+            <TableHeader mobile={mobile}>
               <TableColumn mobile={mobile} isHeader>
-                Duración
+                {mobile ? 'Fecha' : 'Fecha de inicio/fin'}
               </TableColumn>
-            )}
-            <TableColumn mobile={mobile} isHeader>
-              Días de cursado
-            </TableColumn>
-            <TableColumn>{''}</TableColumn>
-          </TableHeader>
-          {courseDates.map((nextCourse) => {
-            const inicio = nextCourse.fechaInicio
-              .toDate()
-              .toJSON()
-              .slice(0, 10);
-            const fin = nextCourse.fechaFin.toDate().toJSON().slice(0, 10);
-            const periodo = Math.floor(
-              (nextCourse.fechaFin.toDate() - nextCourse.fechaInicio.toDate()) /
-                (1000 * 60 * 60 * 24) /
-                30
-            );
-            return (
-              <TableRow mobile={mobile}>
-                <TableColumn mobile={mobile}>
-                  {inicio} / {fin}
+              {!mobile && (
+                <TableColumn mobile={mobile} isHeader>
+                  Duración
                 </TableColumn>
-                {!mobile && (
-                  <TableColumn>
-                    {periodo > 1 ? `${periodo} Meses` : `${periodo} Mes`}
+              )}
+              <TableColumn mobile={mobile} isHeader>
+                Días de cursado
+              </TableColumn>
+              <TableColumn>{''}</TableColumn>
+            </TableHeader>
+            {courseDates.map((nextCourse) => {
+              const inicio = nextCourse.fechaInicio
+                .toDate()
+                .toJSON()
+                .slice(0, 10);
+              const fin = nextCourse.fechaFin.toDate().toJSON().slice(0, 10);
+              const periodo = Math.floor(
+                (nextCourse.fechaFin.toDate() -
+                  nextCourse.fechaInicio.toDate()) /
+                  (1000 * 60 * 60 * 24) /
+                  30
+              );
+              return (
+                <TableRow mobile={mobile}>
+                  <TableColumn mobile={mobile}>
+                    {inicio} / {fin}
                   </TableColumn>
-                )}
-                <TableColumn mobile={mobile}>
-                  {nextCourse.infoCursado}
-                </TableColumn>
-                <TableColumn mobile={mobile}>
-                  <LinearBttn mobile={mobile}>Inscribirme</LinearBttn>
-                </TableColumn>
-              </TableRow>
-            );
-          })}
-        </TableContent>
+                  {!mobile && (
+                    <TableColumn>
+                      {periodo > 1 ? `${periodo} Meses` : `${periodo} Mes`}
+                    </TableColumn>
+                  )}
+                  <TableColumn mobile={mobile}>
+                    {nextCourse.infoCursado}
+                  </TableColumn>
+                  <TableColumn mobile={mobile}>
+                    <LinearBttn mobile={mobile}>Inscribirme</LinearBttn>
+                  </TableColumn>
+                </TableRow>
+              );
+            })}
+          </TableContent>
+        )}
       </IcribiteContent>
     </InscribiteBoxContainer>
   );
