@@ -22,9 +22,15 @@ const TusCursos = () => {
 				<Title mobile={mobile}>Tus cursos</Title>
 			</TitleContainer>
 			<CardContainer mobile={mobile}>
-				{course.map((elem, index) => (
-					<CurrentCourseCard key={index} course={elem} />
-				))}
+				{course.length > 0 ? (
+					course.map((elem, index) => (
+						<CurrentCourseCard key={index} course={elem} />
+					))
+				) : (
+					<CardContainerText>
+						No estás inscripto a ningún curso
+					</CardContainerText>
+				)}
 			</CardContainer>
 		</TusCursosMainContainer>
 	);
@@ -84,4 +90,13 @@ const CardContainer = styled.div`
 		background-color: ${theme.color.grey};
 		border-radius: 10px;
 	} `};
+`;
+
+const CardContainerText = styled.div`
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	font-family: ${theme.fontFamily.primary};
 `;
