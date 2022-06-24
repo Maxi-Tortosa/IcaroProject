@@ -8,6 +8,7 @@ import Spacer from '../../Components/Shared/Spacer';
 import TusCursos from '../../Components/Dashboards/UserDashboard/TusCursos';
 import { projectContext } from '../../Context/ProjectContext';
 import styled from 'styled-components';
+import UserProfile from '../../Components/Dashboards/UserDashboard/UserProfile';
 
 const UserPage = () => {
 	const { course, categories } = useContext(projectContext);
@@ -22,10 +23,11 @@ const UserPage = () => {
 
 	return (
 		<UserMainContainer>
-			<TusCursos />
+			<UserProfile />
+			{/* <TusCursos />
 			<Consultas />
 			<CursosInteres />
-			<Certificados />
+			<Certificados /> */}
 		</UserMainContainer>
 	);
 };

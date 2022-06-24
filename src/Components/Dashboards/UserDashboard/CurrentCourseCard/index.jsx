@@ -90,7 +90,7 @@ const ContainerParagraph = styled.p`
 	font-size: ${({ mobile }) => (mobile ? null : '1rem')};
 	font-weight: ${({ mobile }) => (mobile ? null : '500')};
 	line-height: ${({ mobile }) => (mobile ? null : '1.25rem')};
-	margin: ${({ mobile }) => (mobile ? null : '0 0 1.2rem 0')};
+	margin: ${({ mobile }) => (mobile ? null : '0 0 0 0')};
 	text-align: center;
 	color: #363636;
 `;
