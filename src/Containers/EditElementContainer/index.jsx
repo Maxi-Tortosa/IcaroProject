@@ -12,7 +12,7 @@ import { projectContext } from '../../Context/ProjectContext';
 import Loader from '../../Components/Shared/Loader';
 import { VscClose } from 'react-icons/vsc';
 
-const EditElementContainer = ({ fieldsList, type, selectOptions }) => {
+const EditElementContainer = ({ fieldsList, type, title, selectOptions }) => {
   const { editElement } = useParams();
   const [disabledButton, setDisabledButton] = useState(true);
   const [newData, setNewData] = useState({});
@@ -21,7 +21,7 @@ const EditElementContainer = ({ fieldsList, type, selectOptions }) => {
 
   const { course, categories, nextCourses } = useContext(projectContext);
   const [selectedEditElement, setSelectedEditElement] = useState('');
-  // const [selectedCategory, setSelectedCategory] = useState("")
+  console.log(type);
 
   //link del tablero de slack
   //link del zoom de clase
@@ -32,12 +32,14 @@ const EditElementContainer = ({ fieldsList, type, selectOptions }) => {
         categories.find((elem) => elem.CategoriaID === editElement) ||
         nextCourses.find((elem) => elem.comisionId === editElement);
       setSelectedEditElement(elemResult);
+      console.log(elemResult);
       setPending(false);
     }
   }, [course, categories, editElement, nextCourses]);
   // console.log("elem", selectedEditElement)
 
   sortArrayByOrderNumber(fieldsList);
+  const categoriesOptions = normalizeSelectOptions(selectOptions);
 
   useEffect(() => {
     const requiredFields = fieldsList
@@ -108,59 +110,66 @@ const EditElementContainer = ({ fieldsList, type, selectOptions }) => {
     <NewElementMainContainer>
       <HeaderTitle>
         <Title>
-          {type}{' '}
+          {title}{' '}
           {selectedEditElement['Nombre'] || selectedEditElement['nombre']}
         </Title>
 
         <CloseButton onClick={handleClose}>
-        <VscClose size={20}
-          />
+          <VscClose size={20} />
         </CloseButton>
       </HeaderTitle>
       <StyledForm>
-        {Object.keys(selectedEditElement).map((elem) => {
-          return <p>{elem}</p>;
-        })}
-        {/* {fieldsList.map((elem, index, array) => (
-					<FormLabel key={elem.id} htmlFor={elem.nombre} elemWidth={elem.width}>
-						<>
-							{elem.nroOrden}. {elem.inputLabel}
-							{elem.isRequired && (
-								<RequiredText>* Campo obligatorio</RequiredText>
-							)}
-							{elem.helpText && elem.type !== "textarea" && (
-								<Small>{elem.helpText}</Small>
-							)}
-							{elem.type === "select" ? (
-								<SelectContainer hasExtraMargin={!elem.helpText}>
-									<Select
-										options={categoriesOptions}
-										onChange={(value) => handleChange(elem.nombre, value.name)}
-										placeholder="Seleccione categoria"
-									/>
-								</SelectContainer>
-							) : elem.type === "textarea" ? (
-								<TextareaAutosize
-									onChange={(e) => handleChange(elem.nombre, e.target.value)}
-									minRows={3}
-									placeholder={elem.helpText}
-									className="styled-text-area"
-								/>
-							) : (
-								<FormInput
-									hasExtraMargin={!elem.helpText}
-									withBorder={elem.type === "text" || elem.type === "number"}
-									type={elem.type}
-									onChange={(e) => handleChange(elem.nombre, e.target.value)}
-									defaultValue={
-										elem.defaultValue || getDefaultValue(elem.nombre)
-									}
-									disabled={elem.isDisabled}
-								/>
-							)}
-						</>
-					</FormLabel>
-				))} */}
+        {fieldsList.map((elem, index, array) => (
+          <FormLabel key={elem.id} htmlFor={elem.nombre} elemWidth={elem.width}>
+            <>
+              {elem.nroOrden}. {elem.inputLabel}
+              {elem.isRequired && (
+                <RequiredText>* Campo obligatorio</RequiredText>
+              )}
+              {elem.helpText && elem.type !== 'textarea' && (
+                <Small>{elem.helpText}</Small>
+              )}
+              {elem.type === 'select' ? (
+                <SelectContainer hasExtraMargin={!elem.helpText}>
+                  <Select
+                    options={categoriesOptions}
+                    onChange={(value) => handleChange(elem.nombre, value.name)}
+                    placeholder="Seleccione categoria"
+                  />
+                </SelectContainer>
+              ) : elem.type === 'file' ? (
+                <>
+                  <FileInput id="inputFile" name="file" type="file" />
+
+                  <Label htmlFor="inputFile" hasExtraMargin={!elem.helpText}>
+                    <span>Seleccionar archivo</span>
+                    <span>{'Límite 2 mb'}</span>
+                  </Label>
+                </>
+              ) : elem.type === 'textarea' ? (
+                <TextareaAutosize
+                  onChange={(e) => handleChange(elem.nombre, e.target.value)}
+                  minRows={3}
+                  placeholder={elem.helpText}
+                  className="styled-text-area"
+                  value={selectedEditElement[elem.nombre]}
+                />
+              ) : (
+                <FormInput
+                  hasExtraMargin={!elem.helpText}
+                  withBorder={elem.type === 'text' || elem.type === 'number'}
+                  type={elem.type}
+                  onChange={(e) => handleChange(elem.nombre, e.target.value)}
+                  defaultValue={
+                    elem.defaultValue || getDefaultValue(elem.nombre)
+                  }
+                  disabled={elem.isDisabled}
+                  value={selectedEditElement[elem.nombre]}
+                />
+              )}
+            </>
+          </FormLabel>
+        ))}
       </StyledForm>
       <SubmitContainer>
         <LinearBttn type="cancel" onClick={handleClose}>
@@ -337,5 +346,46 @@ const SubmitContainer = styled.div`
   flex-direction: row;
   gap: 20px;
 `;
+
+const FileInput = styled.input`
+  display: none;
+`;
+
+const Label = styled.label`
+  margin-top: ${({ hasExtraMargin }) => (hasExtraMargin ? '26px' : 0)};
+  align-self: center;
+  display: flex;
+  align-items: center;
+  background-color: ${theme.color.white};
+  cursor: pointer;
+  text-align: start;
+  padding: 0;
+  font-family: ${theme.fontFamily.primary};
+  font-size: ${({ mobile }) => (mobile ? null : '1rem')};
+  font-weight: ${({ mobile }) => (mobile ? null : '400')};
+  line-height: ${({ mobile }) => (mobile ? null : '1.25rem')};
+
+  span:nth-child(1) {
+    color: ${theme.color.darkGrey};
+    width: 45%;
+    text-align: center;
+    background-color: #e5e5e5;
+    padding: 0.5rem 0;
+    border: ${({ mobile }) => (mobile ? null : '1px solid  #E5E5E5')};
+  }
+  span:nth-child(2) {
+    font-size: 0.9rem;
+    text-align: center;
+    width: 55%;
+    padding: 0.5rem;
+    flex: 1;
+    border: ${({ mobile }) => (mobile ? null : '1px solid  #E5E5E5')};
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-weight: 500;
+  }
+`;
+
 
 export default EditElementContainer;

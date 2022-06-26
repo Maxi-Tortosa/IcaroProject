@@ -43,7 +43,7 @@ export const COMISIONESFIELDS = [
       nombre: 'Id',
     },
     {
-      nombre: 'nombreCurso',
+      nombre: 'Curso',
       inputLabel: 'Curso',
       isRequired: true,
       defaultValue: 'Online - En vivo',
@@ -53,7 +53,7 @@ export const COMISIONESFIELDS = [
       width: '45%',
     },
     {
-      nombre: 'fechaInicio',
+      nombre: 'Fecha de Inicio',
       inputLabel: 'Fecha de Inicio',
       isRequired: true,
       type: 'text',
@@ -62,7 +62,7 @@ export const COMISIONESFIELDS = [
       width: '45%',
     },
     {
-      nombre: 'fechaFin',
+      nombre: 'Fecha de Fin',
       inputLabel: 'Fecha de Fin',
       isRequired: true,
       type: 'select',

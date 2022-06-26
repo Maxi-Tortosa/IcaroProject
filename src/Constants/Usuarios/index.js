@@ -61,7 +61,7 @@ export const USUARIOSFIELDS = [
       nombre: 'Id',
     },
     {
-        nombre: 'name',
+        nombre: 'Nombre',
         inputLabel: 'Nombre',
         isRequired: true,
         type: 'text',
@@ -70,7 +70,7 @@ export const USUARIOSFIELDS = [
         width: '45%',
       },
       {
-        nombre: 'lastname',
+        nombre: 'Apellido',
         inputLabel: 'Apellido',
         isRequired: true,
         type: 'text',
@@ -79,7 +79,7 @@ export const USUARIOSFIELDS = [
         width: '45%',
       },
       {
-        nombre: 'email',
+        nombre: 'Email',
         inputLabel: 'Email',
         isRequired: true,
         type: 'text',
@@ -88,7 +88,7 @@ export const USUARIOSFIELDS = [
         width: '45%',
       },
       {
-        nombre: 'dni',
+        nombre: 'DNI',
         inputLabel: 'DNI',
         isRequired: true,
         type: 'number',

@@ -44,7 +44,8 @@ const AdminSubElements = ({ selectedTab, handleClick }) => {
             ) : location.pathname.includes('admin/edit/') ? (
               <EditElementContainer
                 fieldsList={CURSOSCFIELDS}
-                type="Editar Curso"
+                title="Editar Curso"
+                type="Curso"
                 selectOptions={categories}
               />
             ) : (
@@ -64,7 +65,8 @@ const AdminSubElements = ({ selectedTab, handleClick }) => {
             ) : location.pathname.includes('admin/edit/') ? (
               <EditElementContainer
                 fieldsList={CATEGORYFIELDS}
-                type="Editar Categoria"
+                title="Editar Categoria"
+                type="Categoria"
               />
             ) : (
               <>
@@ -84,7 +86,8 @@ const AdminSubElements = ({ selectedTab, handleClick }) => {
             ) : location.pathname.includes('admin/edit/') ? (
               <EditElementContainer
                 fieldsList={COMISIONESFIELDS}
-                type="Editar Comision"
+                title="Editar Comision"
+                type="Comision"
               />
             ) : (
               <>
