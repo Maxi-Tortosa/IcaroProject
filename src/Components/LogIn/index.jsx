@@ -17,8 +17,6 @@ const LogIn = ({ setIsLoginOpen }) => {
 
 	const navigate = useNavigate();
 
-	console.log(users);
-
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const matchEmail = users.find((user) => user.email === userEmail);

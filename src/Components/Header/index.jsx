@@ -13,13 +13,9 @@ import theme from '../../Theme/base';
 import { useIsMobile } from '../../Hooks/Client';
 import { userContext } from '../../Context/UserContext';
 
-const Header = ({ setIsLoginOpen }) => {
+const Header = ({ setLoggedUser, setIsLoginOpen }) => {
 	const { is404 } = useContext(projectContext);
-	const {
-		//  setCurrentUser,
-		currentUser,
-		users,
-	} = useContext(userContext);
+	const { currentUser, users } = useContext(userContext);
 	const [isScroll, setIsScroll] = useState(false);
 	const [modalIsOpen, setIsOpen] = useState(false);
 	const [displayUser, setDisplayUser] = useState(null);
@@ -35,6 +31,9 @@ const Header = ({ setIsLoginOpen }) => {
 		if (currentUser) {
 			const display = users.find((user) => user.email === currentUser.email);
 			setDisplayUser(display);
+			setLoggedUser(true);
+		} else {
+			setLoggedUser(false);
 		}
 	}, [users, currentUser]);
 
@@ -127,10 +126,6 @@ const Header = ({ setIsLoginOpen }) => {
 						{displayUser ? (
 							<UserDisplay onClick={handleClick} userName={displayUser.name} />
 						) : (
-							// <div className='signoutButton'>
-							// 	<span>{displayUser.name}</span>
-							// 	<button onClick={handleClick}>Cerrar sesión</button>
-							// </div>
 							<div className='signinButton'>
 								<IngresaBttn setIsLoginOpen={setIsLoginOpen} />
 							</div>
