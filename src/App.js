@@ -12,6 +12,7 @@ import ProjectContext from './Context/ProjectContext';
 import Register from './Containers/RegisterContainer';
 import UserContext from './Context/UserContext';
 import UserPage from './Containers/UserDashboardContainer/index';
+import UserProfileContainer from './Containers/UserProfileContainer';
 import { useState } from 'react';
 
 // import AdminContainer from "./Containers/AdminContainer"
@@ -45,6 +46,7 @@ function App() {
 						<Route path='admin/new/:newElement' element={<AdminPage />} />
 						<Route path='admin/edit/:editElement' element={<AdminPage />} />
 						<Route path='user' element={<UserPage />} />
+						<Route path='user/profile' element={<UserProfileContainer />} />
 					</Routes>
 					<FooterContext>
 						<Footer />

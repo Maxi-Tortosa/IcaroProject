@@ -2,8 +2,17 @@ import styled from 'styled-components';
 import theme from '../../../../Theme/base';
 
 const BlueButton = (props) => {
+	const handleClick = (e) => {
+		e.preventDefault();
+		props.onClick && props.onClick();
+	};
+
 	return (
-		<StyledButton {...props} type='submit' disabled={props.disabled}>
+		<StyledButton
+			{...props}
+			type='submit'
+			disabled={props.disabled}
+			onClick={handleClick}>
 			{props.children}
 		</StyledButton>
 	);
@@ -31,5 +40,6 @@ const StyledButton = styled.button`
 		fontSize ? `font-size: ${fontSize}` : 'font-size: 1rem'};
 	${({ lineHeight }) =>
 		lineHeight ? `line-height: ${lineHeight}` : 'line-height: 1.5rem'};
+	${({ alignSelf }) => alignSelf && `align-self: ${alignSelf}`};
 `;
 export default BlueButton;
