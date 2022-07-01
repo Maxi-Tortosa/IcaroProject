@@ -1,39 +1,40 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext, useState } from 'react';
 
+import { VscClose } from 'react-icons/vsc';
 import { auth } from '../../Firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import styled from 'styled-components';
 import theme from '../../Theme/base';
 import { userContext } from '../../Context/UserContext';
-import { VscClose } from 'react-icons/vsc';
-
-// import { projectContext } from '../../Context/ProjectContext';
 
 const LogIn = ({ setIsLoginOpen }) => {
-	// const { setIsLogin } = useContext(projectContext);
 	const { users } = useContext(userContext);
-
 	const [userEmail, setUserEmail] = useState('');
 	const [userPassword, setUserPassword] = useState();
 	const [passwordError, setPasswordError] = useState(false);
-	const [
-		hasError,
-		//  setHasError
-	] = useState(false);
+	const [hasError, setHasError] = useState(false);
 
 	const navigate = useNavigate();
 
-	const handleSubmit = () => {
+	console.log(users);
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
 		const matchEmail = users.find((user) => user.email === userEmail);
-		const matchPassword = matchEmail.password === userPassword ? true : false;
-		if (matchEmail & matchPassword) {
+		const matchPassword =
+			matchEmail && matchEmail.password === userPassword ? true : false;
+
+		console.log(matchEmail, matchPassword);
+
+		if (matchEmail && matchPassword) {
 			signInWithEmailAndPassword(auth, userEmail, userPassword);
 
 			if (matchEmail.rol === 'estudiante') {
-				// setTimeout(() => {
-				// 	navigate('');
-				// }, 1000);
+				setTimeout(() => {
+					setIsLoginOpen(false);
+					navigate('user');
+				}, 1000);
 			}
 			if (matchEmail.rol === 'administrador') {
 				setTimeout(() => {
@@ -72,7 +73,7 @@ const LogIn = ({ setIsLoginOpen }) => {
 			<div className='background'></div>
 			<div className='modal'>
 				<div className='loginImage'></div>
-				<div className='loginData'>
+				<form className='loginData'>
 					<p>Inicia Sesión</p>
 					{/* Ver de meter una validación con el hook de reactfire */}
 					{/*Ver de permitir el ingreso con un enter en el input */}
@@ -109,10 +110,9 @@ const LogIn = ({ setIsLoginOpen }) => {
 						¿No tenés cuenta? Únete a Icaro{' '}
 					</Link>
 					<button className='close' onClick={() => setIsLoginOpen(false)}>
-					<VscClose size={20}
-          />
+						<VscClose size={20} />
 					</button>
-				</div>
+				</form>
 			</div>
 		</Container>
 	);
@@ -214,8 +214,9 @@ const Container = styled.div`
 				font-family: 'Montserrat', sans-serif;
 				font-size: 1.25rem;
 				line-height: 1.5rem;
-				font-weight: 500;
+				font-weight: 700;
 				margin-top: 9%;
+				cursor: pointer;
 			}
 
 			.register {
