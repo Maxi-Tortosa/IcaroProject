@@ -28,18 +28,20 @@ export default Consultas;
 
 const ConsultasMainContainer = styled.div`
 	width: ${({ mobile }) => (mobile ? '100%' : '35%')};
-	height: 25.93rem;
+	height: ${({ mobile }) => (mobile ? '20rem' : '25.93rem')};
 	background: #ffffff;
 	box-shadow: 0px 0px 10px #dadada;
 	border-radius: 5px;
+	margin-bottom: ${({ mobile }) => mobile && '2.5rem'};
 `;
 
 const TitleContainer = styled.div`
 	display: ${({ mobile }) => (mobile ? 'flex' : 'flex')};
-	flex-direction: ${({ mobile }) => (mobile ? null : 'row')};
-	justify-content: ${({ mobile }) => (mobile ? null : 'space-between')};
+	flex-direction: ${({ mobile }) => (mobile ? 'row' : 'row')};
+	justify-content: ${({ mobile }) =>
+		mobile ? 'space-between' : 'space-between'};
 	align-items: center;
-	padding: 1.25rem 0 1.75rem 0;
+	padding: 1.25rem 0 1.5rem 0;
 	margin: 0 1.87rem;
 `;
 const Title = styled.h5`
@@ -47,8 +49,8 @@ const Title = styled.h5`
 		mobile ? null : `${theme.fontFamily.primary}`};
 	margin: 0;
 	font-weight: 700;
-	font-size: ${({ mobile }) => (mobile ? null : '1.25rem')};
-	line-height: 24px;
+	font-size: ${({ mobile }) => (mobile ? '1rem' : '1.25rem')};
+	line-height: ${({ mobile }) => (mobile ? '1.25rem' : '1.5rem')};
 	color: #29343e;
 `;
 const MessageContainer = styled.div``;
