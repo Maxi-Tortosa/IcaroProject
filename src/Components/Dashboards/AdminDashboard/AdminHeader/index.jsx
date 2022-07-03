@@ -54,43 +54,43 @@ const AdminHeader = () => {
 export default AdminHeader
 
 const Container = styled.div`
-	font-family: ${theme.fontFamily.primary};
-	width: 100%;
-	background-color: ${({ isScroll }) =>
-		isScroll ? "grey" : theme.color.darkBlue};
-	transition: all 0.3s ease-out 0s;
-	position: fixed;
-	top: 0;
-	left: 0;
-	z-index: ${theme.zIndex.header};
+  font-family: ${theme.fontFamily.primary};
+  width: 100%;
+  background-color: ${({ isScroll }) =>
+    isScroll ? theme.color.darkBlue : theme.color.darkBlue};
+  transition: all 0.3s ease-out 0s;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: ${theme.zIndex.header};
 
-	.header {
-	}
+  .header {
+  }
 
-	.logo {
-		img {
-			object-fit: cover;
-		}
-	}
-	.menu {
-		width: 26.71%;
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-		list-style-type: none;
-		margin: 0;
-		padding: 0;
-		width: 300px;
-		justify-content: space-between;
+  .logo {
+    img {
+      object-fit: cover;
+    }
+  }
+  .menu {
+    width: 26.71%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 300px;
+    justify-content: space-between;
 
-		li {
-			margin: 0 2.6% 0 0;
-		}
-		& li:last-child {
-			margin: 0;
-		}
-	}
-`
+    li {
+      margin: 0 2.6% 0 0;
+    }
+    & li:last-child {
+      margin: 0;
+    }
+  }
+`;
 const HeaderContent = styled.div`
 	width: 80%;
 	max-width: 1095px;
