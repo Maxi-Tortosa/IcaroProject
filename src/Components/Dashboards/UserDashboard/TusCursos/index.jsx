@@ -17,7 +17,7 @@ const TusCursos = () => {
 	// const arr = course && course.slice(0, 4);
 
 	return (
-		<TusCursosMainContainer>
+		<TusCursosMainContainer mobile={mobile}>
 			<TitleContainer mobile={mobile}>
 				<Title mobile={mobile}>Tus cursos</Title>
 			</TitleContainer>
@@ -40,12 +40,11 @@ export default TusCursos;
 
 const TusCursosMainContainer = styled.div`
 	width: 100%;
-	height: 22.82rem;
+	height: ${({ mobile }) => (mobile ? '16rem' : '22.82rem')};
 	background: #ffffff;
-
 	box-shadow: 0px 0px 10px #dadada;
 	border-radius: 5px;
-	margin-bottom: 1.3%;
+	margin-bottom: ${({ mobile }) => (mobile ? '2.5rem' : '1.3%')};
 	display: flex;
 	flex-direction: column;
 	padding: 0 0 1.5rem 0;
@@ -56,7 +55,8 @@ const TitleContainer = styled.div`
 	flex-direction: ${({ mobile }) => (mobile ? null : 'row')};
 	justify-content: ${({ mobile }) => (mobile ? null : 'space-between')};
 	align-items: center;
-	padding: 1.25rem 0 1.25rem 0;
+	padding: ${({ mobile }) =>
+		mobile ? '1.25rem 0 0.5rem 0' : '1.25rem 0 1.25rem 0'};
 	margin: 0 1.87rem;
 `;
 const Title = styled.h5`
@@ -64,7 +64,7 @@ const Title = styled.h5`
 		mobile ? null : `${theme.fontFamily.primary}`};
 	margin: 0;
 	font-weight: 700;
-	font-size: ${({ mobile }) => (mobile ? null : '1.25rem')};
+	font-size: ${({ mobile }) => (mobile ? '1rem' : '1.25rem')};
 	line-height: 24px;
 	color: #29343e;
 `;
@@ -74,7 +74,7 @@ const CardContainer = styled.div`
 	flex-direction: row;
 	overflow-x: scroll;
 	gap: 0.62rem;
-	height: 74%;
+	height: ${({ mobile }) => (mobile ? '100%' : '74%')};
 	margin: 0 1.87rem;
 	flex: 1;
 

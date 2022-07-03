@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
 import EnviaBttn from '../../../../Shared/Buttons/EnviaBttn';
+import { VscClose } from 'react-icons/vsc';
 import styled from 'styled-components';
 import theme from './../../../../../Theme/base';
 import { useIsMobile } from '../../../../../Hooks/Client';
-import { VscClose } from 'react-icons/vsc'
 
 const ModalCertificado = ({ setModalOpen }) => {
 	const [file, setFile] = useState(null);
@@ -15,12 +15,11 @@ const ModalCertificado = ({ setModalOpen }) => {
 	};
 
 	return (
-		<MainContainer>
-			<ModalContainer>
-				<HeaderTitle>
+		<MainContainer mobile={mobile}>
+			<ModalContainer mobile={mobile}>
+				<HeaderTitle mobile={mobile}>
 					<CloseButton onClick={() => setModalOpen(false)}>
-					<VscClose size={20} />
-					
+						<VscClose size={mobile ? 25 : 20} />
 					</CloseButton>
 					<Title>Beneficios Especiales</Title>
 				</HeaderTitle>
@@ -40,15 +39,15 @@ const ModalCertificado = ({ setModalOpen }) => {
 						onChange={handleChangeInput}
 					/>
 
-					<Label htmlFor='inputFile'>
+					<Label htmlFor='inputFile' mobile={mobile}>
 						<span>Seleccionar archivo</span>
 						<span>{file ? file : 'Límite 2 mb'}</span>
 					</Label>
 					<EnviaBttn
 						fontFamily='Montserrat, sans-serif'
 						fontSize='1.18rem'
-						width={mobile ? '100%' : '58%'}
-						margin={mobile ? '60px 0 0 0' : '20px 21%'}
+						width={mobile ? '90%' : '58%'}
+						margin={mobile ? '60px 5% 0 5%' : '30px 21%'}
 						padding='16px'
 						backgroundColor={theme.color.darkBlue}
 						onClick={() => null}
@@ -71,17 +70,19 @@ const MainContainer = styled.div`
 	left: 0;
 	display: flex;
 	justify-content: center;
-	align-items: start;
+	align-items: ${({ mobile }) => (mobile ? 'center' : 'start')};
 `;
 
 const ModalContainer = styled.div`
-	margin: 5% 0 0 0;
-	width: 35rem;
+	margin: ${({ mobile }) => (mobile ? '0' : '6% 0 0 0')};
+	padding: ${({ mobile }) => (mobile ? '0' : '2rem 0')};
+	width: ${({ mobile }) => (mobile ? '100%' : '35rem')};
+	height: ${({ mobile }) => (mobile ? '100%' : null)};
 	display: flex;
 	flex-direction: column;
-	padding: 2rem 0;
+	${({ mobile }) => mobile && 'justify-content:start'};
 	background: white;
-	border-radius: 0 0 10px 10px;
+	border-radius: ${({ mobile }) => (mobile ? '0' : '0 0 10px 10px')};
 	overflow-y: scroll;
 	::-webkit-scrollbar {
 		display: none;
@@ -93,7 +94,7 @@ const HeaderTitle = styled.div`
 	justify-content: space-between;
 	align-items: center;
 	width: 90%;
-	margin: auto;
+	margin: ${({ mobile }) => (mobile ? '2rem auto' : '0 auto 2rem auto ')};
 `;
 const Title = styled.h3`
 	font-family: 'Montserrat';
@@ -114,28 +115,31 @@ const CloseButton = styled.div`
 `;
 
 const Parragraph = styled.div`
-	width: 82%;
+	width: ${({ mobile }) => (mobile ? '75%' : '82%')};
 	font-family: 'Montserrat';
 	font-style: normal;
 	font-weight: 400;
 	font-size: ${({ mobile }) => (mobile ? '0.87rem' : '1rem')};
-	width: ${({ mobile }) => (mobile ? '75%' : null)};
 	line-height: 19.5px;
-	text-align: left;
-	margin: 20px auto;
+	text-align: ${({ mobile }) => (mobile ? 'center' : 'left')};
+	margin: ${({ mobile }) => (mobile ? '10px auto' : '15px auto')};
 	color: #3d3d3d;
 `;
 
-const StyledForm = styled.form``;
+const StyledForm = styled.form`
+	width: ${({ mobile }) => mobile && '90% '};
+	margin: ${({ mobile }) => (mobile ? '2rem auto' : '2rem 0 0 0')};
+`;
 
 const FileInput = styled.input`
 	display: none;
 `;
 
 const Label = styled.label`
-	width: 70%;
+	width: ${({ mobile }) => (mobile ? '80%' : '70%')};
 	align-self: center;
 	display: flex;
+	flex-direction: ${({ mobile }) => (mobile ? 'column' : 'row')};
 	align-items: center;
 	background-color: ${theme.color.white};
 	cursor: pointer;
@@ -149,19 +153,21 @@ const Label = styled.label`
 
 	span:nth-child(1) {
 		color: ${theme.color.darkGrey};
-		width: 45%;
+		width: ${({ mobile }) => (mobile ? '55%' : '45%')};
 		text-align: center;
 		background-color: #e5e5e5;
 		padding: 0.5rem 0;
-		border: ${({ mobile }) => (mobile ? null : '1px solid  #E5E5E5')};
+		border: ${({ mobile }) =>
+			mobile ? '1px solid  #E5E5E5' : '1px solid  #E5E5E5'};
 	}
 	span:nth-child(2) {
 		font-size: 0.9rem;
 		text-align: center;
-		width: 55%;
-		padding: 0.5rem;
+		width: ${({ mobile }) => (mobile ? '55%' : '55%')};
+		padding: ${({ mobile }) => (mobile ? '1.05rem 0' : '0.5rem')};
 		flex: 1;
-		border: ${({ mobile }) => (mobile ? null : '1px solid  #E5E5E5')};
+		border: ${({ mobile }) =>
+			mobile ? '1px solid  #E5E5E5' : '1px solid  #E5E5E5'};
 		overflow: hidden;
 		white-space: nowrap;
 		text-overflow: ellipsis;

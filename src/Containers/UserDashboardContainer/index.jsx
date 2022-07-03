@@ -6,13 +6,13 @@ import CursosInteres from './../../Components/Dashboards/UserDashboard/CursosInt
 import Loader from '../../Components/Shared/Loader';
 import Spacer from '../../Components/Shared/Spacer';
 import TusCursos from '../../Components/Dashboards/UserDashboard/TusCursos';
+import UserProfile from '../../Components/Dashboards/UserDashboard/UserProfile';
 import { projectContext } from '../../Context/ProjectContext';
 import styled from 'styled-components';
 
 const UserPage = () => {
 	const { course, categories } = useContext(projectContext);
 	const [pending, setPending] = useState(true);
-	const sideMenuLinks = ['Inicio', 'Mis Cursos', 'Mis Consultas'];
 
 	useEffect(() => {
 		if (course.length > 0 && categories.length > 0) {

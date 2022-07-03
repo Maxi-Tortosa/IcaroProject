@@ -1,9 +1,10 @@
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 
 import ContactModal from '../Shared/Modals/ContactModal';
 import IngresaBttn from '../Shared/Buttons/IngresaBttn';
-import { Link, useLocation } from 'react-router-dom';
 import MenuMobile from '../MenuMobile';
+import UserDisplay from './../UserDisplay/index';
 import { auth } from '../../Firebase';
 import { projectContext } from '../../Context/ProjectContext';
 import { signOut } from 'firebase/auth';
@@ -12,13 +13,9 @@ import theme from '../../Theme/base';
 import { useIsMobile } from '../../Hooks/Client';
 import { userContext } from '../../Context/UserContext';
 
-const Header = ({ setIsLoginOpen }) => {
+const Header = ({ setLoggedUser, setIsLoginOpen }) => {
 	const { is404 } = useContext(projectContext);
-	const {
-		//  setCurrentUser,
-		currentUser,
-		users,
-	} = useContext(userContext);
+	const { currentUser, users } = useContext(userContext);
 	const [isScroll, setIsScroll] = useState(false);
 	const [modalIsOpen, setIsOpen] = useState(false);
 	const [displayUser, setDisplayUser] = useState(null);
@@ -27,13 +24,16 @@ const Header = ({ setIsLoginOpen }) => {
 	const cursosElement = document.getElementById('cursos');
 	const quienesSomosElement = document.getElementById('quienes-somos');
 	const rootElement = document.getElementById('root');
-
+	const navigate = useNavigate();
 	const location = useLocation().pathname;
 
 	useEffect(() => {
 		if (currentUser) {
 			const display = users.find((user) => user.email === currentUser.email);
 			setDisplayUser(display);
+			setLoggedUser(true);
+		} else {
+			setLoggedUser(false);
 		}
 	}, [users, currentUser]);
 
@@ -66,6 +66,7 @@ const Header = ({ setIsLoginOpen }) => {
 		signOut(auth);
 		setTimeout(() => {
 			setDisplayUser(null);
+			navigate('/');
 		}, 1000);
 	}
 
@@ -123,12 +124,9 @@ const Header = ({ setIsLoginOpen }) => {
 							</li>
 						</ul>
 						{displayUser ? (
-							<div className='signinButton'>
-								<span>{displayUser.name}</span>
-								<button onClick={handleClick}>Cerrar sesión</button>
-							</div>
+							<UserDisplay onClick={handleClick} userName={displayUser.name} />
 						) : (
-							<div className='signoutButton'>
+							<div className='signinButton'>
 								<IngresaBttn setIsLoginOpen={setIsLoginOpen} />
 							</div>
 						)}

@@ -12,21 +12,22 @@ import ProjectContext from './Context/ProjectContext';
 import Register from './Containers/RegisterContainer';
 import UserContext from './Context/UserContext';
 import UserPage from './Containers/UserDashboardContainer/index';
+import UserProfileContainer from './Containers/UserProfileContainer';
 import { useState } from 'react';
-
-// import AdminContainer from "./Containers/AdminContainer"
 
 function App() {
 	const [isLoginOpen, setIsLoginOpen] = useState(false);
+	const [loggedUser, setLoggedUser] = useState(false);
 
+	console.log(loggedUser);
 	return (
 		<BrowserRouter>
 			<UserContext>
 				<ProjectContext>
-					{/* <AdminContainer /> */}
-					{/* <UserDashboardContainer /> */}
-					{/* {cuando salga del admin desloguear usuario y enviar a home} */}
-					<Header setIsLoginOpen={setIsLoginOpen} />
+					<Header
+						setIsLoginOpen={setIsLoginOpen}
+						setLoggedUser={setLoggedUser}
+					/>
 					{isLoginOpen ? <LogIn setIsLoginOpen={setIsLoginOpen} /> : null}
 					<Routes>
 						<Route exact path='/' element={<HomeContainer />} />
@@ -45,7 +46,12 @@ function App() {
 						<Route path='admin/new/:newElement' element={<AdminPage />} />
 						<Route path='admin/edit/:editElement' element={<AdminPage />} />
 						<Route path='admin/perfil' element={<AdminPage />} />
-						<Route path='user' element={<UserPage />} />
+						{loggedUser && (
+							<>
+								<Route path='user' element={<UserPage />} />
+								<Route path='user/profile' element={<UserProfileContainer />} />
+							</>
+						)}
 					</Routes>
 					<FooterContext>
 						<Footer />
