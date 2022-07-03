@@ -40,3 +40,14 @@ export const SIDEMENUCATEGORIES = [
   },
   { menuName: 'Consultas', url: '/admin/consultas' },
 ];
+
+export const ADMINMENULINKS = [
+  {
+    menuName: 'Mi Perfil',
+    url: '/admin/perfil',
+  },
+  {
+    menuName: 'Salir',
+    url: '/admin/',
+  },
+];

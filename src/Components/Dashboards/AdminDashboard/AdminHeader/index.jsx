@@ -5,43 +5,51 @@ import styled from "styled-components"
 import theme from "../../../../Theme/base"
 import SettingsIcon from "../../../Shared/Icons/SettingsIcon"
 import { useState } from "react"
+import AdminMenu from '../AdminMenu';
 
 const AdminHeader = () => {
-	const [isScroll, setIsScroll] = useState(false)
-	const { isAdmin } = useContext(projectContext)
+  const [isScroll, setIsScroll] = useState(false);
+  const [isOpenMenu, setIsOpenMenu] = useState(false);
+  const { isAdmin } = useContext(projectContext);
 
-	window.addEventListener("scroll", changeNavColor)
+  window.addEventListener('scroll', changeNavColor);
 
-	function changeNavColor() {
-		if (window.scrollY >= 85) {
-			setIsScroll(true)
-		} else {
-			setIsScroll(false)
-		}
-	}
+  function changeNavColor() {
+    if (window.scrollY >= 85) {
+      setIsScroll(true);
+    } else {
+      setIsScroll(false);
+    }
+  }
 
-	return (
-		<>
-			{isAdmin && (
-				<Container isScroll={isScroll}>
-					<HeaderContent>
-						<Link to="/" className="logo">
-							<img
-								src="https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/logo.svg?alt=media&token=b47dccac-e962-48ab-99f1-f3d250f879f5"
-								alt="Logo de Ícaro"
-							/>
-						</Link>
-						{/* <h3>Bienvenido!</h3> */}
+  function openAdminMenu() {
+    setIsOpenMenu(!isOpenMenu);
+  }
 
-						<SettingsButton>
-							<SettingsIcon iconSize={50} />
-						</SettingsButton>
-					</HeaderContent>
-				</Container>
-			)}
-		</>
-	)
-}
+  return (
+    <>
+      {isAdmin && (
+        <Container isScroll={isScroll}>
+          <HeaderContent>
+            <Link to="/" className="logo">
+              <img
+                src="https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/logo.svg?alt=media&token=b47dccac-e962-48ab-99f1-f3d250f879f5"
+                alt="Logo de Ícaro"
+              />
+            </Link>
+            {/* <h3>Bienvenido!</h3> */}
+
+            <SettingsButton onClick={(e) => openAdminMenu()}>
+              <SettingsIcon iconSize={50} />
+            </SettingsButton>
+          </HeaderContent>
+        </Container>
+      )}
+      {isOpenMenu && <AdminMenu />}
+      {/* <AdminMenu /> */}
+    </>
+  );
+};
 
 export default AdminHeader
 

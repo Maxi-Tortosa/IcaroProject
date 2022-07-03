@@ -44,6 +44,7 @@ function App() {
 						<Route path='admin/consultas' element={<AdminPage />} />
 						<Route path='admin/new/:newElement' element={<AdminPage />} />
 						<Route path='admin/edit/:editElement' element={<AdminPage />} />
+						<Route path='admin/perfil' element={<AdminPage />} />
 						<Route path='user' element={<UserPage />} />
 					</Routes>
 					<FooterContext>
