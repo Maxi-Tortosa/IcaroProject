@@ -11,6 +11,9 @@ import styled from 'styled-components';
 import theme from '../../Theme/base';
 import { useIsMobile } from '../../Hooks/Client';
 import { sortArrayByOrdenValue } from '../../Utils';
+import {useLocation, useNavigate} from 'react-router-dom';
+
+
 
 const Footer = () => {
   const { is404 } = useContext(projectContext);
@@ -19,9 +22,10 @@ const Footer = () => {
   const [inCompanyModalIsOpen, setInCompanyModalIsOpen] = useState(false);
   const [ContactoModalIsOpen, setContactoModalIsOpen] = useState(false);
   const mobile = useIsMobile();
-  const cursosElement = document.getElementById('cursos');
-  const rootElement = document.getElementById('root');
-
+  const location = useLocation();
+  const navigate = useNavigate();
+  
+ 
   useEffect(() => {
     if (footerContent) {
       setPending(false);
@@ -31,12 +35,19 @@ const Footer = () => {
   const getFooterContent = () => {
     return sortArrayByOrdenValue(footerContent);
   };
-
-  function scrollTo(element, offset = 0) {
-    const elementPosition = element.getBoundingClientRect().top;
-    const offsetPosition = elementPosition + window.pageYOffset - offset;
-
-    window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+   function  scrollTo(route, offset = 0) {
+    location !== '/' && navigate('/') 
+    setTimeout(()=>{
+      let element = document.getElementById('root');
+      if(route === '/cursos'){
+        element = document.getElementById('cursos');
+      }
+     
+       const elementPosition = element.getBoundingClientRect().top;
+       const offsetPosition = elementPosition + window.pageYOffset - offset;
+       
+       window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+    },500)
   }
 
   return (
@@ -61,10 +72,10 @@ const Footer = () => {
                               function footerUrl() {
                                 switch (url) {
                                   case '/':
-                                    scrollTo(rootElement);
+                                     scrollTo('/');
                                     break;
                                   case '/cursos':
-                                    scrollTo(cursosElement, 70);
+                                    scrollTo('/cursos', 70);
                                     break;
                                   case '/in-company':
                                     setInCompanyModalIsOpen(true);
