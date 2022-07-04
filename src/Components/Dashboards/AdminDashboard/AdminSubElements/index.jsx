@@ -100,7 +100,7 @@ const AdminSubElements = ({ selectedTab, handleClick }) => {
         return <UsuariosAdmin usuariosList={usuariosList} />;
 
       default:
-        return;
+        return <AdminInicio handleClick={handleClick} />;
     }
   }
 

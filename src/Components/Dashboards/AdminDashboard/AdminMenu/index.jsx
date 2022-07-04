@@ -3,7 +3,7 @@ import { ADMINMENULINKS } from '../../../../Constants/AdminDashboard';
 import theme from '../../../../Theme/base';
 import Divider from '../../../Shared/Divider';
 import Spacer from '../../../Shared/Spacer';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Logout from '../../../Shared/Icons/LogOut';
 import UserIcon from '../../../Shared/Icons/User';
 
