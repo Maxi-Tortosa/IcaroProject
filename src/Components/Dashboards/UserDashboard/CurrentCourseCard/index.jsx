@@ -5,41 +5,43 @@ import { projectContext } from '../../../../Context/ProjectContext';
 import styled from 'styled-components';
 import theme from '../../../../Theme/base';
 import { useIsMobile } from '../../../../Hooks/Client';
+import { turnTimestampIntoDate } from '../../../../Utils';
 
 const CurrentCourseCard = ({ course }) => {
-	const { nextCourses } = useContext(projectContext);
-	const [currentCourse, setCurrentCourse] = useState();
-	const mobile = useIsMobile();
+  const { nextCourses } = useContext(projectContext);
+  const [currentCourse, setCurrentCourse] = useState();
+  const mobile = useIsMobile();
 
-	useEffect(() => {
-		setCurrentCourse(
-			nextCourses.find(
-				(elem, index, array) => elem.nombreCurso === 'Consultoría Ambiental'
-			)
-		);
-	}, [nextCourses, currentCourse]);
+  useEffect(() => {
+    setCurrentCourse(
+      nextCourses.find(
+        (elem, index, array) => elem.nombreCurso === 'Consultoría Ambiental'
+      )
+    );
+  }, [nextCourses, currentCourse]);
 
-	const fechaInicio =
-		currentCourse && currentCourse.fechaInicio.toDate().toJSON().slice(0, 10);
-	const fechaFin =
-		currentCourse && currentCourse.fechaFin.toDate().toJSON().slice(0, 10);
+  const fechaInicio =
+    currentCourse && turnTimestampIntoDate(currentCourse.fechaInicio);
+  const fechaFin =
+    currentCourse && turnTimestampIntoDate(currentCourse.fechaFin);
 
-	return (
-		<CurrentCourseCardContainer mobile={mobile}>
-			<BannerContainer
-				mobile={mobile}
-				src={course.bannerImage}
-				colorFilter={course.CategoriaID}></BannerContainer>
-			<Container mobile={mobile}>
-				<Title mobile={mobile}>{course.nombre}</Title>
+  return (
+    <CurrentCourseCardContainer mobile={mobile}>
+      <BannerContainer
+        mobile={mobile}
+        src={course.bannerImage}
+        colorFilter={course.CategoriaID}
+      ></BannerContainer>
+      <Container mobile={mobile}>
+        <Title mobile={mobile}>{course.nombre}</Title>
 
-				<Paragraph mobile={mobile}>
-					Lunes y viernes: 8 a 10 AM <br />
-					{fechaInicio} / {fechaFin}
-				</Paragraph>
-			</Container>
-		</CurrentCourseCardContainer>
-	);
+        <Paragraph mobile={mobile}>
+          Lunes y viernes: 8 a 10 AM <br />
+          {fechaInicio} / {fechaFin}
+        </Paragraph>
+      </Container>
+    </CurrentCourseCardContainer>
+  );
 };
 
 export default CurrentCourseCard;

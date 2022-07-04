@@ -73,3 +73,7 @@ export const normalizeSelectOptions = (normalized) => {
 	const orderedOptions = sortArrayAlphabetically(Options)
 	return orderedOptions
 }
+
+export function turnTimestampIntoDate(data) {
+  return data.toDate().toJSON().slice(0, 10);
+}

@@ -6,6 +6,7 @@ import { projectContext } from '../../../Context/ProjectContext';
 import styled from 'styled-components';
 import theme from '../../../Theme/base';
 import { useIsMobile } from '../../../Hooks/Client';
+import { turnTimestampIntoDate } from '../../../Utils';
 
 const InscribiteBox = ({ course }) => {
   const { nextCourses } = useContext(projectContext);
@@ -74,14 +75,11 @@ const InscribiteBox = ({ course }) => {
               <TableColumn mobile={mobile} isHeader>
                 Días de cursado
               </TableColumn>
-              <TableColumn>{''}</TableColumn>
+              <TableColumn extraSpace={11}>{''}</TableColumn>
             </TableHeader>
             {courseDates.map((nextCourse) => {
-              const inicio = nextCourse.fechaInicio
-                .toDate()
-                .toJSON()
-                .slice(0, 10);
-              const fin = nextCourse.fechaFin.toDate().toJSON().slice(0, 10);
+              const inicio = turnTimestampIntoDate(nextCourse.fechaInicio);
+              const fin = turnTimestampIntoDate(nextCourse.fechaFin);
               const periodo = Math.floor(
                 (nextCourse.fechaFin.toDate() -
                   nextCourse.fechaInicio.toDate()) /
@@ -95,11 +93,13 @@ const InscribiteBox = ({ course }) => {
                   </TableColumn>
                   {!mobile && (
                     <TableColumn>
-                      {periodo > 1 ? `${periodo} Meses` : `${periodo} Mes`}
+                      {nextCourse.duracionSemanas
+                        ? nextCourse.duracionSemanas
+                        : periodo}
                     </TableColumn>
                   )}
                   <TableColumn mobile={mobile}>
-                    {nextCourse.infoCursado}
+                    {nextCourse.diaDeClases}
                   </TableColumn>
                   <TableColumn mobile={mobile}>
                     <LinearBttn mobile={mobile}>Inscribirme</LinearBttn>
@@ -181,6 +181,7 @@ const TableColumn = styled.div`
   align-items: center;
   justify-content: center;
   ${({ isHeader }) => !isHeader && `color: ${theme.color.grey};`}
+  ${({ extraSpace }) => extraSpace && `padding: ${extraSpace}px`}
 `;
 
 export default InscribiteBox;
