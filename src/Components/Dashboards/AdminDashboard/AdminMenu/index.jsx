@@ -4,6 +4,8 @@ import theme from '../../../../Theme/base';
 import Divider from '../../../Shared/Divider';
 import Spacer from '../../../Shared/Spacer';
 import { useLocation, useNavigate } from 'react-router-dom';
+import Logout from '../../../Shared/Icons/LogOut';
+import UserIcon from '../../../Shared/Icons/User';
 
 const AdminMenu = () => {
   const navigate = useNavigate();
@@ -19,7 +21,10 @@ const AdminMenu = () => {
           <>
             <LinksContainer onClick={(e) => handleClick(elem.url)}>
               <Spacer height={10} />
-              <MenuButton>{elem.menuName}</MenuButton>
+              <Content>
+                {elem.icon === 'user' ? <UserIcon /> : <Logout />}
+                <MenuButton>{elem.menuName}</MenuButton>
+              </Content>
               <Spacer height={10} />
             </LinksContainer>
             {index === 0 && <Divider />}
@@ -31,14 +36,11 @@ const AdminMenu = () => {
 };
 
 const AdminMenuContainer = styled.div`
-  /* position: relative; */
   position: absolute;
   top: 70px;
-  left: 860px;
+  margin-left: -150px;
   background-color: ${theme.color.white};
-  /* background-color: red; */
   box-shadow: 0 6px 12px rgb(0 0 0 / 18%);
-  /* height: 200px; */
   width: 200px;
   z-index: ${theme.zIndex.modals};
   padding: 20px 0;
@@ -47,11 +49,18 @@ const AdminMenuContainer = styled.div`
 const LinksContainer = styled.div`
   cursor: pointer;
   padding: 0 20px;
+  text-align: left;
 
   &:hover {
     background-color: ${theme.color.lightGrey};
   }
 `;
+
+const Content = styled.div`
+  display: flex;
+  gap: 5px;
+`;
+
 const MenuButton = styled.button`
   text-decoration: none;
   border: none;
@@ -60,6 +69,7 @@ const MenuButton = styled.button`
   font-family: ${theme.fontFamily.primary};
   font-size: 14px;
   cursor: pointer;
+  color: ${theme.color.darkGrey};
 
   &:hover {
     background-color: ${theme.color.lightGrey};

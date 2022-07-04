@@ -37,21 +37,18 @@ const AdminHeader = () => {
                 alt="Logo de Ícaro"
               />
             </Link>
-            {/* <h3>Bienvenido!</h3> */}
-
             <SettingsButton onClick={(e) => openAdminMenu()}>
               <SettingsIcon iconSize={50} />
+              {isOpenMenu && <AdminMenu />}
             </SettingsButton>
           </HeaderContent>
         </Container>
       )}
-      {isOpenMenu && <AdminMenu />}
-      {/* <AdminMenu /> */}
     </>
   );
 };
 
-export default AdminHeader
+export default AdminHeader;
 
 const Container = styled.div`
   font-family: ${theme.fontFamily.primary};
@@ -92,18 +89,19 @@ const Container = styled.div`
   }
 `;
 const HeaderContent = styled.div`
-	width: 80%;
-	max-width: 1095px;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	flex-direction: row;
+  width: 80%;
+  max-width: 1095px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
 
-	padding: 20px 0;
-	margin: auto;
-`
+  padding: 20px 0;
+  margin: auto;
+`;
 
 const SettingsButton = styled.button`
-	background: transparent;
-	border: none;
-`
+  background: transparent;
+  border: none;
+  /* position: relative; */
+`;
