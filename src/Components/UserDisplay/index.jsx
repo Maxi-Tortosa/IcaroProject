@@ -2,6 +2,7 @@ import { FaRegUser, FaSignOutAlt } from 'react-icons/fa';
 import { Link, useLocation } from 'react-router-dom';
 import React, { useState } from 'react';
 
+import { MdDashboard } from 'react-icons/md';
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
 import styled from 'styled-components';
 import theme from '../../Theme/base';
@@ -33,11 +34,15 @@ const UserDisplay = ({ userName, onClick }) => {
 			{isMenuOpen && (
 				<UserMenu>
 					<Item>
-						<FaRegUser size={20} color={theme.color.login} />
+						{ref ? (
+							<MdDashboard size={20} color={theme.color.login} />
+						) : (
+							<FaRegUser size={20} color={theme.color.login} />
+						)}
 						<LinkText>
 							{ref ? (
 								<Link to='/user/' onClick={() => setIsMenuOpen(false)}>
-									Mi dashboard
+									Inicio
 								</Link>
 							) : (
 								<Link to='/user/profile' onClick={() => setIsMenuOpen(false)}>
