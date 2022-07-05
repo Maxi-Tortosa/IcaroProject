@@ -11,7 +11,10 @@ import { useState } from 'react';
 import { successToast, errorToast } from '../../../Shared/Toasts/ToastList';
 import ToastListContainer from '../../../Shared/Toasts/ToastListContainer';
 import Spacer from '../../../Shared/Spacer';
-import { sortArrayBynombreCurso } from '../../../../Utils';
+import {
+  sortArrayBynombreCurso,
+  turnTimestampIntoDate,
+} from '../../../../Utils';
 
 const ComisionesAdmin = ({ comisiones }) => {
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -75,8 +78,8 @@ const ComisionesAdmin = ({ comisiones }) => {
             <TableRow key={index} isHidden={el.isHidden}>
               <TableColumn>{index + 1}</TableColumn>
               <TableColumn>{el.nombreCurso}</TableColumn>
-              <TableColumn bgcolor={el.CategoriaID}>{el.categoria}</TableColumn>
-              <TableColumn>{el.detalles?.modalidad}</TableColumn>
+              <TableColumn>{turnTimestampIntoDate(el.fechaInicio)}</TableColumn>
+              <TableColumn>{turnTimestampIntoDate(el.fechaFin)}</TableColumn>
               <TableColumn isEditDelete>
                 <EditContainer to={`/admin/edit/${el.comisionId}`}>
                   <EditIcon />

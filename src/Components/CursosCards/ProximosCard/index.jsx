@@ -1,60 +1,61 @@
 import { Link } from "react-router-dom"
 import styled from "styled-components"
 import theme from "../../../Theme/base"
+import { turnTimestampIntoDate } from '../../../Utils';
 
 const ProximosCard = ({ isProximos, info, overridecolor, isMobile }) => {
 	const { clasesSemanales, duracion, modalidad } = info.detalles
 	const { fechaInicio } = info
 
 	return (
-		<CardContainer isMobile={isMobile} isProximos={isProximos}>
-			<TitleContainer
-				to={`/cursos/${info.href}`}
-				categoriacolor={info.CategoriaID}
-				overridecolor={overridecolor}
-			>
-				<CardTitle
-					isProximos={isProximos}
-					isMobile={isMobile}
-					categoriacolor={info.CategoriaID}
-					overridecolor={overridecolor}
-				>
-					{info.nombre}
-				</CardTitle>
-			</TitleContainer>
+    <CardContainer isMobile={isMobile} isProximos={isProximos}>
+      <TitleContainer
+        to={`/cursos/${info.href}`}
+        categoriacolor={info.CategoriaID}
+        overridecolor={overridecolor}
+      >
+        <CardTitle
+          isProximos={isProximos}
+          isMobile={isMobile}
+          categoriacolor={info.CategoriaID}
+          overridecolor={overridecolor}
+        >
+          {info.nombre}
+        </CardTitle>
+      </TitleContainer>
 
-			<CardContent isProximos={isProximos}>
-				{isProximos ? (
-					<>
-						<CardInfoContainer>
-							<p>
-								<span>Fecha de inicio:</span>{" "}
-								{fechaInicio.toDate().toJSON().slice(0, 10)}
-							</p>
-							<p>
-								<span>Duración:</span> {duracion}
-							</p>
-							<p>
-								<span>Modalidad:</span> {modalidad}
-							</p>
-							<p>
-								<span>Clases semanales:</span> {clasesSemanales}
-							</p>
-						</CardInfoContainer>
-						<ConoceMasBttn to={`/cursos/${info.href}`}>
-							Conoce Mas
-						</ConoceMasBttn>
-					</>
-				) : (
-					<>
-						<CourseContent isItalic>{duracion || `  `}</CourseContent>
-						<CourseContent>$20.000</CourseContent>
-						<VerMasButton to={`/cursos/${info.href}`}>Ver Mas</VerMasButton>
-					</>
-				)}
-			</CardContent>
-		</CardContainer>
-	)
+      <CardContent isProximos={isProximos}>
+        {isProximos ? (
+          <>
+            <CardInfoContainer>
+              <p>
+                <span>Fecha de inicio:</span>{' '}
+                {turnTimestampIntoDate(fechaInicio)}
+              </p>
+              <p>
+                <span>Duración:</span> {duracion}
+              </p>
+              <p>
+                <span>Modalidad:</span> {modalidad}
+              </p>
+              <p>
+                <span>Clases semanales:</span> {clasesSemanales}
+              </p>
+            </CardInfoContainer>
+            <ConoceMasBttn to={`/cursos/${info.href}`}>
+              Conoce Mas
+            </ConoceMasBttn>
+          </>
+        ) : (
+          <>
+            <CourseContent isItalic>{duracion || `  `}</CourseContent>
+            <CourseContent>$20.000</CourseContent>
+            <VerMasButton to={`/cursos/${info.href}`}>Ver Mas</VerMasButton>
+          </>
+        )}
+      </CardContent>
+    </CardContainer>
+  );
 }
 
 export default ProximosCard

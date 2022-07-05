@@ -66,14 +66,14 @@ const CoursesPages = () => {
 }
 
 const FlexContent = styled.div`
-	display: flex;
-	max-width: 1240px;
-	gap: 30px;
-	height: 100%;
-	width: ${({ mobile }) => (mobile ? "100%" : "80%")};
-	${({ mobile }) => mobile && "justify-content:center"};
-	margin: auto;
-`
+  display: flex;
+  max-width: 1095px;
+  gap: 30px;
+  height: 100%;
+  width: ${({ mobile }) => (mobile ? '100%' : '80%')};
+  ${({ mobile }) => mobile && 'justify-content:center'};
+  margin: auto;
+`;
 const LeftContent = styled.div`
 	width: ${({ mobile }) => (mobile ? "100%" : "70%")};
 `

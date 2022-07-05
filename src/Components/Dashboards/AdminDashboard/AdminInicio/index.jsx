@@ -92,7 +92,7 @@ const Title = styled.h5`
 const CardContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   flex-direction: row;
   gap: 0.62rem;
