@@ -1,15 +1,39 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { collection, onSnapshot } from 'firebase/firestore';
 
 import AddButton from '../../../Shared/Buttons/AddButton';
+import { AiOutlineMail } from 'react-icons/ai';
+import ModalChat from './ModalChat';
 import ModalConsulta from './ModalConsulta';
+import db from '../../../../Firebase/index';
 import styled from 'styled-components';
 import theme from './../../../../Theme/base';
 import { useIsMobile } from '../../../../Hooks/Client';
+import { userContext } from './../../../../Context/UserContext';
 
-const Consultas = () => {
+const Consultas = ({ loggedUser }) => {
+	const { currentUser } = useContext(userContext);
 	const mobile = useIsMobile();
 	const [modalOpen, setModalOpen] = useState(false);
+	const [chatModalOpen, setChatModalOpen] = useState(false);
+	const [consultas, setConsultas] = useState([]);
+	const [currentConsultaId, setCurrentConsultaId] = useState(null);
 	const modalEvent = () => setModalOpen(true);
+
+	useEffect(() => {
+		currentUser &&
+			onSnapshot(
+				collection(db, `Usuarios/${currentUser.uid}/Consultas`),
+				(snapshot) => setConsultas(snapshot.docs.map((doc) => doc.data())),
+				(error) => console.log('error', error)
+			);
+	}, [currentUser]);
+
+	const handleMessageClick = (id) => {
+		setCurrentConsultaId(id);
+		setChatModalOpen(true);
+	};
+
 	return (
 		<ConsultasMainContainer mobile={mobile}>
 			<TitleContainer mobile={mobile}>
@@ -17,9 +41,27 @@ const Consultas = () => {
 				<AddButton alt='Nueva Consulta' clickEvent={modalEvent} />
 			</TitleContainer>
 			<MessageContainer>
-				<Message></Message>
+				{consultas &&
+					consultas.map((item) => (
+						<Message onClick={() => handleMessageClick(item.id)}>
+							<AiOutlineMail size={18.5} />
+							{item.motivo}
+							<br />
+							{item.mensajes &&
+								item.mensajes[item.mensajes.length - 1].preguntaEstudiante}
+						</Message>
+					))}
 			</MessageContainer>
-			{modalOpen && <ModalConsulta setModalOpen={setModalOpen} />}
+			{chatModalOpen && (
+				<ModalChat
+					loggedUser={loggedUser}
+					currentConsultaId={currentConsultaId}
+					setChatModalOpen={setChatModalOpen}
+				/>
+			)}
+			{modalOpen && (
+				<ModalConsulta loggedUser={loggedUser} setModalOpen={setModalOpen} />
+			)}
 		</ConsultasMainContainer>
 	);
 };
@@ -53,5 +95,14 @@ const Title = styled.h5`
 	line-height: ${({ mobile }) => (mobile ? '1.25rem' : '1.5rem')};
 	color: #29343e;
 `;
-const MessageContainer = styled.div``;
-const Message = styled.div``;
+const MessageContainer = styled.div`
+	height: 80%;
+	overflow-y: scroll;
+`;
+const Message = styled.div`
+	height: 25%;
+	border-top: 1px solid ${theme.color.lightGrey};
+	display: flex;
+	flex-direction: row;
+	cursor: pointer;
+`;

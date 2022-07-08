@@ -3,16 +3,16 @@ import React, { useContext, useEffect, useState } from 'react';
 import Certificados from './../../Components/Dashboards/UserDashboard/Certificado/index';
 import Consultas from '../../Components/Dashboards/UserDashboard/Consultas';
 import CursosInteres from './../../Components/Dashboards/UserDashboard/CursosInteres/index';
-import Loader from '../../Components/Shared/Loader';
-import Spacer from '../../Components/Shared/Spacer';
 import TusCursos from '../../Components/Dashboards/UserDashboard/TusCursos';
-import UserProfile from '../../Components/Dashboards/UserDashboard/UserProfile';
 import { projectContext } from '../../Context/ProjectContext';
 import styled from 'styled-components';
+import { userContext } from '../../Context/UserContext';
 
 const UserPage = () => {
 	const { course, categories } = useContext(projectContext);
 	const [pending, setPending] = useState(true);
+	const { users, currentUser } = useContext(userContext);
+	const [loggedUser, setLoggedUser] = useState(null);
 
 	useEffect(() => {
 		if (course.length > 0 && categories.length > 0) {
@@ -20,10 +20,15 @@ const UserPage = () => {
 		}
 	}, [course, categories]);
 
+	useEffect(() => {
+		const match = users.find((user) => user.email === currentUser.email);
+		match && setLoggedUser(match);
+	}, [users, currentUser]);
+
 	return (
 		<UserMainContainer>
 			<TusCursos />
-			<Consultas />
+			<Consultas loggedUser={loggedUser && loggedUser} />
 			<CursosInteres />
 			<Certificados />
 		</UserMainContainer>

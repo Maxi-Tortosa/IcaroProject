@@ -1,79 +1,85 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
+import {
+	collection,
+	doc,
+	onSnapshot,
+	setDoc,
+	updateDoc,
+} from 'firebase/firestore';
 
 import EnviaBttn from '../../../../Shared/Buttons/EnviaBttn';
 import TextareaAutosize from 'react-textarea-autosize';
 import { VscClose } from 'react-icons/vsc';
 import db from '../../../../../Firebase/index';
+import { onChildChanged } from 'firebase/database';
 import styled from 'styled-components';
 import theme from '../../../../../Theme/base';
 import { useIsMobile } from '../../../../../Hooks/Client';
 import { userContext } from '../../../../../Context/UserContext';
 
-const ModalConsulta = ({ setModalOpen }) => {
+const ModalChat = ({ loggedUser, currentConsultaId, setChatModalOpen }) => {
 	const { currentUser } = useContext(userContext);
+	const [messages, setMessages] = useState([]);
 	const [reason, setReason] = useState('');
 	const [question, setQuestion] = useState('');
 	const mobile = useIsMobile();
 
-	const handleInputChange = (e) => {
-		const text = e.target.value;
-		const type = e.target.name;
+	useEffect(() => {
+		currentConsultaId &&
+			onSnapshot(
+				collection(db, `Usuarios/${currentUser.uid}/Consultas`),
+				(snapshot) =>
+					setMessages(
+						snapshot.docs
+							.filter((doc) => doc.data().id === currentConsultaId)
+							.map((doc) => doc.data())
+					),
+				(error) => console.log('error', error)
+			);
+	}, [currentUser, currentConsultaId]);
 
-		if (type === 'question') setQuestion(text);
-		if (type === 'reason') setReason(text);
+	const handleInputChange = (e) => {
+		setQuestion(e.target.value);
 	};
 
-	const handleSubmit = () => {
-		const ref = collection(db, `/Usuarios/${currentUser.uid}/Consultas`);
+	const handleSubmit = (e) => {
 		const date = Date.now();
-		const randomId = Math.random().toString().slice(2);
+		const newMessage = {
+			date: new Date(date).toLocaleDateString(),
+			hour: new Date(date).toLocaleTimeString(),
+			preguntaEstudiante: question,
+		};
 
-		addDoc(ref, {
-			motivo: reason,
-			id: randomId,
-			mensajes: [
-				{
-					date: new Date(date).toLocaleDateString(),
-					hour: new Date(date).toLocaleTimeString(),
-					preguntaEstudiante: question,
-				},
-			],
-		});
+		let msgs = messages && messages[0].mensajes;
+
+		const ref = doc(
+			db,
+			`Usuarios/${currentUser.uid}/Consultas`,
+			currentConsultaId
+		);
+
+		updateDoc(ref, { mensajes: [...msgs, newMessage] });
 	};
 
 	return (
 		<MainContainer>
 			<ModalContainer mobile={mobile}>
-				<HeaderTitle mobile={mobile}>
-					<CloseButton onClick={() => setModalOpen(false)}>
-						<VscClose size={mobile ? 25 : 20} />
-					</CloseButton>
-					<Title>Nueva Consulta</Title>
-
-					<Parragraph mobile={mobile}>
-						Escríbenos y nos contactaremos para brindarte toda la información
-						que necesites.
-					</Parragraph>
-				</HeaderTitle>
-
+				<MessagesConainer>
+					{messages &&
+						messages[0] &&
+						messages[0].mensajes &&
+						messages[0].mensajes.map((msg, i) => (
+							<Message key={i}> {msg.preguntaEstudiante}</Message>
+						))}
+				</MessagesConainer>
 				<StyledForm mobile={mobile}>
-					<FormLabel mobile={mobile} htmlFor='reason'>
-						Motivo
-						<FormInput
-							onChange={handleInputChange}
-							id='reason'
-							name='reason'
-							type='text'
-						/>
-					</FormLabel>
 					<FormLabel mobile={mobile} htmlFor='question'>
 						Mensaje
 						<TextareaAutosize
 							onChange={handleInputChange}
 							name='question'
-							minRows={10}
-							maxRows={10}
+							maxRows={3}
+							minRows={3}
 							className='styled-text-area'
 						/>
 					</FormLabel>
@@ -92,7 +98,7 @@ const ModalConsulta = ({ setModalOpen }) => {
 	);
 };
 
-export default ModalConsulta;
+export default ModalChat;
 
 const MainContainer = styled.div`
 	position: fixed;
@@ -110,66 +116,32 @@ const MainContainer = styled.div`
 const ModalContainer = styled.div`
 	margin: ${({ mobile }) => (mobile ? '0' : '5% 0 0 0')};
 	width: ${({ mobile }) => (mobile ? '100%' : '35rem')};
-	height: ${({ mobile }) => (mobile ? '100%' : '66%')};
+	/* height: ${({ mobile }) => (mobile ? '100%' : '66%')}; */
 	padding: ${({ mobile }) => (mobile ? '0' : '2rem 0')};
 	background: white;
-	border-radius: ${({ mobile }) => (mobile ? '0' : '0 0 10px 10px')};
+`;
+
+const MessagesConainer = styled.div`
+	height: 22.5rem;
 	overflow-y: scroll;
 	::-webkit-scrollbar {
 		display: none;
 	}
 `;
-
-const HeaderTitle = styled.div`
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	align-items: center;
-	width: 90%;
-	margin: ${({ mobile }) => (mobile ? '1.5rem auto 0 auto' : 'auto')};
+const Message = styled.div`
+	background: ${theme.color.lightGrey};
 `;
-
-const Title = styled.h3`
-	font-family: 'Montserrat';
-	font-style: normal;
-	font-weight: 600;
-	font-size: 20px;
-	line-height: 24px;
-	text-align: center;
-	margin: 1rem 0 0 0;
-	color: #1744ff;
-`;
-const CloseButton = styled.div`
-	align-self: flex-end;
-	background: transparent;
-	border: unset;
-	font-size: 20px;
-	cursor: pointer;
-`;
-
-const Parragraph = styled.div`
-	font-family: 'Montserrat';
-	font-style: normal;
-	font-weight: 400;
-	font-size: ${({ mobile }) => (mobile ? '0.87rem' : '1rem')};
-	width: ${({ mobile }) => (mobile ? '75%' : ' 90%')};
-	line-height: 19.5px;
-	text-align: center;
-	margin: 20px auto;
-	color: #3d3d3d;
-`;
-
 const StyledForm = styled.form`
 	width: 90%;
 	margin: auto;
+	height: 30%;
 
 	.styled-text-area {
 		display: block;
 		width: 100%;
-		height: 35px !important;
 		border: 1px solid #e6e6e6;
 		resize: none;
-		margin-top: 20px;
+		margin-top: 10px;
 		padding: 0;
 		font-style: normal;
 		font-weight: normal;

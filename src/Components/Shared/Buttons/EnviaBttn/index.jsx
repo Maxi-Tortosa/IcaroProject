@@ -2,8 +2,13 @@ import styled from 'styled-components';
 import theme from '../../../../Theme/base';
 
 const EnviaBttn = (props) => {
+	const handleClick = (e) => {
+		e.preventDefault();
+		props.onClick();
+	};
+
 	return (
-		<SendButton {...props} type='submit'>
+		<SendButton {...props} onClick={handleClick} type='submit'>
 			Enviar
 		</SendButton>
 	);

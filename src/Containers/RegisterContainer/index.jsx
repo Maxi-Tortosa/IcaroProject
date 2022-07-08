@@ -1,12 +1,9 @@
-import { collection, doc, setDoc } from 'firebase/firestore';
-import {
-	createUserWithEmailAndPassword,
-	getAdditionalUserInfo,
-} from 'firebase/auth';
+import { doc, setDoc } from 'firebase/firestore';
 import { useContext, useState } from 'react';
 
 import AlertIcon from '../../Components/Shared/Icons/AlertIcon';
 import { auth } from '../../Firebase/index';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 import db from '../../Firebase';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
@@ -17,7 +14,6 @@ const Register = ({ history }) => {
 		useContext(userContext);
 	const [newUser, setNewUser] = useState({});
 	const [repeatUser, setRepeatUser] = useState(false);
-	// const [createUser, setCreateUser] = useState(false);
 	const [alertErrorPassword, setAlertErrorPassword] = useState(false);
 	const [required, setRequired] = useState({});
 	let navigate = useNavigate();
