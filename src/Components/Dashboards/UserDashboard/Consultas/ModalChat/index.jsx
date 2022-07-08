@@ -31,7 +31,7 @@ const ModalChat = ({ loggedUser, currentConsultaId, setChatModalOpen }) => {
 				(snapshot) =>
 					setMessages(
 						snapshot.docs
-							.filter((doc) => doc.data().id === currentConsultaId)
+							.filter((doc) => doc.id === currentConsultaId)
 							.map((doc) => doc.data())
 					),
 				(error) => console.log('error', error)

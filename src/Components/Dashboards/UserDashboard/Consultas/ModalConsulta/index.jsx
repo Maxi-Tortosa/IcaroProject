@@ -31,7 +31,6 @@ const ModalConsulta = ({ setModalOpen }) => {
 
 		addDoc(ref, {
 			motivo: reason,
-			id: randomId,
 			mensajes: [
 				{
 					date: new Date(date).toLocaleDateString(),

@@ -24,7 +24,10 @@ const Consultas = ({ loggedUser }) => {
 		currentUser &&
 			onSnapshot(
 				collection(db, `Usuarios/${currentUser.uid}/Consultas`),
-				(snapshot) => setConsultas(snapshot.docs.map((doc) => doc.data())),
+				(snapshot) =>
+					setConsultas(
+						snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+					),
 				(error) => console.log('error', error)
 			);
 	}, [currentUser]);
