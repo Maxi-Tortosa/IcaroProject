@@ -7,7 +7,7 @@ import SettingsIcon from "../../../Shared/Icons/SettingsIcon"
 import { useState } from "react"
 import AdminMenu from '../AdminMenu';
 
-const AdminHeader = () => {
+const AdminHeader = ({ handleClick, toggleState }) => {
   const [isScroll, setIsScroll] = useState(false);
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const { isAdmin } = useContext(projectContext);
@@ -39,7 +39,12 @@ const AdminHeader = () => {
             </Link>
             <SettingsButton onClick={(e) => openAdminMenu()}>
               <SettingsIcon iconSize={50} />
-              {isOpenMenu && <AdminMenu />}
+              {isOpenMenu && (
+                <AdminMenu
+                  handleClick={handleClick}
+                  toggleState={toggleState}
+                />
+              )}
             </SettingsButton>
           </HeaderContent>
         </Container>

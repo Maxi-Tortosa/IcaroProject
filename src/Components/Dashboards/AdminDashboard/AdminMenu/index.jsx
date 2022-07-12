@@ -7,23 +7,21 @@ import { useNavigate } from 'react-router-dom';
 import Logout from '../../../Shared/Icons/LogOut';
 import UserIcon from '../../../Shared/Icons/User';
 
-const AdminMenu = () => {
-  const navigate = useNavigate();
-
-  function handleClick(url) {
-    navigate(url, { replace: true });
-  }
-
+const AdminMenu = ({ handleClick, toggleState }) => {
   return (
     <AdminMenuContainer>
       {ADMINMENULINKS.map((elem, index) => {
         return (
           <>
-            <LinksContainer onClick={(e) => handleClick(elem.url)}>
+            <LinksContainer>
               <Spacer height={10} />
               <Content>
                 {elem.icon === 'user' ? <UserIcon /> : <Logout />}
-                <MenuButton>{elem.menuName}</MenuButton>
+                <MenuButton
+                  onClick={(e) => handleClick(index, elem.menuName, elem.url)}
+                >
+                  {elem.menuName}
+                </MenuButton>
               </Content>
               <Spacer height={10} />
             </LinksContainer>
