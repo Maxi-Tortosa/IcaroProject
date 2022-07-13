@@ -27,7 +27,7 @@ const ModalConsulta = ({ setModalOpen }) => {
 	const handleSubmit = () => {
 		const ref = collection(db, `/Usuarios/${currentUser.uid}/Consultas`);
 		const date = Date.now();
-		const randomId = Math.random().toString().slice(2);
+		// const randomId = Math.random().toString().slice(2);
 
 		addDoc(ref, {
 			motivo: reason,

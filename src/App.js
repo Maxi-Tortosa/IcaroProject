@@ -52,9 +52,6 @@ function App() {
 								<Route path='user/profile' element={<UserProfileContainer />} />
 							</>
 						)}
-						{/*SE DEBE DESCOMENTAR MÁS AVANZADO EL PROYECTO*/}
-						<Route path='user' element={<UserPage />} />
-						<Route path='user/profile' element={<UserProfileContainer />} />
 					</Routes>
 					<FooterContext>
 						<Footer />
