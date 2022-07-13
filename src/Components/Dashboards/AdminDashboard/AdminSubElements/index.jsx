@@ -13,6 +13,7 @@ import { CURSOSCFIELDS } from '../../../../Constants/Cursos/index.js';
 import ComisionesAdmin from '../ComisionesAdmin';
 import { COMISIONESFIELDS } from '../../../../Constants/Comisions';
 import UsuariosAdmin from '../UsuariosAdmin';
+import PerfilAdmin from '../PerfilAdmin';
 
 const AdminSubElements = ({ selectedTab, handleClick }) => {
   const { courseCompleteList, categories, nextCourses, usuariosList } =
@@ -98,6 +99,10 @@ const AdminSubElements = ({ selectedTab, handleClick }) => {
         );
       case 'Usuarios':
         return <UsuariosAdmin usuariosList={usuariosList} />;
+      case 'Mi Perfil':
+        return (
+          <>{location.pathname.includes('/admin/perfil') && <PerfilAdmin />}</>
+        );
 
       default:
         return <AdminInicio handleClick={handleClick} />;

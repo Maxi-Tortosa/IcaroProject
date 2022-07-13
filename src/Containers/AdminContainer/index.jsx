@@ -28,7 +28,7 @@ const AdminPage = () => {
 
   return (
     <AdminContainer>
-      <AdminHeader />
+      <AdminHeader handleClick={handleClick} toggleState={toggleState} />
       <Spacer height={80} />
       <AdminContent>
         <AdminSidebar handleClick={handleClick} toggleState={toggleState} />
