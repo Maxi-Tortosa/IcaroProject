@@ -1,10 +1,16 @@
 import { Link } from "react-router-dom"
 import styled from "styled-components"
 import theme from "../../../Theme/base"
+import { useEffect } from "react";
+
 
 const Card = ({ isProximos, info, overridecolor, isMobile }) => {
 	const { clasesSemanales, duracion, modalidad } = info.detalles
 	const { fechaInicio } = info
+
+	useEffect(()=>{
+		window.scrollTo({ top: 0, behavior: 'smooth' });
+	},[])
 
 	return (
 		<CardContainer isMobile={isMobile} isProximos={isProximos}>
