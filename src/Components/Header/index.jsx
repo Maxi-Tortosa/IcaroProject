@@ -21,9 +21,6 @@ const Header = ({ setLoggedUser, setIsLoginOpen }) => {
 	const [displayUser, setDisplayUser] = useState(null);
 	const [mobileMenuIsOpen, setMobileMenuIsOpen] = useState(false);
 	const mobile = useIsMobile();
-	const cursosElement = document.getElementById('cursos');
-	const quienesSomosElement = document.getElementById('quienes-somos');
-	const rootElement = document.getElementById('root');
 	const navigate = useNavigate();
 	const location = useLocation().pathname;
 
@@ -37,12 +34,24 @@ const Header = ({ setLoggedUser, setIsLoginOpen }) => {
 		}
 	}, [users, currentUser]);
 
-	function scrollTo(element, offset) {
-		const elementPosition = element.getBoundingClientRect().top;
-		const offsetPosition = elementPosition + window.pageYOffset - offset;
+	
 
-		window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-	}
+	function  scrollTo(route, offset = 0) {
+		location !== '/' && navigate('/') 
+		setTimeout(()=>{
+		  let element = document.getElementById('root');
+		  if(route === '/cursos'){
+			element = document.getElementById('cursos');
+		  }else if(route === '/quienes-somos'){
+			element = document.getElementById('quienes-somos');
+		  }
+		 
+		   const elementPosition = element.getBoundingClientRect().top;
+		   const offsetPosition = elementPosition + window.pageYOffset - offset;
+		   
+		   window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+		},500)
+	  }
 
 	function openModal() {
 		setIsOpen(true);
@@ -95,7 +104,7 @@ const Header = ({ setLoggedUser, setIsLoginOpen }) => {
 							to='/'
 							className='logo'
 							onClick={() => {
-								scrollTo(rootElement, 70);
+								scrollTo('/');
 							}}>
 							<img
 								src='https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/logo.svg?alt=media&token=b47dccac-e962-48ab-99f1-f3d250f879f5'
@@ -106,7 +115,7 @@ const Header = ({ setLoggedUser, setIsLoginOpen }) => {
 							<li>
 								<CenterLinks
 									onClick={() => {
-										scrollTo(cursosElement, 70);
+										scrollTo('/cursos' , 70);
 									}}>
 									Cursos
 								</CenterLinks>
@@ -114,7 +123,7 @@ const Header = ({ setLoggedUser, setIsLoginOpen }) => {
 							<li>
 								<CenterLinks
 									onClick={() => {
-										scrollTo(quienesSomosElement, 100);
+										scrollTo('/quienes-somos', 100);
 									}}>
 									Quiénes somos
 								</CenterLinks>
