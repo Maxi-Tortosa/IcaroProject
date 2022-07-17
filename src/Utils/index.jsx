@@ -80,3 +80,14 @@ let finalDate = dateFormat(date, 'dd-MM-yyyy')
 
   return finalDate
 }
+
+export const getSimilarCourses = (courseList, CategoriaID, course) => {
+  const categoryList = courseList.filter(
+    (elem) =>
+      elem.CategoriaID === CategoriaID ||
+      elem.nombre.includes(course.nombre) ||
+      (course.CategoriaID2 && elem.CategoriaID2 === course.CategoriaID2)
+  );
+  const newList = categoryList.filter((item) => item !== course);
+  return newList;
+};
