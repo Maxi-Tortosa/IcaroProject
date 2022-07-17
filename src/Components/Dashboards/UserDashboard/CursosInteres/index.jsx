@@ -12,23 +12,23 @@ const CursosInteres = () => {
 	const relatedCourses = course.slice(0, 7);
 
 	return (
-		<CursosDeInteresMainContainer mobile={mobile}>
-			<TitleContainer>
-				<Title mobile={mobile}>Estos cursos pueden interesarte</Title>
-			</TitleContainer>
-			<CourseContainer mobile={mobile}>
-				<CourseList mobile={mobile}>
-					{/*Hacer alguna lógica que recomiende cursos de la misma categoría que el último realizado */}
-					{relatedCourses &&
-						relatedCourses.map((elem, index) => (
-							<CourseItem mobile={mobile} key={index}>
-								<Link to={`/cursos/${elem.href}`}>{elem.nombre}</Link>
-							</CourseItem>
-						))}
-				</CourseList>
-			</CourseContainer>
-		</CursosDeInteresMainContainer>
-	);
+    <CursosDeInteresMainContainer mobile={mobile}>
+      <TitleContainer>
+        <Title mobile={mobile}>Estos cursos pueden interesarte</Title>
+      </TitleContainer>
+      <CourseContainer mobile={mobile}>
+        <CourseList mobile={mobile}>
+          {/*cuando la base de datos traiga el curso inscripto del alumno ahi vamos a importar getSimilarCourses que va a renderizar los demas cursos */}
+          {relatedCourses &&
+            relatedCourses.map((elem, index) => (
+              <CourseItem mobile={mobile} key={index}>
+                <Link to={`/cursos/${elem.href}`}>{elem.nombre}</Link>
+              </CourseItem>
+            ))}
+        </CourseList>
+      </CourseContainer>
+    </CursosDeInteresMainContainer>
+  );
 };
 
 export default CursosInteres;
