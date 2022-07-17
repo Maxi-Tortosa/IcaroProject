@@ -3,11 +3,10 @@ import { ADMINMENULINKS } from '../../../../Constants/AdminDashboard';
 import theme from '../../../../Theme/base';
 import Divider from '../../../Shared/Divider';
 import Spacer from '../../../Shared/Spacer';
-import { useNavigate } from 'react-router-dom';
 import Logout from '../../../Shared/Icons/LogOut';
 import UserIcon from '../../../Shared/Icons/User';
 
-const AdminMenu = ({ handleClick, toggleState }) => {
+const AdminMenu = ({ handleClick, toggleState, handleLogout }) => {
   return (
     <AdminMenuContainer>
       {ADMINMENULINKS.map((elem, index) => {
@@ -18,7 +17,11 @@ const AdminMenu = ({ handleClick, toggleState }) => {
               <Content>
                 {elem.icon === 'user' ? <UserIcon /> : <Logout />}
                 <MenuButton
-                  onClick={(e) => handleClick(index, elem.menuName, elem.url)}
+                  onClick={(e) =>
+                    elem.icon === 'user'
+                      ? handleClick(index, elem.menuName, elem.url)
+                      : handleLogout()
+                  }
                 >
                   {elem.menuName}
                 </MenuButton>

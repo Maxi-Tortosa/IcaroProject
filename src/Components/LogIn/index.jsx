@@ -36,6 +36,7 @@ const LogIn = ({ setIsLoginOpen }) => {
 			}
 			if (matchEmail.rol === 'administrador') {
 				setTimeout(() => {
+					setIsLoginOpen(false);
 					navigate('admin');
 				}, 1000);
 			}
