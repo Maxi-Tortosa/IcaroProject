@@ -1,44 +1,38 @@
 import { Link } from "react-router-dom"
 import styled from "styled-components"
-import theme from "../../../Theme/base"
-import { useEffect } from "react";
-
+import theme from '../../../Theme/base';
 
 const Card = ({ isProximos, info, overridecolor, isMobile }) => {
-	const { clasesSemanales, duracion, modalidad } = info.detalles
-	const { fechaInicio } = info
+  const { clasesSemanales, duracion, modalidad } = info.detalles;
+  const { fechaInicio } = info;
 
-	useEffect(()=>{
-		window.scrollTo({ top: 0, behavior: 'smooth' });
-	},[])
+  return (
+    <CardContainer isMobile={isMobile} isProximos={isProximos}>
+      <TitleContainer
+        to={`/cursos/${info.href}`}
+        categoriacolor={info.CategoriaID}
+        overridecolor={overridecolor}
+      >
+        <CardTitle
+          isProximos={isProximos}
+          isMobile={isMobile}
+          categoriacolor={info.CategoriaID}
+          overridecolor={overridecolor}
+        >
+          {info.nombre}
+        </CardTitle>
+      </TitleContainer>
 
-	return (
-		<CardContainer isMobile={isMobile} isProximos={isProximos}>
-			<TitleContainer
-				to={`/cursos/${info.href}`}
-				categoriacolor={info.CategoriaID}
-				overridecolor={overridecolor}
-			>
-				<CardTitle
-					isProximos={isProximos}
-					isMobile={isMobile}
-					categoriacolor={info.CategoriaID}
-					overridecolor={overridecolor}
-				>
-					{info.nombre}
-				</CardTitle>
-			</TitleContainer>
-
-			<CardContent isProximos={isProximos}>
-				<>
-					<CourseContent isItalic>{duracion || `  `}</CourseContent>
-					<CourseContent>$20.000</CourseContent>
-					<VerMasButton to={`/cursos/${info.href}`}>Ver Mas</VerMasButton>
-				</>
-			</CardContent>
-		</CardContainer>
-	)
-}
+      <CardContent isProximos={isProximos}>
+        <>
+          <CourseContent isItalic>{duracion || `  `}</CourseContent>
+          <CourseContent>$20.000</CourseContent>
+          <VerMasButton to={`/cursos/${info.href}`}>Ver Mas</VerMasButton>
+        </>
+      </CardContent>
+    </CardContainer>
+  );
+};
 
 export default Card
 
