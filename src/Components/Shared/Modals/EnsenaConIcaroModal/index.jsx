@@ -8,6 +8,7 @@ import { useIsMobile } from '../../../../Hooks/Client';
 import Select from 'react-select';
 import { CONTACTMEDIA } from '../../../../Constants/ConatctMedia';
 import { VscClose } from 'react-icons/vsc';
+import '../ModalStyles/ModalStyles.css';
 
 const EnsenaConIcaroModal = ({ modalIsOpen, closeModal }) => {
   const mobile = useIsMobile();
