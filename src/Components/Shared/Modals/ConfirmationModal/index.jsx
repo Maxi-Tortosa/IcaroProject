@@ -63,7 +63,8 @@ const ConfirmationModal = ({
 		<ReactModal
 			isOpen={modalIsOpen}
 			onRequestClose={closeModal}
-			style={mobile ? customMobileStyles : customStyles}>
+			style={mobile ? customMobileStyles : customStyles}
+			closeTimeoutMS={500}>
 			<ModalContentContainer mobile={mobile}>
 				<HeaderTitle mobile={mobile}>
 					<Title mobile={mobile} color={mainColor}>

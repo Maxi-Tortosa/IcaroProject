@@ -56,6 +56,7 @@ const EnsenaConIcaroModal = ({ modalIsOpen, closeModal }) => {
       isOpen={modalIsOpen}
       onRequestClose={closeModal}
       style={mobile ? customMobileStyles : customStyles}
+      closeTimeoutMS={500}
     >
       <HeaderTitle>
         <div>
