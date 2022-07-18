@@ -23,7 +23,11 @@ const ProjectContext = ({ children }) => {
     onSnapshot(
       collection(db, 'NuevosCursos'),
       (snapshot) => {
-        const courseList = snapshot.docs.map((doc) => doc.data());
+        const courseList = snapshot.docs.map((doc) => ({
+          ...doc.data(),
+          uuid: doc.id,
+        }));
+
         setCourseCompleteList(sortArrayByNroOrden(courseList));
       },
       (error) => console.log('error', error)
@@ -32,7 +36,10 @@ const ProjectContext = ({ children }) => {
     onSnapshot(
       collection(db, 'NuevosCursos'),
       (snapshot) => {
-        const courseList = snapshot.docs.map((doc) => doc.data());
+        const courseList = snapshot.docs.map((doc) => ({
+          ...doc.data(),
+          uuid: doc.id,
+        }));
         const filteredList = courseList.filter((elem) => !elem.isHidden);
         setCourse(sortArrayByNroOrden(filteredList));
       },
@@ -47,19 +54,37 @@ const ProjectContext = ({ children }) => {
 
     onSnapshot(
       collection(db, 'CategoriasCursos'),
-      (snapshot) => setCategories(snapshot.docs.map((doc) => doc.data())),
+      (snapshot) =>
+        setCategories(
+          snapshot.docs.map((doc) => ({
+            ...doc.data(),
+            uuid: doc.id,
+          }))
+        ),
       (error) => console.log('error', error)
     );
 
     onSnapshot(
       collection(db, 'ComisionesCursos'),
-      (snapshot) => setNextCourses(snapshot.docs.map((doc) => doc.data())),
+      (snapshot) =>
+        setNextCourses(
+          snapshot.docs.map((doc) => ({
+            ...doc.data(),
+            uuid: doc.id,
+          }))
+        ),
       (error) => console.log('error', error)
     );
 
     onSnapshot(
       collection(db, 'Usuarios'),
-      (snapshot) => setUsuariosList(snapshot.docs.map((doc) => doc.data())),
+      (snapshot) =>
+        setUsuariosList(
+          snapshot.docs.map((doc) => ({
+            ...doc.data(),
+            uuid: doc.id,
+          }))
+        ),
       (error) => console.log('error', error)
     );
   }, []);
