@@ -13,7 +13,7 @@ import theme from '../../Theme/base';
 import { useIsMobile } from '../../Hooks/Client';
 import { userContext } from '../../Context/UserContext';
 
-const Header = ({ setLoggedUser, setIsLoginOpen }) => {
+const Header = ({ setLoggedUser, setIsLoginOpen, isLoginOpen }) => {
 	const { is404 } = useContext(projectContext);
 	const { currentUser, users } = useContext(userContext);
 	const [isScroll, setIsScroll] = useState(false);
@@ -136,7 +136,7 @@ const Header = ({ setLoggedUser, setIsLoginOpen }) => {
 							<UserDisplay onClick={handleClick} userName={displayUser.name} />
 						) : (
 							<div className='signinButton'>
-								<IngresaBttn setIsLoginOpen={setIsLoginOpen} />
+								<IngresaBttn setIsLoginOpen={setIsLoginOpen} isLoginOpen={isLoginOpen} />
 							</div>
 						)}
 					</div>
