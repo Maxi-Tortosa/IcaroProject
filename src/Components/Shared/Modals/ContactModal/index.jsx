@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import theme from '../../../../Theme/base';
 import { useIsMobile } from '../../../../Hooks/Client';
 import { VscClose } from 'react-icons/vsc';
+import '../ModalStyles/ModalStyles.css';
 
 const ContactModal = ({ modalIsOpen, closeModal }) => {
   const mobile = useIsMobile();
