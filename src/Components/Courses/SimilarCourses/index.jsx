@@ -4,55 +4,47 @@ import styled from 'styled-components';
 import theme from '../../../Theme/base';
 import { useIsMobile } from '../../../Hooks/Client';
 import { useState } from 'react';
+import { getSimilarCourses } from '../../../Utils';
 
 const SimilarCourses = ({ course, courseList }) => {
-	const { CategoriaID } = course;
-	const [index, setIndex] = useState(0);
+  const { CategoriaID } = course;
+  const [index, setIndex] = useState(0);
 
-	const mobile = useIsMobile();
+  const mobile = useIsMobile();
 
-	const getSimilarCourses = () => {
-		const categoryList = courseList.filter(
-			(elem) =>
-				elem.CategoriaID === CategoriaID ||
-				elem.nombre.includes(course.nombre) ||
-				(course.CategoriaID2 && elem.CategoriaID2 === course.CategoriaID2)
-		);
-		const newList = categoryList.filter((item) => item !== course);
-		return newList;
-	};
-	// getSimilarCourses();
-
-	return (
-		<SimilarCoursesContainer mobile={mobile}>
-			<Title mobile={mobile}>Cursos Similares</Title>
-			<CardsContainer
-				length={getSimilarCourses().length}
-				gap={1}
-				mobile={mobile}
-				index={index}>
-				{getSimilarCourses().map((elem, index) => (
-					<Card
-						info={elem}
-						key={index}
-						isMobile={mobile}
-						overridecolor={CategoriaID}
-					/>
-				))}
-			</CardsContainer>
-			{mobile && getSimilarCourses().length > 1 && (
-				<DotIndicatorWrapper>
-					<DotIndicatorCards
-						index={index}
-						setIndex={setIndex}
-						length={getSimilarCourses().length}
-						overrideColor='grey'
-						course={course}
-					/>
-				</DotIndicatorWrapper>
-			)}
-		</SimilarCoursesContainer>
-	);
+  return (
+    <SimilarCoursesContainer mobile={mobile}>
+      <Title mobile={mobile}>Cursos Similares</Title>
+      <CardsContainer
+        length={getSimilarCourses(courseList, CategoriaID, course).length}
+        gap={1}
+        mobile={mobile}
+        index={index}
+      >
+        {getSimilarCourses(courseList, CategoriaID, course).map(
+          (elem, index) => (
+            <Card
+              info={elem}
+              key={index}
+              isMobile={mobile}
+              overridecolor={CategoriaID}
+            />
+          )
+        )}
+      </CardsContainer>
+      {mobile && getSimilarCourses(courseList, CategoriaID, course).length > 1 && (
+        <DotIndicatorWrapper>
+          <DotIndicatorCards
+            index={index}
+            setIndex={setIndex}
+            length={getSimilarCourses(courseList, CategoriaID, course).length}
+            overrideColor="grey"
+            course={course}
+          />
+        </DotIndicatorWrapper>
+      )}
+    </SimilarCoursesContainer>
+  );
 };
 
 const SimilarCoursesContainer = styled.div`

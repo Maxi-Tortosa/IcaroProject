@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import AdminInicio from '../AdminInicio';
 import { useContext, useState, useEffect } from 'react';
 import { projectContext } from '../../../../Context/ProjectContext';
+import { collection, onSnapshot } from 'firebase/firestore';
+import db from '../../../../Firebase/index';
 import Loader from '../../../Shared/Loader';
 import CursosAdmin from '../CursosAdmin';
 import CategoriasAdmin from '../CategoriasAdmin';
@@ -14,20 +16,47 @@ import ComisionesAdmin from '../ComisionesAdmin';
 import { COMISIONESFIELDS } from '../../../../Constants/Comisions';
 import UsuariosAdmin from '../UsuariosAdmin';
 import PerfilAdmin from '../PerfilAdmin';
+import ConsultasAdmin from '../ConsultasAdmin';
+import SolicitudesAdmin from '../SolicitudesAdmin';
+import InscripcionesAdmin from '../InscripcionesAdmin';
 
 const AdminSubElements = ({ selectedTab, handleClick }) => {
-  const { courseCompleteList, categories, nextCourses, usuariosList } =
-    useContext(projectContext);
+  const {
+    courseCompleteList,
+    categories,
+    nextCourses,
+    usuariosList,
+    currentUser,
+  } = useContext(projectContext);
   const [pending, setPending] = useState(true);
   const location = useLocation();
+  const [consultas, setConsultas] = useState();
 
   useEffect(() => {
-    if (courseCompleteList.length > 0 && categories.length > 0) {
+    if (
+      courseCompleteList.length > 0 &&
+      categories.length > 0 &&
+      nextCourses.length > 0 &&
+      usuariosList.length > 0
+    ) {
       // const courseResult = course.find((elem) => elem.href === name)
       // setSelectedCourse(courseResult)
       setPending(false);
     }
-  }, [courseCompleteList, categories]);
+  }, [courseCompleteList, categories, nextCourses, usuariosList]);
+
+  useEffect(() => {
+    if (currentUser) {
+      onSnapshot(
+        collection(db, `Admin/${currentUser.uid}/Consultas`),
+        (snapshot) =>
+          setConsultas(
+            snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+          ),
+        (error) => console.log('error', error)
+      );
+    }
+  }, [currentUser]);
 
   function getSelectedTab() {
     switch (selectedTab) {
@@ -99,6 +128,21 @@ const AdminSubElements = ({ selectedTab, handleClick }) => {
         );
       case 'Usuarios':
         return <UsuariosAdmin usuariosList={usuariosList} />;
+      case 'Solicitudes':
+        return (
+          <SolicitudesAdmin usuariosList={usuariosList} consultas={consultas} />
+        );
+      case 'Consultas':
+        return (
+          <ConsultasAdmin usuariosList={usuariosList} consultas={consultas} />
+        );
+      case 'Inscripciones':
+        return (
+          <InscripcionesAdmin
+            usuariosList={usuariosList}
+            consultas={consultas}
+          />
+        );
       case 'Mi Perfil':
         return (
           <>{location.pathname.includes('/admin/perfil') && <PerfilAdmin />}</>

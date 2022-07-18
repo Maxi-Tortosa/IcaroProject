@@ -2,6 +2,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { SIDEMENUCATEGORIES } from '../../../../Constants/AdminDashboard';
 import { ADMINPERFIL } from '../../../../Constants/Perfil';
+import { useNavigate } from 'react-router-dom';
 import { useIsMobile } from '../../../../Hooks/Client';
 import theme from '../../../../Theme/base';
 import BlueButton from '../../../Shared/Buttons/BlueButton';
@@ -9,6 +10,11 @@ import LinearBttn from '../../../Shared/Buttons/LinearBttn';
 
 const PerfilAdmin = ({ handleClick, toggleState }) => {
   const mobile = useIsMobile();
+  const navigate = useNavigate();
+
+  function handleClose() {
+    navigate('/admin/', { replace: true });
+  }
 
   return (
     <>
@@ -44,10 +50,7 @@ const PerfilAdmin = ({ handleClick, toggleState }) => {
           })}
         </StyledForm>
         <SubmitContainer>
-          <LinearBttn
-            type="cancel"
-            //   onClick={handleClose}
-          >
+          <LinearBttn type="cancel" onClick={handleClose}>
             Cancelar
           </LinearBttn>
           <BlueButton

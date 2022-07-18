@@ -10,63 +10,72 @@ import styled from 'styled-components';
 import theme from './../../../../Theme/base';
 import { useIsMobile } from '../../../../Hooks/Client';
 import { userContext } from './../../../../Context/UserContext';
+import Loader from '../../../Shared/Loader';
 
 const Consultas = ({ loggedUser }) => {
-	const { currentUser } = useContext(userContext);
-	const mobile = useIsMobile();
-	const [modalOpen, setModalOpen] = useState(false);
-	const [chatModalOpen, setChatModalOpen] = useState(false);
-	const [consultas, setConsultas] = useState([]);
-	const [currentConsultaId, setCurrentConsultaId] = useState(null);
-	const modalEvent = () => setModalOpen(true);
+  const { currentUser } = useContext(userContext);
+  const mobile = useIsMobile();
+  const [modalOpen, setModalOpen] = useState(false);
+  const [chatModalOpen, setChatModalOpen] = useState(false);
+  const [consultas, setConsultas] = useState();
+  const [currentConsultaId, setCurrentConsultaId] = useState(null);
+  const modalEvent = () => setModalOpen(true);
+  const [pending, setPending] = useState(true);
 
-	useEffect(() => {
-		currentUser &&
-			onSnapshot(
-				collection(db, `Usuarios/${currentUser.uid}/Consultas`),
-				(snapshot) =>
-					setConsultas(
-						snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-					),
-				(error) => console.log('error', error)
-			);
-	}, [currentUser]);
+  useEffect(() => {
+    if (currentUser) {
+      onSnapshot(
+        collection(db, `Usuarios/${currentUser.uid}/Consultas`),
+        (snapshot) =>
+          setConsultas(
+            snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+          ),
+        (error) => console.log('error', error)
+      );
+      setPending(false);
+    }
+  }, [currentUser]);
 
-	const handleMessageClick = (id) => {
-		setCurrentConsultaId(id);
-		setChatModalOpen(true);
-	};
+  const handleMessageClick = (id) => {
+    setCurrentConsultaId(id);
+    setChatModalOpen(true);
+  };
 
-	return (
-		<ConsultasMainContainer mobile={mobile}>
-			<TitleContainer mobile={mobile}>
-				<Title mobile={mobile}>Consultas</Title>
-				<AddButton alt='Nueva Consulta' clickEvent={modalEvent} />
-			</TitleContainer>
-			<MessageContainer>
-				{consultas &&
-					consultas.map((item) => (
-						<Message onClick={() => handleMessageClick(item.id)}>
-							<AiOutlineMail size={18.5} />
-							{item.motivo}
-							<br />
-							{item.mensajes &&
-								item.mensajes[item.mensajes.length - 1].preguntaEstudiante}
-						</Message>
-					))}
-			</MessageContainer>
-			{chatModalOpen && (
-				<ModalChat
-					loggedUser={loggedUser}
-					currentConsultaId={currentConsultaId}
-					setChatModalOpen={setChatModalOpen}
-				/>
-			)}
-			{modalOpen && (
-				<ModalConsulta loggedUser={loggedUser} setModalOpen={setModalOpen} />
-			)}
-		</ConsultasMainContainer>
-	);
+  return (
+    <ConsultasMainContainer mobile={mobile}>
+      <TitleContainer mobile={mobile}>
+        <Title mobile={mobile}>Consultas</Title>
+        <AddButton alt="Nueva Consulta" clickEvent={modalEvent} />
+      </TitleContainer>
+      <MessageContainer>
+        {pending || !consultas ? (
+          <Loader />
+        ) : (
+          <>
+            {consultas.map((item) => (
+              <Message onClick={() => handleMessageClick(item.id)}>
+                <AiOutlineMail size={18.5} />
+                {item.motivo}
+                <br />
+                {item.mensajes &&
+                  item.mensajes[item.mensajes.length - 1].preguntaEstudiante}
+              </Message>
+            ))}
+          </>
+        )}
+      </MessageContainer>
+      {chatModalOpen && (
+        <ModalChat
+          loggedUser={loggedUser}
+          currentConsultaId={currentConsultaId}
+          setChatModalOpen={setChatModalOpen}
+        />
+      )}
+      {modalOpen && (
+        <ModalConsulta loggedUser={loggedUser} setModalOpen={setModalOpen} />
+      )}
+    </ConsultasMainContainer>
+  );
 };
 
 export default Consultas;

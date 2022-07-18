@@ -27,8 +27,9 @@ function App() {
 					<Header
 						setIsLoginOpen={setIsLoginOpen}
 						setLoggedUser={setLoggedUser}
+						isLoginOpen ={isLoginOpen}
 					/>
-					{isLoginOpen ? <LogIn setIsLoginOpen={setIsLoginOpen} /> : null}
+					{isLoginOpen ? <LogIn setIsLoginOpen={setIsLoginOpen} isLoginOpen={isLoginOpen}/> : null}
 					<Routes>
 						<Route exact path='/' element={<HomeContainer />} />
 						<Route path='*' element={<Navigate replace to='/404' />} />

@@ -1,4 +1,4 @@
-import EnviaBttn from '../../Buttons/EnviaBttn';
+import BlueButton from '../../Buttons/BlueButton';
 import React, { useState } from 'react';
 import ReactModal from 'react-modal';
 import TextareaAutosize from 'react-textarea-autosize';
@@ -6,13 +6,20 @@ import styled from 'styled-components';
 import theme from '../../../../Theme/base';
 import { useIsMobile } from '../../../../Hooks/Client';
 import { VscClose } from 'react-icons/vsc';
+import { AiOutlineInfoCircle } from 'react-icons/ai';
 import '../ModalStyles/ModalStyles.css';
+import LinearBttn from '../../Buttons/LinearBttn';
 
-const ContactModal = ({ modalIsOpen, closeModal }) => {
+const InscribirmeModal = ({
+  modalIsOpen,
+  closeModal,
+  cursoInteres,
+  comision,
+}) => {
   const mobile = useIsMobile();
 
   function handleSubmit(e) {
-    e.preventDefault();
+    // e.preventDefault();
     console.log('submit');
     closeModal();
   }
@@ -26,9 +33,8 @@ const ContactModal = ({ modalIsOpen, closeModal }) => {
       bottom: 'auto',
       marginRight: '-50%',
       transform: 'translate(-50%, -50%)',
-      width: '500px',
-      padding: '40px',
-      paddingTop: '0px',
+      width: '700px',
+      padding: '20px 40px',
     },
   };
 
@@ -53,50 +59,45 @@ const ContactModal = ({ modalIsOpen, closeModal }) => {
       isOpen={modalIsOpen}
       onRequestClose={closeModal}
       style={mobile ? customMobileStyles : customStyles}
-      closeTimeoutMS={500}
     >
       <CloseButton onClick={closeModal}>
         <VscClose size={20} />
       </CloseButton>
-      <Title>Contactanos</Title>
-      <Parragraph mobile={mobile}>
-        Escríbenos y nos contactaremos para brindarte toda la información que
-        necesites.
+      <Title>¡Completa tu inscripción!</Title>
+      <Parragraph mobile={mobile} bold>
+        Curso: {cursoInteres.nombre}
       </Parragraph>
-      <StyledForm mobile={mobile}>
-        <FormLabel mobile={mobile} htmlFor="fullname">
-          Nombre
-          <FormInput id="fullname" name="fullname" type="text" />
-        </FormLabel>
-        <FormLabel mobile={mobile} htmlFor="telefono">
-          Teléfono
-          <FormInput id="telefono" name="telefono" type="etelefono" />
-        </FormLabel>
-        <FormLabel mobile={mobile} htmlFor="correo-electronico">
-          Correo Electrónico
-          <FormInput
-            id="correo-electronico"
-            name="correo-electronico"
-            type="text"
-          />
-        </FormLabel>
-        <FormLabel mobile={mobile} htmlFor="question">
-          <TextareaAutosize
-            minRows={3}
-            placeholder={'Mensaje'}
-            className="styled-text-area"
-          />
-        </FormLabel>
-        <EnviaBttn
-          fontFamily="Montserrat, sans-serif"
-          fontSize="1.18rem"
-          width={mobile ? '100%' : '58%'}
-          margin={mobile ? '60px 0 0 0' : '20px 21%'}
-          padding="16px"
-          backgroundColor={theme.color.darkBlue}
-          onClick={(e) => handleSubmit(e)}
-        />
-      </StyledForm>
+      <Parragraph mobile={mobile}>
+        Precio: ${comision?.precioComision}
+      </Parragraph>
+
+      <BlueButton
+        fontFamily="Montserrat, sans-serif"
+        fontSize="1.18rem"
+        width={mobile ? '100%' : '58%'}
+        margin={mobile ? '60px 0 0 0' : '20px 21%'}
+        padding="16px"
+        backgroundColor={theme.color.darkBlue}
+        onClick={(e) => handleSubmit(e)}
+      >
+        Pagar Inscripcion
+      </BlueButton>
+      <Parragraph mobile={mobile}>
+        <InfoIcon size={20} />
+        Residentes fuera de Argentina solicitar cupón de pago al siguiente link
+      </Parragraph>
+
+      <LinearBttn
+        fontFamily="Montserrat, sans-serif"
+        fontSize="1.18rem"
+        width={mobile ? '100%' : '58%'}
+        margin={mobile ? '60px 0 0 0' : '20px 21%'}
+        padding="16px"
+        backgroundColor={theme.color.darkBlue}
+        onClick={(e) => handleSubmit(e)}
+      >
+        Solicitar cupon para extranjeros
+      </LinearBttn>
     </ReactModal>
   );
 };
@@ -110,6 +111,7 @@ const Title = styled.h3`
   text-align: center;
   width: 100%;
   color: #1744ff;
+  margin-top: 0;
 `;
 const CloseButton = styled.div`
   background: transparent;
@@ -117,13 +119,12 @@ const CloseButton = styled.div`
   font-size: 20px;
   cursor: pointer;
   text-align: right;
-  margin-top: 20px;
 `;
 
 const Parragraph = styled.div`
   font-family: 'Montserrat';
   font-style: normal;
-  font-weight: 400;
+  font-weight: ${({ bold }) => (bold ? 800 : 400)};
   font-size: ${({ mobile }) => (mobile ? '0.87rem' : '1rem')};
   width: ${({ mobile }) => (mobile ? '75%' : null)};
   line-height: 19.5px;
@@ -131,6 +132,12 @@ const Parragraph = styled.div`
   margin: 20px auto;
   color: #3d3d3d;
 `;
+
+const InfoIcon = styled(AiOutlineInfoCircle)`
+  margin-bottom: -3px;
+  margin-right: 5px;
+`;
+
 const StyledForm = styled.form`
   width: 90%;
   margin: auto;
@@ -220,4 +227,4 @@ const FormInput = styled.input`
     margin: 10px 0px;
   }
 `;
-export default ContactModal;
+export default InscribirmeModal;

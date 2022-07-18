@@ -88,35 +88,28 @@ const Footer = () => {
                                 }
                               }
                               return (
-                                <>
-                                  <FooterAnchor
-                                    key={index + 100}
-                                    onClick={footerUrl}
-                                    icono={icono}
-                                  >
-                                    {icono && (
-                                      // <IconImg
-                                      // 	key={index}
-                                      // 	src={`./img/${icono}-icon.png`}
-                                      // 	alt="icono"
-                                      // />
-                                      <SocialMediaIcon
-                                        key={index}
-                                        type={type}
-                                        size={20}
-                                      />
-                                    )}
-                                    {nombre}
-                                  </FooterAnchor>
-                                </>
+                                <FooterAnchor
+                                  key={index + 100}
+                                  onClick={footerUrl}
+                                  icono={icono}
+                                >
+                                  {icono && (
+                                    <SocialMediaIcon
+                                      key={index}
+                                      type={type}
+                                      size={20}
+                                    />
+                                  )}
+                                  {nombre}
+                                </FooterAnchor>
                               );
                             } else {
                               return (
-                                <>
-                                  <FooterParragraph key={index + 20}>
+                                <div key={index + 20}>
+                                  <FooterParragraph >
                                     {nombre} {url}
                                   </FooterParragraph>
-                                  <EmailForm key={index + 10}>
+                                  <EmailForm>
                                     <StyledInput
                                       type="text"
                                       placeholder={placeholder}
@@ -129,7 +122,7 @@ const Footer = () => {
                                       borderRadius="5px"
                                     />
                                   </EmailForm>
-                                </>
+                                </div>
                               );
                             }
                           }

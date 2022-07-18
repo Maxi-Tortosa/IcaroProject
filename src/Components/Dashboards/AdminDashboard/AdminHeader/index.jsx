@@ -1,18 +1,28 @@
 import { useContext } from "react"
-import { projectContext } from "../../../../Context/ProjectContext"
-import { Link } from "react-router-dom"
-import styled from "styled-components"
-import theme from "../../../../Theme/base"
-import SettingsIcon from "../../../Shared/Icons/SettingsIcon"
-import { useState } from "react"
+import { projectContext } from '../../../../Context/ProjectContext';
+import { Link, useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import theme from '../../../../Theme/base';
+import SettingsIcon from '../../../Shared/Icons/SettingsIcon';
+import { useState } from 'react';
 import AdminMenu from '../AdminMenu';
+import { auth } from '../../../../Firebase';
+import { signOut } from 'firebase/auth';
 
 const AdminHeader = ({ handleClick, toggleState }) => {
   const [isScroll, setIsScroll] = useState(false);
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const { isAdmin } = useContext(projectContext);
+  const navigate = useNavigate();
 
   window.addEventListener('scroll', changeNavColor);
+
+  function handleLogout() {
+    signOut(auth);
+    setTimeout(() => {
+      navigate('/');
+    }, 1000);
+  }
 
   function changeNavColor() {
     if (window.scrollY >= 85) {
@@ -43,6 +53,7 @@ const AdminHeader = ({ handleClick, toggleState }) => {
                 <AdminMenu
                   handleClick={handleClick}
                   toggleState={toggleState}
+                  handleLogout={handleLogout}
                 />
               )}
             </SettingsButton>

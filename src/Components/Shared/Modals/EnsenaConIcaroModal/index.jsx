@@ -8,6 +8,7 @@ import { useIsMobile } from '../../../../Hooks/Client';
 import Select from 'react-select';
 import { CONTACTMEDIA } from '../../../../Constants/ConatctMedia';
 import { VscClose } from 'react-icons/vsc';
+import '../ModalStyles/ModalStyles.css';
 
 const EnsenaConIcaroModal = ({ modalIsOpen, closeModal }) => {
   const mobile = useIsMobile();
@@ -55,21 +56,18 @@ const EnsenaConIcaroModal = ({ modalIsOpen, closeModal }) => {
       isOpen={modalIsOpen}
       onRequestClose={closeModal}
       style={mobile ? customMobileStyles : customStyles}
+      closeTimeoutMS={500}
     >
-      <HeaderTitle>
-        <div>
-          <Title>¡Sumate a nuestra comunidad!</Title>
-          <Parragraph mobile={mobile}>
-            Si eres profesional especializado en la industria, si te apasiona la
-            educación y trabajar en equipo ¡nos gustaría conocerte!
-          </Parragraph>
-        </div>
-
-        <CloseButton onClick={closeModal}>
-        <VscClose size={20}
-          />
-        </CloseButton>
-      </HeaderTitle>
+      <CloseButton onClick={closeModal}>
+        <VscClose size={20} />
+      </CloseButton>
+      <div>
+        <Title>¡Sumate a nuestra comunidad!</Title>
+        <Parragraph mobile={mobile}>
+          Si eres profesional especializado en la industria, si te apasiona la
+          educación y trabajar en equipo ¡nos gustaría conocerte!
+        </Parragraph>
+      </div>
 
       <StyledForm mobile={mobile}>
         <FormLabel mobile={mobile} htmlFor="fullname">
@@ -134,12 +132,7 @@ const EnsenaConIcaroModal = ({ modalIsOpen, closeModal }) => {
     </ReactModal>
   );
 };
-const HeaderTitle = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  margin: 20px 0;
-`;
+
 const Title = styled.h3`
   font-family: 'Montserrat';
   font-style: normal;
@@ -156,6 +149,8 @@ const CloseButton = styled.div`
   border: unset;
   font-size: 20px;
   cursor: pointer;
+  text-align: right;
+  margin-top: 10px;
 `;
 
 const Parragraph = styled.div`
