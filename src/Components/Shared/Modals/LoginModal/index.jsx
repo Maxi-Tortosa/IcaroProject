@@ -6,8 +6,9 @@ import { VscClose } from 'react-icons/vsc';
 import { Link } from 'react-router-dom';
 
 const LoginModal = ({isLoginOpen,setIsLoginOpen,setUserEmail,handleChange,passwordError,hasError,handleSubmit}) =>{
-
+	
     const closeModal = () =>{
+	
         setIsLoginOpen(false)
     }
   const customStyles = {
@@ -32,7 +33,9 @@ const LoginModal = ({isLoginOpen,setIsLoginOpen,setUserEmail,handleChange,passwo
         <ReactModal
         isOpen={isLoginOpen}
         onRequestClose={closeModal}
+		closeTimeoutMS={500}
         style={customStyles}
+		
         >
             
 			<Container>
@@ -68,12 +71,12 @@ const LoginModal = ({isLoginOpen,setIsLoginOpen,setUserEmail,handleChange,passwo
 						Inicia sesión
 					</button>
 					<Link
-						onClick={() => setIsLoginOpen(false)}
+						onClick={closeModal}
 						className='register'
 						to='/register'>
 						¿No tenés cuenta? Únete a Icaro{' '}
 					</Link>
-					<button className='close' onClick={() => setIsLoginOpen(false)}>
+					<button className='close' onClick={closeModal}>
 						<VscClose size={20} />
 					</button>
 				</form>
