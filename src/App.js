@@ -32,6 +32,8 @@ function App() {
 		}, 2000);
 	}, []);
 
+	console.log(isLoginOpen);
+
 	return (
 		<BrowserRouter>
 			<UserContext>
@@ -41,10 +43,16 @@ function App() {
 					) : (
 						<>
 							<Header
+								setLoggedUser={setLoggedUser}
 								setIsLoginOpen={setIsLoginOpen}
 								isLoginOpen={isLoginOpen}
 							/>
-							{isLoginOpen ? <LogIn setIsLoginOpen={setIsLoginOpen} /> : null}
+							{isLoginOpen ? (
+								<LogIn
+									setIsLoginOpen={setIsLoginOpen}
+									isLoginOpen={isLoginOpen}
+								/>
+							) : null}
 							<Routes>
 								<Route exact path='/' element={<HomeContainer />} />
 								<Route path='*' element={<Navigate replace to='/404' />} />

@@ -1,9 +1,10 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext, useState } from 'react';
+
+import LoginModal from '../Shared/Modals/LoginModal/index';
 import { auth } from '../../Firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { userContext } from '../../Context/UserContext';
-import LoginModal from '../Shared/Modals/LoginModal/index'
 
 const LogIn = ({ setIsLoginOpen, isLoginOpen }) => {
 	const { users } = useContext(userContext);
@@ -11,7 +12,7 @@ const LogIn = ({ setIsLoginOpen, isLoginOpen }) => {
 	const [userPassword, setUserPassword] = useState();
 	const [passwordError, setPasswordError] = useState(false);
 	const [hasError, setHasError] = useState(false);
-	
+
 	const navigate = useNavigate();
 
 	const handleSubmit = (e) => {
@@ -64,21 +65,16 @@ const LogIn = ({ setIsLoginOpen, isLoginOpen }) => {
 	// 	.catch((err) => {
 	// 		console.log(err);
 	// 	});
-
+	console.log(isLoginOpen);
 	return (
-		
-			<LoginModal
-				isLoginOpen={isLoginOpen}
-				setIsLoginOpen={setIsLoginOpen}
-				setUserEmail = {setUserEmail}
-				handleChange = {handleChange}
-				passwordError = {passwordError}
-				hasError= {hasError}
-				handleSubmit={handleSubmit}
-			>
-			</LoginModal>
-
-			
+		<LoginModal
+			isLoginOpen={isLoginOpen}
+			setIsLoginOpen={setIsLoginOpen}
+			setUserEmail={setUserEmail}
+			handleChange={handleChange}
+			passwordError={passwordError}
+			hasError={hasError}
+			handleSubmit={handleSubmit}></LoginModal>
 	);
 };
 

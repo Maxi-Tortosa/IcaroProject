@@ -13,38 +13,37 @@ import theme from '../../Theme/base';
 import { useIsMobile } from '../../Hooks/Client';
 import { userContext } from '../../Context/UserContext';
 
-const Header = ({ setIsLoginOpen, isLoginOpen }) => {
+const Header = ({ setLoggedUser, setIsLoginOpen, isLoginOpen }) => {
 	const { is404 } = useContext(projectContext);
-	const { currentUser, users, pending } = useContext(userContext);
+	const { currentUser, users } = useContext(userContext);
 	const [isScroll, setIsScroll] = useState(false);
 	const [modalIsOpen, setIsOpen] = useState(false);
 	const [displayUser, setDisplayUser] = useState(null);
 	const [mobileMenuIsOpen, setMobileMenuIsOpen] = useState(false);
 	const mobile = useIsMobile();
+	const cursosElement = document.getElementById('cursos');
+	const quienesSomosElement = document.getElementById('quienes-somos');
+	const rootElement = document.getElementById('root');
 	const navigate = useNavigate();
 	const location = useLocation().pathname;
 
+	console.log(isLoginOpen);
+
 	useEffect(() => {
-		const display =
-			currentUser && users.find((user) => user.email === currentUser.email);
-		setDisplayUser(display);
+		if (currentUser) {
+			const display = users.find((user) => user.email === currentUser.email);
+			setDisplayUser(display);
+			setLoggedUser(true);
+		} else {
+			setLoggedUser(false);
+		}
 	}, [users, currentUser]);
 
-	function scrollTo(route, offset = 0) {
-		location !== '/' && navigate('/');
-		setTimeout(() => {
-			let element = document.getElementById('root');
-			if (route === '/cursos') {
-				element = document.getElementById('cursos');
-			} else if (route === '/quienes-somos') {
-				element = document.getElementById('quienes-somos');
-			}
+	function scrollTo(element, offset) {
+		const elementPosition = element.getBoundingClientRect().top;
+		const offsetPosition = elementPosition + window.pageYOffset - offset;
 
-			const elementPosition = element.getBoundingClientRect().top;
-			const offsetPosition = elementPosition + window.pageYOffset - offset;
-
-			window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-		}, 500);
+		window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
 	}
 
 	function openModal() {
@@ -98,7 +97,7 @@ const Header = ({ setIsLoginOpen, isLoginOpen }) => {
 							to='/'
 							className='logo'
 							onClick={() => {
-								scrollTo('/');
+								scrollTo(rootElement, 70);
 							}}>
 							<img
 								src='https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/logo.svg?alt=media&token=b47dccac-e962-48ab-99f1-f3d250f879f5'
@@ -109,7 +108,7 @@ const Header = ({ setIsLoginOpen, isLoginOpen }) => {
 							<li>
 								<CenterLinks
 									onClick={() => {
-										scrollTo('/cursos', 70);
+										scrollTo(cursosElement, 70);
 									}}>
 									Cursos
 								</CenterLinks>
@@ -117,7 +116,7 @@ const Header = ({ setIsLoginOpen, isLoginOpen }) => {
 							<li>
 								<CenterLinks
 									onClick={() => {
-										scrollTo('/quienes-somos', 100);
+										scrollTo(quienesSomosElement, 100);
 									}}>
 									Quiénes somos
 								</CenterLinks>
@@ -130,10 +129,7 @@ const Header = ({ setIsLoginOpen, isLoginOpen }) => {
 							<UserDisplay onClick={handleClick} userName={displayUser.name} />
 						) : (
 							<div className='signinButton'>
-								<IngresaBttn
-									setIsLoginOpen={setIsLoginOpen}
-									isLoginOpen={isLoginOpen}
-								/>
+								<IngresaBttn setIsLoginOpen={setIsLoginOpen} />
 							</div>
 						)}
 					</div>

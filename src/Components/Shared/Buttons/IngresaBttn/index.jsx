@@ -1,31 +1,30 @@
-import styled from "styled-components"
-import theme from "../../../../Theme/base"
-import { useLocation } from "react-router-dom"
+import styled from 'styled-components';
+import theme from '../../../../Theme/base';
+import { useLocation } from 'react-router-dom';
 
 const IngresaBttn = ({ setIsLoginOpen }) => {
 	const handleClick = () => {
-		setIsLoginOpen(true)
-	}
-	const location = useLocation()
+		console.log(setIsLoginOpen(true));
+	};
+	const location = useLocation();
 
 	return (
 		<>
 			<StyledButton
-				className="ingresa"
+				className='ingresa'
 				onClick={handleClick}
-				isCourses={location.pathname.includes("cursos")}
-			>
+				isCourses={location.pathname.includes('cursos')}>
 				Ingresá
 			</StyledButton>
 		</>
-	)
-}
+	);
+};
 
 const StyledButton = styled.button`
 	font-family: ${theme.fontFamily.primary};
 	font-size: 16px;
 	cursor: pointer;
-	font-weight: ${({ isCourses }) => (isCourses ? 500 : "normal")};
+	font-weight: ${({ isCourses }) => (isCourses ? 500 : 'normal')};
 	color: ${({ isCourses }) =>
 		isCourses ? theme.color.darkBlue : theme.color.white};
 	background: ${({ isCourses }) =>
@@ -44,6 +43,6 @@ const StyledButton = styled.button`
 
 		background-position: 160px;
 	}
-`
+`;
 
-export default IngresaBttn
+export default IngresaBttn;
