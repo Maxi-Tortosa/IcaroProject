@@ -1,4 +1,12 @@
 import { useState, useEffect, useContext } from 'react';
+import {
+  collection,
+  doc,
+  onSnapshot,
+  setDoc,
+  updateDoc,
+} from 'firebase/firestore';
+import db from '../../Firebase/index';
 import styled from 'styled-components';
 import theme from '../../Theme/base';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -6,11 +14,20 @@ import Select from 'react-select';
 import TextareaAutosize from 'react-textarea-autosize';
 import BlueButton from '../../Components/Shared/Buttons/BlueButton';
 import LinearBttn from '../../Components/Shared/Buttons/LinearBttn';
-import { normalizeSelectOptions, sortArrayByOrderNumber } from '../../Utils';
+import {
+  getCollectionName,
+  normalizeSelectOptions,
+  sortArrayByOrderNumber,
+} from '../../Utils';
 import Spacer from '../../Components/Shared/Spacer';
 import { projectContext } from '../../Context/ProjectContext';
 import Loader from '../../Components/Shared/Loader';
 import { VscClose } from 'react-icons/vsc';
+import {
+  successToast,
+  errorToast,
+} from '../../Components/Shared/Toasts/ToastList';
+import ToastListContainer from '../../Components/Shared/Toasts/ToastListContainer';
 
 const EditElementContainer = ({ fieldsList, type, title, selectOptions }) => {
   const { editElement } = useParams();
@@ -18,10 +35,13 @@ const EditElementContainer = ({ fieldsList, type, title, selectOptions }) => {
   const [newData, setNewData] = useState({});
   const navigate = useNavigate();
   const [pending, setPending] = useState(true);
+  const [updateLoading, setUpdateLoading] = useState(false);
+  const [list, setList] = useState([]);
+
+  console.log(type);
 
   const { course, categories, nextCourses } = useContext(projectContext);
   const [selectedEditElement, setSelectedEditElement] = useState('');
-  // console.log(type);
 
   useEffect(() => {
     if (course.length > 0 && categories.length > 0) {
@@ -34,6 +54,21 @@ const EditElementContainer = ({ fieldsList, type, title, selectOptions }) => {
       setPending(false);
     }
   }, [course, categories, editElement, nextCourses]);
+
+  function showToast(type, content) {
+    let selectedToast = [];
+    switch (type) {
+      case 'success':
+        selectedToast = successToast(content, list);
+        break;
+      case 'error':
+        selectedToast = errorToast(content, list);
+        break;
+      default:
+        break;
+    }
+    setList([...list, selectedToast]);
+  }
 
   sortArrayByOrderNumber(fieldsList);
   const categoriesOptions = normalizeSelectOptions(selectOptions);
@@ -102,17 +137,21 @@ const EditElementContainer = ({ fieldsList, type, title, selectOptions }) => {
   }
 
   function handleSubmit(e) {
-    // console.log("se hizo submit")
-    e.preventDefault();
+    setUpdateLoading(true);
     if (disabledButton) return;
     if (newData) {
-      // setLoading(true)
+      const collection = getCollectionName(type);
+      const ref = doc(db, collection, selectedEditElement.uuid);
       console.log('aca submit lo nuevo', newData);
-      // showToast("success")
+      updateDoc(ref, newData);
+      showToast('success', 'Se ha modificado el elemento');
     } else {
-      // showToast("danger")
+      showToast('error', 'Ha ocurrido un error');
     }
-    handleClose();
+    setTimeout(() => {
+      // setPending(false);
+      handleClose();
+    }, 2000);
   }
 
   if (pending || !selectedEditElement) return <Loader />;
@@ -129,41 +168,56 @@ const EditElementContainer = ({ fieldsList, type, title, selectOptions }) => {
           <VscClose size={20} />
         </CloseButton>
       </HeaderTitle>
-      <StyledForm>
-        {fieldsList.map((elem, index, array) => (
-          <FormLabel key={elem.id} htmlFor={elem.nombre} elemWidth={elem.width}>
-            <>
-              {elem.nroOrden}. {elem.inputLabel}
-              {elem.isRequired && (
-                <RequiredText>* Campo obligatorio</RequiredText>
-              )}
-              {elem.helpText && elem.type !== 'textarea' && (
-                <Small>{elem.helpText}</Small>
-              )}
-              {getElementType(elem.type, elem)}
-            </>
-          </FormLabel>
-        ))}
-      </StyledForm>
-      <SubmitContainer>
-        <LinearBttn type="cancel" onClick={handleClose}>
-          Cancelar
-        </LinearBttn>
-        <BlueButton
-          width="100%"
-          borderRadius="10px"
-          padding="5px 13px"
-          backgroundColor={
-            disabledButton ? theme.color.disabledBlue : theme.color.darkBlue
-          }
-          type="submit"
-          disabled={disabledButton}
-          onClick={(e) => handleSubmit(e)}
-        >
-          Guardar
-        </BlueButton>
-      </SubmitContainer>
-      <Spacer height={100} />
+      {updateLoading ? (
+        <Loader />
+      ) : (
+        <>
+          <StyledForm>
+            {fieldsList.map((elem, index, array) => (
+              <FormLabel
+                key={elem.id}
+                htmlFor={elem.nombre}
+                elemWidth={elem.width}
+              >
+                <>
+                  {elem.nroOrden}. {elem.inputLabel}
+                  {elem.isRequired && (
+                    <RequiredText>* Campo obligatorio</RequiredText>
+                  )}
+                  {elem.helpText && elem.type !== 'textarea' && (
+                    <Small>{elem.helpText}</Small>
+                  )}
+                  {getElementType(elem.type, elem)}
+                </>
+              </FormLabel>
+            ))}
+          </StyledForm>
+          <SubmitContainer>
+            <LinearBttn type="cancel" onClick={handleClose}>
+              Cancelar
+            </LinearBttn>
+            <BlueButton
+              width="100%"
+              borderRadius="10px"
+              padding="5px 13px"
+              backgroundColor={
+                disabledButton ? theme.color.disabledBlue : theme.color.darkBlue
+              }
+              type="submit"
+              disabled={disabledButton}
+              onClick={(e) => handleSubmit(e)}
+            >
+              Guardar
+            </BlueButton>
+          </SubmitContainer>
+          <Spacer height={100} />
+        </>
+      )}
+      <ToastListContainer
+        toastlist={list}
+        position="buttom-right"
+        setList={setList}
+      />
     </NewElementMainContainer>
   );
 };

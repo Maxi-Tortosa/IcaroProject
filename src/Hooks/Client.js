@@ -66,6 +66,5 @@ export const useGetColors = (categID) => {
   };
   const colorElem = categories.filter((a) => a.CategoriaID === categID)[0]
     .color;
-
   return `${colorElem || defaultColors.categID}`;
 };
