@@ -6,84 +6,83 @@ import styled from 'styled-components';
 import theme from '../../../../Theme/base';
 
 const LoginModal = ({
-	isLoginOpen,
-	setIsLoginOpen,
-	setUserEmail,
-	handleChange,
-	passwordError,
-	hasError,
-	handleSubmit,
+  isLoginOpen,
+  setIsLoginOpen,
+  setUserEmail,
+  handleChange,
+  passwordError,
+  hasError,
+  handleSubmit,
 }) => {
-	console.log(isLoginOpen);
+  const closeModal = () => {
+    setIsLoginOpen(false);
+  };
+  const customStyles = {
+    overlay: { position: 'fixed', zIndex: `${theme.zIndex.modals}` },
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+      width: '80%',
+      maxWidth: '1020px',
+      overflow: 'hidden',
+      borderRadius: '15px',
+      padding: '0',
+    },
+  };
 
-	const closeModal = () => {
-		setIsLoginOpen(false);
-	};
-	const customStyles = {
-		overlay: { position: 'fixed', zIndex: `${theme.zIndex.modals}` },
-		content: {
-			top: '50%',
-			left: '50%',
-			right: 'auto',
-			bottom: 'auto',
-			marginRight: '-50%',
-			transform: 'translate(-50%, -50%)',
-			width: '80%',
-			maxWidth: '1020px',
-			overflow: 'hidden',
-			borderRadius: '15px',
-			padding: '0',
-		},
-	};
-
-	return (
-		<ReactModal
-			isOpen={isLoginOpen}
-			onRequestClose={closeModal}
-			closeTimeoutMS={500}
-			style={customStyles}>
-			<Container>
-				<div class='loginImage'></div>
-				<form class='loginData'>
-					<p>Inicia Sesión</p>
-					{/* Ver de meter una validación con el hook de reactfire */}
-					{/*Ver de permitir el ingreso con un enter en el input */}
-					<div className='input'>
-						<label htmlFor='user'> Email </label>
-						<input
-							id='usuario'
-							onChange={(e) => setUserEmail(e.target.value)}
-							type='text'
-							name='user'
-						/>
-					</div>
-					<div className='input'>
-						<label htmlFor='password'> Contraseña </label>
-						<input
-							onChange={handleChange}
-							id='contraseña'
-							type='password'
-							name='password'
-							className={passwordError ? 'passwordError' : 'ok'}
-						/>
-						{hasError ? <p> su contraseña no existe </p> : null}
-					</div>
-					<Link className='forgot' to='/'>
-						Olvidé mi contraseña
-					</Link>
-					<button className='submit' type='submit' onClick={handleSubmit}>
-						Inicia sesión
-					</button>
-					<Link onClick={closeModal} className='register' to='/register'>
-						¿No tenés cuenta? Únete a Icaro{' '}
-					</Link>
-					<button className='close' onClick={closeModal}>
-						<VscClose size={20} />
-					</button>
-				</form>
-			</Container>
-		</ReactModal>
-	);
+  return (
+    <ReactModal
+      isOpen={isLoginOpen}
+      onRequestClose={closeModal}
+      closeTimeoutMS={500}
+      style={customStyles}
+    >
+      <Container>
+        <div class="loginImage"></div>
+        <form class="loginData">
+          <p>Inicia Sesión</p>
+          {/* Ver de meter una validación con el hook de reactfire */}
+          {/*Ver de permitir el ingreso con un enter en el input */}
+          <div className="input">
+            <label htmlFor="user"> Email </label>
+            <input
+              id="usuario"
+              onChange={(e) => setUserEmail(e.target.value)}
+              type="text"
+              name="user"
+            />
+          </div>
+          <div className="input">
+            <label htmlFor="password"> Contraseña </label>
+            <input
+              onChange={handleChange}
+              id="contraseña"
+              type="password"
+              name="password"
+              className={passwordError ? 'passwordError' : 'ok'}
+            />
+            {hasError ? <p> su contraseña no existe </p> : null}
+          </div>
+          <Link className="forgot" to="/">
+            Olvidé mi contraseña
+          </Link>
+          <button className="submit" type="submit" onClick={handleSubmit}>
+            Inicia sesión
+          </button>
+          <Link onClick={closeModal} className="register" to="/register">
+            ¿No tenés cuenta? Únete a Icaro{' '}
+          </Link>
+          <button className="close" onClick={closeModal}>
+            <VscClose size={20} />
+          </button>
+        </form>
+      </Container>
+    </ReactModal>
+  );
 };
 
 const Container = styled.div`

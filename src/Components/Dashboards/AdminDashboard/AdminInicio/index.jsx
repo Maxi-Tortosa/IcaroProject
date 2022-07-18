@@ -30,27 +30,30 @@ const AdminInicio = ({ handleClick }) => {
       <TusCursosMainContainer>
         <CardContainer mobile={mobile}>
           {SIDEMENUCATEGORIES.map((elem, index) => {
-            if (index !== 0 && index < 5) {
-              return (
-                <Card>
-                  <TitleContainer mobile={mobile}>
-                    <Title mobile={mobile}>{elem.menuName}</Title>
-                  </TitleContainer>
-                  {elem.actions &&
-                    elem.actions.map((item) => {
-                      return (
-                        <StyledButton
-                          onClick={(e) =>
-                            handleClick(index, elem.menuName, item.url)
-                          }
-                        >
-                          {item.name}
-                        </StyledButton>
-                      );
-                    })}
-                </Card>
-              );
-            }
+            return (
+              <>
+                {index !== 0 && index < 5 && (
+                  <Card key={elem.id}>
+                    <TitleContainer mobile={mobile}>
+                      <Title mobile={mobile}>{elem.menuName}</Title>
+                    </TitleContainer>
+                    {elem.actions &&
+                      elem.actions.map((item) => {
+                        return (
+                          <StyledButton
+                            onClick={(e) =>
+                              handleClick(index, elem.menuName, item.url)
+                            }
+                            key={elem.id}
+                          >
+                            {item.name}
+                          </StyledButton>
+                        );
+                      })}
+                  </Card>
+                )}
+              </>
+            );
           })}
         </CardContainer>
       </TusCursosMainContainer>

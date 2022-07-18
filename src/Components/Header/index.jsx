@@ -27,8 +27,6 @@ const Header = ({ setLoggedUser, setIsLoginOpen, isLoginOpen }) => {
 	const navigate = useNavigate();
 	const location = useLocation().pathname;
 
-	console.log(isLoginOpen);
-
 	useEffect(() => {
 		if (currentUser) {
 			const display = users.find((user) => user.email === currentUser.email);
