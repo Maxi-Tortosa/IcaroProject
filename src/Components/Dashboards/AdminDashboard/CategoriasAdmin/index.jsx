@@ -25,7 +25,6 @@ const CategoriasAdmin = ({ categorias }) => {
   const navigate = useNavigate();
 
   const [list, setList] = useState([]);
-  console.log('color!', useGetColors('dipYProgEsp'));
 
   function showToast(type, content) {
     let selectedToast = [];

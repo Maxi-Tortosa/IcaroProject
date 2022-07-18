@@ -23,8 +23,6 @@ const EditElementContainer = ({ fieldsList, type, title, selectOptions }) => {
   const [selectedEditElement, setSelectedEditElement] = useState('');
   // console.log(type);
 
-  //link del tablero de slack
-  //link del zoom de clase
   useEffect(() => {
     if (course.length > 0 && categories.length > 0) {
       const elemResult =
@@ -36,19 +34,13 @@ const EditElementContainer = ({ fieldsList, type, title, selectOptions }) => {
       setPending(false);
     }
   }, [course, categories, editElement, nextCourses]);
-  // console.log("elem", selectedEditElement)
 
   sortArrayByOrderNumber(fieldsList);
   const categoriesOptions = normalizeSelectOptions(selectOptions);
 
   useEffect(() => {
-    const requiredFields = fieldsList
-      .filter((elem) => elem.isRequired)
-      .map((item) => item.nombre);
-    const dataKeys = Object.keys(newData);
-
-    requiredFields.every((ai) => dataKeys.includes(ai)) &&
-    Object.values(newData).every((item) => item.length > 3)
+    console.log(Object.values(newData).length > 1);
+    Object.values(newData).length > 0
       ? setDisabledButton(false)
       : setDisabledButton(true);
   }, [newData, fieldsList]);
@@ -63,32 +55,78 @@ const EditElementContainer = ({ fieldsList, type, title, selectOptions }) => {
     console.log(newData);
   }
 
-  function getDefaultValue(nombre) {
-    if (nombre === 'href') {
-      // setNewData((newData) => ({ ...newData, [nombre]: getAuthomaticPath() }))
-      return getAuthomaticPath(nombre);
-    } else if (nombre === 'CategoriaID') {
-      // setNewData((newData) => ({ ...newData, [nombre]: getCategoryID() }))
-      return getCategoryID();
-    } else return '';
-  }
-
-  function getCategoryID() {
-    if (newData?.categoria?.length > 3) {
-      const selectedCategoria = selectOptions.filter(
-        (elem) => elem.Nombre === newData.categoria
-      );
-      return selectedCategoria[0].CategoriaID;
+  function getElementType(inputType, elem) {
+    switch (inputType) {
+      case 'select':
+        return (
+          <SelectContainer hasExtraMargin={!elem.helpText}>
+            <Select
+              options={categoriesOptions}
+              onChange={(value) => handleChange(elem.nombre, value.name)}
+              placeholder="Seleccione categoria"
+            />
+          </SelectContainer>
+        );
+      case 'file':
+        return (
+          <>
+            <FileInput id="inputFile" name="file" type="file" />
+            <Label htmlFor="inputFile" hasExtraMargin={!elem.helpText}>
+              <span>Seleccionar archivo</span>
+              <span>{'Límite 2 mb'}</span>
+            </Label>
+          </>
+        );
+      case 'textarea':
+        return (
+          <TextareaAutosize
+            onChange={(e) => handleChange(elem.nombre, e.target.value)}
+            minRows={3}
+            placeholder={elem.helpText}
+            className="styled-text-area"
+            defaultValue={selectedEditElement[elem.nombre]}
+          />
+        );
+      default:
+        return (
+          <FormInput
+            hasExtraMargin={!elem.helpText}
+            withBorder={elem.type === 'text' || elem.type === 'number'}
+            type={elem.type}
+            onChange={(e) => handleChange(elem.nombre, e.target.value)}
+            disabled={elem.isDisabled}
+            defaultValue={selectedEditElement[elem.nombre]}
+          />
+        );
     }
   }
 
-  function getAuthomaticPath(nombre) {
-    if (newData?.nombre?.length > 3) {
-      const generatedPath = newData.nombre.toLowerCase().replaceAll(' ', '-');
-      // setNewData((newData) => ({ ...newData, [nombre]: generatedPath }))
-      return generatedPath;
-    }
-  }
+  // function getDefaultValue(nombre) {
+  //   if (nombre === 'href') {
+  //     // setNewData((newData) => ({ ...newData, [nombre]: getAuthomaticPath() }))
+  //     return getAuthomaticPath(nombre);
+  //   } else if (nombre === 'CategoriaID') {
+  //     // setNewData((newData) => ({ ...newData, [nombre]: getCategoryID() }))
+  //     return getCategoryID();
+  //   } else return '';
+  // }
+
+  // function getCategoryID() {
+  //   if (newData?.categoria?.length > 3) {
+  //     const selectedCategoria = selectOptions.filter(
+  //       (elem) => elem.Nombre === newData.categoria
+  //     );
+  //     return selectedCategoria[0].CategoriaID;
+  //   }
+  // }
+
+  // function getAuthomaticPath(nombre) {
+  //   if (newData?.nombre?.length > 3) {
+  //     const generatedPath = newData.nombre.toLowerCase().replaceAll(' ', '-');
+  //     // setNewData((newData) => ({ ...newData, [nombre]: generatedPath }))
+  //     return generatedPath;
+  //   }
+  // }
 
   function handleSubmit(e) {
     // console.log("se hizo submit")
@@ -129,44 +167,7 @@ const EditElementContainer = ({ fieldsList, type, title, selectOptions }) => {
               {elem.helpText && elem.type !== 'textarea' && (
                 <Small>{elem.helpText}</Small>
               )}
-              {elem.type === 'select' ? (
-                <SelectContainer hasExtraMargin={!elem.helpText}>
-                  <Select
-                    options={categoriesOptions}
-                    onChange={(value) => handleChange(elem.nombre, value.name)}
-                    placeholder="Seleccione categoria"
-                  />
-                </SelectContainer>
-              ) : elem.type === 'file' ? (
-                <>
-                  <FileInput id="inputFile" name="file" type="file" />
-
-                  <Label htmlFor="inputFile" hasExtraMargin={!elem.helpText}>
-                    <span>Seleccionar archivo</span>
-                    <span>{'Límite 2 mb'}</span>
-                  </Label>
-                </>
-              ) : elem.type === 'textarea' ? (
-                <TextareaAutosize
-                  onChange={(e) => handleChange(elem.nombre, e.target.value)}
-                  minRows={3}
-                  placeholder={elem.helpText}
-                  className="styled-text-area"
-                  value={selectedEditElement[elem.nombre]}
-                />
-              ) : (
-                <FormInput
-                  hasExtraMargin={!elem.helpText}
-                  withBorder={elem.type === 'text' || elem.type === 'number'}
-                  type={elem.type}
-                  onChange={(e) => handleChange(elem.nombre, e.target.value)}
-                  defaultValue={
-                    elem.defaultValue || getDefaultValue(elem.nombre)
-                  }
-                  disabled={elem.isDisabled}
-                  value={selectedEditElement[elem.nombre]}
-                />
-              )}
+              {getElementType(elem.type, elem)}
             </>
           </FormLabel>
         ))}

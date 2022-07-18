@@ -28,7 +28,7 @@ export const CATEGORYFIELDS = [
     width: '45%',
   },
   {
-    nombre: 'Color',
+    nombre: 'color',
     inputLabel: 'Color',
     isRequired: true,
     type: 'color',
