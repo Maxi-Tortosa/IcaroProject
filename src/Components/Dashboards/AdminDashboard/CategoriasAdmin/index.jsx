@@ -1,4 +1,12 @@
 import { useState } from 'react';
+import {
+  collection,
+  doc,
+  onSnapshot,
+  setDoc,
+  updateDoc,
+} from 'firebase/firestore';
+import db from '../../../../Firebase/index';
 import styled from 'styled-components';
 import theme from '../../../../Theme/base';
 import EditIcon from '../../../Shared/Icons/EditIcon';
@@ -8,6 +16,7 @@ import { useNavigate } from 'react-router-dom';
 import ConfirmationModal from '../../../Shared/Modals/ConfirmationModal';
 import { successToast, errorToast } from '../../../Shared/Toasts/ToastList';
 import ToastListContainer from '../../../Shared/Toasts/ToastListContainer';
+import ShowIcon from '../../../Shared/Icons/ShowIcon';
 
 const CategoriasAdmin = ({ categorias }) => {
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -31,7 +40,7 @@ const CategoriasAdmin = ({ categorias }) => {
     setList([...list, selectedToast]);
   }
 
-  function openDeleteModal(selected) {
+  function openShowHideModal(selected) {
     setSelectedCategory(selected);
     setIsOpen(true);
   }
@@ -48,8 +57,10 @@ const CategoriasAdmin = ({ categorias }) => {
     navigate(`/admin/edit/${elem.CategoriaID}`, { replace: false });
   }
 
-  function handleDelete() {
-    showToast('success', 'Se ha eliminado el elemento');
+  function handleToggleShow() {
+    const ref = doc(db, `CategoriasCursos`, selectedCategory.uuid);
+    updateDoc(ref, { isHidden: !selectedCategory.isHidden });
+    showToast('success', 'Se ha modificado el elemento');
   }
 
   return (
@@ -71,7 +82,7 @@ const CategoriasAdmin = ({ categorias }) => {
 
         {categorias.map((el, index) => {
           return (
-            <TableRow key={index}>
+            <TableRow key={index} isHidden={el.isHidden}>
               <TableColumn>{index + 1}</TableColumn>
               <TableColumn>{el.Nombre}</TableColumn>
               <TableColumn bgcolor={el.CategoriaID}>
@@ -81,8 +92,8 @@ const CategoriasAdmin = ({ categorias }) => {
                 <div onClick={(e) => handleEdit(el)}>
                   <EditIcon />
                 </div>
-                <div onClick={(e) => openDeleteModal(el)}>
-                  <HideIcon />
+                <div onClick={(e) => openShowHideModal(el)}>
+                  {el.isHidden ? <ShowIcon /> : <HideIcon />}
                 </div>
               </TableColumn>
             </TableRow>
@@ -92,15 +103,23 @@ const CategoriasAdmin = ({ categorias }) => {
       <ConfirmationModal
         modalIsOpen={modalIsOpen}
         closeModal={closeModal}
-        modalTitle="Ocultar categoria"
+        modalTitle={
+          selectedCategory?.isHidden ? 'Mostrar Categoria' : 'Ocultar Categoria'
+        }
         cancelButtonContent="Cancelar"
-        confirmButtonContent="Ocultar"
-        confirmButtonSubmit={handleDelete}
+        confirmButtonContent={
+          selectedCategory?.isHidden ? 'Mostrar' : 'Ocultar'
+        }
+        confirmButtonSubmit={handleToggleShow}
         withCloseButton
         mainColor={theme.color.redError}
       >
         <ModalContent>
-          <p>¿Confirma que desea ocultar la siguiente categoria?</p>
+          <p>
+            ¿Confirma que desea{' '}
+            {selectedCategory?.isHidden ? 'mostrar' : 'ocultar'} la siguiente
+            categoria?
+          </p>
           <b>{selectedCategory?.Nombre}</b>
         </ModalContent>
       </ConfirmationModal>
@@ -167,9 +186,10 @@ const TableRow = styled.div`
   text-align: left;
   gap: 10px;
   padding: 10px 0;
+  ${({ isHidden }) => isHidden && `background-color: #757575; `}
 
   :hover {
-    background-color: #f1f1f1;
+    background-color: ${({ isHidden }) => !isHidden && ' #f1f1f1'};
     cursor: pointer;
   }
 `;
