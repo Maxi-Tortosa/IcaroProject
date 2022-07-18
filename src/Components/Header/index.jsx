@@ -21,121 +21,132 @@ const Header = ({ setLoggedUser, setIsLoginOpen, isLoginOpen }) => {
 	const [displayUser, setDisplayUser] = useState(null);
 	const [mobileMenuIsOpen, setMobileMenuIsOpen] = useState(false);
 	const mobile = useIsMobile();
-	const cursosElement = document.getElementById('cursos');
-	const quienesSomosElement = document.getElementById('quienes-somos');
-	const rootElement = document.getElementById('root');
-	const navigate = useNavigate();
-	const location = useLocation().pathname;
+  const navigate = useNavigate();
+  const location = useLocation().pathname;
 
-	useEffect(() => {
-		if (currentUser) {
-			const display = users.find((user) => user.email === currentUser.email);
-			setDisplayUser(display);
-			setLoggedUser(true);
-		} else {
-			setLoggedUser(false);
-		}
-	}, [users, currentUser]);
+  useEffect(() => {
+    if (currentUser) {
+      const display = users.find((user) => user.email === currentUser.email);
+      setDisplayUser(display);
+      setLoggedUser(true);
+    } else {
+      setLoggedUser(false);
+    }
+  }, [users, currentUser]);
 
-	function scrollTo(element, offset) {
-		const elementPosition = element.getBoundingClientRect().top;
-		const offsetPosition = elementPosition + window.pageYOffset - offset;
+  function scrollTo(route, offset = 0) {
+    location !== '/' && navigate('/');
+    setTimeout(() => {
+      let element = document.getElementById('root');
+      if (route === '/cursos') {
+        element = document.getElementById('cursos');
+      } else if (route === '/quienes-somos') {
+        element = document.getElementById('quienes-somos');
+      }
 
-		window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-	}
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
 
-	function openModal() {
-		setIsOpen(true);
-	}
+      window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+    }, 500);
+  }
 
-	function closeModal() {
-		setIsOpen(false);
-	}
+  function openModal() {
+    setIsOpen(true);
+  }
 
-	window.addEventListener('scroll', changeNavColor);
+  function closeModal() {
+    setIsOpen(false);
+  }
 
-	function changeNavColor() {
-		if (window.scrollY >= 85) {
-			setIsScroll(true);
-		} else {
-			setIsScroll(false);
-		}
-	}
+  window.addEventListener('scroll', changeNavColor);
 
-	function handleClick() {
-		signOut(auth);
-		setTimeout(() => {
-			setDisplayUser(null);
-			navigate('/');
-		}, 1000);
-	}
+  function changeNavColor() {
+    if (window.scrollY >= 85) {
+      setIsScroll(true);
+    } else {
+      setIsScroll(false);
+    }
+  }
 
-	return (
-		<>
-			{!is404 && (
-				<Container location={location} mobile={mobile} isScroll={isScroll}>
-					<div className='header'>
-						{mobile ? (
-							<button
-								class='mobileButton'
-								onClick={() => setMobileMenuIsOpen(true)}>
-								<img
-									src='https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/mobile%2FiconoMenuMobile.png?alt=media&token=e4546394-de4a-4812-b5d5-f53a40bce518'
-									alt=''
-								/>
-							</button>
-						) : null}{' '}
-						{mobileMenuIsOpen ? (
-							<MenuMobile
-								openModal={openModal}
-								setMobileMenuIsOpen={setMobileMenuIsOpen}
-							/>
-						) : null}
-						<Link
-							to='/'
-							className='logo'
-							onClick={() => {
-								scrollTo(rootElement, 70);
-							}}>
-							<img
-								src='https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/logo.svg?alt=media&token=b47dccac-e962-48ab-99f1-f3d250f879f5'
-								alt='Logo de Ícaro'
-							/>
-						</Link>
-						<ul className='menu'>
-							<li>
-								<CenterLinks
-									onClick={() => {
-										scrollTo(cursosElement, 70);
-									}}>
-									Cursos
-								</CenterLinks>
-							</li>
-							<li>
-								<CenterLinks
-									onClick={() => {
-										scrollTo(quienesSomosElement, 100);
-									}}>
-									Quiénes somos
-								</CenterLinks>
-							</li>
-							<li>
-								<ButtonLink onClick={openModal}>Contacto</ButtonLink>
-							</li>
-						</ul>
-						{displayUser ? (
-							<UserDisplay onClick={handleClick} userName={displayUser.name} />
-						) : (
-							<div className='signinButton'>
-								<IngresaBttn setIsLoginOpen={setIsLoginOpen} />
-							</div>
-						)}
-					</div>
-					<ContactModal modalIsOpen={modalIsOpen} closeModal={closeModal} />
-				</Container>
-			)}
-		</>
-	);
+  function handleClick() {
+    signOut(auth);
+    setTimeout(() => {
+      setDisplayUser(null);
+      navigate('/');
+    }, 1000);
+  }
+
+  return (
+    <>
+      {!is404 && (
+        <Container location={location} mobile={mobile} isScroll={isScroll}>
+          <div className="header">
+            {mobile ? (
+              <button
+                class="mobileButton"
+                onClick={() => setMobileMenuIsOpen(true)}
+              >
+                <img
+                  src="https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/mobile%2FiconoMenuMobile.png?alt=media&token=e4546394-de4a-4812-b5d5-f53a40bce518"
+                  alt=""
+                />
+              </button>
+            ) : null}{' '}
+            {mobileMenuIsOpen ? (
+              <MenuMobile
+                openModal={openModal}
+                setMobileMenuIsOpen={setMobileMenuIsOpen}
+              />
+            ) : null}
+            <Link
+              to="/"
+              className="logo"
+              onClick={() => {
+                scrollTo('/');
+              }}
+            >
+              <img
+                src="https://firebasestorage.googleapis.com/v0/b/icaro-project.appspot.com/o/logo.svg?alt=media&token=b47dccac-e962-48ab-99f1-f3d250f879f5"
+                alt="Logo de Ícaro"
+              />
+            </Link>
+            <ul className="menu">
+              <li>
+                <CenterLinks
+                  onClick={() => {
+                    scrollTo('/cursos', 70);
+                  }}
+                >
+                  Cursos
+                </CenterLinks>
+              </li>
+              <li>
+                <CenterLinks
+                  onClick={() => {
+                    scrollTo('/quienes-somos', 100);
+                  }}
+                >
+                  Quiénes somos
+                </CenterLinks>
+              </li>
+              <li>
+                <ButtonLink onClick={openModal}>Contacto</ButtonLink>
+              </li>
+            </ul>
+            {displayUser ? (
+              <UserDisplay onClick={handleClick} userName={displayUser.name} />
+            ) : (
+              <div className="signinButton">
+                <IngresaBttn setIsLoginOpen={setIsLoginOpen} />
+              </div>
+            )}
+          </div>
+          <ContactModal modalIsOpen={modalIsOpen} closeModal={closeModal} />
+        </Container>
+      )}
+    </>
+  );
 };
 
 export default Header;
