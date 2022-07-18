@@ -17,6 +17,7 @@ import ConfirmationModal from '../../../Shared/Modals/ConfirmationModal';
 import { successToast, errorToast } from '../../../Shared/Toasts/ToastList';
 import ToastListContainer from '../../../Shared/Toasts/ToastListContainer';
 import ShowIcon from '../../../Shared/Icons/ShowIcon';
+import { useGetColors } from '../../../../Hooks/Client';
 
 const CategoriasAdmin = ({ categorias }) => {
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -24,6 +25,7 @@ const CategoriasAdmin = ({ categorias }) => {
   const navigate = useNavigate();
 
   const [list, setList] = useState([]);
+  console.log('color!', useGetColors('dipYProgEsp'));
 
   function showToast(type, content) {
     let selectedToast = [];
@@ -196,7 +198,7 @@ const TableRow = styled.div`
 const TableColumn = styled.div`
   flex: 1;
   ${({ isHeader }) => !isHeader && `color: ${theme.color.grey};`}
-  background-color: ${({ bgcolor }) => bgcolor && theme.categories[bgcolor]};
+  background-color: ${({ bgcolor }) => bgcolor && useGetColors(bgcolor)};
   color: ${({ bgcolor }) => bgcolor && theme.color.white};
   ${({ isEditDelete }) =>
     isEditDelete && 'display: flex; justify-content: space-evenly'};

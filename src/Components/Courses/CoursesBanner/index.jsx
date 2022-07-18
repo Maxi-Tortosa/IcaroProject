@@ -1,7 +1,7 @@
 import { hexcodeToRGBA } from '../../../Helpers/colors';
 import styled from 'styled-components';
 import theme from '../../../Theme/base';
-import { useIsMobile } from '../../../Hooks/Client';
+import { useGetColors, useIsMobile } from '../../../Hooks/Client';
 
 const CoursesBanner = ({ src, course }) => {
   const { CategoriaID, nombre } = course;
@@ -28,7 +28,7 @@ const ImageContainer = styled.div`
   background-size: cover;
   height: 420px;
   box-shadow: inset 0 0 0 1000px
-    ${({ colorFilter }) => hexcodeToRGBA(theme.categories[colorFilter], 0.75)};
+    ${({ colorFilter }) => hexcodeToRGBA(useGetColors(colorFilter), 0.75)};
 `;
 
 const StyledTextContainer = styled.div`

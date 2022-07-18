@@ -21,7 +21,7 @@ const EditElementContainer = ({ fieldsList, type, title, selectOptions }) => {
 
   const { course, categories, nextCourses } = useContext(projectContext);
   const [selectedEditElement, setSelectedEditElement] = useState('');
-  console.log(type);
+  // console.log(type);
 
   //link del tablero de slack
   //link del zoom de clase
@@ -32,7 +32,7 @@ const EditElementContainer = ({ fieldsList, type, title, selectOptions }) => {
         categories.find((elem) => elem.CategoriaID === editElement) ||
         nextCourses.find((elem) => elem.comisionId === editElement);
       setSelectedEditElement(elemResult);
-      console.log(elemResult);
+      // console.log(elemResult);
       setPending(false);
     }
   }, [course, categories, editElement, nextCourses]);

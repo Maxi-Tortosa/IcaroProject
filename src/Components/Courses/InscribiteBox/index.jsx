@@ -5,7 +5,7 @@ import { Timestamp } from 'firebase/firestore';
 import { projectContext } from '../../../Context/ProjectContext';
 import styled from 'styled-components';
 import theme from '../../../Theme/base';
-import { useIsMobile } from '../../../Hooks/Client';
+import { useGetColors, useIsMobile } from '../../../Hooks/Client';
 import { turnTimestampIntoDate } from '../../../Utils';
 import PreInscribirmeModal from '../../Shared/Modals/PreInscribirmeModal';
 import InscribirmeModal from '../../Shared/Modals/InscribirmeModal';
@@ -166,7 +166,7 @@ const InscribiteBoxContainer = styled.div`
 const TitleBoxContainer = styled.div`
   padding: ${({ mobile }) => (mobile ? '0.5rem' : '1.25rem')};
   border-radius: 10px 10px 0px 0px;
-  background: ${({ colorFilter }) => theme.categories[colorFilter]};
+  background: ${({ colorFilter }) => useGetColors(colorFilter)};
   color: ${theme.color.white};
   text-align: center;
 `;

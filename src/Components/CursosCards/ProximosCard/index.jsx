@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom"
 import styled from "styled-components"
+import { useGetColors } from '../../../Hooks/Client';
 import theme from "../../../Theme/base"
 import { turnTimestampIntoDate } from '../../../Utils';
 
@@ -71,37 +72,37 @@ const CardContainer = styled.div`
 	padding-top: ${({ isMobile }) => (isMobile ? "5%" : null)};
 `
 const TitleContainer = styled(Link)`
-	background-color: ${theme.color.white};
-	width: 80%;
-	margin: auto;
-	text-decoration: none;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  background-color: ${theme.color.white};
+  width: 80%;
+  margin: auto;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-	&:focus,
-	&:hover,
-	&:visited,
-	&:link,
-	&:active {
-		text-decoration: none;
-		color: ${({ isProximos, categoriacolor }) =>
-			isProximos ? theme.color.black : theme.categories[categoriacolor]};
-	}
-`
+  &:focus,
+  &:hover,
+  &:visited,
+  &:link,
+  &:active {
+    text-decoration: none;
+    color: ${({ isProximos, categoriacolor }) =>
+      isProximos ? theme.color.black : useGetColors(categoriacolor)};
+  }
+`;
 
 const CardTitle = styled.h5`
-	font-weight: 700;
-	font-size: 1.12rem;
-	text-align: center;
-	margin-bottom: ${({ isProximos }) => !isProximos && "0px"};
-	margin-top: ${({ isMobile }) => isMobile && "0px"};
+  font-weight: 700;
+  font-size: 1.12rem;
+  text-align: center;
+  margin-bottom: ${({ isProximos }) => !isProximos && '0px'};
+  margin-top: ${({ isMobile }) => isMobile && '0px'};
 
-	color: ${({ categoriacolor, overridecolor }) =>
-		overridecolor
-			? theme.categories[overridecolor]
-			: theme.categories[categoriacolor]};
-`
+  color: ${({ categoriacolor, overridecolor }) =>
+    overridecolor
+      ? theme.categories[overridecolor]
+      : useGetColors(categoriacolor)};
+`;
 const CardContent = styled.div`
 	padding: ${({ isProximos }) => (isProximos ? "0px" : "20px")};
 	p {
