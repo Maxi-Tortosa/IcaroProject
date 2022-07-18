@@ -1,9 +1,9 @@
 export function dateFormat(inputDate, format) {
 	//parse the input date
 	const date = new Date(inputDate)
-
+	
 	//extract the parts of the date
-	const day = date.getDate()
+	const day = date.getDate() +1
 	const month = date.getMonth() + 1
 	const year = date.getFullYear()
 
@@ -19,7 +19,7 @@ export function dateFormat(inputDate, format) {
 
 	//replace the day
 	format = format.replace("dd", day.toString().padStart(2, "0"))
-
+	
 	return format
 }
 
@@ -75,5 +75,19 @@ export const normalizeSelectOptions = (normalized) => {
 }
 
 export function turnTimestampIntoDate(data) {
-  return data.toDate().toJSON().slice(0, 10);
+let date = data.toDate().toJSON().slice(0, 10);
+let finalDate = dateFormat(date, 'dd-MM-yyyy')
+
+  return finalDate
 }
+
+export const getSimilarCourses = (courseList, CategoriaID, course) => {
+  const categoryList = courseList.filter(
+    (elem) =>
+      elem.CategoriaID === CategoriaID ||
+      elem.nombre.includes(course.nombre) ||
+      (course.CategoriaID2 && elem.CategoriaID2 === course.CategoriaID2)
+  );
+  const newList = categoryList.filter((item) => item !== course);
+  return newList;
+};

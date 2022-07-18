@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import theme from '../../../Theme/base';
 import { useIsMobile } from '../../../Hooks/Client';
 
-const MasInfoBox = () => {
+const MasInfoBox = ({ course }) => {
   return (
     <MasInfoContainer>
       <Title>¿Quéres más información?</Title>
@@ -19,7 +19,12 @@ const MasInfoBox = () => {
         </FormLabel>
         <FormLabel htmlFor="Course">
           Curso de interés
-          <FormInput id="Course" name="Course" type="text" />
+          <FormInput
+            id="Course"
+            name="Course"
+            type="text"
+            value={course.nombre}
+          />
         </FormLabel>
         <FormLabel htmlFor="question">
           <TextareaAutosize

@@ -3,6 +3,7 @@ import { collection, onSnapshot } from 'firebase/firestore';
 
 import AddButton from '../../../Shared/Buttons/AddButton';
 import { AiOutlineMail } from 'react-icons/ai';
+import Loader from '../../../Shared/Loader';
 import ModalChat from './ModalChat';
 import ModalConsulta from './ModalConsulta';
 import db from '../../../../Firebase/index';
@@ -16,12 +17,13 @@ const Consultas = ({ loggedUser }) => {
 	const mobile = useIsMobile();
 	const [modalOpen, setModalOpen] = useState(false);
 	const [chatModalOpen, setChatModalOpen] = useState(false);
-	const [consultas, setConsultas] = useState([]);
+	const [consultas, setConsultas] = useState();
 	const [currentConsultaId, setCurrentConsultaId] = useState(null);
 	const modalEvent = () => setModalOpen(true);
+	const [pending, setPending] = useState(true);
 
 	useEffect(() => {
-		currentUser &&
+		if (currentUser) {
 			onSnapshot(
 				collection(db, `Usuarios/${currentUser.uid}/Consultas`),
 				(snapshot) =>
@@ -30,6 +32,8 @@ const Consultas = ({ loggedUser }) => {
 					),
 				(error) => console.log('error', error)
 			);
+			setPending(false);
+		}
 	}, [currentUser]);
 
 	const handleMessageClick = (id) => {
@@ -44,16 +48,21 @@ const Consultas = ({ loggedUser }) => {
 				<AddButton alt='Nueva Consulta' clickEvent={modalEvent} />
 			</TitleContainer>
 			<MessageContainer>
-				{consultas &&
-					consultas.map((item, i) => (
-						<Message key={i} onClick={() => handleMessageClick(item.id)}>
-							<AiOutlineMail size={18.5} />
-							{item.motivo}
-							<br />
-							{item.mensajes &&
-								item.mensajes[item.mensajes.length - 1].preguntaEstudiante}
-						</Message>
-					))}
+				{pending || !consultas ? (
+					<Loader />
+				) : (
+					<>
+						{consultas.map((item) => (
+							<Message onClick={() => handleMessageClick(item.id)}>
+								<AiOutlineMail size={18.5} />
+								{item.motivo}
+								<br />
+								{item.mensajes &&
+									item.mensajes[item.mensajes.length - 1].preguntaEstudiante}
+							</Message>
+						))}
+					</>
+				)}
 			</MessageContainer>
 			{chatModalOpen && (
 				<ModalChat

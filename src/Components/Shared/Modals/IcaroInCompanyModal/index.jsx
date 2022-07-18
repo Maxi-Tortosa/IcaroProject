@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import theme from '../../../../Theme/base';
 import { useIsMobile } from '../../../../Hooks/Client';
 import { VscClose } from 'react-icons/vsc';
+import '../ModalStyles/ModalStyles.css';
 
 const IcaroInCompanyModal = ({ modalIsOpen, closeModal }) => {
   const mobile = useIsMobile();
@@ -17,6 +18,7 @@ const IcaroInCompanyModal = ({ modalIsOpen, closeModal }) => {
   }
 
   const customStyles = {
+    
     overlay: { position: 'fixed', zIndex: `${theme.zIndex.modals}` },
     content: {
       top: '50%',
@@ -51,6 +53,7 @@ const IcaroInCompanyModal = ({ modalIsOpen, closeModal }) => {
     <ReactModal
       isOpen={modalIsOpen}
       onRequestClose={closeModal}
+      closeTimeoutMS={500}
       style={mobile ? customMobileStyles : customStyles}
     >
       <HeaderTitle>

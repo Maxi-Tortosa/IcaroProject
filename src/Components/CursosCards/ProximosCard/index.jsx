@@ -3,11 +3,17 @@ import styled from "styled-components"
 import theme from "../../../Theme/base"
 import { turnTimestampIntoDate } from '../../../Utils';
 
-const ProximosCard = ({ isProximos, info, overridecolor, isMobile }) => {
-	const { clasesSemanales, duracion, modalidad } = info.detalles
-	const { fechaInicio } = info
+const ProximosCard = ({
+  isProximos,
+  info,
+  overridecolor,
+  isMobile,
+  comision,
+}) => {
+  const { clasesSemanales, duracion, modalidad } = info.detalles;
+  const { fechaInicio } = info;
 
-	return (
+  return (
     <CardContainer isMobile={isMobile} isProximos={isProximos}>
       <TitleContainer
         to={`/cursos/${info.href}`}
@@ -25,38 +31,27 @@ const ProximosCard = ({ isProximos, info, overridecolor, isMobile }) => {
       </TitleContainer>
 
       <CardContent isProximos={isProximos}>
-        {isProximos ? (
-          <>
-            <CardInfoContainer>
-              <p>
-                <span>Fecha de inicio:</span>{' '}
-                {turnTimestampIntoDate(fechaInicio)}
-              </p>
-              <p>
-                <span>Duración:</span> {duracion}
-              </p>
-              <p>
-                <span>Modalidad:</span> {modalidad}
-              </p>
-              <p>
-                <span>Clases semanales:</span> {clasesSemanales}
-              </p>
-            </CardInfoContainer>
-            <ConoceMasBttn to={`/cursos/${info.href}`}>
-              Conoce Mas
-            </ConoceMasBttn>
-          </>
-        ) : (
-          <>
-            <CourseContent isItalic>{duracion || `  `}</CourseContent>
-            <CourseContent>$20.000</CourseContent>
-            <VerMasButton to={`/cursos/${info.href}`}>Ver Mas</VerMasButton>
-          </>
-        )}
+        <>
+          <CardInfoContainer>
+            <p>
+              <span>Fecha de inicio:</span> {turnTimestampIntoDate(fechaInicio)}
+            </p>
+            <p>
+              <span>Duración:</span> {duracion}
+            </p>
+            <p>
+              <span>Modalidad:</span> {modalidad}
+            </p>
+            <p>
+              <span>Clases semanales:</span> {clasesSemanales}
+            </p>
+          </CardInfoContainer>
+          <ConoceMasBttn to={`/cursos/${info.href}`}>Conoce Mas</ConoceMasBttn>
+        </>
       </CardContent>
     </CardContainer>
   );
-}
+};
 
 export default ProximosCard
 

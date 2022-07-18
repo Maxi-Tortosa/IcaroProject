@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 
 import BlueButton from '../../../Shared/Buttons/BlueButton';
+import LinearBttn from '../../../Shared/Buttons/LinearBttn';
 import styled from 'styled-components';
 import theme from '../../../../Theme/base';
 import { useIsMobile } from '../../../../Hooks/Client';
+import { useNavigate } from 'react-router-dom';
 import { userContext } from '../../../../Context/UserContext';
 
 const UserProfile = () => {
@@ -13,6 +15,11 @@ const UserProfile = () => {
 	const [newPassword, setNewPassword] = useState({});
 	const [alertErrorPassword, setAlertErrorPassword] = useState({});
 	const currentPassword = useRef(null);
+	const navigate = useNavigate();
+
+	function handleClose() {
+		navigate('/', { replace: true });
+	}
 
 	useEffect(() => {
 		const loggedUser = users.find((user) => user.dni === '32926900');
@@ -48,7 +55,7 @@ const UserProfile = () => {
 		}
 	};
 
-	console.log(users);
+	console.log(userData);
 	return (
 		<Container>
 			<TitleContainer mobile={mobile}>
@@ -153,14 +160,21 @@ const UserProfile = () => {
 						/>
 					</FormField>
 				</FieldContainer>
-				<BlueButton
-					alignSelf='flex-end'
-					padding='0.5rem 3.8rem'
-					borderRadius='10px'
-					margin='4rem 0 3.65rem 0'
-					onClick={() => saveNewData(alertErrorPassword)}>
-					Guardar
-				</BlueButton>
+
+				<SubmitContainer>
+					{' '}
+					<LinearBttn type='cancel' onClick={handleClose}>
+						Cancelar
+					</LinearBttn>
+					<BlueButton
+						alignSelf='flex-end'
+						padding='0.5rem 3.8rem'
+						borderRadius='10px'
+						// margin="4rem 0 3.65rem 0"
+						onClick={() => saveNewData(alertErrorPassword)}>
+						Guardar
+					</BlueButton>
+				</SubmitContainer>
 			</FormContainer>
 		</Container>
 	);
@@ -234,4 +248,13 @@ const FormInput = styled.input`
 	border: 1px solid #a8a8a8;
 	box-sizing: border-box;
 	padding: 0.5rem 0 0.5rem 0.6rem;
+`;
+
+const SubmitContainer = styled.div`
+	justify-content: flex-end;
+	width: 500px;
+	margin: 20px auto;
+	display: flex;
+	flex-direction: row;
+	gap: 20px;
 `;

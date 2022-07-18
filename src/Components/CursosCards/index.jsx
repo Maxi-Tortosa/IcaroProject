@@ -143,6 +143,11 @@ const CursosCards = ({ isProximos }) => {
                     <ProximosCard
                       isProximos={isProximos}
                       info={elem}
+                      comision={
+                        nextCoursesList.filter(
+                          (item) => item.nombreCurso === elem.nombre
+                        )[0]
+                      }
                       key={index}
                       isMobile={isMobile}
                       overridecolor={
@@ -157,6 +162,11 @@ const CursosCards = ({ isProximos }) => {
                       isProximos={isProximos}
                       info={elem}
                       key={index}
+                      comision={
+                        nextCoursesList.filter(
+                          (item) => item.nombreCurso === elem.nombre
+                        )[0]
+                      }
                       isMobile={isMobile}
                       overridecolor={
                         selectedCategorie ===

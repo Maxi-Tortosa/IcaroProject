@@ -143,7 +143,7 @@ const Container = styled.div`
           width: ${({ mobile }) => (mobile ? '65%' : null)};
           text-align: center;
           margin: ${({ mobile }) =>
-            mobile ? '0 auto 10.33% auto' : '0 7.8% 0 7.8%'};
+            mobile ? '0 auto 10.33% auto' : '15px 7.8%'};
           font-size: ${({ mobile }) => (mobile ? '0.875rem' : '1rem')};
           line-height: ${({ mobile }) => (mobile ? '1.125rem' : null)};
         }
@@ -180,7 +180,7 @@ const Container = styled.div`
           width: ${({ mobile }) => (mobile ? '65%' : null)};
           text-align: center;
           margin: ${({ mobile }) =>
-            mobile ? '0 auto 10.33% auto' : '0 7.8% 0 7.8%'};
+            mobile ? '0 auto 10.33% auto' : '35px 7.8%'};
           font-size: ${({ mobile }) => (mobile ? '0.875rem' : '1rem')};
           line-height: ${({ mobile }) => (mobile ? '1.125rem' : null)};
         }
@@ -217,7 +217,7 @@ const Container = styled.div`
           width: ${({ mobile }) => (mobile ? '65%' : null)};
           text-align: center;
           margin: ${({ mobile }) =>
-            mobile ? '0 auto 10.33% auto' : '0 7.8% 0 7.8%'};
+            mobile ? '0 auto 10.33% auto' : '10px 7.8%'};
           font-size: ${({ mobile }) => (mobile ? '0.875rem' : '1rem')};
           line-height: ${({ mobile }) => (mobile ? '1.125rem' : null)};
         }

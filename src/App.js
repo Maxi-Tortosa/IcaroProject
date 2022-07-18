@@ -40,7 +40,10 @@ function App() {
 						<Loader />
 					) : (
 						<>
-							<Header setIsLoginOpen={setIsLoginOpen} />
+							<Header
+								setIsLoginOpen={setIsLoginOpen}
+								isLoginOpen={isLoginOpen}
+							/>
 							{isLoginOpen ? <LogIn setIsLoginOpen={setIsLoginOpen} /> : null}
 							<Routes>
 								<Route exact path='/' element={<HomeContainer />} />
