@@ -101,33 +101,6 @@ const EditElementContainer = ({ fieldsList, type, title, selectOptions }) => {
     }
   }
 
-  // function getDefaultValue(nombre) {
-  //   if (nombre === 'href') {
-  //     // setNewData((newData) => ({ ...newData, [nombre]: getAuthomaticPath() }))
-  //     return getAuthomaticPath(nombre);
-  //   } else if (nombre === 'CategoriaID') {
-  //     // setNewData((newData) => ({ ...newData, [nombre]: getCategoryID() }))
-  //     return getCategoryID();
-  //   } else return '';
-  // }
-
-  // function getCategoryID() {
-  //   if (newData?.categoria?.length > 3) {
-  //     const selectedCategoria = selectOptions.filter(
-  //       (elem) => elem.Nombre === newData.categoria
-  //     );
-  //     return selectedCategoria[0].CategoriaID;
-  //   }
-  // }
-
-  // function getAuthomaticPath(nombre) {
-  //   if (newData?.nombre?.length > 3) {
-  //     const generatedPath = newData.nombre.toLowerCase().replaceAll(' ', '-');
-  //     // setNewData((newData) => ({ ...newData, [nombre]: generatedPath }))
-  //     return generatedPath;
-  //   }
-  // }
-
   function handleSubmit(e) {
     // console.log("se hizo submit")
     e.preventDefault();
