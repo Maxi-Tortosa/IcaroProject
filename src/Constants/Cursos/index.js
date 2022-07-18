@@ -58,7 +58,7 @@ export const CURSOSCFIELDS = [
   },
 
   {
-    nombre: 'descripcion',
+    nombre: 'detalles.descripcion',
     inputLabel: 'Descripcion',
     isRequired: true,
     helpText: 'Ingrese la descripcion del curso',

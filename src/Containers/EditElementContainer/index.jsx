@@ -99,20 +99,39 @@ const EditElementContainer = ({ fieldsList, type, title, selectOptions }) => {
               options={categoriesOptions}
               onChange={(value) => handleChange(elem.nombre, value.name)}
               placeholder="Seleccione categoria"
+              // defaultValue={categoriesOptions.find(
+              //   (item) => item.nombre === selectedEditElement[elem.nombre]
+              // )}
+              defaultValue={{
+                name: selectedEditElement[elem.nombre],
+                id: selectedEditElement[elem.nombre],
+                label: selectedEditElement[elem.nombre],
+                value: selectedEditElement[elem.nombre],
+                key: selectedEditElement[elem.nombre],
+              }}
             />
           </SelectContainer>
         );
       case 'file':
         return (
           <>
-            <FileInput id="inputFile" name="file" type="file" />
+            <FileInput
+              id="inputFile"
+              name="file"
+              type="file"
+              // defaultValue={selectedEditElement[elem.nombre]}
+            />
             <Label htmlFor="inputFile" hasExtraMargin={!elem.helpText}>
-              <span>Seleccionar archivo</span>
-              <span>{'Límite 2 mb'}</span>
+              <ImgPreview src={selectedEditElement[elem.nombre]} />
+              <div>
+                <span>Seleccionar archivo</span>
+                <span>{'Límite 2 mb'}</span>
+              </div>
             </Label>
           </>
         );
       case 'textarea':
+        console.log(selectedEditElement);
         return (
           <TextareaAutosize
             onChange={(e) => handleChange(elem.nombre, e.target.value)}
@@ -383,6 +402,8 @@ const Label = styled.label`
   margin-top: ${({ hasExtraMargin }) => (hasExtraMargin ? '26px' : 0)};
   align-self: center;
   display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
   align-items: center;
   background-color: ${theme.color.white};
   cursor: pointer;
@@ -415,5 +436,9 @@ const Label = styled.label`
   }
 `;
 
+const ImgPreview = styled.img`
+  width: 420px;
+  height: 100px;
+`;
 
 export default EditElementContainer;
