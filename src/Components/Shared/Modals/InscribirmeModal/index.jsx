@@ -70,7 +70,7 @@ const InscribirmeModal = ({
         Curso: {cursoInteres.nombre}
       </Parragraph>
       <Parragraph mobile={mobile}>
-        Precio: ${comision.precioComision}
+        Precio: ${comision?.precioComision}
       </Parragraph>
 
       <BlueButton
