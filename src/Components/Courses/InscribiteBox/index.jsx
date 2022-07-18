@@ -7,12 +7,16 @@ import styled from 'styled-components';
 import theme from '../../../Theme/base';
 import { useIsMobile } from '../../../Hooks/Client';
 import { turnTimestampIntoDate } from '../../../Utils';
+import PreInscribirmeModal from '../../Shared/Modals/PreInscribirmeModal';
+import InscribirmeModal from '../../Shared/Modals/InscribirmeModal';
 
 const InscribiteBox = ({ course }) => {
   const { nextCourses } = useContext(projectContext);
   const { CategoriaID } = course;
   const [courseDates, setCoursesDates] = useState([]);
   const mobile = useIsMobile();
+  const [preinscripcionModalOpen, setPreinscripcionModalOpen] = useState(false);
+  const [inscripcionModalOpen, setInscripcionModalOpen] = useState(false);
 
   useEffect(() => {
     const date = Timestamp.now().toDate();
@@ -47,6 +51,22 @@ const InscribiteBox = ({ course }) => {
   // 	);
   // }, []);
 
+  function openPreinscripcionModal() {
+    setPreinscripcionModalOpen(true);
+  }
+
+  function closePreinscripcionModal() {
+    setPreinscripcionModalOpen(false);
+  }
+
+  function openInscripcionModal() {
+    setInscripcionModalOpen(true);
+  }
+
+  function closeInscripcionModal() {
+    setInscripcionModalOpen(false);
+  }
+
   return (
     <InscribiteBoxContainer mobile={mobile}>
       <TitleBoxContainer mobile={mobile} colorFilter={CategoriaID}>
@@ -60,7 +80,15 @@ const InscribiteBox = ({ course }) => {
       </TitleBoxContainer>
       <IcribiteContent mobile={mobile}>
         {courseDates.length < 1 ? (
-          <p>No se han encontrado comisiones proximas :c </p>
+          <NoComisionBox>
+            <p>
+              ¡Dejanos tus datos y nos comunicaremos apenas se abra una
+              comisión!{' '}
+            </p>
+            <LinearBttn mobile={mobile} onClick={openPreinscripcionModal}>
+              Pre-inscribirme
+            </LinearBttn>
+          </NoComisionBox>
         ) : (
           <TableContent mobile={mobile}>
             <TableHeader mobile={mobile}>
@@ -102,7 +130,9 @@ const InscribiteBox = ({ course }) => {
                     {nextCourse.diaDeClases}
                   </TableColumn>
                   <TableColumn mobile={mobile}>
-                    <LinearBttn mobile={mobile}>Inscribirme</LinearBttn>
+                    <LinearBttn mobile={mobile} onClick={openInscripcionModal}>
+                      Inscribirme
+                    </LinearBttn>
                   </TableColumn>
                 </TableRow>
               );
@@ -110,6 +140,17 @@ const InscribiteBox = ({ course }) => {
           </TableContent>
         )}
       </IcribiteContent>
+      <PreInscribirmeModal
+        modalIsOpen={preinscripcionModalOpen}
+        closeModal={closePreinscripcionModal}
+        cursoInteres={course}
+      />
+      <InscribirmeModal
+        modalIsOpen={inscripcionModalOpen}
+        closeModal={closeInscripcionModal}
+        cursoInteres={course}
+        comision={courseDates[0]}
+      />
     </InscribiteBoxContainer>
   );
 };
@@ -182,6 +223,12 @@ const TableColumn = styled.div`
   justify-content: center;
   ${({ isHeader }) => !isHeader && `color: ${theme.color.grey};`}
   ${({ extraSpace }) => extraSpace && `padding: ${extraSpace}px`}
+`;
+
+const NoComisionBox = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px 60px 60px 60px;
 `;
 
 export default InscribiteBox;

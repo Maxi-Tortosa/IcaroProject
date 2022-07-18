@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 import styled from "styled-components"
 import theme from '../../../Theme/base';
 
-const Card = ({ isProximos, info, overridecolor, isMobile }) => {
+const Card = ({ isProximos, info, overridecolor, isMobile, comision }) => {
   const { clasesSemanales, duracion, modalidad } = info.detalles;
   const { fechaInicio } = info;
 
@@ -26,7 +26,11 @@ const Card = ({ isProximos, info, overridecolor, isMobile }) => {
       <CardContent isProximos={isProximos}>
         <>
           <CourseContent isItalic>{duracion || `  `}</CourseContent>
-          <CourseContent>$20.000</CourseContent>
+          <CourseContent>
+            {comision?.precioComision
+              ? `$${comision?.precioComision}`
+              : info.precioInfo}
+          </CourseContent>
           <VerMasButton to={`/cursos/${info.href}`}>Ver Mas</VerMasButton>
         </>
       </CardContent>
