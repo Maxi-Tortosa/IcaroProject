@@ -28,6 +28,7 @@ const ContactModal = ({ modalIsOpen, closeModal }) => {
       transform: 'translate(-50%, -50%)',
       width: '500px',
       padding: '40px',
+      paddingTop: '0px',
     },
   };
 
@@ -54,13 +55,10 @@ const ContactModal = ({ modalIsOpen, closeModal }) => {
       style={mobile ? customMobileStyles : customStyles}
       closeTimeoutMS={500}
     >
-      <HeaderTitle>
-        <Title>Contactanos</Title>
-        <CloseButton onClick={closeModal}>
-          <VscClose size={20}
-          />
-        </CloseButton>
-      </HeaderTitle>
+      <CloseButton onClick={closeModal}>
+        <VscClose size={20} />
+      </CloseButton>
+      <Title>Contactanos</Title>
       <Parragraph mobile={mobile}>
         Escríbenos y nos contactaremos para brindarte toda la información que
         necesites.
@@ -102,11 +100,7 @@ const ContactModal = ({ modalIsOpen, closeModal }) => {
     </ReactModal>
   );
 };
-const HeaderTitle = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-`;
+
 const Title = styled.h3`
   font-family: 'Montserrat';
   font-style: normal;
@@ -114,7 +108,7 @@ const Title = styled.h3`
   font-size: 20px;
   line-height: 24px;
   text-align: center;
-  width: 90%;
+  width: 100%;
   color: #1744ff;
 `;
 const CloseButton = styled.div`
@@ -122,6 +116,8 @@ const CloseButton = styled.div`
   border: unset;
   font-size: 20px;
   cursor: pointer;
+  text-align: right;
+  margin-top: 20px;
 `;
 
 const Parragraph = styled.div`

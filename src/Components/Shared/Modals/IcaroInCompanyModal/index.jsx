@@ -18,7 +18,6 @@ const IcaroInCompanyModal = ({ modalIsOpen, closeModal }) => {
   }
 
   const customStyles = {
-    
     overlay: { position: 'fixed', zIndex: `${theme.zIndex.modals}` },
     content: {
       top: '50%',
@@ -56,20 +55,16 @@ const IcaroInCompanyModal = ({ modalIsOpen, closeModal }) => {
       closeTimeoutMS={500}
       style={mobile ? customMobileStyles : customStyles}
     >
-      <HeaderTitle>
-        <div>
-          <Title mobile={mobile}>ICARO IN COMPANY</Title>
-          <Parragraph mobile={mobile}>
-            Escríbemos y nos contactaremos para brindarte toda la información
-            que necesites
-          </Parragraph>
-        </div>
-
-        <CloseButton onClick={closeModal}>
-        <VscClose size={20}
-          />
-        </CloseButton>
-      </HeaderTitle>
+      <CloseButton onClick={closeModal}>
+        <VscClose size={20} />
+      </CloseButton>
+      <div>
+        <Title mobile={mobile}>ICARO IN COMPANY</Title>
+        <Parragraph mobile={mobile}>
+          Escríbemos y nos contactaremos para brindarte toda la información que
+          necesites
+        </Parragraph>
+      </div>
 
       <StyledForm mobile={mobile}>
         <FormLabel mobile={mobile} htmlFor="fullname">
@@ -117,12 +112,7 @@ const IcaroInCompanyModal = ({ modalIsOpen, closeModal }) => {
     </ReactModal>
   );
 };
-const HeaderTitle = styled.div`
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  margin: 20px 0;
-`;
+
 const Title = styled.h3`
   font-family: 'Montserrat';
   font-style: normal;
@@ -139,6 +129,8 @@ const CloseButton = styled.div`
   border: unset;
   font-size: 20px;
   cursor: pointer;
+  text-align: right;
+  margin-top: 10px;
 `;
 
 const Parragraph = styled.div`
