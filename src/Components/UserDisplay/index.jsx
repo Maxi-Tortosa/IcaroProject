@@ -17,7 +17,7 @@ const UserDisplay = ({ userName, onClick }) => {
 		open ? setIsMenuOpen(false) : setIsMenuOpen(true);
 	};
 
-	const ref = useLocation().pathname === '/user/profile' ? true : false;
+	const ref = useLocation().pathname === '/user' ? true : false;
 
 	console.log(ref);
 

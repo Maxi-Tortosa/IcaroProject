@@ -48,7 +48,7 @@ const UserProfile = () => {
 		}
 	};
 
-	console.log(userData);
+	console.log(users);
 	return (
 		<Container>
 			<TitleContainer mobile={mobile}>

@@ -21,17 +21,22 @@ const UserPage = () => {
 	}, [course, categories]);
 
 	useEffect(() => {
-		const match = users.find((user) => user.email === currentUser.email);
+		const match =
+			currentUser && users.find((user) => user.email === currentUser.email);
 		match && setLoggedUser(match);
 	}, [users, currentUser]);
 
 	return (
-		<UserMainContainer>
-			<TusCursos />
-			<Consultas loggedUser={loggedUser && loggedUser} />
-			<CursosInteres />
-			<Certificados />
-		</UserMainContainer>
+		<>
+			{loggedUser && (
+				<UserMainContainer>
+					<TusCursos />
+					<Consultas loggedUser={loggedUser && loggedUser} />
+					<CursosInteres />
+					<Certificados />
+				</UserMainContainer>
+			)}
+		</>
 	);
 };
 

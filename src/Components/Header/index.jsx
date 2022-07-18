@@ -13,9 +13,9 @@ import theme from '../../Theme/base';
 import { useIsMobile } from '../../Hooks/Client';
 import { userContext } from '../../Context/UserContext';
 
-const Header = ({ setLoggedUser, setIsLoginOpen }) => {
+const Header = ({ setIsLoginOpen }) => {
 	const { is404 } = useContext(projectContext);
-	const { currentUser, users } = useContext(userContext);
+	const { currentUser, users, pending } = useContext(userContext);
 	const [isScroll, setIsScroll] = useState(false);
 	const [modalIsOpen, setIsOpen] = useState(false);
 	const [displayUser, setDisplayUser] = useState(null);
@@ -28,13 +28,9 @@ const Header = ({ setLoggedUser, setIsLoginOpen }) => {
 	const location = useLocation().pathname;
 
 	useEffect(() => {
-		if (currentUser) {
-			const display = users.find((user) => user.email === currentUser.email);
-			setDisplayUser(display);
-			setLoggedUser(true);
-		} else {
-			setLoggedUser(false);
-		}
+		const display =
+			currentUser && users.find((user) => user.email === currentUser.email);
+		setDisplayUser(display);
 	}, [users, currentUser]);
 
 	function scrollTo(element, offset) {

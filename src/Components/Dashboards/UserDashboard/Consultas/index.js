@@ -45,8 +45,8 @@ const Consultas = ({ loggedUser }) => {
 			</TitleContainer>
 			<MessageContainer>
 				{consultas &&
-					consultas.map((item) => (
-						<Message onClick={() => handleMessageClick(item.id)}>
+					consultas.map((item, i) => (
+						<Message key={i} onClick={() => handleMessageClick(item.id)}>
 							<AiOutlineMail size={18.5} />
 							{item.motivo}
 							<br />
