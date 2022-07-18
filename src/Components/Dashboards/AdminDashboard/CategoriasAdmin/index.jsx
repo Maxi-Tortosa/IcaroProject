@@ -86,9 +86,7 @@ const CategoriasAdmin = ({ categorias }) => {
             <TableRow key={index} isHidden={el.isHidden}>
               <TableColumn>{index + 1}</TableColumn>
               <TableColumn>{el.Nombre}</TableColumn>
-              <TableColumn bgcolor={el.CategoriaID}>
-                {theme.categories[el.CategoriaID]}
-              </TableColumn>
+              <TableColumn bgcolor={el.CategoriaID}>{el.color}</TableColumn>
               <TableColumn isEditDelete>
                 <div onClick={(e) => handleEdit(el)}>
                   <EditIcon />

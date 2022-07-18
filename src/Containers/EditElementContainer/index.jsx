@@ -38,8 +38,6 @@ const EditElementContainer = ({ fieldsList, type, title, selectOptions }) => {
   const [updateLoading, setUpdateLoading] = useState(false);
   const [list, setList] = useState([]);
 
-  console.log(type);
-
   const { course, categories, nextCourses } = useContext(projectContext);
   const [selectedEditElement, setSelectedEditElement] = useState('');
 
@@ -74,7 +72,6 @@ const EditElementContainer = ({ fieldsList, type, title, selectOptions }) => {
   const categoriesOptions = normalizeSelectOptions(selectOptions);
 
   useEffect(() => {
-    console.log(Object.values(newData).length > 1);
     Object.values(newData).length > 0
       ? setDisabledButton(false)
       : setDisabledButton(true);

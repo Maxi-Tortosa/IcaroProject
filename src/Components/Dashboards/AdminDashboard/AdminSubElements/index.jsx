@@ -68,14 +68,15 @@ const AdminSubElements = ({ selectedTab, handleClick }) => {
             {location.pathname.includes('new/curso') ? (
               <NewElementContainer
                 fieldsList={CURSOSCFIELDS}
-                type="Nuevo Curso"
+                title="Nuevo Curso"
+                type="Cursos"
                 selectOptions={categories}
               />
             ) : location.pathname.includes('admin/edit/') ? (
               <EditElementContainer
                 fieldsList={CURSOSCFIELDS}
                 title="Editar Curso"
-                type="Curso"
+                type="Cursos"
                 selectOptions={categories}
               />
             ) : (
@@ -90,7 +91,8 @@ const AdminSubElements = ({ selectedTab, handleClick }) => {
             {location.pathname.includes('new/categoria') ? (
               <NewElementContainer
                 fieldsList={CATEGORYFIELDS}
-                type="Nueva Categoria"
+                title="Nueva Categoria"
+                type="Categoria"
               />
             ) : location.pathname.includes('admin/edit/') ? (
               <EditElementContainer
