@@ -37,9 +37,9 @@ export const CURSOSCFIELDS = [
   },
   {
     nombre: 'href',
-    inputLabel: 'URL Path',
+    inputLabel: 'URL del curso',
     isDisabled: true,
-    helpText: 'Este es un ejemplo autogenerado',
+    helpText: 'Campo autogenerado',
     type: 'text',
     id: 10,
     nroOrden: 4,

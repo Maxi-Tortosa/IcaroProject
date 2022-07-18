@@ -19,8 +19,6 @@ const UserDisplay = ({ userName, onClick }) => {
 
 	const ref = useLocation().pathname === '/user/profile' ? true : false;
 
-	console.log(ref);
-
 	return (
 		<Container>
 			<UserName>Hola {userName}!</UserName>

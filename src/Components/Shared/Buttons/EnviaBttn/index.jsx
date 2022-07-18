@@ -4,7 +4,7 @@ import theme from '../../../../Theme/base';
 const EnviaBttn = (props) => {
 	const handleClick = (e) => {
     e.preventDefault();
-    // props.onClick();
+    props.onClick();
   };
 
   return (

@@ -39,6 +39,7 @@ const ModalConsulta = ({ setModalOpen }) => {
 				},
 			],
 		});
+		setModalOpen(false);
 	};
 
 	return (
