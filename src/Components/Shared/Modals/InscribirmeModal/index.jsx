@@ -34,7 +34,7 @@ const InscribirmeModal = ({
       marginRight: '-50%',
       transform: 'translate(-50%, -50%)',
       width: '700px',
-      padding: '40px',
+      padding: '20px 40px',
     },
   };
 
@@ -60,12 +60,10 @@ const InscribirmeModal = ({
       onRequestClose={closeModal}
       style={mobile ? customMobileStyles : customStyles}
     >
-      <HeaderTitle>
-        <Title>¡Completa tu inscripción!</Title>
-        <CloseButton onClick={closeModal}>
-          <VscClose size={20} />
-        </CloseButton>
-      </HeaderTitle>
+      <CloseButton onClick={closeModal}>
+        <VscClose size={20} />
+      </CloseButton>
+      <Title>¡Completa tu inscripción!</Title>
       <Parragraph mobile={mobile} bold>
         Curso: {cursoInteres.nombre}
       </Parragraph>
@@ -103,11 +101,7 @@ const InscribirmeModal = ({
     </ReactModal>
   );
 };
-const HeaderTitle = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-`;
+
 const Title = styled.h3`
   font-family: 'Montserrat';
   font-style: normal;
@@ -115,14 +109,16 @@ const Title = styled.h3`
   font-size: 20px;
   line-height: 24px;
   text-align: center;
-  width: 90%;
+  width: 100%;
   color: #1744ff;
+  margin-top: 0;
 `;
 const CloseButton = styled.div`
   background: transparent;
   border: unset;
   font-size: 20px;
   cursor: pointer;
+  text-align: right;
 `;
 
 const Parragraph = styled.div`

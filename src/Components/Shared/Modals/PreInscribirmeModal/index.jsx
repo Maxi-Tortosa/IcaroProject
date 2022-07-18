@@ -28,7 +28,7 @@ const PreInscribirmeModal = ({ modalIsOpen, closeModal, cursoInteres }) => {
       marginRight: '-50%',
       transform: 'translate(-50%, -50%)',
       width: '700px',
-      padding: '40px',
+      padding: '20px 40px',
     },
   };
 
@@ -54,12 +54,10 @@ const PreInscribirmeModal = ({ modalIsOpen, closeModal, cursoInteres }) => {
       onRequestClose={closeModal}
       style={mobile ? customMobileStyles : customStyles}
     >
-      <HeaderTitle>
-        <Title>Pre-inscripción a curso</Title>
-        <CloseButton onClick={closeModal}>
-          <VscClose size={20} />
-        </CloseButton>
-      </HeaderTitle>
+      <CloseButton onClick={closeModal}>
+        <VscClose size={20} />
+      </CloseButton>
+      <Title>Pre-inscripción a curso</Title>
       <Parragraph mobile={mobile}>
         Completa con tus datos, selecciona el Curso o Diplomatura de interés y
         nos comunicaremos para procesar tu inscripción.
@@ -127,7 +125,8 @@ const Title = styled.h3`
   font-size: 20px;
   line-height: 24px;
   text-align: center;
-  width: 90%;
+  width: 100%;
+  margin-top: 0;
   color: #1744ff;
 `;
 const CloseButton = styled.div`
@@ -135,6 +134,7 @@ const CloseButton = styled.div`
   border: unset;
   font-size: 20px;
   cursor: pointer;
+  text-align: right;
 `;
 
 const Parragraph = styled.div`

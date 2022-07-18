@@ -1,6 +1,6 @@
 import { FaRegUser, FaSignOutAlt } from 'react-icons/fa';
 import { Link, useLocation } from 'react-router-dom';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { MdDashboard } from 'react-icons/md';
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
@@ -17,7 +17,7 @@ const UserDisplay = ({ userName, onClick }) => {
 		open ? setIsMenuOpen(false) : setIsMenuOpen(true);
 	};
 
-	const ref = useLocation().pathname === '/user' ? true : false;
+	const ref = useLocation().pathname === '/user/profile' ? true : false;
 
 	console.log(ref);
 

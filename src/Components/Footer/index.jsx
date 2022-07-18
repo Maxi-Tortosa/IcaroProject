@@ -90,11 +90,6 @@ const Footer = () => {
 																	onClick={footerUrl}
 																	icono={icono}>
 																	{icono && (
-																		// <IconImg
-																		// 	key={index}
-																		// 	src={`./img/${icono}-icon.png`}
-																		// 	alt="icono"
-																		// />
 																		<SocialMediaIcon
 																			key={index}
 																			type={type}
@@ -106,11 +101,11 @@ const Footer = () => {
 															);
 														} else {
 															return (
-																<>
-																	<FooterParragraph key={index + 20}>
+																<div key={index + 20}>
+																	<FooterParragraph>
 																		{nombre} {url}
 																	</FooterParragraph>
-																	<EmailForm key={index + 10}>
+																	<EmailForm>
 																		<StyledInput
 																			type='text'
 																			placeholder={placeholder}
@@ -123,7 +118,7 @@ const Footer = () => {
 																			borderRadius='5px'
 																		/>
 																	</EmailForm>
-																</>
+																</div>
 															);
 														}
 													}
