@@ -1,4 +1,12 @@
 import { Link } from 'react-router-dom';
+import {
+  collection,
+  doc,
+  onSnapshot,
+  setDoc,
+  updateDoc,
+} from 'firebase/firestore';
+import db from '../../../../Firebase/index';
 import ConfirmationModal from '../../../Shared/Modals/ConfirmationModal';
 import HideIcon from '../../../Shared/Icons/HideIcon';
 import ShowIcon from '../../../Shared/Icons/ShowIcon';
@@ -19,7 +27,7 @@ import { useGetColors } from '../../../../Hooks/Client';
 
 const ComisionesAdmin = ({ comisiones }) => {
   const [modalIsOpen, setIsOpen] = useState(false);
-  const [selectedCourse, setSelectedCourse] = useState();
+  const [selectedComision, setselectedComision] = useState();
   const navigate = useNavigate();
 
   const [list, setList] = useState([]);
@@ -40,7 +48,7 @@ const ComisionesAdmin = ({ comisiones }) => {
   }
 
   function openDeleteModal(selected) {
-    setSelectedCourse(selected);
+    setselectedComision(selected);
     setIsOpen(true);
   }
 
@@ -51,9 +59,14 @@ const ComisionesAdmin = ({ comisiones }) => {
   function handleClick() {
     navigate('/admin/new/comision', { replace: false });
   }
+  function handleEdit(elem) {
+    navigate(`/admin/edit/${elem.comisionId}`, { replace: false });
+  }
 
-  function handleDelete() {
-    showToast('success', 'Se ha ocultado el elemento');
+  function handleToggleShow() {
+    const ref = doc(db, `ComisionesCursos`, selectedComision.uuid);
+    updateDoc(ref, { isHidden: !selectedComision.isHidden });
+    showToast('success', 'Se ha modificado el elemento');
   }
 
   return (
@@ -82,9 +95,9 @@ const ComisionesAdmin = ({ comisiones }) => {
               <TableColumn>{turnTimestampIntoDate(el.fechaInicio)}</TableColumn>
               <TableColumn>{turnTimestampIntoDate(el.fechaFin)}</TableColumn>
               <TableColumn isEditDelete>
-                <EditContainer to={`/admin/edit/${el.comisionId}`}>
+                <div onClick={(e) => handleEdit(el)}>
                   <EditIcon />
-                </EditContainer>
+                </div>
                 <div onClick={(e) => openDeleteModal(el)}>
                   {el.isHidden ? <ShowIcon /> : <HideIcon />}
                 </div>
@@ -96,16 +109,24 @@ const ComisionesAdmin = ({ comisiones }) => {
       <ConfirmationModal
         modalIsOpen={modalIsOpen}
         closeModal={closeModal}
-        modalTitle="Ocultar curso"
+        modalTitle={
+          selectedComision?.isHidden ? 'Mostrar Comision' : 'Ocultar Comision'
+        }
         cancelButtonContent="Cancelar"
-        confirmButtonContent="Ocultar"
-        confirmButtonSubmit={handleDelete}
+        confirmButtonContent={
+          selectedComision?.isHidden ? 'Mostrar' : 'Ocultar'
+        }
+        confirmButtonSubmit={handleToggleShow}
         withCloseButton
         mainColor={theme.color.redError}
       >
         <ModalContent>
-          <p>¿Confirma que desea ocultar el siguiente curso?</p>
-          <b>{selectedCourse?.nombre}</b>
+          <p>¿Confirma que desea ocultar la siguiente comision?</p>
+          <b>
+            {selectedComision?.nombreCurso}{' '}
+            {selectedComision?.fechaInicio &&
+              turnTimestampIntoDate(selectedComision?.fechaInicio)}
+          </b>
         </ModalContent>
       </ConfirmationModal>
       <ToastListContainer
