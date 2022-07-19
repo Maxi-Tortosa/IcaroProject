@@ -17,7 +17,7 @@ import theme from '../../../../../Theme/base';
 import { useIsMobile } from '../../../../../Hooks/Client';
 import { userContext } from '../../../../../Context/UserContext';
 
-const ModalChat = ({ loggedUser, currentConsultaId, setChatModalOpen }) => {
+const ModalChat = ({ currentConsultaId, setChatModalOpen }) => {
 	const { currentUser } = useContext(userContext);
 	const [messages, setMessages] = useState([]);
 	const [reason, setReason] = useState('');
@@ -63,6 +63,7 @@ const ModalChat = ({ loggedUser, currentConsultaId, setChatModalOpen }) => {
 
 	return (
 		<MainContainer>
+			<button onClick={() => setChatModalOpen(false)}>X</button>
 			<ModalContainer mobile={mobile}>
 				<MessagesConainer>
 					{messages &&

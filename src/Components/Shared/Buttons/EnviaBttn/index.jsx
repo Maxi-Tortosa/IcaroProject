@@ -3,15 +3,15 @@ import theme from '../../../../Theme/base';
 
 const EnviaBttn = (props) => {
 	const handleClick = (e) => {
-    e.preventDefault();
-    // props.onClick();
-  };
+		e.preventDefault();
+		props.onClick();
+	};
 
-  return (
-    <SendButton {...props} onClick={(e) => handleClick(e)} type="submit">
-      Enviar
-    </SendButton>
-  );
+	return (
+		<SendButton {...props} onClick={(e) => handleClick(e)} type='submit'>
+			Enviar
+		</SendButton>
+	);
 };
 
 const SendButton = styled.button`

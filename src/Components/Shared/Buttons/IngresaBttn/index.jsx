@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 
 const IngresaBttn = ({ setIsLoginOpen }) => {
 	const handleClick = () => {
-		console.log(setIsLoginOpen(true));
+		setIsLoginOpen(true);
 	};
 	const location = useLocation();
 

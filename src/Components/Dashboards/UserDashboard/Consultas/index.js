@@ -66,7 +66,6 @@ const Consultas = ({ loggedUser }) => {
 			</MessageContainer>
 			{chatModalOpen && (
 				<ModalChat
-					loggedUser={loggedUser}
 					currentConsultaId={currentConsultaId}
 					setChatModalOpen={setChatModalOpen}
 				/>
