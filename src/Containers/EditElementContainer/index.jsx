@@ -1,4 +1,12 @@
 import { useState, useEffect, useContext } from 'react';
+import {
+  collection,
+  doc,
+  onSnapshot,
+  setDoc,
+  updateDoc,
+} from 'firebase/firestore';
+import db from '../../Firebase/index';
 import styled from 'styled-components';
 import theme from '../../Theme/base';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -6,11 +14,20 @@ import Select from 'react-select';
 import TextareaAutosize from 'react-textarea-autosize';
 import BlueButton from '../../Components/Shared/Buttons/BlueButton';
 import LinearBttn from '../../Components/Shared/Buttons/LinearBttn';
-import { normalizeSelectOptions, sortArrayByOrderNumber } from '../../Utils';
+import {
+  getCollectionName,
+  normalizeSelectOptions,
+  sortArrayByOrderNumber,
+} from '../../Utils';
 import Spacer from '../../Components/Shared/Spacer';
 import { projectContext } from '../../Context/ProjectContext';
 import Loader from '../../Components/Shared/Loader';
 import { VscClose } from 'react-icons/vsc';
+import {
+  successToast,
+  errorToast,
+} from '../../Components/Shared/Toasts/ToastList';
+import ToastListContainer from '../../Components/Shared/Toasts/ToastListContainer';
 
 const EditElementContainer = ({ fieldsList, type, title, selectOptions }) => {
   const { editElement } = useParams();
@@ -18,13 +35,12 @@ const EditElementContainer = ({ fieldsList, type, title, selectOptions }) => {
   const [newData, setNewData] = useState({});
   const navigate = useNavigate();
   const [pending, setPending] = useState(true);
+  const [updateLoading, setUpdateLoading] = useState(false);
+  const [list, setList] = useState([]);
 
   const { course, categories, nextCourses } = useContext(projectContext);
   const [selectedEditElement, setSelectedEditElement] = useState('');
-  console.log(type);
 
-  //link del tablero de slack
-  //link del zoom de clase
   useEffect(() => {
     if (course.length > 0 && categories.length > 0) {
       const elemResult =
@@ -32,23 +48,31 @@ const EditElementContainer = ({ fieldsList, type, title, selectOptions }) => {
         categories.find((elem) => elem.CategoriaID === editElement) ||
         nextCourses.find((elem) => elem.comisionId === editElement);
       setSelectedEditElement(elemResult);
-      console.log(elemResult);
+      // console.log(elemResult);
       setPending(false);
     }
   }, [course, categories, editElement, nextCourses]);
-  // console.log("elem", selectedEditElement)
+
+  function showToast(type, content) {
+    let selectedToast = [];
+    switch (type) {
+      case 'success':
+        selectedToast = successToast(content, list);
+        break;
+      case 'error':
+        selectedToast = errorToast(content, list);
+        break;
+      default:
+        break;
+    }
+    setList([...list, selectedToast]);
+  }
 
   sortArrayByOrderNumber(fieldsList);
   const categoriesOptions = normalizeSelectOptions(selectOptions);
 
   useEffect(() => {
-    const requiredFields = fieldsList
-      .filter((elem) => elem.isRequired)
-      .map((item) => item.nombre);
-    const dataKeys = Object.keys(newData);
-
-    requiredFields.every((ai) => dataKeys.includes(ai)) &&
-    Object.values(newData).every((item) => item.length > 3)
+    Object.values(newData).length > 0
       ? setDisabledButton(false)
       : setDisabledButton(true);
   }, [newData, fieldsList]);
@@ -63,45 +87,87 @@ const EditElementContainer = ({ fieldsList, type, title, selectOptions }) => {
     console.log(newData);
   }
 
-  function getDefaultValue(nombre) {
-    if (nombre === 'href') {
-      // setNewData((newData) => ({ ...newData, [nombre]: getAuthomaticPath() }))
-      return getAuthomaticPath(nombre);
-    } else if (nombre === 'CategoriaID') {
-      // setNewData((newData) => ({ ...newData, [nombre]: getCategoryID() }))
-      return getCategoryID();
-    } else return '';
-  }
-
-  function getCategoryID() {
-    if (newData?.categoria?.length > 3) {
-      const selectedCategoria = selectOptions.filter(
-        (elem) => elem.Nombre === newData.categoria
-      );
-      return selectedCategoria[0].CategoriaID;
-    }
-  }
-
-  function getAuthomaticPath(nombre) {
-    if (newData?.nombre?.length > 3) {
-      const generatedPath = newData.nombre.toLowerCase().replaceAll(' ', '-');
-      // setNewData((newData) => ({ ...newData, [nombre]: generatedPath }))
-      return generatedPath;
+  function getElementType(inputType, elem) {
+    switch (inputType) {
+      case 'select':
+        return (
+          <SelectContainer hasExtraMargin={!elem.helpText}>
+            <Select
+              options={categoriesOptions}
+              onChange={(value) => handleChange(elem.nombre, value.name)}
+              placeholder="Seleccione categoria"
+              // defaultValue={categoriesOptions.find(
+              //   (item) => item.nombre === selectedEditElement[elem.nombre]
+              // )}
+              defaultValue={{
+                name: selectedEditElement[elem.nombre],
+                id: selectedEditElement[elem.nombre],
+                label: selectedEditElement[elem.nombre],
+                value: selectedEditElement[elem.nombre],
+                key: selectedEditElement[elem.nombre],
+              }}
+            />
+          </SelectContainer>
+        );
+      case 'file':
+        return (
+          <>
+            <FileInput
+              id="inputFile"
+              name="file"
+              type="file"
+              // defaultValue={selectedEditElement[elem.nombre]}
+            />
+            <Label htmlFor="inputFile" hasExtraMargin={!elem.helpText}>
+              <ImgPreview src={selectedEditElement[elem.nombre]} />
+              <div>
+                <span>Seleccionar archivo</span>
+                <span>{'Límite 2 mb'}</span>
+              </div>
+            </Label>
+          </>
+        );
+      case 'textarea':
+        console.log(selectedEditElement);
+        return (
+          <TextareaAutosize
+            onChange={(e) => handleChange(elem.nombre, e.target.value)}
+            minRows={3}
+            placeholder={elem.helpText}
+            className="styled-text-area"
+            defaultValue={selectedEditElement[elem.nombre]}
+          />
+        );
+      default:
+        return (
+          <FormInput
+            hasExtraMargin={!elem.helpText}
+            withBorder={elem.type === 'text' || elem.type === 'number'}
+            type={elem.type}
+            onChange={(e) => handleChange(elem.nombre, e.target.value)}
+            disabled={elem.isDisabled}
+            defaultValue={selectedEditElement[elem.nombre]}
+          />
+        );
     }
   }
 
   function handleSubmit(e) {
-    // console.log("se hizo submit")
-    e.preventDefault();
+    setUpdateLoading(true);
     if (disabledButton) return;
     if (newData) {
-      // setLoading(true)
+      const collection = getCollectionName(type);
+      const ref = doc(db, collection, selectedEditElement.uuid);
       console.log('aca submit lo nuevo', newData);
-      // showToast("success")
+      updateDoc(ref, newData);
+      showToast('success', 'Se ha modificado el elemento');
     } else {
-      // showToast("danger")
+      showToast('error', 'Ha ocurrido un error');
     }
-    handleClose();
+    setTimeout(() => {
+      // setPending(false);
+      handleClose();
+    }, 2000);
   }
 
   if (pending || !selectedEditElement) return <Loader />;
@@ -118,78 +184,56 @@ const EditElementContainer = ({ fieldsList, type, title, selectOptions }) => {
           <VscClose size={20} />
         </CloseButton>
       </HeaderTitle>
-      <StyledForm>
-        {fieldsList.map((elem, index, array) => (
-          <FormLabel key={elem.id} htmlFor={elem.nombre} elemWidth={elem.width}>
-            <>
-              {elem.nroOrden}. {elem.inputLabel}
-              {elem.isRequired && (
-                <RequiredText>* Campo obligatorio</RequiredText>
-              )}
-              {elem.helpText && elem.type !== 'textarea' && (
-                <Small>{elem.helpText}</Small>
-              )}
-              {elem.type === 'select' ? (
-                <SelectContainer hasExtraMargin={!elem.helpText}>
-                  <Select
-                    options={categoriesOptions}
-                    onChange={(value) => handleChange(elem.nombre, value.name)}
-                    placeholder="Seleccione categoria"
-                  />
-                </SelectContainer>
-              ) : elem.type === 'file' ? (
+      {updateLoading ? (
+        <Loader />
+      ) : (
+        <>
+          <StyledForm>
+            {fieldsList.map((elem, index, array) => (
+              <FormLabel
+                key={elem.id}
+                htmlFor={elem.nombre}
+                elemWidth={elem.width}
+              >
                 <>
-                  <FileInput id="inputFile" name="file" type="file" />
-
-                  <Label htmlFor="inputFile" hasExtraMargin={!elem.helpText}>
-                    <span>Seleccionar archivo</span>
-                    <span>{'Límite 2 mb'}</span>
-                  </Label>
+                  {elem.nroOrden}. {elem.inputLabel}
+                  {elem.isRequired && (
+                    <RequiredText>* Campo obligatorio</RequiredText>
+                  )}
+                  {elem.helpText && elem.type !== 'textarea' && (
+                    <Small>{elem.helpText}</Small>
+                  )}
+                  {getElementType(elem.type, elem)}
                 </>
-              ) : elem.type === 'textarea' ? (
-                <TextareaAutosize
-                  onChange={(e) => handleChange(elem.nombre, e.target.value)}
-                  minRows={3}
-                  placeholder={elem.helpText}
-                  className="styled-text-area"
-                  value={selectedEditElement[elem.nombre]}
-                />
-              ) : (
-                <FormInput
-                  hasExtraMargin={!elem.helpText}
-                  withBorder={elem.type === 'text' || elem.type === 'number'}
-                  type={elem.type}
-                  onChange={(e) => handleChange(elem.nombre, e.target.value)}
-                  defaultValue={
-                    elem.defaultValue || getDefaultValue(elem.nombre)
-                  }
-                  disabled={elem.isDisabled}
-                  value={selectedEditElement[elem.nombre]}
-                />
-              )}
-            </>
-          </FormLabel>
-        ))}
-      </StyledForm>
-      <SubmitContainer>
-        <LinearBttn type="cancel" onClick={handleClose}>
-          Cancelar
-        </LinearBttn>
-        <BlueButton
-          width="100%"
-          borderRadius="10px"
-          padding="5px 13px"
-          backgroundColor={
-            disabledButton ? theme.color.disabledBlue : theme.color.darkBlue
-          }
-          type="submit"
-          disabled={disabledButton}
-          onClick={(e) => handleSubmit(e)}
-        >
-          Guardar
-        </BlueButton>
-      </SubmitContainer>
-      <Spacer height={100} />
+              </FormLabel>
+            ))}
+          </StyledForm>
+          <SubmitContainer>
+            <LinearBttn type="cancel" onClick={handleClose}>
+              Cancelar
+            </LinearBttn>
+            <BlueButton
+              width="100%"
+              borderRadius="10px"
+              padding="5px 13px"
+              backgroundColor={
+                disabledButton ? theme.color.disabledBlue : theme.color.darkBlue
+              }
+              type="submit"
+              disabled={disabledButton}
+              onClick={(e) => handleSubmit(e)}
+            >
+              Guardar
+            </BlueButton>
+          </SubmitContainer>
+          <Spacer height={100} />
+        </>
+      )}
+      <ToastListContainer
+        toastlist={list}
+        position="buttom-right"
+        setList={setList}
+      />
     </NewElementMainContainer>
   );
 };
@@ -355,6 +399,8 @@ const Label = styled.label`
   margin-top: ${({ hasExtraMargin }) => (hasExtraMargin ? '26px' : 0)};
   align-self: center;
   display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
   align-items: center;
   background-color: ${theme.color.white};
   cursor: pointer;
@@ -387,5 +433,9 @@ const Label = styled.label`
   }
 `;
 
+const ImgPreview = styled.img`
+  width: 420px;
+  height: 100px;
+`;
 
 export default EditElementContainer;

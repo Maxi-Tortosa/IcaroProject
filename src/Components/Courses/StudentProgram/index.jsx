@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import theme from '../../../Theme/base';
-import { useIsMobile } from '../../../Hooks/Client';
+import { useGetColors, useIsMobile } from '../../../Hooks/Client';
 
 const StudentProgram = ({ course }) => {
   const { CategoriaID, planDeEstudioContent, PDF } = course;
@@ -48,7 +48,7 @@ const Title = styled.h5`
   font-weight: bold;
   font-size: 20px;
   line-height: 20px;
-  color: ${({ colorFilter }) => theme.categories[colorFilter]};
+  color: ${({ colorFilter }) => useGetColors(colorFilter)};
   margin: 0px;
 `;
 const MainContent = styled.div`

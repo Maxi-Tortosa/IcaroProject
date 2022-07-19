@@ -91,3 +91,24 @@ export const getSimilarCourses = (courseList, CategoriaID, course) => {
   const newList = categoryList.filter((item) => item !== course);
   return newList;
 };
+
+export const getCollectionName = (typeName) => {
+  switch (typeName) {
+    case 'Curso':
+      return 'NuevosCursos';
+    case 'Categoria':
+      return 'CategoriasCursos';
+    case 'Comisiones':
+      return 'ComisionesCursos';
+    case 'Usuarios':
+      return 'Usuarios';
+    case 'Solicitudes':
+      return 'Solicitudes';
+    case 'Inscripciones':
+      return 'Inscripciones';
+    case 'Consultas':
+      return 'Consultas';
+    default:
+      return '';
+  }
+};

@@ -87,7 +87,7 @@ export const CURSOSCFIELDS = [
     width: '45%',
   },
   {
-    nombre: 'Certificacion',
+    nombre: 'certificacion',
     inputLabel: 'Tipo de certificacion',
     isRequired: true,
     defaultValue: 'Universitaria',
@@ -97,7 +97,7 @@ export const CURSOSCFIELDS = [
     width: '45%',
   },
   {
-    nombre: 'Requisitos',
+    nombre: 'requisitos',
     inputLabel: 'Requisitos',
     isRequired: true,
     defaultValue: 'Computadora y conexión a internet',

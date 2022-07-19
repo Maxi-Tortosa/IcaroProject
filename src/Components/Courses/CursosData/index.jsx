@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import theme from '../../../Theme/base';
-import { useIsMobile } from '../../../Hooks/Client';
+import { useGetColors, useIsMobile } from '../../../Hooks/Client';
 
 const CursosData = ({ course }) => {
-  const { CategoriaID } = course;
-  const { duracion, proximoInicio, modalidad, certificacion } = course.detalles;
+  const { CategoriaID, duracion, proximoInicio, modalidad, certificacion } =
+    course;
   const mobile = useIsMobile();
 
   return (
@@ -57,7 +57,7 @@ const CoursosInfo = styled.div`
 
 const CousosDataTitle = styled.h3`
   font-family: ${theme.fontFamily.tertiary};
-  color: ${({ colorCategorie }) => theme.categories[colorCategorie]};
+  color: ${({ colorCategorie }) => useGetColors(colorCategorie)};
   font-style: normal;
   font-weight: bold;
   font-size: ${({ mobile }) => (mobile ? '1rem' : '1.25rem')};

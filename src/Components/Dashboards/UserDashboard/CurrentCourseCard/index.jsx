@@ -4,7 +4,7 @@ import { hexcodeToRGBA } from '../../../../Helpers/colors';
 import { projectContext } from '../../../../Context/ProjectContext';
 import styled from 'styled-components';
 import theme from '../../../../Theme/base';
-import { useIsMobile } from '../../../../Hooks/Client';
+import { useGetColors, useIsMobile } from '../../../../Hooks/Client';
 import { turnTimestampIntoDate } from '../../../../Utils';
 
 const CurrentCourseCard = ({ course }) => {
@@ -47,25 +47,25 @@ const CurrentCourseCard = ({ course }) => {
 export default CurrentCourseCard;
 
 const CurrentCourseCardContainer = styled.div`
-	width: ${({ mobile }) => (mobile ? '14rem !important' : '20rem !important')};
-	margin: 0 0 0.5rem 0;
-	background: #ffffff;
-	border: 1px solid #c1c1c1;
-	border-radius: 10px;
-	flex: 0 0 auto;
-	display: flex;
-	flex-direction: column;
+  width: ${({ mobile }) => (mobile ? '14rem !important' : '20rem !important')};
+  margin: 0 0 0.5rem 0;
+  background: #ffffff;
+  border: 1px solid #c1c1c1;
+  border-radius: 10px;
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
 `;
 
 const BannerContainer = styled.div`
-	height: ${({ mobile }) => (mobile ? '78px' : '42%')};
-	background-image: url(${({ src }) => src});
-	background-position: center;
-	background-size: cover;
-	box-shadow: inset 0 0 0 1000px
-		${({ colorFilter }) => hexcodeToRGBA(theme.categories[colorFilter], 0.75)};
-	border-radius: 10px 10px 0 0;
-	margin: ${({ mobile }) => mobile && '0 0 0.3rem 0'};
+  height: ${({ mobile }) => (mobile ? '78px' : '42%')};
+  background-image: url(${({ src }) => src});
+  background-position: center;
+  background-size: cover;
+  box-shadow: inset 0 0 0 1000px
+    ${({ colorFilter }) => hexcodeToRGBA(useGetColors(colorFilter), 0.75)};
+  border-radius: 10px 10px 0 0;
+  margin: ${({ mobile }) => mobile && '0 0 0.3rem 0'};
 `;
 
 const Container = styled.div`

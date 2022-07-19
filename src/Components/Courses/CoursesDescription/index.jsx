@@ -10,9 +10,7 @@ const CoursesDescription = ({ course }) => {
     <>
       {!mobile ? (
         <StyledParragraph mobile={mobile}>
-          {course.detalles.descripcion
-            ? course.detalles.descripcion
-            : 'Texto no disponible...'}
+          {course.descripcion ? course.descripcion : 'Texto no disponible...'}
         </StyledParragraph>
       ) : (
         <Container>
@@ -25,9 +23,7 @@ const CoursesDescription = ({ course }) => {
             expanded={false}
             width={0}
           >
-            {course.detalles.descripcion
-              ? course.detalles.descripcion
-              : 'Texto no disponible...'}
+            {course.descripcion ? course.descripcion : 'Texto no disponible...'}
           </ShowMoreText>
         </Container>
       )}

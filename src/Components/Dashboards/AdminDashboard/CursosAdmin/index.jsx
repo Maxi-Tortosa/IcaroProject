@@ -1,4 +1,12 @@
 import { Link } from 'react-router-dom';
+import {
+  collection,
+  doc,
+  onSnapshot,
+  setDoc,
+  updateDoc,
+} from 'firebase/firestore';
+import db from '../../../../Firebase/index';
 import ConfirmationModal from '../../../Shared/Modals/ConfirmationModal';
 import HideIcon from '../../../Shared/Icons/HideIcon';
 import ShowIcon from '../../../Shared/Icons/ShowIcon';
@@ -11,6 +19,7 @@ import { useState } from 'react';
 import { successToast, errorToast } from '../../../Shared/Toasts/ToastList';
 import ToastListContainer from '../../../Shared/Toasts/ToastListContainer';
 import Spacer from '../../../Shared/Spacer';
+import { useGetColors } from '../../../../Hooks/Client';
 
 const CursosAdmin = ({ cursos }) => {
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -47,8 +56,14 @@ const CursosAdmin = ({ cursos }) => {
     navigate('/admin/new/curso', { replace: false });
   }
 
-  function handleDelete() {
-    showToast('success', 'Se ha ocultado el elemento');
+  function handleEdit(elem) {
+    navigate(`/admin/edit/${elem.href}`, { replace: false });
+  }
+
+  function handleToggleShow() {
+    const ref = doc(db, `NuevosCursos`, selectedCourse.uuid);
+    updateDoc(ref, { isHidden: !selectedCourse.isHidden });
+    showToast('success', 'Se ha modificado el elemento');
   }
 
   return (
@@ -72,11 +87,11 @@ const CursosAdmin = ({ cursos }) => {
               <TableColumn>{index + 1}</TableColumn>
               <TableColumn>{el.nombre}</TableColumn>
               <TableColumn bgcolor={el.CategoriaID}>{el.categoria}</TableColumn>
-              <TableColumn>{el.detalles?.modalidad}</TableColumn>
+              <TableColumn>{el.modalidad}</TableColumn>
               <TableColumn isEditDelete>
-                <EditContainer to={`/admin/edit/${el.href}`}>
+                <div onClick={(e) => handleEdit(el)}>
                   <EditIcon />
-                </EditContainer>
+                </div>
                 <div onClick={(e) => openDeleteModal(el)}>
                   {el.isHidden ? <ShowIcon /> : <HideIcon />}
                 </div>
@@ -88,15 +103,21 @@ const CursosAdmin = ({ cursos }) => {
       <ConfirmationModal
         modalIsOpen={modalIsOpen}
         closeModal={closeModal}
-        modalTitle="Ocultar curso"
+        modalTitle={
+          selectedCourse?.isHidden ? 'Mostrar Curso' : 'Ocultar Curso'
+        }
         cancelButtonContent="Cancelar"
-        confirmButtonContent="Ocultar"
-        confirmButtonSubmit={handleDelete}
+        confirmButtonContent={selectedCourse?.isHidden ? 'Mostrar' : 'Ocultar'}
+        confirmButtonSubmit={handleToggleShow}
         withCloseButton
         mainColor={theme.color.redError}
       >
         <ModalContent>
-          <p>¿Confirma que desea ocultar el siguiente curso?</p>
+          <p>
+            ¿Confirma que desea{' '}
+            {selectedCourse?.isHidden ? 'mostrar' : 'ocultar'} el siguiente
+            curso?
+          </p>
           <b>{selectedCourse?.nombre}</b>
         </ModalContent>
       </ConfirmationModal>
@@ -173,7 +194,7 @@ const TableRow = styled.div`
 const TableColumn = styled.div`
   flex: 1;
   ${({ isHeader }) => !isHeader && `color: ${theme.color.grey};`}
-  background-color: ${({ bgcolor }) => bgcolor && theme.categories[bgcolor]};
+  background-color: ${({ bgcolor }) => bgcolor && useGetColors(bgcolor)};
   color: ${({ bgcolor }) => bgcolor && theme.color.white};
   ${({ isEditDelete }) =>
     isEditDelete && 'display: flex; justify-content: space-evenly'};

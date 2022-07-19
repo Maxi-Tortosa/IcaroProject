@@ -1,19 +1,39 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import theme from '../../Theme/base';
+import {
+  collection,
+  doc,
+  addDoc,
+  onSnapshot,
+  setDoc,
+  updateDoc,
+} from 'firebase/firestore';
+import db from '../../Firebase/index';
 import { useNavigate } from 'react-router-dom';
 import Select from 'react-select';
 import TextareaAutosize from 'react-textarea-autosize';
 import BlueButton from '../../Components/Shared/Buttons/BlueButton';
 import LinearBttn from '../../Components/Shared/Buttons/LinearBttn';
-import { normalizeSelectOptions, sortArrayByOrderNumber } from '../../Utils';
+import {
+  getCollectionName,
+  normalizeSelectOptions,
+  sortArrayByOrderNumber,
+} from '../../Utils';
 import Spacer from '../../Components/Shared/Spacer';
 import { VscClose } from 'react-icons/vsc';
+import {
+  successToast,
+  errorToast,
+} from '../../Components/Shared/Toasts/ToastList';
+import ToastListContainer from '../../Components/Shared/Toasts/ToastListContainer';
+import Loader from '../../Components/Shared/Loader';
 
-const NewElementContainer = ({ fieldsList, type, selectOptions }) => {
+const NewElementContainer = ({ fieldsList, type, title, selectOptions }) => {
   const [disabledButton, setDisabledButton] = useState(true);
   const [newData, setNewData] = useState({});
-  // const [loading, setLoading] = useState(false)
+  const [updateLoading, setUpdateLoading] = useState(false);
+  const [list, setList] = useState([]);
   const navigate = useNavigate();
   sortArrayByOrderNumber(fieldsList);
   //link del tablero de slack
@@ -21,15 +41,31 @@ const NewElementContainer = ({ fieldsList, type, selectOptions }) => {
 
   const categoriesOptions = normalizeSelectOptions(selectOptions);
 
+  function showToast(type, content) {
+    let selectedToast = [];
+    switch (type) {
+      case 'success':
+        selectedToast = successToast(content, list);
+        break;
+      case 'error':
+        selectedToast = errorToast(content, list);
+        break;
+      default:
+        break;
+    }
+    setList([...list, selectedToast]);
+  }
+
   useEffect(() => {
     const requiredFields = fieldsList
       .filter((elem) => elem.isRequired)
       .map((item) => item.nombre);
     const dataKeys = Object.keys(newData);
 
-    requiredFields.every((ai) => dataKeys.includes(ai)) &&
-    Object.values(newData).every((item) => item.length > 3)
-      ? setDisabledButton(false)
+    requiredFields.every((ai) => dataKeys.includes(ai))
+      ? // &&
+        // Object.values(newData).every((item) => item.length > 3)
+        setDisabledButton(false)
       : setDisabledButton(true);
   }, [newData, fieldsList]);
 
@@ -40,7 +76,6 @@ const NewElementContainer = ({ fieldsList, type, selectOptions }) => {
 
   function handleChange(name, value) {
     setNewData((newData) => ({ ...newData, [name]: value }));
-    console.log(newData);
   }
 
   function getDefaultValue(nombre) {
@@ -71,98 +106,127 @@ const NewElementContainer = ({ fieldsList, type, selectOptions }) => {
   }
 
   function handleSubmit(e) {
-    // console.log("se hizo submit")
-    e.preventDefault();
+    setUpdateLoading(true);
     if (disabledButton) return;
     if (newData) {
-      // setLoading(true)
-      console.log('aca submit lo nuevo', newData);
-      // showToast("success")
+      const selectedCollection = getCollectionName(type);
+      const ref = collection(db, selectedCollection);
+      addDoc(ref, newData);
+      showToast('success', 'Se ha creado el elemento');
     } else {
-      // showToast("danger")
+      showToast('error', 'Ha ocurrido un error');
     }
-    handleClose();
+    setTimeout(() => {
+      // setPending(false);
+      handleClose();
+    }, 2000);
+  }
+
+  function getElementType(inputType, elem) {
+    switch (inputType) {
+      case 'select':
+        return (
+          <SelectContainer hasExtraMargin={!elem.helpText}>
+            <Select
+              options={categoriesOptions}
+              onChange={(value) => handleChange(elem.nombre, value.name)}
+              placeholder="Seleccione categoria"
+            />
+          </SelectContainer>
+        );
+      case 'file':
+        return (
+          <>
+            <FileInput id="inputFile" name="file" type="file" />
+
+            <Label htmlFor="inputFile" hasExtraMargin={!elem.helpText}>
+              <span>Seleccionar archivo</span>
+              <span>{'Límite 2 mb'}</span>
+            </Label>
+          </>
+        );
+      case 'textarea':
+        return (
+          <TextareaAutosize
+            onChange={(e) => handleChange(elem.nombre, e.target.value)}
+            minRows={3}
+            placeholder={elem.helpText}
+            className="styled-text-area"
+          />
+        );
+      default:
+        return (
+          <FormInput
+            hasExtraMargin={!elem.helpText}
+            withBorder={elem.type === 'text' || elem.type === 'number'}
+            type={elem.type}
+            onChange={(e) => handleChange(elem.nombre, e.target.value)}
+            defaultValue={elem.defaultValue || getDefaultValue(elem.nombre)}
+            disabled={elem.isDisabled}
+          />
+        );
+    }
   }
 
   return (
     <NewElementMainContainer>
       <HeaderTitle>
-        <Title>{type}</Title>
+        <Title>{title}</Title>
         <CloseButton onClick={handleClose}>
-        <VscClose size={20}
-          />
+          <VscClose size={20} />
         </CloseButton>
       </HeaderTitle>
-      <StyledForm>
-        {fieldsList.map((elem, index, array) => (
-          <FormLabel key={elem.id} htmlFor={elem.nombre} elemWidth={elem.width}>
-            <>
-              {index + 1}. {elem.inputLabel}
-              {elem.isRequired && (
-                <RequiredText>* Campo obligatorio</RequiredText>
-              )}
-              {elem.helpText && elem.type !== 'textarea' && (
-                <Small>{elem.helpText}</Small>
-              )}
-              {elem.type === 'select' ? (
-                <SelectContainer hasExtraMargin={!elem.helpText}>
-                  <Select
-                    options={categoriesOptions}
-                    onChange={(value) => handleChange(elem.nombre, value.name)}
-                    placeholder="Seleccione categoria"
-                  />
-                </SelectContainer>
-              ) : elem.type === 'textarea' ? (
-                <TextareaAutosize
-                  onChange={(e) => handleChange(elem.nombre, e.target.value)}
-                  minRows={3}
-                  placeholder={elem.helpText}
-                  className="styled-text-area"
-                />
-              ) : elem.type === 'file' ? (
+      {updateLoading ? (
+        <Loader />
+      ) : (
+        <>
+          <StyledForm>
+            {fieldsList.map((elem, index, array) => (
+              <FormLabel
+                key={elem.id}
+                htmlFor={elem.nombre}
+                elemWidth={elem.width}
+              >
                 <>
-                  <FileInput id="inputFile" name="file" type="file" />
-
-                  <Label htmlFor="inputFile" hasExtraMargin={!elem.helpText}>
-                    <span>Seleccionar archivo</span>
-                    <span>{'Límite 2 mb'}</span>
-                  </Label>
+                  {index + 1}. {elem.inputLabel}
+                  {elem.isRequired && (
+                    <RequiredText>* Campo obligatorio</RequiredText>
+                  )}
+                  {elem.helpText && elem.type !== 'textarea' && (
+                    <Small>{elem.helpText}</Small>
+                  )}
+                  {getElementType(elem.type, elem)}
                 </>
-              ) : (
-                <FormInput
-                  hasExtraMargin={!elem.helpText}
-                  withBorder={elem.type === 'text' || elem.type === 'number'}
-                  type={elem.type}
-                  onChange={(e) => handleChange(elem.nombre, e.target.value)}
-                  defaultValue={
-                    elem.defaultValue || getDefaultValue(elem.nombre)
-                  }
-                  disabled={elem.isDisabled}
-                />
-              )}
-            </>
-          </FormLabel>
-        ))}
-      </StyledForm>
-      <SubmitContainer>
-        <LinearBttn type="cancel" onClick={handleClose}>
-          Cancelar
-        </LinearBttn>
-        <BlueButton
-          width="100%"
-          borderRadius="10px"
-          padding="5px 13px"
-          backgroundColor={
-            disabledButton ? theme.color.disabledBlue : theme.color.darkBlue
-          }
-          type="submit"
-          disabled={disabledButton}
-          onClick={(e) => handleSubmit(e)}
-        >
-          Guardar
-        </BlueButton>
-      </SubmitContainer>
-      <Spacer height={100} />
+              </FormLabel>
+            ))}
+          </StyledForm>
+          <SubmitContainer>
+            <LinearBttn type="cancel" onClick={handleClose}>
+              Cancelar
+            </LinearBttn>
+            <BlueButton
+              width="100%"
+              borderRadius="10px"
+              padding="5px 13px"
+              backgroundColor={
+                disabledButton ? theme.color.disabledBlue : theme.color.darkBlue
+              }
+              type="submit"
+              disabled={disabledButton}
+              onClick={(e) => handleSubmit(e)}
+            >
+              Guardar
+            </BlueButton>
+          </SubmitContainer>
+          <Spacer height={100} />
+        </>
+      )}
+
+      <ToastListContainer
+        toastlist={list}
+        position="buttom-right"
+        setList={setList}
+      />
     </NewElementMainContainer>
   );
 };
