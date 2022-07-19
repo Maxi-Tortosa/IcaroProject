@@ -4,8 +4,7 @@ import { useGetColors } from '../../../Hooks/Client';
 import theme from '../../../Theme/base';
 
 const Card = ({ isProximos, info, overridecolor, isMobile, comision }) => {
-  const { clasesSemanales, duracion, modalidad } = info.detalles;
-  const { fechaInicio } = info;
+  const { fechaInicio, clasesSemanales, duracion, modalidad } = info;
 
   return (
     <CardContainer isMobile={isMobile} isProximos={isProximos}>

@@ -87,7 +87,7 @@ const CursosAdmin = ({ cursos }) => {
               <TableColumn>{index + 1}</TableColumn>
               <TableColumn>{el.nombre}</TableColumn>
               <TableColumn bgcolor={el.CategoriaID}>{el.categoria}</TableColumn>
-              <TableColumn>{el.detalles?.modalidad}</TableColumn>
+              <TableColumn>{el.modalidad}</TableColumn>
               <TableColumn isEditDelete>
                 <div onClick={(e) => handleEdit(el)}>
                   <EditIcon />

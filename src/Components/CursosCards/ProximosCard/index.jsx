@@ -11,8 +11,7 @@ const ProximosCard = ({
   isMobile,
   comision,
 }) => {
-  const { clasesSemanales, duracion, modalidad } = info.detalles;
-  const { fechaInicio } = info;
+  const { fechaInicio, clasesSemanales, duracion, modalidad } = info;
 
   return (
     <CardContainer isMobile={isMobile} isProximos={isProximos}>

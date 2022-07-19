@@ -4,7 +4,7 @@ import theme from '../../../Theme/base';
 import { useGetColors, useIsMobile } from '../../../Hooks/Client';
 
 const IconsInformation = ({ course }) => {
-  const { detalles, CategoriaID } = course;
+  const { CategoriaID } = course;
 
   const mobile = useIsMobile();
 
@@ -13,32 +13,32 @@ const IconsInformation = ({ course }) => {
       <IconContainer mobile={mobile}>
         <Icons.ModalidadCurso fill={useGetColors(CategoriaID)} />
         <Details mobile={mobile}>
-          {detalles.modalidad
-            ? detalles.modalidad
+          {course.modalidad
+            ? course.modalidad
             : 'Clases en vivo, 1 vez a la semana, 2 horas'}
         </Details>
       </IconContainer>
       <IconContainer mobile={mobile}>
         <Icons.BeneficioCurso fill={useGetColors(CategoriaID)} />
         <Details mobile={mobile}>
-          {detalles.beneficio
-            ? detalles.beneficio
+          {course.beneficio
+            ? course.beneficio
             : 'Docentes avalados por su experiencia en el rubro'}
         </Details>
       </IconContainer>
       <IconContainer mobile={mobile}>
         <Icons.CertificacionCurso fill={useGetColors(CategoriaID)} />
         <Details mobile={mobile}>
-          {detalles.certificacion
-            ? detalles.certificacion
+          {course.certificacion
+            ? course.certificacion
             : 'Certificación universitaria con el aval de la UNC'}
         </Details>
       </IconContainer>
       <IconContainer mobile={mobile}>
         <Icons.RequisitosCurso fill={useGetColors(CategoriaID)} />
         <Details mobile={mobile}>
-          {detalles.requisitos
-            ? detalles.requisitos
+          {course.requisitos
+            ? course.requisitos
             : 'Requisitos: Computadora compatible con OpenGl 4.1 y conexión a internet'}
         </Details>
       </IconContainer>

@@ -3,8 +3,8 @@ import theme from '../../../Theme/base';
 import { useGetColors, useIsMobile } from '../../../Hooks/Client';
 
 const CursosData = ({ course }) => {
-  const { CategoriaID } = course;
-  const { duracion, proximoInicio, modalidad, certificacion } = course.detalles;
+  const { CategoriaID, duracion, proximoInicio, modalidad, certificacion } =
+    course;
   const mobile = useIsMobile();
 
   return (
