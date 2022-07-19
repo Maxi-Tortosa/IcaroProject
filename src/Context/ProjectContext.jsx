@@ -2,7 +2,7 @@ import { collection, onSnapshot } from 'firebase/firestore';
 import { createContext, useEffect, useState } from 'react';
 
 import db from '../../src/Firebase';
-import { sortArrayByNroOrden } from '../Utils';
+import { sortArrayByNroOrden, sortArrayByOrdenValue } from '../Utils';
 
 export const projectContext = createContext();
 
@@ -10,8 +10,10 @@ const ProjectContext = ({ children }) => {
   const [course, setCourse] = useState([]);
   const [courseCompleteList, setCourseCompleteList] = useState([]);
   const [nextCourses, setNextCourses] = useState([]);
+  const [nextCoursessCompleteList, setnextCoursessCompleteList] = useState([]);
   const [nombres, setNombres] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [categoriesCompleteList, setcategoriesCompleteList] = useState([]);
   const [carousel, setCarousel] = useState([]);
   const [usuariosList, setUsuariosList] = useState([]);
   const [isLogin, setIsLogin] = useState(false);
@@ -54,25 +56,53 @@ const ProjectContext = ({ children }) => {
 
     onSnapshot(
       collection(db, 'CategoriasCursos'),
-      (snapshot) =>
-        setCategories(
-          snapshot.docs.map((doc) => ({
-            ...doc.data(),
-            uuid: doc.id,
-          }))
-        ),
+      (snapshot) => {
+        const catList = snapshot.docs.map((doc) => ({
+          ...doc.data(),
+          uuid: doc.id,
+        }));
+
+        setcategoriesCompleteList(sortArrayByOrdenValue(catList));
+      },
+      (error) => console.log('error', error)
+    );
+
+    onSnapshot(
+      collection(db, 'CategoriasCursos'),
+      (snapshot) => {
+        const catList = snapshot.docs.map((doc) => ({
+          ...doc.data(),
+          uuid: doc.id,
+        }));
+        const filteredList = catList.filter((elem) => !elem.isHidden);
+        setCategories(sortArrayByNroOrden(filteredList));
+      },
       (error) => console.log('error', error)
     );
 
     onSnapshot(
       collection(db, 'ComisionesCursos'),
-      (snapshot) =>
-        setNextCourses(
-          snapshot.docs.map((doc) => ({
-            ...doc.data(),
-            uuid: doc.id,
-          }))
-        ),
+      (snapshot) => {
+        const comisionsList = snapshot.docs.map((doc) => ({
+          ...doc.data(),
+          uuid: doc.id,
+        }));
+
+        setnextCoursessCompleteList(sortArrayByNroOrden(comisionsList));
+      },
+      (error) => console.log('error', error)
+    );
+
+    onSnapshot(
+      collection(db, 'ComisionesCursos'),
+      (snapshot) => {
+        const comisionsList = snapshot.docs.map((doc) => ({
+          ...doc.data(),
+          uuid: doc.id,
+        }));
+        const filteredList = comisionsList.filter((elem) => !elem.isHidden);
+        setNextCourses(sortArrayByNroOrden(filteredList));
+      },
       (error) => console.log('error', error)
     );
 
@@ -104,7 +134,8 @@ const ProjectContext = ({ children }) => {
         courseCompleteList,
         categories,
         setCategories,
-        isLogin,
+        categoriesCompleteList,
+        setcategoriesCompleteList,
         setIsLogin,
         modalOpen,
         setModalOpen,
@@ -114,6 +145,8 @@ const ProjectContext = ({ children }) => {
         setUsuariosList,
         nextCourses,
         setNextCourses,
+        nextCoursessCompleteList,
+        setnextCoursessCompleteList,
         nombres,
         setIs404,
         is404,
